@@ -550,8 +550,10 @@ final class tx_dlf_document {
 			// Yes. Get the file reference.
 			$details['points'] = (string) $structure->children('http://www.loc.gov/METS/')->mptr[0]->attributes('http://www.w3.org/1999/xlink')->href;
 
+		}
+
 		// Are there any physical pages and is this logical unit linked to at least one of them?
-		} elseif ($this->_getPhysicalPages() && array_key_exists($details['id'], $this->smLinks['l2p'])) {
+		if ($this->_getPhysicalPages() && array_key_exists($details['id'], $this->smLinks['l2p'])) {
 
 			$details['points'] = max(intval(array_search($this->smLinks['l2p'][$details['id']][0], $this->physicalPages, TRUE)), 1);
 
