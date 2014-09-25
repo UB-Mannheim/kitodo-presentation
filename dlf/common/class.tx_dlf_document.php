@@ -2230,10 +2230,11 @@ final class tx_dlf_document {
 
 				if ($this->mets !== NULL) {
 
-					// Check for METS object @ID.
-					if (!empty($this->mets['OBJID'])) {
+					// Check for METS object @ID. Require more than one character.
+					$objId = $this->mets['OBJID'];
+					if (strlen($objId) > 1) {
 
-						$this->recordId = (string) $this->mets['OBJID'];
+						$this->recordId = (string) $objId;
 
 					}
 
