@@ -314,6 +314,14 @@ final class tx_dlf_document {
 	protected $xml;
 
 	/**
+	 * This holds all processed uids.
+	 *
+	 * @var	array
+	 * @access private
+	 */
+	private static $uidList = array ();
+
+	/**
 	 * This gets the location of a file representing a physical page
 	 *
 	 * @access	public
@@ -354,6 +362,9 @@ final class tx_dlf_document {
 	 * @return	&tx_dlf_document		Instance of this class
 	 */
 	public static function &getInstance($uid, $pid = 0, $forceReload = FALSE) {
+
+		// Store uid to avoid handling the same uid twice.
+		self::$uidList[$uid] = true;
 
 		// Sanitize input.
 		$pid = max(intval($pid), 0);
@@ -1405,11 +1416,12 @@ final class tx_dlf_document {
 		// Get UID of superior document.
 		$partof = 0;
 
-		if (!empty($this->tableOfContents[0]['points']) &&
-			$this->tableOfContents[0]['points'] != $this->location &&
-			!tx_dlf_helper::testInt($this->tableOfContents[0]['points'])) {
+		$tocPoints = $this->tableOfContents[0]['points'];
+		if (!empty($tocPoints) &&
+			$tocPoints != $this->location &&
+			!tx_dlf_helper::testInt($tocPoints)) {
 
-			$superior =& tx_dlf_document::getInstance($this->tableOfContents[0]['points'], $pid);
+			$superior =& tx_dlf_document::getInstance($tocPoints, $pid);
 
 			if ($superior->ready) {
 
