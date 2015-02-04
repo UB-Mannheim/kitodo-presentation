@@ -334,6 +334,71 @@ class tx_dlf_oai extends tx_dlf_plugin {
 	}
 
 	/**
+	 * Get unqualified epicur data.
+	 * @see http://www.persistent-identifier.de/?link=210
+	 *
+	 * @access	protected
+	 *
+	 * @param	array		$metadata: The metadata array
+	 *
+	 * @return	DOMElement		XML node to add to the OAI response
+	 */
+	protected function getUnqualifiedEpicurData(array $metadata) {
+
+		// Create unqualified epicur element.
+		$epicur = $this->oai->createElement('epicur');
+
+		$epicur->setAttribute('xmlns', 'urn:nbn:de:1111-2004033116');
+		$epicur->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+		$epicur->setAttribute('xsi:schemaLocation', $this->formats['epicur']['namespace'].' '.$this->formats['epicur']['schema']);
+
+		// Add administrative data.
+		$admin = $this->oai->createElement('administrative_data');
+
+		$delivery = $this->oai->createElement('delivery');
+
+		$update = $this->oai->createElement('update_status');
+
+		// Do we update an URN or register a new one?
+		if ($metadata['tstamp'] == $metadata['crdate']) {
+			$update->setAttribute('type', 'urn_new');
+		} else {
+			$update->setAttribute('type', 'url_update_general');
+		}
+
+		$delivery->appendChild($update);
+		$transfer = $this->oai->createElement('transfer');
+		$transfer->setAttribute('type', 'http');
+		$delivery->appendChild($transfer);
+		$admin->appendChild($delivery);
+		$epicur->appendChild($admin);
+
+		// Add record data.
+		$record = $this->oai->createElement('record');
+		$identifier = $this->oai->createElement('identifier', htmlspecialchars($metadata['urn'], ENT_NOQUOTES, 'UTF-8'));
+		$identifier->setAttribute('scheme', 'urn:nbn:de');
+		$record->appendChild($identifier);
+
+		$resource = $this->oai->createElement('resource');
+
+		$ident = $this->oai->createElement('identifier', htmlspecialchars($metadata['purl'], ENT_NOQUOTES, 'UTF-8'));
+		$ident->setAttribute('scheme', 'url');
+		$ident->setAttribute('type', 'frontpage');
+		$ident->setAttribute('role', 'primary');
+
+		$resource->appendChild($ident);
+
+		$format = $this->oai->createElement('format', 'text/html');
+		$format->setAttribute('scheme', 'imt');
+
+		$resource->appendChild($format);
+		$record->appendChild($resource);
+		$epicur->appendChild($record);
+
+		return $epicur;
+	}
+
+	/**
 	 * Get METS data.
 	 * @see http://www.loc.gov/standards/mets/docs/mets.v1-7.html
 	 *
@@ -673,7 +738,8 @@ class tx_dlf_oai extends tx_dlf_plugin {
 
 						case 'epicur':
 
-							$metadata->appendChild($this->getEpicurData($resArray));
+							$metadata->appendChild($this->getUnqualifiedEpicurData($resArray));
+							//~ $metadata->appendChild($this->getEpicurData($resArray));
 
 							break;
 
@@ -857,7 +923,8 @@ class tx_dlf_oai extends tx_dlf_plugin {
 
 						case 'epicur':
 
-							$metadata->appendChild($this->getEpicurData($resArray));
+							$metadata->appendChild($this->getUnqualifiedEpicurData($resArray));
+							//~ $metadata->appendChild($this->getEpicurData($resArray));
 
 							break;
 
@@ -1609,7 +1676,8 @@ class tx_dlf_oai extends tx_dlf_plugin {
 
 						case 'epicur':
 
-							$metadata->appendChild($this->getEpicurData($resArray));
+							$metadata->appendChild($this->getUnqualifiedEpicurData($resArray));
+							//~ $metadata->appendChild($this->getEpicurData($resArray));
 
 							break;
 
