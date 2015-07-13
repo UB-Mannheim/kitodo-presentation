@@ -143,7 +143,8 @@ dlfViewer.prototype.addControls = function(controls) {
 
 			case "PanZoomBar":
 
-				controls[i] = new OpenLayers.Control.PanZoomBar();
+				//~ controls[i] = new OpenLayers.Control.PanZoomBar();
+				controls[i] = new OpenLayers.Control.PanZoomBar({displayClass:'FtolControlZoomBoxOut', cursor: 'none'});
 
 				break;
 
@@ -362,6 +363,10 @@ dlfViewer.prototype.init = function() {
 
 	}
 
+
+        // Zoomleiste ... formatieren
+        this.FormatAfterInit();
+
 	// add polygon layer if any
 	if (this.highlightFields.length) {
 
@@ -406,6 +411,7 @@ dlfViewer.prototype.init = function() {
 
 	//~ this.map.addControl(new OpenLayers.Control.MousePosition());
 	//~ this.map.addControl(new OpenLayers.Control.LayerSwitcher());
+
 };
 
 /**
@@ -895,3 +901,54 @@ dlfViewer.prototype.showFulltext = function(evt) {
 
 };
 
+
+/**
+ * Format Zoom bar and zoom buttons
+ *
+ * @return	void
+ */
+dlfViewer.prototype.FormatAfterInit = function() {
+	
+        // prepare language versions
+        var cSprache        = WelcheSprache();
+        var cText_Normalansicht;
+        var cText_groesser;
+        var cText_kleiner;
+        if (cSprache == "de") {
+            cText_Normalansicht = 'Normalansicht';
+            cText_groesser      = 'vergrößern';
+            cText_kleiner       = 'verkleinern';
+        } else if (cSprache == "en") {
+            cText_Normalansicht = 'Normalview';
+            cText_groesser      = 'scale up';
+            cText_kleiner       = 'scale down';
+        }
+                                             	
+
+	// Format Mannheim Style
+	
+	// Icon for normal view
+	$('.olControlZoomToMaxExtentItemInactive').addClass('ma-icon-arrows-out').addClass('btn_n').attr('title', cText_Normalansicht);
+	
+	// disable original duplicated zoom-panel
+	$('.olControlZoomInItemInactive').addClass('verstecke').attr('style','background-image: none');
+	$('.olControlZoomOutItemInactive').addClass('verstecke');
+
+        // Icon plus
+	$('#OpenLayers_Control_PanZoomBar_2_zoomin_innerImage').remove();
+	$('#OpenLayers_Control_PanZoomBar_2_zoomin').addClass('btn_n ma-icon-plus').attr('style','').attr('title', cText_groesser);
+
+        // Icon minus
+	$('#OpenLayers_Control_PanZoomBar_2_zoomout_innerImage').remove();
+	$('#OpenLayers_Control_PanZoomBar_2_zoomout').addClass('btn_n ma-icon-minus').attr('style','').attr('title',cText_kleiner);
+
+	$('#OpenLayers_Control_PanZoomBar_2').attr('style','');
+
+        // Single page: Zoom bar
+	$('#OpenLayers_Control_PanZoomBar_ZoombarOpenLayers_Map_11').attr('style','background-image: url("/ub/images/layout/maZoomSlider.png"); left: 9px; top: 81px; width: 27px; height: 220px; position: absolute; cursor: pointer; background-color: #f7f7f7; opacity: 0.69;');
+        $('#OpenLayers_Control_PanZoomBar_2_OpenLayers_Map_11_innerImage').attr('src','/ub/images/layout/ub-ma-slider-003.png').attr('style','height: 9px; position: relative; width: 26px;');
+        
+        // double page: Zoom bar
+	$('#OpenLayers_Control_PanZoomBar_ZoombarOpenLayers_Map_13').attr('style','background-image: url("/ub/images/layout/maZoomSlider.png"); left: 9px; top: 81px; width: 27px; height: 220px; position: absolute; cursor: pointer; background-color: #f7f7f7; opacity: 0.69;');
+        $('#OpenLayers_Control_PanZoomBar_2_OpenLayers_Map_13_innerImage').attr('src','/ub/images/layout/ub-ma-slider-003.png').attr('style','height: 9px; position: relative; width: 26px;');
+};
