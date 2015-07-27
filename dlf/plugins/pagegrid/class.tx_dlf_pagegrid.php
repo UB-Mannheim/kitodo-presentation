@@ -127,16 +127,30 @@ class tx_dlf_pagegrid extends tx_dlf_plugin {
 		}
 
 		// Get separator.
-		$separator = $this->pi_getLL('separator', ' - ', TRUE);
+		//$separator = $this->pi_getLL('separator', ' - ', TRUE);
+		// new version for Mannheim
+		$separator = '</span><span ';
+		$endSeparator = '</span>';
+		$nr =  $this->piVars['pointer'];
+		// end new version for Mannheim
 
 		// Add link to previous page.
 		if ($this->piVars['pointer'] > 0) {
 
-			$output = $this->pi_linkTP_keepPIvars($this->pi_getLL('prevPage', '&lt;', TRUE), array ('pointer' => $this->piVars['pointer'] - 1, 'page' => NULL), TRUE).$separator;
+			// active version, that is, it can be scrolled
+			// $output = $this->pi_linkTP_keepPIvars($this->pi_getLL('prevPage', '&lt;', TRUE), array ('pointer' => $this->piVars['pointer'] - 1, 'page' => NULL), TRUE).$separator;
+			// new Version Mannheim
+                        $output = '<span class="pb_nr first">' . $this->pi_linkTP_keepPIvars('<span id="ma-pv-to-first" class="octicon octicon-move-left"></span>', array ('pointer' => 0, 'page' => NULL), TRUE).$separator;
+			//previous page
+                        $output .= ' class="pb_nr prev">' . $this->pi_linkTP_keepPIvars('<span id="ma-pv-to-prev" class="octicon octicon-arrow-left"></span>', array ('pointer' => $this->piVars['pointer'] - 1, 'page' => NULL), TRUE).$separator;
 
 		} else {
-
-			$output = $this->pi_getLL('prevPage', '&lt;', TRUE).$separator;
+			// passive version, that is, first side has already been reached
+			// $output = $this->pi_getLL('prevPage', '&lt;', TRUE).$separator;
+			// first page
+			$output =  '<span class="pb_nr first passiv"><span id="ma-pv-to-first" class="octicon octicon-move-left"></span>' . $separator;
+			// achieved first element, that is, no link because not active!
+			$output .= ' class="pb_nr prev passiv"><span id="ma-pv-to-prev" class="octicon octicon-arrow-left"></span>' . $separator;
 
 		}
 
@@ -149,11 +163,13 @@ class tx_dlf_pagegrid extends tx_dlf_plugin {
 
 				if ($this->piVars['pointer'] != $i) {
 
-					$output .= $this->pi_linkTP_keepPIvars(sprintf($this->pi_getLL('page', '%d', TRUE), $i + 1), array ('pointer' => $i, 'page' => NULL), TRUE).$separator;
+					// $output .= $this->pi_linkTP_keepPIvars(sprintf($this->pi_getLL('page', '%d', TRUE), $i + 1), array ('pointer' => $i, 'page' => NULL), TRUE).$separator;
+					$output .= ' class="pb_nr ' . $i . ' c">' . $this->pi_linkTP_keepPIvars(sprintf($this->pi_getLL('page', '%d'), $i + 1), array ('pointer' => $i, 'page' => NULL), TRUE).$separator;
 
 				} else {
 
-					$output .= sprintf($this->pi_getLL('page', '%d', TRUE), $i + 1).$separator;
+					// $output .= sprintf($this->pi_getLL('page', '%d', TRUE), $i + 1).$separator;
+					$output .= ' class="pb_nr active">' . sprintf($this->pi_getLL('page', '%d'), $i + 1).$separator;
 
 				}
 
@@ -161,7 +177,8 @@ class tx_dlf_pagegrid extends tx_dlf_plugin {
 
 			} elseif ($skip == TRUE) {
 
-				$output .= $this->pi_getLL('skip', '...', TRUE).$separator;
+				// $output .= $this->pi_getLL('skip', '...', TRUE).$separator;
+				$output .= ' class="pb_nr ' . $i . ' e">' . $this->pi_getLL('skip', '...').$separator;
 
 				$skip = FALSE;
 
@@ -174,11 +191,25 @@ class tx_dlf_pagegrid extends tx_dlf_plugin {
 		// Add link to next page.
 		if ($this->piVars['pointer'] < $maxPages - 1) {
 
-			$output .= $this->pi_linkTP_keepPIvars($this->pi_getLL('nextPage', '&gt;', TRUE), array ('pointer' => $this->piVars['pointer'] + 1, 'page' => NULL), TRUE);
+			//----------------
+			// activ version
+			//----------------
+			// $output .= $this->pi_linkTP_keepPIvars($this->pi_getLL('nextPage', '&gt;', TRUE), array ('pointer' => $this->piVars['pointer'] + 1, 'page' => NULL), TRUE);
+			// next page
+			$output .= ' class="pb_nr next">' . $this->pi_linkTP_keepPIvars('<span id="ma-pv-to-next" class="octicon octicon-arrow-right"></span>', array ('pointer' => $this->piVars['pointer'] + 1, 'page' => NULL), TRUE) . $separator;
+			// last page
+			$output .= ' class="pb_nr next">' . $this->pi_linkTP_keepPIvars('<span id="ma-pv-to-last" class="octicon octicon-move-right"></span>', array ('pointer' => $maxPages - 1, 'page' => NULL), TRUE) . $endSeparator;
 
 		} else {
 
-			$output .= $this->pi_getLL('nextPage', '&gt;', TRUE);
+			//-----------------
+			// passiv version
+			//-----------------
+			//$output .= $this->pi_getLL('nextPage', '&gt;', TRUE);
+			// passive version, that is, last side has already been reached
+			$output .= ' class="pb_nr next passiv"><span id="ma-pv-to-next" class="octicon octicon-arrow-right"></span>' . $separator;
+			// last page reached, skip to last page
+			$output .= ' class="pb_nr next passiv"><span id="ma-pv-to-last" class="octicon octicon-move-right"></span>' . $endSeparator;
 
 		}
 
