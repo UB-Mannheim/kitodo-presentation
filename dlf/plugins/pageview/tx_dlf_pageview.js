@@ -707,17 +707,20 @@ dlfViewer.prototype.loadALTO = function(url){
  */
 dlfViewer.prototype.toggleFulltextSelect = function() {
 
+        console.log("dlfViewer.prototype.toggleFulltextSelect");
 	var isFulltextActive = this.getCookie("tx-dlf-pageview-fulltext-select");
 
 	if (isFulltextActive == 'enabled') {
 
 		this.disableFulltextSelect();
 		this.setCookie("tx-dlf-pageview-fulltext-select", 'disabled');
+                console.log("dlfViewer.prototype.toggleFulltextSelect disabled");
 
 	} else {
 
 		this.enableFulltextSelect();
 		this.setCookie("tx-dlf-pageview-fulltext-select", 'enabled');
+                console.log("dlfViewer.prototype.toggleFulltextSelect enabled");
 
 	}
 
@@ -731,7 +734,10 @@ dlfViewer.prototype.toggleFulltextSelect = function() {
 dlfViewer.prototype.disableFulltextSelect = function() {
 
 	// destroy layer features
-	this.textBlockLayer.destroyFeatures();
+	if (this.textBlockLayer) {
+		this.textBlockLayer.destroyFeatures();
+                console.log("dlfViewer.prototype.disableFulltextSelect destroyFeatures");
+	}
 	$("#tx-dlf-fulltextselection").hide();
 
 };
@@ -743,10 +749,21 @@ dlfViewer.prototype.disableFulltextSelect = function() {
  */
 dlfViewer.prototype.enableFulltextSelect = function() {
 
+
+        console.log("dlfViewer.prototype.enableFulltextSelect");
+
+
 	// Create image layers.
 	for (var i in this.images) {
+                console.log('----Create image layers--------------------------');
+                console.log(this);
+                console.log('----Create image layers-ENDE---------------------');
+
 
 		if (this.fulltexts[i]) {
+
+                        console.log("------->call this.loadALTO");
+                        console.log(this.fulltexts[i]);
 
 			this.fullTextCoordinates[i] = this.loadALTO(this.fulltexts[i]);
 
@@ -756,12 +773,18 @@ dlfViewer.prototype.enableFulltextSelect = function() {
 
 	// add fulltext layers if we have fulltexts to show
 	if (this.fullTextCoordinates.length > 0) {
+                console.log("this.fullTextCoordinates.length > 0");
+                console.log(this.fullTextCoordinates.length);
 
 		for (var i in this.images) {
+
+                        console.log(this.fullTextCoordinates[i]);
 
 			var textBlockCoordinates = this.fullTextCoordinates[i];
 
 			for (var j in textBlockCoordinates) {
+
+                                console.log(textBlockCoordinates[j]);
 
 				// set scale either by Page or Printspace
 				if (textBlockCoordinates[j].type == 'Page') {
@@ -839,6 +862,7 @@ dlfViewer.prototype.enableFulltextSelect = function() {
 			tx_dlf_viewer.map.addLayer(this.textBlockLayer);
 			$("#tx-dlf-fulltextselection").show();
 
+
 		}
 
 	}
@@ -908,7 +932,7 @@ dlfViewer.prototype.showFulltext = function(evt) {
  * @return	void
  */
 dlfViewer.prototype.FormatAfterInit = function() {
-	
+
         // prepare language versions
         var cSprache        = WelcheSprache();
         var cText_Normalansicht;
@@ -923,13 +947,13 @@ dlfViewer.prototype.FormatAfterInit = function() {
             cText_groesser      = 'scale up';
             cText_kleiner       = 'scale down';
         }
-                                             	
+
 
 	// Format Mannheim Style
-	
+
 	// Icon for normal view
 	$('.olControlZoomToMaxExtentItemInactive').addClass('ma-icon-arrows-out').addClass('btn_n').attr('title', cText_Normalansicht);
-	
+
 	// disable original duplicated zoom-panel
 	$('.olControlZoomInItemInactive').addClass('verstecke').attr('style','background-image: none');
 	$('.olControlZoomOutItemInactive').addClass('verstecke');
@@ -947,7 +971,7 @@ dlfViewer.prototype.FormatAfterInit = function() {
         // Single page: Zoom bar
 	$('#OpenLayers_Control_PanZoomBar_ZoombarOpenLayers_Map_11').attr('style','background-image: url("/ub/images/layout/maZoomSlider.png"); left: 9px; top: 81px; width: 27px; height: 220px; position: absolute; cursor: pointer; background-color: #f7f7f7; opacity: 0.69;');
         $('#OpenLayers_Control_PanZoomBar_2_OpenLayers_Map_11_innerImage').attr('src','/ub/images/layout/ub-ma-slider-003.png').attr('style','height: 9px; position: relative; width: 26px;');
-        
+
         // double page: Zoom bar
 	$('#OpenLayers_Control_PanZoomBar_ZoombarOpenLayers_Map_13').attr('style','background-image: url("/ub/images/layout/maZoomSlider.png"); left: 9px; top: 81px; width: 27px; height: 220px; position: absolute; cursor: pointer; background-color: #f7f7f7; opacity: 0.69;');
         $('#OpenLayers_Control_PanZoomBar_2_OpenLayers_Map_13_innerImage').attr('src','/ub/images/layout/ub-ma-slider-003.png').attr('style','height: 9px; position: relative; width: 26px;');
