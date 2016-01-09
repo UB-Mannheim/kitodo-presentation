@@ -640,6 +640,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->getMetadata('.$id.', '.$_cPid.')] Invalid PID "'.$cPid.'" for metadata definitions', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->getMetadata('.$id.', '.$_cPid.')] Invalid PID "'.$cPid.'" for metadata definitions');
 
 			return array ();
 
@@ -896,6 +897,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->getTitle('.$_uid.', ['.($recursive ? 'TRUE' : 'FALSE').'])] Invalid UID "'.$uid.'" for document', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->getTitle('.$_uid.', ['.($recursive ? 'TRUE' : 'FALSE').'])] Invalid UID "'.$uid.'" for document');
 
 		}
 
@@ -955,6 +957,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->init()] No METS part found in document with UID "'.$this->uid.'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->init()] No METS part found in document with UID "'.$this->uid.'"');
 
 		}
 
@@ -994,6 +997,15 @@ final class tx_dlf_document {
 			// Load XML from file.
 			$xml = @simplexml_load_file($location);
 
+if (!$xml) {
+    foreach (libxml_get_errors() as $error) {
+        // handle errors here
+        echo("Got error " . $error->level . " in " . $error->file . ":" . $error->line . ": " . $error->message . "\n");
+    }
+
+    libxml_clear_errors();
+}
+
 			// Reset libxml's error logging.
 			libxml_use_internal_errors($libxmlErrors);
 
@@ -1011,6 +1023,7 @@ final class tx_dlf_document {
 					t3lib_div::devLog('[tx_dlf_document->load('.$location.')] Could not load XML file from "'.$location.'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 				}
+				echo('[tx_dlf_document->load('.$location.')] Could not load XML file from "'.$location.'"');
 
 			}
 
@@ -1021,6 +1034,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->load('.$location.')] Invalid file location "'.$location.'" for document loading', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->load('.$location.')] Invalid file location "'.$location.'" for document loading');
 
 		}
 
@@ -1095,6 +1109,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->registerNamespaces(['.get_class($obj).'])] Given object is neither a SimpleXMLElement nor a DOMXPath instance', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->registerNamespaces(['.get_class($obj).'])] Given object is neither a SimpleXMLElement nor a DOMXPath instance');
 
 			return;
 
@@ -1120,6 +1135,14 @@ final class tx_dlf_document {
 	 * @return	boolean		TRUE on success or FALSE on failure
 	 */
 	public function save($pid = 0, $core = 0) {
+
+if (false) {
+echo("save(pid=");
+print_r($pid);
+echo(", core=");
+print_r($core);
+echo(")\n");
+}
 
 		// Save parameters for logging purposes.
 		$_pid = $pid;
@@ -1157,6 +1180,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->save('.$_pid.', '.$_core.')] Invalid PID "'.$pid.'" for document saving', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->save('.$_pid.', '.$_core.')] Invalid PID "'.$pid.'" for document saving');
 
 			return FALSE;
 
@@ -1183,6 +1207,7 @@ final class tx_dlf_document {
 				t3lib_div::devLog('[tx_dlf_document->save('.$_pid.', '.$_core.')] No record identifier found to avoid duplication', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
+			echo('[tx_dlf_document->save('.$_pid.', '.$_core.')] No record identifier found to avoid duplication');
 
 			return FALSE;
 
@@ -1270,9 +1295,15 @@ final class tx_dlf_document {
 		}
 
 		foreach ($metadata['collection'] as $collection) {
-
+if (false) {
+echo("collection=");
+print_r($collection);
+echo("\n");
+echo("collUid=");
+print_r($collUid);
+echo("\n");
+}
 			if (!empty($collUid[$collection])) {
-
 				// Add existing collection's UID.
 				$collections[] = $collUid[$collection];
 
@@ -1341,14 +1372,38 @@ final class tx_dlf_document {
 		// Get UID for owner.
 		$owner = 0;
 
+		$index_name = $metadata['owner'][0];
+		if (!$index_name) {
+			$index_name = '';
+		}
+		$qn = $GLOBALS['TYPO3_DB']->fullQuoteStr($index_name, 'tx_dlf_libraries');
+
+if (false) {
+echo("metadata=");
+var_dump($metadata);
+echo("\n");
+}
+
 		$result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 			'tx_dlf_libraries.uid AS uid',
 			'tx_dlf_libraries',
-			'tx_dlf_libraries.pid='.intval($pid).' AND tx_dlf_libraries.index_name='.$GLOBALS['TYPO3_DB']->fullQuoteStr($metadata['owner'][0], 'tx_dlf_libraries').tx_dlf_helper::whereClause('tx_dlf_libraries'),
+			'tx_dlf_libraries.pid=' . intval($pid) . ' AND tx_dlf_libraries.index_name=' . $qn . tx_dlf_helper::whereClause('tx_dlf_libraries'),
 			'',
 			'',
 			'1'
 		);
+
+if (false) {
+echo("db=" . 'tx_dlf_libraries.pid='.intval($pid).' AND tx_dlf_libraries.index_name='. $qn .tx_dlf_helper::whereClause('tx_dlf_libraries') . "\n");
+
+echo("gesuchter index_name=");
+var_dump($index_name);
+echo("\n");
+
+echo("Datensätze: ");
+var_dump($GLOBALS['TYPO3_DB']->sql_num_rows($result));
+echo("\n");
+}
 
 		if ($GLOBALS['TYPO3_DB']->sql_num_rows($result)) {
 
@@ -1356,13 +1411,16 @@ final class tx_dlf_document {
 
 		} else {
 
+echo("Don't insert new library\n");
+return FALSE;
+
 			// Insert new library.
 			$libNewUid = uniqid('NEW');
 
 			$libData['tx_dlf_libraries'][$libNewUid] = array (
 				'pid' => $pid,
-				'label' => $metadata['owner'][0],
-				'index_name' => $metadata['owner'][0],
+				'label' => '',
+				'index_name' => $index_name,
 				'website' => '',
 				'contact' => '',
 				'image' => '',
