@@ -27,7 +27,7 @@
  */
 
 /**
- * Hooks and helper for the 't3lib_TCEmain' library.
+ * Hooks and helper for the '\TYPO3\CMS\Core\DataHandling\DataHandler' library.
  *
  * @author	Sebastian Meyer <sebastian.meyer@slub-dresden.de>
  * @package	TYPO3
@@ -45,7 +45,7 @@ class tx_dlf_tcemain {
 	 * @param	string		$table: The destination table
 	 * @param	integer		$id: The uid of the record
 	 * @param	array		&$fieldArray: Array of field values
-	 * @param	t3lib_TCEmain		$pObj: The parent object
+	 * @param	\TYPO3\CMS\Core\DataHandling\DataHandler $pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -178,7 +178,7 @@ class tx_dlf_tcemain {
 
 					if (TYPO3_DLOG) {
 
-						t3lib_div::devLog('[tx_dlf_tcemain->processDatamap_postProcessFieldArray('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Could not create new Apache Solr core "dlfCore'.$coreNumber.'"', $this->extKey, SYSLOG_SEVERITY_ERROR, $fieldArray);
+						\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_tcemain->processDatamap_postProcessFieldArray('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Could not create new Apache Solr core "dlfCore'.$coreNumber.'"', $this->extKey, SYSLOG_SEVERITY_ERROR, $fieldArray);
 
 					}
 
@@ -286,7 +286,7 @@ class tx_dlf_tcemain {
 
 						if (TYPO3_DLOG) {
 
-							t3lib_div::devLog('[tx_dlf_tcemain->processDatamap_postProcessFieldArray('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Prevented change of "index_name" for UID "'.$id.'" in table "'.$table.'"', $this->extKey, SYSLOG_SEVERITY_NOTICE, $fieldArray);
+							\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_tcemain->processDatamap_postProcessFieldArray('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Prevented change of "index_name" for UID "'.$id.'" in table "'.$table.'"', $this->extKey, SYSLOG_SEVERITY_NOTICE, $fieldArray);
 
 						}
 
@@ -309,7 +309,7 @@ class tx_dlf_tcemain {
 	 * @param	string		$table: The destination table
 	 * @param	integer		$id: The uid of the record
 	 * @param	array		&$fieldArray: Array of field values
-	 * @param	t3lib_TCEmain		$pObj: The parent object
+	 * @param	\TYPO3\CMS\Core\DataHandling\DataHandler $pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -364,7 +364,7 @@ class tx_dlf_tcemain {
 
 									if (TYPO3_DLOG) {
 
-										t3lib_div::devLog('[tx_dlf_tcemain->processDatamap_afterDatabaseOperations('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Failed to re-index document with UID "'.$id.'"', $this->extKey, SYSLOG_SEVERITY_ERROR, $fieldArray);
+										\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_tcemain->processDatamap_afterDatabaseOperations('.$status.', '.$table.', '.$id.', [data], ['.get_class($pObj).'])] Failed to re-index document with UID "'.$id.'"', $this->extKey, SYSLOG_SEVERITY_ERROR, $fieldArray);
 
 									}
 
@@ -393,7 +393,7 @@ class tx_dlf_tcemain {
 	 * @param	string		$table: The destination table
 	 * @param	integer		$id: The uid of the record
 	 * @param	mixed		$value: The value for the command
-	 * @param	t3lib_TCEmain		$pObj: The parent object
+	 * @param	\TYPO3\CMS\Core\DataHandling\DataHandler $pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -449,7 +449,7 @@ class tx_dlf_tcemain {
 
 							if (TYPO3_DLOG) {
 
-								t3lib_div::devLog('[tx_dlf_tcemain->processCmdmap_postProcess('.$command.', '.$table.', '.$id.', '.$value.', ['.get_class($pObj).'])] Failed to re-index document with UID "'.$id.'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
+								\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_tcemain->processCmdmap_postProcess('.$command.', '.$table.', '.$id.', '.$value.', ['.get_class($pObj).'])] Failed to re-index document with UID "'.$id.'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
 
 							}
 
@@ -470,5 +470,3 @@ class tx_dlf_tcemain {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/hooks/class.tx_dlf_tcemain.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/hooks/class.tx_dlf_tcemain.php']);
 }
-
-?>

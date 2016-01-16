@@ -188,18 +188,18 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 		}
 
 		// Give feedback about progress.
-		$_message = t3lib_div::makeInstance(
-			't3lib_FlashMessage',
+		$_message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+			'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 			htmlspecialchars(sprintf(tx_dlf_helper::getLL('flash.documentsToGo'), count($this->list))),
 			tx_dlf_helper::getLL('flash.running', TRUE),
-			t3lib_FlashMessage::INFO,
+			\TYPO3\CMS\Core\Messaging\FlashMessage::INFO,
 			TRUE
 		);
 
 		$this->markerArray['CONTENT'] .= $_message->render();
 
 		// Start next loop.
-		$this->markerArray['CONTENT'] .= '<script type="text/javascript">window.location.href=unescape("'.t3lib_div::rawUrlEncodeJS(t3lib_div::locationHeaderUrl(t3lib_div::linkThisScript(array ('id' => $this->id, 'CMD' => 'indexLoop', $this->prefixId => array ('core' => $this->data['core']), 'random' => uniqid())))).'");</script>';
+		$this->markerArray['CONTENT'] .= '<script type="text/javascript">window.location.href=unescape("'.\TYPO3\CMS\Core\Utility\GeneralUtility::rawUrlEncodeJS(\TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl(\TYPO3\CMS\Core\Utility\GeneralUtility::linkThisScript(array ('id' => $this->id, 'CMD' => 'indexLoop', $this->prefixId => array ('core' => $this->data['core']), 'random' => uniqid())))).'");</script>';
 
 		$this->printContent();
 
@@ -243,15 +243,15 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 
 						} else {
 
-							$_message = t3lib_div::makeInstance(
-								't3lib_FlashMessage',
+							$_message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+								'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 								htmlspecialchars(sprintf(tx_dlf_helper::getLL('flash.FileNotLoaded'), $title, $uid)),
 								tx_dlf_helper::getLL('flash.error', TRUE),
-								t3lib_FlashMessage::ERROR,
+								\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 								TRUE
 							);
 
-							t3lib_FlashMessageQueue::addMessage($_message);
+							tx_dlf_helper::addMessage($_message);
 
 						}
 
@@ -300,7 +300,7 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 
 						}
 
-						$this->list = t3lib_div::makeInstance('tx_dlf_list', $elements);
+						$this->list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_list', $elements);
 
 						// Start index looping.
 						if (count($this->list) > 0) {
@@ -319,7 +319,7 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 					$GLOBALS['BE_USER']->fetchUserSession();
 
 					// Get document list from user's session.
-					$this->list = t3lib_div::makeInstance('tx_dlf_list');
+					$this->list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_list');
 
 					// Continue index looping.
 					if (count($this->list) > 0 && isset($this->data['core'])) {
@@ -328,15 +328,15 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 
 					} else {
 
-						$_message = t3lib_div::makeInstance(
-							't3lib_FlashMessage',
+						$_message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+							'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 							tx_dlf_helper::getLL('flash.seeLog', TRUE),
 							tx_dlf_helper::getLL('flash.done', TRUE),
-							t3lib_FlashMessage::OK,
+							\TYPO3\CMS\Core\Messaging\FlashMessage::OK,
 							TRUE
 						);
 
-						t3lib_FlashMessageQueue::addMessage($_message);
+						tx_dlf_helper::addMessage($_message);
 
 					}
 
@@ -345,7 +345,7 @@ class tx_dlf_modIndexing extends tx_dlf_module {
 			}
 
 
-			$this->markerArray['CONTENT'] .= t3lib_FlashMessageQueue::renderFlashMessages();
+			$this->markerArray['CONTENT'] .= tx_dlf_helper::renderFlashMessages();
 
 			switch ($this->MOD_SETTINGS['function']) {
 
@@ -405,8 +405,6 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/mod
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/modules/indexing/index.php']);
 }
 
-$SOBE = t3lib_div::makeInstance('tx_dlf_modIndexing');
+$SOBE = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_modIndexing');
 
 $SOBE->main();
-
-?>

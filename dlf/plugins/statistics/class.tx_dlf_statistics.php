@@ -60,7 +60,7 @@ class tx_dlf_statistics extends tx_dlf_plugin {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_statistics->main('.$content.', [data])] Incomplete plugin configuration', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_statistics->main('.$content.', [data])] Incomplete plugin configuration', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
 
 			}
 
@@ -148,5 +148,3 @@ class tx_dlf_statistics extends tx_dlf_plugin {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/statistics/class.tx_dlf_statistics.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/statistics/class.tx_dlf_statistics.php']);
 }
-
-?>

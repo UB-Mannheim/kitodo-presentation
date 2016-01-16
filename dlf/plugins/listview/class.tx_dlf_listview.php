@@ -205,7 +205,7 @@ class tx_dlf_listview extends tx_dlf_plugin {
 					$conf = array (
 						'useCacheHash' => 1,
 						'parameter' => $this->conf['targetPid'],
-						'additionalParams' => t3lib_div::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
+						'additionalParams' => \TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
 					);
 
 					$value = $this->cObj->typoLink(htmlspecialchars($value), $conf);
@@ -404,7 +404,7 @@ class tx_dlf_listview extends tx_dlf_plugin {
 						$conf = array (
 							'useCacheHash' => 1,
 							'parameter' => $this->conf['targetPid'],
-							'additionalParams' => t3lib_div::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
+							'additionalParams' => \TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
 						);
 
 						$value = $this->cObj->typoLink(htmlspecialchars($value), $conf);
@@ -524,7 +524,7 @@ class tx_dlf_listview extends tx_dlf_plugin {
 		$this->setCache(FALSE);
 
 		// Load the list.
-		$this->list = t3lib_div::makeInstance('tx_dlf_list');
+		$this->list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_list');
 
 		// Sort the list if applicable.
 		if ((!empty($this->piVars['order']) && $this->piVars['order'] != $this->list->metadata['options']['order'])
@@ -632,5 +632,3 @@ class tx_dlf_listview extends tx_dlf_plugin {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/listview/class.tx_dlf_listview.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/listview/class.tx_dlf_listview.php']);
 }
-
-?>

@@ -125,7 +125,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 		// Get localization for OpenLayers.
 		if ($GLOBALS['TSFE']->lang) {
 
-			$langFile = t3lib_extMgm::extPath($this->extKey, 'lib/OpenLayers/lib/OpenLayers/Lang/'.strtolower($GLOBALS['TSFE']->lang).'.js');
+			$langFile = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($this->extKey, 'lib/OpenLayers/lib/OpenLayers/Lang/'.strtolower($GLOBALS['TSFE']->lang).'.js');
 
 			if (file_exists($langFile)) {
 
@@ -247,7 +247,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 
 		// Add OpenLayers library.
 		$output[] = '
-		<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath($this->extKey).'lib/OpenLayers/lib/OpenLayers.js"></script>';
+		<script type="text/javascript" src="'.\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath($this->extKey).'lib/OpenLayers/lib/OpenLayers.js"></script>';
 
 		return implode("\n", $output);
 
@@ -268,11 +268,11 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 		tx_dlf_helper::loadJQuery();
 
 		// Add OpenLayers library.
-		$output[] = $this->addOpenLayersJS($fulltexts);
+		$output[] = $this->addOpenLayersJS();
 
 		// Add viewer library.
 		$output[] = '
-		<script type="text/javascript" src="'.t3lib_extMgm::siteRelPath($this->extKey).'plugins/pageview/tx_dlf_pageview.js"></script>';
+		<script type="text/javascript" src="'.\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath($this->extKey).'plugins/pageview/tx_dlf_pageview.js"></script>';
 
 		// Add viewer configuration.
 		$output[] = '
@@ -303,7 +303,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 		$imageUrl = '';
 
 		// Get @USE value of METS fileGrp.
-		$fileGrps = t3lib_div::trimExplode(',', $this->conf['fileGrps']);
+		$fileGrps = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->conf['fileGrps']);
 
 		while ($fileGrp = @array_pop($fileGrps)) {
 
@@ -318,7 +318,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_pageview->getImageUrl('.$page.')] File not found in fileGrp "'.$fileGrp.'"', $this->extKey, SYSLOG_SEVERITY_WARNING);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_pageview->getImageUrl('.$page.')] File not found in fileGrp "'.$fileGrp.'"', $this->extKey, SYSLOG_SEVERITY_WARNING);
 
 				}
 
@@ -346,7 +346,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 		// Get @USE value of METS fileGrp.
 
 		// we need USE="FULLTEXT"
-		$fileGrpFulltext = t3lib_div::trimExplode(',', $this->conf['fileGrpFulltext']);
+		$fileGrpFulltext = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $this->conf['fileGrpFulltext']);
 
 		while ($fileGrpFulltext = @array_pop($fileGrpFulltext)) {
 
@@ -366,7 +366,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_pageview->getImageUrl('.$page.')] File not found in fileGrp "'.$fileGrp.'"', $this->extKey, SYSLOG_SEVERITY_WARNING);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_pageview->getImageUrl('.$page.')] File not found in fileGrp "'.$fileGrp.'"', $this->extKey, SYSLOG_SEVERITY_WARNING);
 
 				}
 
@@ -432,7 +432,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 			// page may be integer or string (physical page attribute)
 			if ( (int)$this->piVars['page'] > 0 || empty($this->piVars['page'])) {
 
-				$this->piVars['page'] = tx_dlf_helper::intInRange((int)$this->piVars['page'], 1, $this->doc->numPages, 1);
+				$this->piVars['page'] = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange((int)$this->piVars['page'], 1, $this->doc->numPages, 1);
 
 			} else {
 
@@ -440,7 +440,7 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 
 			}
 
-			$this->piVars['double'] = tx_dlf_helper::intInRange($this->piVars['double'], 0, 1, 0);
+			$this->piVars['double'] = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($this->piVars['double'], 0, 1, 0);
 
 		}
 
@@ -485,5 +485,3 @@ class tx_dlf_pageview extends tx_dlf_plugin {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/pageview/class.tx_dlf_pageview.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/pageview/class.tx_dlf_pageview.php']);
 }
-
-?>

@@ -123,7 +123,7 @@ class tx_dlf_solr {
 		// Load class.
 		if (!class_exists('Apache_Solr_Service')) {
 
-			require_once(t3lib_div::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Service.php'));
+			require_once(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Service.php'));
 
 		}
 
@@ -155,7 +155,7 @@ class tx_dlf_solr {
 		$_core = $core;
 
 		// Get core name if UID is given.
-		if (tx_dlf_helper::testInt($core)) {
+		if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($core)) {
 
 			$core = tx_dlf_helper::getIndexName($core, 'tx_dlf_solrcores');
 
@@ -166,7 +166,7 @@ class tx_dlf_solr {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_solr->getInstance('.$_core.')] Invalid core name "'.$core.'" for Apache Solr', self::$extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_solr->getInstance('.$_core.')] Invalid core name "'.$core.'" for Apache Solr', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -197,7 +197,7 @@ class tx_dlf_solr {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_solr->getInstance('.$_core.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_solr->getInstance('.$_core.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -232,7 +232,7 @@ class tx_dlf_solr {
 		}
 
 		// Set port if not set.
-		$port = tx_dlf_helper::intInRange($conf['solrPort'], 1, 65535, 8180);
+		$port = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($conf['solrPort'], 1, 65535, 8180);
 
 		// Append core name to path.
 		$path = trim($conf['solrPath'], '/').'/'.$core;
@@ -391,19 +391,19 @@ class tx_dlf_solr {
 					// Prepare document's metadata for sorting.
 					$sorting = unserialize($resArray['metadata_sorting']);
 
-					if (!empty($sorting['type']) && tx_dlf_helper::testInt($sorting['type'])) {
+					if (!empty($sorting['type']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['type'])) {
 
 						$sorting['type'] = tx_dlf_helper::getIndexName($sorting['type'], 'tx_dlf_structures', $this->cPid);
 
 					}
 
-					if (!empty($sorting['owner']) && tx_dlf_helper::testInt($sorting['owner'])) {
+					if (!empty($sorting['owner']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['owner'])) {
 
 						$sorting['owner'] = tx_dlf_helper::getIndexName($sorting['owner'], 'tx_dlf_libraries', $this->cPid);
 
 					}
 
-					if (!empty($sorting['collection']) && tx_dlf_helper::testInt($sorting['collection'])) {
+					if (!empty($sorting['collection']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['collection'])) {
 
 						$sorting['collection'] = tx_dlf_helper::getIndexName($sorting['collection'], 'tx_dlf_collections', $this->cPid);
 
@@ -434,7 +434,7 @@ class tx_dlf_solr {
 		}
 
 		// Save list of documents.
-		$list = t3lib_div::makeInstance('tx_dlf_list');
+		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_list');
 
 		$list->reset();
 
@@ -574,7 +574,7 @@ class tx_dlf_solr {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_solr->__get('.$var.')] There is no getter function for property "'.$var.'"', self::$extKey, SYSLOG_SEVERITY_WARNING);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_solr->__get('.$var.')] There is no getter function for property "'.$var.'"', self::$extKey, SYSLOG_SEVERITY_WARNING);
 
 			}
 
@@ -606,7 +606,7 @@ class tx_dlf_solr {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_solr->__set('.$var.', [data])] There is no setter function for property "'.$var.'"', self::$extKey, SYSLOG_SEVERITY_WARNING, $value);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_solr->__set('.$var.', [data])] There is no setter function for property "'.$var.'"', self::$extKey, SYSLOG_SEVERITY_WARNING, $value);
 
 			}
 
@@ -632,7 +632,7 @@ class tx_dlf_solr {
 		// Load class.
 		if (!class_exists('Apache_Solr_Service')) {
 
-			require_once(t3lib_div::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Service.php'));
+			require_once(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Service.php'));
 
 		}
 
@@ -649,13 +649,13 @@ class tx_dlf_solr {
 		}
 
 		// Set port if not set.
-		$port = tx_dlf_helper::intInRange($conf['solrPort'], 1, 65535, 8180);
+		$port = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($conf['solrPort'], 1, 65535, 8180);
 
 		// Append core name to path.
 		$path = trim($conf['solrPath'], '/').'/'.$core;
 
 		// Instantiate Apache_Solr_Service class.
-		$this->service = t3lib_div::makeInstance('Apache_Solr_Service', $host, $port, $path);
+		$this->service = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Apache_Solr_Service', $host, $port, $path);
 
 		// Check if connection is established.
 		if ($this->service->ping() !== FALSE) {
@@ -680,5 +680,3 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/com
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/common/class.tx_dlf_solr.php']);
 }
 */
-
-?>

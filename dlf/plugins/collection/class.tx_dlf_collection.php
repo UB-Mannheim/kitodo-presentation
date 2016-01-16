@@ -68,7 +68,7 @@ class tx_dlf_collection extends tx_dlf_plugin {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_collection->main('.$content.', [data])] Incomplete plugin configuration', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_collection->main('.$content.', [data])] Incomplete plugin configuration', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
 
 			}
 
@@ -222,7 +222,7 @@ class tx_dlf_collection extends tx_dlf_plugin {
 				$conf = array (
 					'useCacheHash' => 1,
 					'parameter' => $GLOBALS['TSFE']->id,
-					'additionalParams' => t3lib_div::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
+					'additionalParams' => \TYPO3\CMS\Core\Utility\GeneralUtility::implodeArrayForUrl($this->prefixId, $additionalParams, '', TRUE, FALSE)
 				);
 
 				// Link collection's title to list view.
@@ -231,7 +231,7 @@ class tx_dlf_collection extends tx_dlf_plugin {
 				// Add feed link if applicable.
 				if (!empty($this->conf['targetFeed'])) {
 
-					$img = '<img src="'.t3lib_extMgm::siteRelPath($this->extKey).'res/icons/txdlffeeds.png" alt="'.$this->pi_getLL('feedAlt', '', TRUE).'" title="'.$this->pi_getLL('feedTitle', '', TRUE).'" />';
+					$img = '<img src="'.\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath($this->extKey).'res/icons/txdlffeeds.png" alt="'.$this->pi_getLL('feedAlt', '', TRUE).'" title="'.$this->pi_getLL('feedTitle', '', TRUE).'" />';
 
 					$markerArray[$_key]['###FEED###'] = $this->pi_linkTP($img, array ($this->prefixId => array ('collection' => $resArray['uid'])), FALSE, $this->conf['targetFeed']);
 
@@ -372,19 +372,19 @@ class tx_dlf_collection extends tx_dlf_plugin {
 				// Prepare document's metadata for sorting.
 				$sorting = unserialize($resArray['metadata_sorting']);
 
-				if (!empty($sorting['type']) && tx_dlf_helper::testInt($sorting['type'])) {
+				if (!empty($sorting['type']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['type'])) {
 
 					$sorting['type'] = tx_dlf_helper::getIndexName($sorting['type'], 'tx_dlf_structures', $this->conf['pages']);
 
 				}
 
-				if (!empty($sorting['owner']) && tx_dlf_helper::testInt($sorting['owner'])) {
+				if (!empty($sorting['owner']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['owner'])) {
 
 					$sorting['owner'] = tx_dlf_helper::getIndexName($sorting['owner'], 'tx_dlf_libraries', $this->conf['pages']);
 
 				}
 
-				if (!empty($sorting['collection']) && tx_dlf_helper::testInt($sorting['collection'])) {
+				if (!empty($sorting['collection']) && \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($sorting['collection'])) {
 
 					$sorting['collection'] = tx_dlf_helper::getIndexName($sorting['collection'], 'tx_dlf_collections', $this->conf['pages']);
 
@@ -418,7 +418,7 @@ class tx_dlf_collection extends tx_dlf_plugin {
 		}
 
 		// Save list of documents.
-		$list = t3lib_div::makeInstance('tx_dlf_list');
+		$list = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_dlf_list');
 
 		$list->reset();
 
@@ -429,10 +429,10 @@ class tx_dlf_collection extends tx_dlf_plugin {
 		$list->save();
 
 		// Clean output buffer.
-		t3lib_div::cleanOutputBuffers();
+		\TYPO3\CMS\Core\Utility\GeneralUtility::cleanOutputBuffers();
 
 		// Send headers.
-		header('Location: '.t3lib_div::locationHeaderUrl($this->cObj->typoLink_URL(array ('parameter' => $this->conf['targetPid']))));
+		header('Location: '.\TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl($this->cObj->typoLink_URL(array ('parameter' => $this->conf['targetPid']))));
 
 		// Flush output buffer and end script processing.
 		ob_end_flush();
@@ -446,5 +446,3 @@ class tx_dlf_collection extends tx_dlf_plugin {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/collection/class.tx_dlf_collection.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/collection/class.tx_dlf_collection.php']);
 }
-
-?>

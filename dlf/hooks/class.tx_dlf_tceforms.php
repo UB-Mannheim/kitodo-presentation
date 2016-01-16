@@ -27,7 +27,7 @@
  */
 
 /**
- * Hooks and helper for the 't3lib_TCEforms' library.
+ * Hooks and helper for the '\TYPO3\CMS\Backend\Form\FormEngine' library.
  *
  * @author	Sebastian Meyer <sebastian.meyer@slub-dresden.de>
  * @package	TYPO3
@@ -42,7 +42,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	string		HTML <img> tag for thumbnail
 	 */
@@ -71,7 +71,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -79,13 +79,13 @@ class tx_dlf_tceforms {
 
 		if ($params['row']['pi_flexform']) {
 
-			$pi_flexform = t3lib_div::xml2array($params['row']['pi_flexform']);
+			$pi_flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 
 			$pages = $pi_flexform['data']['sDEF']['lDEF']['pages']['vDEF'];
 
 			// There is a strange behavior where the uid from the flexform is prepended by the table's name and appended by its title.
 			// i.e. instead of "18" it reads "pages_18|Title"
-			if (!tx_dlf_helper::testInt($pages)) {
+			if (!\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($pages)) {
 
 				$parts = explode('|', $pages);
 
@@ -126,7 +126,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -134,13 +134,13 @@ class tx_dlf_tceforms {
 
 		if ($params['row']['pi_flexform']) {
 
-			$pi_flexform = t3lib_div::xml2array($params['row']['pi_flexform']);
+			$pi_flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 
 			$pages = $pi_flexform['data']['sDEF']['lDEF']['pages']['vDEF'];
 
 			// There is a strange behavior where the uid from the flexform is prepended by the table's name and appended by its title.
 			// i.e. instead of "18" it reads "pages_18|Title"
-			if (!tx_dlf_helper::testInt($pages)) {
+			if (!\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($pages)) {
 
 				$_parts = explode('|', $pages);
 
@@ -181,7 +181,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -189,13 +189,13 @@ class tx_dlf_tceforms {
 
 		if ($params['row']['pi_flexform']) {
 
-			$pi_flexform = t3lib_div::xml2array($params['row']['pi_flexform']);
+			$pi_flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 
 			$pages = $pi_flexform['data']['sDEF']['lDEF']['pages']['vDEF'];
 
 			// There is a strange behavior where the uid from the flexform is prepended by the table's name and appended by its title.
 			// i.e. instead of "18" it reads "pages_18|Title"
-			if (!tx_dlf_helper::testInt($pages)) {
+			if (!\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($pages)) {
 
 				$_parts = explode('|', $pages);
 
@@ -236,7 +236,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -244,13 +244,13 @@ class tx_dlf_tceforms {
 
 		if ($params['row']['pi_flexform']) {
 
-			$pi_flexform = t3lib_div::xml2array($params['row']['pi_flexform']);
+			$pi_flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 
 			$pages = $pi_flexform['data']['sDEF']['lDEF']['pages']['vDEF'];
 
 			// There is a strange behavior where the uid from the flexform is prepended by the table's name and appended by its title.
 			// i.e. instead of "18" it reads "pages_18|Title"
-			if (!tx_dlf_helper::testInt($pages)) {
+			if (!\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($pages)) {
 
 				$parts = explode('|', $pages);
 
@@ -291,7 +291,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -299,13 +299,13 @@ class tx_dlf_tceforms {
 
 		if ($params['row']['pi_flexform']) {
 
-			$pi_flexform = t3lib_div::xml2array($params['row']['pi_flexform']);
+			$pi_flexform = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($params['row']['pi_flexform']);
 
 			$pages = $pi_flexform['data']['sDEF']['lDEF']['pages']['vDEF'];
 
 			// There is a strange behavior where the uid from the flexform is prepended by the table's name and appended by its title.
 			// i.e. instead of "18" it reads "pages_18|Title"
-			if (!tx_dlf_helper::testInt($pages)) {
+			if (!\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($pages)) {
 
 				$parts = explode('|', $pages);
 
@@ -346,7 +346,7 @@ class tx_dlf_tceforms {
 	 * @access	public
 	 *
 	 * @param	array		&$params: An array with parameters
-	 * @param	t3lib_TCEforms		&$pObj: The parent object
+	 * @param	\TYPO3\CMS\Backend\Form\FormEngine &$pObj: The parent object
 	 *
 	 * @return	void
 	 */
@@ -365,5 +365,3 @@ class tx_dlf_tceforms {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/hooks/class.tx_dlf_tceforms.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/hooks/class.tx_dlf_tceforms.php']);
 }
-
-?>

@@ -128,7 +128,7 @@ class tx_dlf_indexing {
 
 					if (TYPO3_DLOG) {
 
-						t3lib_div::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Could not load parent document with UID "'.$doc->parentId.'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
+						\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Could not load parent document with UID "'.$doc->parentId.'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 					}
 
@@ -179,27 +179,27 @@ class tx_dlf_indexing {
 
 					if (!$errors) {
 
-						$message = t3lib_div::makeInstance(
-							't3lib_FlashMessage',
+						$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+							'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 							htmlspecialchars(sprintf(tx_dlf_helper::getLL('flash.documentIndexed'), $resArray['title'], $doc->uid)),
 							tx_dlf_helper::getLL('flash.done', TRUE),
-							t3lib_FlashMessage::OK,
+							\TYPO3\CMS\Core\Messaging\FlashMessage::OK,
 							TRUE
 						);
 
 					} else {
 
-						$message = t3lib_div::makeInstance(
-							't3lib_FlashMessage',
+						$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+							'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 							htmlspecialchars(sprintf(tx_dlf_helper::getLL('flash.documentNotIndexed'), $resArray['title'], $doc->uid)),
 							tx_dlf_helper::getLL('flash.error', TRUE),
-							t3lib_FlashMessage::ERROR,
+							\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 							TRUE
 						);
 
 					}
 
-					t3lib_FlashMessageQueue::addMessage($message);
+					tx_dlf_helper::addMessage($message);
 
 				}
 
@@ -209,21 +209,21 @@ class tx_dlf_indexing {
 
 				if (!defined('TYPO3_cliMode')) {
 
-					$message = t3lib_div::makeInstance(
-						't3lib_FlashMessage',
+					$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+						'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 						tx_dlf_helper::getLL('flash.solrException', TRUE).'<br />'.htmlspecialchars($e->getMessage()),
 						tx_dlf_helper::getLL('flash.error', TRUE),
-						t3lib_FlashMessage::ERROR,
+						\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 						TRUE
 					);
 
-					t3lib_FlashMessageQueue::addMessage($message);
+					tx_dlf_helper::addMessage($message);
 
 				}
 
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Apache Solr threw exception: "'.$e->getMessage().'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Apache Solr threw exception: "'.$e->getMessage().'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 				}
 
@@ -235,21 +235,21 @@ class tx_dlf_indexing {
 
 			if (!defined('TYPO3_cliMode')) {
 
-				$message = t3lib_div::makeInstance(
-					't3lib_FlashMessage',
+				$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+					'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 					tx_dlf_helper::getLL('flash.solrNoConnection', TRUE),
 					tx_dlf_helper::getLL('flash.warning', TRUE),
-					t3lib_FlashMessage::WARNING,
+					\TYPO3\CMS\Core\Messaging\FlashMessage::WARNING,
 					TRUE
 				);
 
-				t3lib_FlashMessageQueue::addMessage($message);
+				tx_dlf_helper::addMessage($message);
 
 			}
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->add(['.$doc->uid.'], '.$core.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -304,21 +304,21 @@ class tx_dlf_indexing {
 
 					if (!defined('TYPO3_cliMode')) {
 
-						$message = t3lib_div::makeInstance(
-							't3lib_FlashMessage',
+						$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+							'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 							tx_dlf_helper::getLL('flash.solrException', TRUE).'<br />'.htmlspecialchars($e->getMessage()),
 							tx_dlf_helper::getLL('flash.error', TRUE),
-							t3lib_FlashMessage::ERROR,
+							\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 							TRUE
 						);
 
-						t3lib_FlashMessageQueue::addMessage($message);
+						tx_dlf_helper::addMessage($message);
 
 					}
 
 					if (TYPO3_DLOG) {
 
-						t3lib_div::devLog('[tx_dlf_indexing->delete('.$_uid.')] Apache Solr threw exception: "'.$e->getMessage().'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
+						\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->delete('.$_uid.')] Apache Solr threw exception: "'.$e->getMessage().'"', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 					}
 
@@ -330,21 +330,21 @@ class tx_dlf_indexing {
 
 				if (!defined('TYPO3_cliMode')) {
 
-					$message = t3lib_div::makeInstance(
-						't3lib_FlashMessage',
+					$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+						'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 						tx_dlf_helper::getLL('flash.solrNoConnection', TRUE),
 						tx_dlf_helper::getLL('flash.error', TRUE),
-						t3lib_FlashMessage::ERROR,
+						\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 						TRUE
 					);
 
-					t3lib_FlashMessageQueue::addMessage($message);
+					tx_dlf_helper::addMessage($message);
 
 				}
 
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_indexing->delete('.$_uid.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->delete('.$_uid.')] Could not connect to Apache Solr server', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 				}
 
@@ -354,15 +354,15 @@ class tx_dlf_indexing {
 
 			if (!defined('TYPO3_cliMode')) {
 
-				$message = t3lib_div::makeInstance(
-					't3lib_FlashMessage',
+				$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+					'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 					htmlspecialchars(sprintf(tx_dlf_helper::getLL('flash.documentDeleted'), $title, $uid)),
 					tx_dlf_helper::getLL('flash.done', TRUE),
-					t3lib_FlashMessage::OK,
+					\TYPO3\CMS\Core\Messaging\FlashMessage::OK,
 					TRUE
 				);
 
-				t3lib_FlashMessageQueue::addMessage($message);
+				tx_dlf_helper::addMessage($message);
 
 			}
 
@@ -372,7 +372,7 @@ class tx_dlf_indexing {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_indexing->delete('.$_uid.')] Invalid UID "'.$uid.'" for document deletion', self::$extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->delete('.$_uid.')] Invalid UID "'.$uid.'" for document deletion', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -404,7 +404,7 @@ class tx_dlf_indexing {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_indexing->getIndexFieldName('.$index_name.', '.$_pid.')] Invalid PID "'.$pid.'" for metadata configuration', self::$extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_indexing->getIndexFieldName('.$index_name.', '.$_pid.')] Invalid PID "'.$pid.'" for metadata configuration', self::$extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -545,7 +545,7 @@ class tx_dlf_indexing {
 			// Load class.
 			if (!class_exists('Apache_Solr_Document')) {
 
-				require_once(t3lib_div::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Document.php'));
+				require_once(\TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('EXT:'.self::$extKey.'/lib/SolrPhpClient/Apache/Solr/Document.php'));
 
 			}
 
@@ -559,7 +559,7 @@ class tx_dlf_indexing {
 
 			$solrDoc->setField('pid', $doc->pid);
 
-			if (tx_dlf_helper::testInt($logicalUnit['points'])) {
+			if (\TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($logicalUnit['points'])) {
 
 				$solrDoc->setField('page', $logicalUnit['points']);
 
@@ -634,15 +634,15 @@ class tx_dlf_indexing {
 
 				if (!defined('TYPO3_cliMode')) {
 
-					$message = t3lib_div::makeInstance(
-						't3lib_FlashMessage',
+					$message = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+						'TYPO3\\CMS\\Core\\Messaging\\FlashMessage',
 						tx_dlf_helper::getLL('flash.solrException', TRUE).'<br />'.htmlspecialchars($e->getMessage()),
 						tx_dlf_helper::getLL('flash.error', TRUE),
-						t3lib_FlashMessage::ERROR,
+						\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR,
 						TRUE
 					);
 
-					t3lib_FlashMessageQueue::addMessage($message);
+					tx_dlf_helper::addMessage($message);
 
 				}
 
@@ -727,5 +727,3 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/com
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/common/class.tx_dlf_indexing.php']);
 }
 */
-
-?>

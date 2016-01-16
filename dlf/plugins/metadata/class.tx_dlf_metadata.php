@@ -168,7 +168,7 @@ class tx_dlf_metadata extends tx_dlf_plugin {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_metadata->main('.$content.', [data])] No metadata found for document with UID "'.$this->doc->uid.'"', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_metadata->main('.$content.', [data])] No metadata found for document with UID "'.$this->doc->uid.'"', $this->extKey, SYSLOG_SEVERITY_WARNING, $conf);
 
 			}
 
@@ -389,5 +389,3 @@ class tx_dlf_metadata extends tx_dlf_plugin {
 if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/metadata/class.tx_dlf_metadata.php'])	{
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/plugins/metadata/class.tx_dlf_metadata.php']);
 }
-
-?>

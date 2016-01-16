@@ -35,7 +35,7 @@
  * @access	public
  * @abstract
  */
-abstract class tx_dlf_plugin extends tslib_pibase {
+abstract class tx_dlf_plugin extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 	public $extKey = 'dlf';
 
@@ -156,7 +156,7 @@ abstract class tx_dlf_plugin extends tslib_pibase {
 				// Destroy the incomplete object.
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_plugin->loadDocument()] Failed to load document with UID "'.$this->piVars['id'].'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_plugin->loadDocument()] Failed to load document with UID "'.$this->piVars['id'].'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
 
 				}
 
@@ -198,7 +198,7 @@ abstract class tx_dlf_plugin extends tslib_pibase {
 
 				if (TYPO3_DLOG) {
 
-					t3lib_div::devLog('[tx_dlf_plugin->loadDocument()] Failed to load document with record ID "'.$this->piVars['recordId'].'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
+					\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_plugin->loadDocument()] Failed to load document with record ID "'.$this->piVars['recordId'].'"', $this->extKey, SYSLOG_SEVERITY_ERROR);
 
 				}
 
@@ -208,7 +208,7 @@ abstract class tx_dlf_plugin extends tslib_pibase {
 
 			if (TYPO3_DLOG) {
 
-				t3lib_div::devLog('[tx_dlf_plugin->loadDocument()] Invalid UID "'.$this->piVars['id'].'" or PID "'.$this->conf['pages'].'" for document loading', $this->extKey, SYSLOG_SEVERITY_ERROR);
+				\TYPO3\CMS\Core\Utility\GeneralUtility::devLog('[tx_dlf_plugin->loadDocument()] Invalid UID "'.$this->piVars['id'].'" or PID "'.$this->conf['pages'].'" for document loading', $this->extKey, SYSLOG_SEVERITY_ERROR);
 
 			}
 
@@ -304,7 +304,7 @@ abstract class tx_dlf_plugin extends tslib_pibase {
 	 */
 	protected function parseTS($string = '') {
 
-		$parser = t3lib_div::makeInstance('t3lib_TSparser');
+		$parser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\TypoScript\\Parser\\TypoScriptParser');
 
 		$parser->parse($string);
 
@@ -358,5 +358,3 @@ if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/com
 	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/dlf/common/class.tx_dlf_plugin.php']);
 }
 */
-
-?>
