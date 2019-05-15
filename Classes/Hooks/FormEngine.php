@@ -52,7 +52,7 @@ class FormEngine {
      * @return void
      */
     public function itemsProcFunc_collectionList(&$params, &$pObj) {
-        $pages = $params['row']['pages'];
+        $pages = self::fixPageUid($params['row']['pages']);
         if (!empty($pages)) {
             foreach ($pages as $page) {
                 if ($page['uid'] > 0) {
@@ -87,7 +87,7 @@ class FormEngine {
      * @return void
      */
     public function itemsProcFunc_extendedSearchList(&$params, &$pObj) {
-        $pages = $params['row']['pages'];
+        $pages = self::fixPageUid($params['row']['pages']);
         if (!empty($pages)) {
             foreach ($pages as $page) {
                 if ($page['uid'] > 0) {
@@ -123,7 +123,7 @@ class FormEngine {
      * @return void
      */
     public function itemsProcFunc_facetsList(&$params, &$pObj) {
-        $pages = $params['row']['pages'];
+        $pages = self::fixPageUid($params['row']['pages']);
         if (!empty($pages)) {
             foreach ($pages as $page) {
                 if ($page['uid'] > 0) {
@@ -159,22 +159,24 @@ class FormEngine {
      * @return void
      */
     public function itemsProcFunc_libraryList(&$params, &$pObj) {
-        $page = $params['row']['pages'];
-        if (!empty($page)) {
-            if ($page > 0) {
-                $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                    'label,uid',
-                    'tx_dlf_libraries',
-                    'pid='.intval($page)
+        $pages = self::fixPageUid($params['row']['pages']);
+        if (!empty($pages)) {
+            foreach ($pages as $page) {
+                if ($page['uid'] > 0) {
+                    $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                        'label,uid',
+                        'tx_dlf_libraries',
+                        'pid='.intval($page['uid'])
                         .' AND (sys_language_uid IN (-1,0) OR l18n_parent=0)'
                         .Helper::whereClause('tx_dlf_libraries'),
-                    '',
-                    'label',
-                    ''
-                );
-                if ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0) {
-                    while ($resArray = $GLOBALS['TYPO3_DB']->sql_fetch_row($result)) {
-                        $params['items'][] = $resArray;
+                        '',
+                        'label',
+                        ''
+                    );
+                    if ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0) {
+                        while ($resArray = $GLOBALS['TYPO3_DB']->sql_fetch_row($result)) {
+                            $params['items'][] = $resArray;
+                        }
                     }
                 }
             }
@@ -192,21 +194,23 @@ class FormEngine {
      * @return void
      */
     public function itemsProcFunc_solrList(&$params, &$pObj) {
-        $page = $params['row']['pages'];
-        if (!empty($page)) {
-            if ($page > 0) {
-                $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
-                    'label,uid',
-                    'tx_dlf_solrcores',
-                    'pid IN ('.intval($page).',0)'
+        $pages = self::fixPageUid($params['row']['pages']);
+        if (!empty($pages)) {
+            foreach ($pages as $page) {
+                if ($page['uid'] > 0) {
+                    $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                        'label,uid',
+                        'tx_dlf_solrcores',
+                        'pid IN ('.intval($page['uid']).',0)'
                         .Helper::whereClause('tx_dlf_solrcores'),
-                    '',
-                    'label',
-                    ''
-                );
-                if ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0) {
-                    while ($resArray = $GLOBALS['TYPO3_DB']->sql_fetch_row($result)) {
-                        $params['items'][] = $resArray;
+                        '',
+                        'label',
+                        ''
+                    );
+                    if ($GLOBALS['TYPO3_DB']->sql_num_rows($result) > 0) {
+                        while ($resArray = $GLOBALS['TYPO3_DB']->sql_fetch_row($result)) {
+                            $params['items'][] = $resArray;
+                        }
                     }
                 }
             }
@@ -227,5 +231,12 @@ class FormEngine {
         foreach ($GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['dlf/Classes/Plugin/Toolbox.php']['tools'] as $class => $label) {
             $params['items'][] = [$GLOBALS['LANG']->sL($label), $class];
         }
+    }
+
+    private function fixPageUid(&$pages) {
+        if (!is_array($pages)) {
+            return array( array( 'uid' => $pages ));
+        }
+        return $pages;
     }
 }
