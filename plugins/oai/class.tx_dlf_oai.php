@@ -1107,7 +1107,7 @@ class tx_dlf_oai extends tx_dlf_plugin {
             );
 
             if ($GLOBALS['TYPO3_DB']->sql_affected_rows() == 1) {
-                $resumptionToken->setAttribute('resumptionToken', htmlspecialchars($token, ENT_NOQUOTES, 'UTF-8'));
+                $resumptionToken->nodeValue = htmlspecialchars($token, ENT_NOQUOTES, 'UTF-8');
             } else {
                 $this->devLog('[tx_dlf_oai->verb'.$this->piVars['verb'].'()] Could not create resumption token', SYSLOG_SEVERITY_ERROR);
             }
