@@ -99,6 +99,75 @@ class tx_dlf_mods implements tx_dlf_format {
 
         }
 
+//------------------------------------- Test wg. translator
+        // Get "translator" and "translator_sorting".
+        $translators = $xml->xpath('./mods:name[./mods:role/mods:roleTerm[@type="code" and @authority="marcrelator"]="trl"]');
+
+        // Get "$translator" and "$translator_sorting" again if that was to sophisticated.
+        if (!$translators) {
+
+            // Get all names which do not have any role term assigned and assume these are $translators.
+            $translators = $xml->xpath('./mods:name[not(./mods:role)]');
+
+        }
+
+        if (is_array($translators)) {
+
+            for ($i = 0, $j = count($translators); $i < $j; $i++) {
+
+                $translators[$i]->registerXPathNamespace('mods', 'http://www.loc.gov/mods/v3');
+
+                // Check if there is a display form.
+                if (($displayForm = $translators[$i]->xpath('./mods:displayForm'))) {
+
+                    $metadata['translator'][$i] = (string) $displayForm[0];
+
+                } elseif (($nameParts = $translators[$i]->xpath('./mods:namePart'))) {
+
+                    $name = array ();
+
+                    $k = 4;
+
+                    foreach ($nameParts as $namePart) {
+
+                        if (isset($namePart['type']) && (string) $namePart['type'] == 'family') {
+
+                            $name[0] = (string) $namePart;
+
+                        } elseif (isset($namePart['type']) && (string) $namePart['type'] == 'given') {
+
+                            $name[1] = (string) $namePart;
+
+                        } elseif (isset($namePart['type']) && (string) $namePart['type'] == 'termsOfAddress') {
+
+                            $name[2] = (string) $namePart;
+
+                        } elseif (isset($namePart['type']) && (string) $namePart['type'] == 'date') {
+
+                            $name[3] = (string) $namePart;
+
+                        } else {
+
+                            $name[$k] = (string) $namePart;
+
+                        }
+
+                        $k++;
+
+                    }
+
+                    ksort($name);
+
+                    $metadata['translator'][$i] = trim(implode(', ', $name));
+
+                }
+
+            }
+
+        }
+
+//-------------------------------------
+
         // Get "place" and "place_sorting".
         $places = $xml->xpath('./mods:originInfo[not(./mods:edition="[Electronic ed.]")]/mods:place/mods:placeTerm');
 
