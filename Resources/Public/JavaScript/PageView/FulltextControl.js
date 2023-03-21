@@ -241,7 +241,8 @@ var dlfViewerFullTextControl = function(map) {
             },
         this)
     };
-
+	
+    // is emptied in PageView.js
     $('html').find(this.fullTextScrollElement).text(this.dic['fulltext-loading']);
 
     this.changeActiveBehaviour();
