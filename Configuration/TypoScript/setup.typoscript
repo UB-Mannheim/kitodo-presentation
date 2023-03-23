@@ -5,14 +5,15 @@ plugin.tx_dlf {
     }
     settings {
         storagePid = {$plugin.tx_dlf.persistence.storagePid}
+        useInternalProxy = 0
     }
 }
 
 config {
     # concatenate all JavaScript files by default
-    concatenateJs = 1
+    concatenateJs = 0
     # concatenate all CSS files by default
-    concatenateCss = 1
+    concatenateCss = 0
 }
 
 page {
