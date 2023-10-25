@@ -16,3 +16,4 @@
 /public/
 /var/
 /vendor/
+*.__php__
