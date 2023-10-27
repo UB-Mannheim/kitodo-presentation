@@ -1,8 +1,8 @@
 {
-  "name": "kitodo/presentation",
+  "name": "bfallert/presentation",
   "description": "Base plugins, modules, services and API of the Digital Library Framework. It is part of the community-based Kitodo Digitization Suite.",
   "type": "typo3-cms-extension",
-  "homepage": "https://www.kitodo.org",
+  "homepage": "https://github.com/BFallert/kitodo-presentation.git",
   "readme": "README.md",
   "license": ["GPL-3.0-or-later"],
   "authors": [
@@ -20,8 +20,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/kitodo/kitodo-presentation/issues",
-    "source": "https://github.com/kitodo/kitodo-presentation",
+    "issues": "https://github.com/bfallert/kitodo-presentation/issues",
+    "source": "https://github.com/bfallert/kitodo-presentation",
     "docs": "https://docs.typo3.org/p/kitodo/presentation/main/en-us/"
   },
   "require": {
@@ -49,7 +49,7 @@
     "typo3/testing-framework": "^6.16.9"
   },
   "replace": {
-    "typo3-ter/dlf": "self.version"
+    "bfallert/presentation": "@dev"
   },
   "autoload": {
     "psr-4": {
