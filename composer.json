@@ -48,9 +48,6 @@
     "typo3/cms-frontend": "^10.4.37|^11.5.33",
     "typo3/testing-framework": "^6.16.9"
   },
-  "replace": {
-    "bfallert/presentation": "@dev"
-  },
   "autoload": {
     "psr-4": {
       "Kitodo\\Dlf\\": "Classes/"
