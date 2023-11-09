@@ -316,6 +316,7 @@ class ToolboxController extends AbstractController
             $imageArray[0] = $image;
         }
 
+
         if ($this->requestData['double'] == 1) {
             $image = $this->getImage($page + 1);
             if (Helper::filterFilesByMimeType($image, ['image'], true)) {
@@ -661,4 +662,46 @@ class ToolboxController extends AbstractController
         }
         return true;
     }
+    
+    
+    /**
+     * Renders the mets download tool
+     *
+     * @access private
+     *
+     * @return void
+     */
+    private function renderMetsDownloadTool(): void
+    {
+        if (
+            $this->isDocMissingOrEmpty()
+        ) {
+            // Quit without doing anything if required variables are not set.
+            return;
+        }
+
+        $this->setPage();
+
+        $metsArray = [];
+        // Get mets url
+        $metsArray = $this->getMets();
+
+        $this->view->assign('metsDownload', $metsArray);
+    }
+
+    /**
+     * Get mets's URL
+     *
+     * @access private
+     *
+     * @param none
+     *
+     * @return array Array of mets link
+     */
+    private function getMets(): array
+    {
+        $mets['url'] = $this->document->getLocation();
+        return $mets;
+    }
+    
 }
