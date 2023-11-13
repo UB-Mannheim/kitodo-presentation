@@ -263,7 +263,7 @@ class ToolboxController extends AbstractController
                 }
                 break;
             } else {
-                $this->logger->warning('File not found in fileGrp "' . $fileGrp . '"');
+                $this->logger->warning('File not found in fileGrp "' . $fileGrp . '" (getImage) page: "' . $page . '"');
             }
         }
         return $image;
@@ -345,7 +345,7 @@ class ToolboxController extends AbstractController
             empty($firstPageLink)
             && empty($secondPageLink)
         ) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['fileGrpDownload'] . '"');
+            $this->logger->notice('File not found in fileGrps "' . $this->extConf['fileGrpDownload'] . '" (Page Download)');
         }
 
         if (!empty($firstPageLink)) {
@@ -383,7 +383,7 @@ class ToolboxController extends AbstractController
             }
         }
         if (empty($workLink)) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['fileGrpDownload'] . '"');
+            $this->logger->notice('File not found in fileGrps "' . $this->extConf['fileGrpDownload'] . '" (Work Download)');
         }
         return $workLink;
     }
