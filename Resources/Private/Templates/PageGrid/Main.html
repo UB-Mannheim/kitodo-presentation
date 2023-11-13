@@ -11,7 +11,7 @@
 </f:comment>
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
-    <div class="tx-dlf-pagegrid">
+    <div class="tx-dlf-pagegrid ubma-pres">
         <ol class="tx-dlf-pagegrid-list">
             <f:for each="{paginator.paginatedItems}" as="entry" iteration="iterator">
                 <li class="tx-dlf-pagegrid-{entry.state}" value="{entry.page}">
@@ -32,7 +32,7 @@
                                     </f:if>
                                 </f:else>
                             </f:if>
-                            <div class="tx-dlf-pagegrid-pagination">{entry.pagination}</div>
+                            <div class="tx-dlf-pagegrid-pagination">[{entry.page}] {entry.pagination}</div>
                         </f:link.page>
                     </div>
                 </li>
