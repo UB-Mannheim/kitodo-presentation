@@ -54,13 +54,13 @@
         </f:switch>
     </f:for>
 
-        <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
+        <f:if condition="{pagination.nextPageNumberG} && {pagination.nextPageNumberG} <= {pagination.lastPageNumber}">
         <f:then>
             <li class="next">
                     <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.nextPageNumber}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'nextPage')}">&#9654;</f:link.action>
             </li>
             <li class="last">
-                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumber}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')}">&#9654;</f:link.action>
+                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')}">&#9654;</f:link.action>
             </li>
         </f:then>
         <f:else>
