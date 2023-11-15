@@ -54,7 +54,7 @@
         </f:switch>
     </f:for>
 
-        <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
+        <f:if condition="{pagination.nextPageNumberG} && {pagination.nextPageNumberG} <= {pagination.lastPageNumber}">
         <f:then>
             <li class="next">
                     <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.nextPageNumber, 'tx_dlf[id]': docUid}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'nextPage')}">&#9654;</f:link.action>
