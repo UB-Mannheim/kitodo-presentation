@@ -332,10 +332,47 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             //=========================================================
             $firstPage = $pagination->getFirstPageNumber();
             $lastPage = $pagination->getLastPageNumber();
+            $aktPageNumber = $paginator->getCurrentPageNumber();
             
             // for compatibility reasons
+            // for pagination.pagesG
             foreach (range($firstPage, $lastPage) as $i) {
                 $pages[$i] = array('nIndex' => $i, 'startRecordNumber' => $i);
+            };
+            
+            $pagesSect = array();
+            $aRange = array();
+            $nRange = 5;
+
+            // lower limit of the range
+            $nBottom = $aktPageNumber - $nRange;
+            // upper limit of the range
+            $nTop = $aktPageNumber + $nRange;
+            // page range
+            for ($i = $nBottom; $i <= $nTop; $i++) {
+                if ($i > 0 and $i <= $lastPage) { 
+                    array_push($aRange, $i);
+                };
+            };
+            
+
+            // check whether the first screen page is > 1, if yes then points must be added
+            if ($aRange[0] > 1) {
+                array_push($pagesSect, array('nIndex' => '...', 'startRecordNumber' => '...'));
+            };
+            // calculate values for page links within the loop
+            // but this time only max $nRange befor and after the current page
+            // <f:for each="{pagination.pagesR}" as="page">
+            // for compatibility reasons
+            // with range
+            foreach (range($firstPage, $lastPage) as $i) {
+                if (in_array($i, $aRange)) {
+                    array_push($pagesSect, array('nIndex' => $i, 'startRecordNumber' => $i));
+                };
+            };
+            // check whether the last element from $aRange <= last screen page, if yes then points must be added
+            if ($aRange[array_key_last($aRange)] < $lastPage) {
+                array_push($pagesSect, array('nIndex' => '...', 'startRecordNumber' => '...'));
             };
 
             // some variables doubled for compatibility reasons
@@ -351,7 +388,8 @@ abstract class AbstractController extends ActionController implements LoggerAwar
                 'endRecordNumber' => $pagination->getEndRecordNumber(),
                 'currentPageNumber' => $paginator->getCurrentPageNumber(),
                 'pages' => range($firstPage, $lastPage),
-                'pagesG' => range($firstPage, $lastPage)
+                'pagesG' => range($firstPage, $lastPage),
+                'pagesR' => $pagesSect
             ];
 
         } else {
@@ -416,7 +454,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
 
             // calculate values for page links within the loop
             // but this time only max $nRange befor and after the current page
-            // <f:for each="{pagination.pagesG}" as="page">
+            // <f:for each="{pagination.pagesR}" as="page">
             foreach (range($firstPage, $lastPage) as $i) {
                 // calculate startRecordNumber
                 $startRecordNumber = $itemsPerPage * $i;
