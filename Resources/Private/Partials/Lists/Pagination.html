@@ -1,7 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
     <ul class="pagination ubma">
         <f:comment><f:debug>{_all}</f:debug></f:comment>
-<f:debug>{_all}</f:debug>
         <f:comment>show pagination only if pages > 1</f:comment>
         <f:if condition="{pagination.pages -> f:count()} > 1">
             <f:if condition="{pagination.previousPageNumberG} && {pagination.previousPageNumberG} >= {pagination.firstPageNumber}">
@@ -67,7 +66,7 @@
                     <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.nextPageNumber}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'nextPage')}">&#9654;</f:link.action>
             </li>
             <li class="last">
-                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')}">&#9654;</f:link.action>
+                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')} ({pagination.lastPageNumber})">&#9654;</f:link.action>
             </li>
         </f:then>
         <f:else>
