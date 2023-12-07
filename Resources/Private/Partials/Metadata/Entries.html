@@ -35,7 +35,29 @@
 
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
-        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
-        {wrappedValues -> f:format.raw()}
+        <f:comment>check if partOf when </f:comment>
+        <f:if condition="{configObject.indexName} == 'title' || {configObject.indexName} == 'title0'">
+            <f:then>
+                <f:if condition="{documentMetadataSections.0.title.0} == {allYearDocTitle}">
+                    <f:then>
+                        <f:comment>kein PartOfTitel weil identisch</f:comment>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:then>
+                    <f:else>
+                        <f:comment>PartOf liegt vor</f:comment>
+                        <f:comment>ToDo: if possible, this should be created as a link</f:comment>
+                        <div class="maintitle">{allYearDocTitle}</div>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <f:comment>normal metadata</f:comment>
+                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                {wrappedValues -> f:format.raw()}
+            </f:else>
+        </f:if>
     </kitodo:stdWrap>
 </f:if>
