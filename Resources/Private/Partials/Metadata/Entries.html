@@ -19,16 +19,16 @@
 <f:variable name="wrappedValues"><f:spaceless>
     <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.{configObject.indexName}}')}">
         <f:then>
-            <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
-                <f:variable name="buildUrlVariable" value="{buildUrl.{sectionIterator.index}}" />
-                <f:if condition="{buildUrlVariable.{configObject.indexName}}">
-                    <f:then>
-                        <f:render partial="Metadata/LinkEntry" arguments="{_all}"/>
-                    </f:then>
-                    <f:else if="{externalUrlVariable.{configObject.indexName}}">
-                        <f:render partial="Metadata/ExternalLinkEntry" arguments="{_all}"/>
-                    </f:else>
-                    <f:else>
+    <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
+        <f:variable name="buildUrlVariable" value="{buildUrl.{sectionIterator.index}}" />
+        <f:if condition="{buildUrlVariable.{configObject.indexName}}">
+            <f:then>
+                <f:render partial="Metadata/LinkEntry" arguments="{_all}"/>
+            </f:then>
+            <f:else if="{externalUrlVariable.{configObject.indexName}}">
+                <f:render partial="Metadata/ExternalLinkEntry" arguments="{_all}"/>
+            </f:else>
+            <f:else>
                         <f:if condition="{kitodo:isArray(subject: '{value}')}">
                             <f:then>
                                 <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionCObj}">
@@ -52,11 +52,11 @@
                             </f:then>
                             <f:else>
                                 <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionCObj}">{value}</kitodo:stdWrap>
-                            </f:else>
-                        </f:if>
+            </f:else>
+        </f:if>
                     </f:else>
                 </f:if>
-            </f:for>
+    </f:for>
         </f:then>
         <f:else>
             <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionCObj}">{documentMetadataSection.{configObject.indexName}}</kitodo:stdWrap>
@@ -66,7 +66,29 @@
 
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
-        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
-        {wrappedValues -> f:format.raw()}
+        <f:comment>check if partOf when </f:comment>
+        <f:if condition="{configObject.indexName} == 'title' || {configObject.indexName} == 'title0'">
+            <f:then>
+                <f:if condition="{documentMetadataSections.0.title.0} == {allYearDocTitle}">
+                    <f:then>
+                        <f:comment>kein PartOfTitel weil identisch</f:comment>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:then>
+                    <f:else>
+                        <f:comment>PartOf liegt vor</f:comment>
+                        <f:comment>ToDo: if possible, this should be created as a link</f:comment>
+                        <div class="maintitle">{allYearDocTitle}</div>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <f:comment>normal metadata</f:comment>
+                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                {wrappedValues -> f:format.raw()}
+            </f:else>
+        </f:if>
     </kitodo:stdWrap>
 </f:if>
