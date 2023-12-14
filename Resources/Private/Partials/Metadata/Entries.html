@@ -15,7 +15,6 @@
 
 {configObject.wrap -> kitodo:metadataWrapVariable(name: 'metadataWrap')}
 <f:variable name="metaSectionConfigObject" value="{metaConfigObjectData.{sectionIterator.index}}" />
-
 <f:variable name="wrappedValues"><f:spaceless>
     <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
         <f:variable name="buildUrlVariable" value="{buildUrl.{sectionIterator.index}}" />
@@ -47,7 +46,8 @@
                     <f:else>
                         <f:comment>PartOf liegt vor</f:comment>
                         <f:comment>ToDo: if possible, this should be created as a link</f:comment>
-                        <div class="maintitle">{allYearDocTitle}</div>
+
+                        <div class="maintitle">{documentMainTitle}</div>
                         <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                         {wrappedValues -> f:format.raw()}
                     </f:else>
