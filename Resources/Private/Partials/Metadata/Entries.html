@@ -15,7 +15,6 @@
 
 {configObject.wrap -> kitodo:metadataWrapVariable(name: 'metadataWrap')}
 <f:variable name="metaSectionCObj" value="{metaCObjData.{sectionIterator.index}}" />
-
 <f:variable name="wrappedValues"><f:spaceless>
     <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.{configObject.indexName}}')}">
         <f:then>
@@ -78,7 +77,8 @@
                     <f:else>
                         <f:comment>PartOf liegt vor</f:comment>
                         <f:comment>ToDo: if possible, this should be created as a link</f:comment>
-                        <div class="maintitle">{allYearDocTitle}</div>
+
+                        <div class="maintitle">{documentMainTitle}</div>
                         <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                         {wrappedValues -> f:format.raw()}
                     </f:else>
