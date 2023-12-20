@@ -1,6 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
     <ul class="pagination ubma">
         <f:comment><f:debug>{_all}</f:debug></f:comment>
+<f:debug>{_all}</f:debug>
         <f:comment>show pagination only if pages > 1</f:comment>
         <f:if condition="{pagination.pages -> f:count()} > 1">
             <f:if condition="{pagination.previousPageNumberG} && {pagination.previousPageNumberG} >= {pagination.firstPageNumber}">
@@ -25,8 +26,9 @@
         <li>…</li>
     </f:if>
     <f:comment>add pages between first and last page</f:comment>
-    <f:for each="{pagination.pagesG}" as="page">
-        <f:switch expression="{page.label}">
+        <f:for each="{pagination.pagesR}" as="page">
+            <f:comment><f:debug>{pagination}</f:debug></f:comment>
+            <f:switch expression="{page.label}">
             <f:comment>If page 1 is not to be output twice, please remove the comment</f:comment>
             <f:comment>
                 <f:case value="1">
@@ -40,11 +42,20 @@
                 </f:case>
             </f:comment>
             <f:defaultCase>
-                <li class="{f:if(condition: '{page.label} == {paginator.currentPageNumber}', then:'current')}">
-                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': page.startRecordNumber}" arguments="{searchParameter: lastSearch}">{page.label}</f:link.action>
+                    <f:switch expression="{page.label}">
+                        <f:case value="...">
+                            <li class="dots">
+                                <span class="dots">...</span>
+                            </li>
+                        </f:case>
+                        <f:defaultCase>
+                            <li class="{f:if(condition: '{page.label} == {paginator.currentPageNumber}', then:'current')}">
+                                <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': page.startRecordNumber}" arguments="{searchParameter: lastSearch}">{page.label}</f:link.action>
                 </li>
             </f:defaultCase>
         </f:switch>
+                </f:defaultCase>
+            </f:switch>
     </f:for>
     <f:if condition="{pagination.hasMorePages}">
         <li>…</li>
@@ -56,7 +67,7 @@
                     <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.nextPageNumber}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'nextPage')}">&#9654;</f:link.action>
             </li>
             <li class="last">
-                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumber}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')}">&#9654;</f:link.action>
+                    <f:link.action action="{action}" addQueryString="true" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG}" arguments="{searchParameter: lastSearch}" title="{f:translate(key: 'lastPage')}">&#9654;</f:link.action>
             </li>
         </f:then>
         <f:else>
