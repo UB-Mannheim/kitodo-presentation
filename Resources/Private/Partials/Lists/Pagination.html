@@ -1,6 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
     <ul class="pagination ubma">
-    <f:if condition="{pagination.previousPageNumberG} && {pagination.previousPageNumberG} >= {pagination.firstPageNumber}">
+        <f:comment><f:debug>{_all}</f:debug></f:comment>
+        <f:comment>show pagination only if pages > 1</f:comment>
+        <f:if condition="{pagination.pages -> f:count()} > 1">
+            <f:if condition="{pagination.previousPageNumberG} && {pagination.previousPageNumberG} >= {pagination.firstPageNumber}">
         <f:then>
             <li class="first">
                 <f:link.action action="{action}" addQueryString="untrusted" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': 1, 'tx_dlf[id]': docUid}" arguments="{search: lastSearch}" title="1">1</f:link.action>
@@ -11,7 +14,7 @@
         </f:then>
         <f:else>
             <li class="first disabled">
-                <span>1</span>
+                    <span title="{f:translate(key: 'firstPage')}">&#9664;</span>
             </li>
             <li class="previous disabled">
                 <span>{f:translate(key: 'prevPage')}</span>
@@ -50,7 +53,8 @@
             </f:defaultCase>
         </f:switch>
     </f:for>
-    <f:if condition="{pagination.nextPageNumberG} && {pagination.nextPageNumberG} <= {pagination.lastPageNumber}">
+
+        <f:if condition="{pagination.nextPageNumberG} && {pagination.nextPageNumberG} <= {pagination.lastPageNumber}">
         <f:then>
             <li class="next">
                 <f:link.action action="{action}" addQueryString="untrusted" argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}" additionalParams="{'tx_dlf[page]': pagination.nextPageNumber, 'tx_dlf[id]': docUid}" arguments="{search: lastSearch}" title="{f:translate(key: 'nextPage')}">{f:translate(key: 'nextPage')}</f:link.action>
@@ -64,9 +68,10 @@
                 <span>{f:translate(key: 'nextPage')}</span>
             </li>
             <li class="last disabled">
-                <span>{pagination.lastPageNumber}</span>
+                    <span title="{f:translate(key: 'lastPage')}">&#9654;</span>
             </li>
         </f:else>
+    </f:if>
     </f:if>
 </ul>
 
