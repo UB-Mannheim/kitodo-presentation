@@ -83,6 +83,11 @@ final class PageGridPagination implements PaginationInterface
         return $this->paginator->getKeyOfLastPaginatedItem() + 1;
     }
 
+    public function getItemsPerPage(): int
+    {
+        return $this->paginator->getPublicItemsPerPage();
+    }
+
     /**
      * @return int[]
      */
