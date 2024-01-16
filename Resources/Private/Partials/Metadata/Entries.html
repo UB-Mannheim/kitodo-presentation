@@ -32,6 +32,7 @@
     </f:for>
 </f:spaceless></f:variable>
 
+<f:comment><f:debug>{metaSectionCObj}</f:debug></f:comment>
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
         <f:comment>check if partOf when </f:comment>
@@ -57,6 +58,27 @@
                 <f:comment>normal metadata</f:comment>
                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                 {wrappedValues -> f:format.raw()}
+                <f:if condition="{configObject.indexName} == 'date'">
+                    <f:then>
+                        <f:if condition="{metaSectionConfigObject.date} == {metaSectionConfigObject.year}">
+                            <f:then>
+                                <f:comment>
+                                    <f:debug>{metaSectionConfigObject.date}</f:debug>
+                                    <f:debug>{metaSectionConfigObject.year}</f:debug>
+                                </f:comment>
+                            </f:then>
+                            <f:else>
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                {wrappedValues -> f:format.raw()}
+                            </f:else>
+                        </f:if>
+                        
+                    </f:then>
+                    <f:else>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:else>
+                </f:if>
             </f:else>
         </f:if>
     </kitodo:stdWrap>
