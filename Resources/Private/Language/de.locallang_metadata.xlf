@@ -129,6 +129,14 @@
                 <source><![CDATA[Year of Publication]]></source>
                 <target><![CDATA[Erscheinungsjahr]]></target>
             </trans-unit>
+            <trans-unit id="metadata.branchindustry" approved="yes">
+                <source><![CDATA[Industry]]></source>
+                <target><![CDATA[Branche]]></target>
+            </trans-unit>
+            <trans-unit id="metadata.EditorCorporate" approved="yes">
+                <source><![CDATA[Institution]]></source>
+                <target><![CDATA[Körperschaft]]></target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
