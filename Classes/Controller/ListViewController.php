@@ -36,7 +36,7 @@ class ListViewController extends AbstractController
      * @access public
      *
      * @param CollectionRepository $collectionRepository
-     * 
+     *
      * @return void
      */
     public function injectCollectionRepository(CollectionRepository $collectionRepository): void
@@ -123,6 +123,6 @@ class ListViewController extends AbstractController
         $this->view->assign('lastSearch', $this->searchParams);
         $this->view->assign('sortableMetadata', $sortableMetadata);
         $this->view->assign('listedMetadata', $listedMetadata);
-        $this->view->assign('currentCollection', $collection);
+        $this->view->assign('currentCollection', $collections);
     }
 }
