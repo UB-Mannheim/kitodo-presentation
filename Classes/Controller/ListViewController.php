@@ -36,7 +36,7 @@ class ListViewController extends AbstractController
      * @access public
      *
      * @param CollectionRepository $collectionRepository
-     * 
+     *
      * @return void
      */
     public function injectCollectionRepository(CollectionRepository $collectionRepository): void
