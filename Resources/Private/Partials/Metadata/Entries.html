@@ -19,6 +19,7 @@
     <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.{configObject.indexName}}')}">
         <f:then>
     <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
+        <f:comment><f:debug>{configObject.indexName}</f:debug></f:comment>
         <f:variable name="buildUrlVariable" value="{buildUrl.{sectionIterator.index}}" />
         <f:if condition="{buildUrlVariable.{configObject.indexName}}">
             <f:then>
@@ -64,6 +65,8 @@
 </f:spaceless></f:variable>
 
 <f:comment><f:debug>{metaSectionCObj}</f:debug></f:comment>
+<f:comment><f:debug>{metaSectionConfigObject}</f:debug></f:comment>
+<f:comment><f:debug>{configObject}</f:debug></f:comment>
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
         <f:comment>check if partOf when </f:comment>
@@ -87,27 +90,37 @@
             </f:then>
             <f:else>
                 <f:comment>normal metadata</f:comment>
-                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
-                {wrappedValues -> f:format.raw()}
+                <f:comment>
+                    <!-- 62 {configObject.indexName } -->
+                    <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                    {wrappedValues -> f:format.raw()}
+                </f:comment>
                 <f:if condition="{configObject.indexName} == 'date'">
                     <f:then>
-                        <f:if condition="{metaSectionConfigObject.date} == {metaSectionConfigObject.year}">
+                        <f:if condition="{metaSectionCObj.date} == {metaSectionCObj.year}">
                             <f:then>
                                 <f:comment>
-                                    <f:debug>{metaSectionConfigObject.date}</f:debug>
-                                    <f:debug>{metaSectionConfigObject.year}</f:debug>
+                                    <f:debug>{metaSectionCObj.date}</f:debug>
+                                    <f:debug>{metaSectionCObj.year}</f:debug>
                                 </f:comment>
                             </f:then>
                             <f:else>
-                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                <!-- 75 {configObject.indexName } -->
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                                 {wrappedValues -> f:format.raw()}
                             </f:else>
                         </f:if>
                         
                     </f:then>
                     <f:else>
-                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
-                        {wrappedValues -> f:format.raw()}
+                        <f:if condition="{configObject.indexName} != 'mets'">
+                            <f:then>
+                                <f:comment>mets sollen nicht ausgegeben werden</f:comment>
+                                <!-- 83 {configObject.indexName } -->
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                {wrappedValues -> f:format.raw()}
+                            </f:then>
+                        </f:if>
                     </f:else>
                 </f:if>
             </f:else>
