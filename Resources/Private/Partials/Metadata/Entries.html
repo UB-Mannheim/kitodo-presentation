@@ -64,7 +64,7 @@
                     <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                     {wrappedValues -> f:format.raw()}
                 </f:comment>
-                <f:if condition="{configObject.indexName} == 'date'">
+                <f:if condition="{configObject.indexName} == 'date' || {configObject.indexName} == 'date0'">
                     <f:then>
                         <f:if condition="{metaSectionConfigObject.date} == {metaSectionConfigObject.year}">
                             <f:then>
@@ -82,7 +82,7 @@
                         
                     </f:then>
                     <f:else>
-                        <f:if condition="{configObject.indexName} != 'mets'">
+                        <f:if condition="{configObject.indexName} != 'mets' || {configObject.indexName} == 'mets0'">
                             <f:then>
                                 <f:comment>mets sollen nicht ausgegeben werden</f:comment>
                                 <!-- 83 {configObject.indexName } -->
