@@ -196,8 +196,9 @@ class BaseCommand extends Command
      *
      * @return bool true on success, false otherwise
      */
-    protected function saveToDatabase(Document $document): bool
+    protected function saveToDatabase(Document $document, $md): bool
     {
+        $md->print("BaseCommand::saveToDatabase");
         $doc = $document->getCurrentDocument();
         if ($doc === null) {
             return false;
@@ -208,6 +209,7 @@ class BaseCommand extends Command
         $metadata = $doc->getToplevelMetadata($this->storagePid);
 
         // set title data
+        $md->print(__FILE__ . ':' . __LINE__);
         $document->setTitle($metadata['title'][0] ? : '');
         $document->setTitleSorting($metadata['title_sorting'][0]);
         $document->setPlace(implode('; ', $metadata['place']));
@@ -223,6 +225,7 @@ class BaseCommand extends Command
         $document->setMetsLabel($metadata['mets_label'][0] ? : '');
         $document->setMetsOrderlabel($metadata['mets_orderlabel'][0] ? : '');
 
+        $md->print(__FILE__ . ':' . __LINE__);
         $structure = $this->structureRepository->findOneByIndexName($metadata['type'][0]);
         $document->setStructure($structure);
 
@@ -231,6 +234,7 @@ class BaseCommand extends Command
         }
 
         // set identifiers
+        $md->print(__FILE__ . ':' . __LINE__);
         $document->setProdId($metadata['prod_id'][0] ? : '');
         $document->setOpacId($metadata['opac_id'][0] ? : '');
         $document->setUnionId($metadata['union_id'][0] ? : '');
@@ -257,7 +261,7 @@ class BaseCommand extends Command
 
         // Get UID of parent document.
         if ($document->getDocumentFormat() === 'METS') {
-            $document->setPartof($this->getParentDocumentUidForSaving($document));
+            $document->setPartof($this->getParentDocumentUidForSaving($document, $md));
         }
 
         if ($document->getUid() === null) {
@@ -268,7 +272,9 @@ class BaseCommand extends Command
             $this->documentRepository->update($document);
         }
 
+        $md->print(__FILE__ . ':' . __LINE__);
         $persistenceManager->persistAll();
+        $md->print(__FILE__ . ':' . __LINE__);
 
         return true;
     }
@@ -283,7 +289,7 @@ class BaseCommand extends Command
      *
      * @return int The parent document's id.
      */
-    protected function getParentDocumentUidForSaving(Document $document): int
+    protected function getParentDocumentUidForSaving(Document $document, $md): int
     {
         $doc = $document->getCurrentDocument();
 
@@ -304,11 +310,11 @@ class BaseCommand extends Command
                 $parentDocument->setLocation($doc->parentHref);
                 $parentDocument->setSolrcore($document->getSolrcore());
 
-                $success = $this->saveToDatabase($parentDocument);
+                $success = $this->saveToDatabase($parentDocument, $md);
 
                 if ($success === true) {
                     // add to index
-                    Indexer::add($parentDocument, $this->documentRepository);
+                    Indexer::add($parentDocument, $this->documentRepository, $md);
                     return $parentDocument->getUid();
                 }
             }
