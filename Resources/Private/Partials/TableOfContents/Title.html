@@ -15,12 +15,18 @@
 <span class="tx-dlf-toc-title">
     <f:if condition="{child.title}">
         <f:then>
+            <f:comment>nicht sicher ob das sinnvoll oder gewünscht ist. Das gibt z.B. "Zeitschrift Alphabetisches Gemeindeverzeichnis f..." aus</f:comment>
+            <f:comment>Abschnitt aus dfg-viewer übernommen</f:comment>
+            <span class="meta-type-icon meta-type-{child.type} c1">{child.type}</span>
             <f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{child.title}</f:format.htmlspecialchars></f:format.crop>
         </f:then>
         <f:else>
+            <f:comment>nicht sicher ob das sinnvoll oder gewünscht ist. Das gibt z.B. "Zeitschrift Alphabetisches Gemeindeverzeichnis f..." aus</f:comment>
+            <f:comment>Abschnitt aus dfg-viewer übernommen</f:comment>
+            <span class="meta-type-icon meta-type-{child.type} c2">{child.type}</span>
             <f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{child.type}</f:format.htmlspecialchars><f:if condition="{child.volume}"> &nbsp;<f:format.htmlspecialchars doubleEncode="false">{child.volume}</f:format.htmlspecialchars></f:if></f:format.crop>
         </f:else>
     </f:if>
 </span>
 
-<span class="tx-dlf-toc-pagination"><f:format.htmlspecialchars doubleEncode="false">{child.pagination}</f:format.htmlspecialchars></span>
+<span class="tx-dlf-toc-pagination pagination"><f:format.htmlspecialchars doubleEncode="false">{child.pagination}</f:format.htmlspecialchars></span>
