@@ -12,44 +12,75 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:comment><f:debug>{_all}</f:debug></f:comment>
 <f:for each="{children}" as="child">
+    <f:variable name="nIndex" value="{nIndex + 1}" />
     <f:switch expression="{child.ITEM_STATE}">
         <f:case value="ACT">
-            <li class="tx-dlf-toc-act">
+            <li class="tx-dlf-toc-act active">
         </f:case>
         <f:case value="CUR">
-            <li class="tx-dlf-toc-cur">
+            <li class="tx-dlf-toc-cur current">
         </f:case>
         <f:case value="ACTIFSUB">
-            <li class="tx-dlf-toc-act tx-dlf-toc-ifsub">
+            <f:if condition="{child.doNotLinkIt}">
+                <f:then>
+                    <li class="tx-dlf-toc-act tx-dlf-toc-ifsub active submenu doNotLinkIt">
+                </f:then>
+                <f:else>
+                    <li class="tx-dlf-toc-act tx-dlf-toc-ifsub active submenu">
+                </f:else>
+            </f:if>
         </f:case>
         <f:case value="CURIFSUB">
-            <li class="tx-dlf-toc-cur tx-dlf-toc-ifsub">
+            <li class="tx-dlf-toc-cur tx-dlf-toc-ifsub current submenu">
         </f:case>
         <f:case value="IFSUB">
-            <li class="tx-dlf-toc-no tx-dlf-toc-ifsub">
+            <f:if condition="{child.doNotLinkIt}">
+                <f:then>
+                    <li class="tx-dlf-toc-no tx-dlf-toc-ifsub submenu doNotLinkIt">
+                </f:then>
+                <f:else>
+                    <li class="tx-dlf-toc-no tx-dlf-toc-ifsub submenu">
+                </f:else>
+            </f:if>
         </f:case>
         <f:defaultCase>
-            <li class="tx-dlf-toc-no">
+            <li class="tx-dlf-toc-no default">
         </f:defaultCase>
     </f:switch>
 
     <f:if condition="{child.doNotLinkIt}">
         <f:then>
-            <span class="a">
+            <span class="a doNotLinkIt">
                 <f:render partial="TableOfContents/Title" arguments="{child: child}"/>
             </span>
         </f:then>
         <f:else>
-            <f:link.action
-                action="main"
-                pageUid="{settings.targetPid}"
+            <f:comment>
+                there is a mistake with newspaper issues
                 additionalParams="{f:if(condition:'{child.id}', then:'{\'tx_dlf[id]\':child.id, \'tx_dlf[page]\':child.page}', else: '{\'tx_dlf[page]\':child.page}')}"
+                if this part is omitted from newspapers, everything seems to work. Otherwise an oop error is displayed. The cause could possibley be a
+                problem with the child.id, which in my first test case is a URL and not a number.
+                At the moment the error does not occur because i have commented out settings in config.yaml
+            </f:comment>
+            <f:if condition="{child.ITEM_STATE} == 'ACTIFSUB' && ({child.type} == 'Zeitung' || {child.type} == 'Newspaper')">
+                <f:then>
+                    <f:comment><f:debug>{_all}</f:debug></f:comment>
+                </f:then>
+                <f:else>
+                    <f:link.action
+                        action="main"
+                        pageUid="{settings.targetPid}"
+                        additionalParams="{f:if(condition:'{child.id}', then:'{\'tx_dlf[id]\':child.id, \'tx_dlf[page]\':child.page}', else: '{\'tx_dlf[page]\':child.page}')}"
                 argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[measure]'}"
-                addQueryString="1"
-                title="{f:if(condition:'{child.title}', then: '{child.title}', else: '{child.type}')}">
-                    <f:render partial="TableOfContents/Title" arguments="{child: child}"/>
-            </f:link.action>
+                        addQueryString="1"
+                        addQueryStringMethod="GET"
+                        title="{f:if(condition:'{child.title}', then: '{child.title}', else: '{child.type}')}">
+                            <f:render partial="TableOfContents/Title" arguments="{child: child}"/>
+                    </f:link.action>
+                </f:else>
+            </f:if>
         </f:else>
     </f:if>
 
@@ -67,7 +98,15 @@
     </f:if>
 
     <f:if condition="{child._SUB_MENU} && ({child.ITEM_STATE} == 'IFSUB' || {child.ITEM_STATE} == 'ACTIFSUB' || {child.ITEM_STATE} == 'CURIFSUB')">
-        <ul>
+        <f:if condition="{child.doNotLinkIt}">
+            <f:then>
+                <ul class="doNotLinkIt">
+            </f:then>
+            <f:else>
+                <f:comment><f:debug>{_all}</f:debug></f:comment>
+                <ul class="normal">
+            </f:else>
+        </f:if>
             <f:render partial="TableOfContents/Children" arguments="{children: child._SUB_MENU}"/>
         </ul>
     </f:if>
