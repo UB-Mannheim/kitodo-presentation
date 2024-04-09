@@ -141,7 +141,9 @@ class CollectionController extends AbstractController
             $this->redirect('main', 'ListView', null,
                 [
                     'searchParameter' => $searchParams,
-                    'page' => $currentPage
+		    // removes unnecessary parameter tx_dlf_listview[page]
+		    // it is always 1 and has no function
+                    //'page' => $currentPage
                 ], $this->settings['targetPid']
             );
         }
