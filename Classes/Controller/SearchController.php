@@ -158,7 +158,9 @@ class SearchController extends AbstractController
                 null,
                 [
                     'searchParameter' => $this->searchParams,
-                    'page' => $currentPage
+		    // removes unnecessary parameter tx_dlf_listview[page]
+		    // it is always 1 and has no function
+                    //'page' => $currentPage
                 ], $this->settings['targetPid']
             );
         }
@@ -195,7 +197,7 @@ class SearchController extends AbstractController
 
             $this->view->assign('documents', !empty($solrResults) ? $solrResults : []);
             $this->view->assign('numResults', $numResults);
-            $this->view->assign('page', $currentPage);
+            $this->view->assign('pageA', $currentPage);
             $this->view->assign('lastSearch', $this->searchParams);
             $this->view->assign('listedMetadata', $listedMetadata);
             $this->view->assign('sortableMetadata', $sortableMetadata);
