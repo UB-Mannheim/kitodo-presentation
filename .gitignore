@@ -17,3 +17,6 @@
 /var/
 /vendor/
 *.__php__
+*._js_
+__FulltextControl.js
+ddb_kitodo_zeitungsportal_FulltextControl.js
