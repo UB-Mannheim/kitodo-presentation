@@ -13,7 +13,7 @@
       data-namespace-typo3-fluid="true">
 
 <f:comment><f:debug>{_all}</f:debug></f:comment>
-<div class="tx-dlf-tableofcontents">
+<div class="tx-dlf-tableofcontents pres">
     <ul class="toc{f:if(condition: '{{toc.0.type} == "Zeitung" || {toc.0.type} == "Newspaper")', then:' newspaper', else: '')}">
         <f:render partial="TableOfContents/Children" arguments="{children: toc}"/>
     </ul>
