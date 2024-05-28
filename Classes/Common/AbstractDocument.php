@@ -797,6 +797,67 @@ abstract class AbstractDocument
         }
         return $title;
     }
+    
+    /**
+     * This determines a title for the given document
+     *
+     * @access public
+     *
+     * @static
+     *
+     * @param int $uid The UID of the document
+     * @param bool $recursive Search superior documents for a title, too?
+     *
+     * @return int The title of the document itself or a parent document
+     */
+    public static function getPartOf(int $uid, bool $recursive = false): int
+    {
+        $partof = '0';
+        $partofpartof = '0';
+        // Sanitize input.
+        $uid = max($uid, 0);
+        if ($uid) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable('tx_dlf_documents');
+
+            $result = $queryBuilder
+                ->select(
+                    'tx_dlf_documents.title',
+                    'tx_dlf_documents.partof'
+                )
+                ->from('tx_dlf_documents')
+                ->where(
+                    $queryBuilder->expr()->eq('tx_dlf_documents.uid', $uid),
+                    Helper::whereExpression('tx_dlf_documents')
+                )
+                ->setMaxResults(1)
+                ->execute();
+
+            $resArray = $result->fetchAssociative();
+            if ($resArray) {
+                // Get title information.
+                $title = $resArray['title'];
+                if ($resArray['partof'] > 0) {
+                    $partof = $resArray['partof'];
+                    // Search parent documents recursively for a partof?
+                    if (
+                        $recursive
+                        && (int) $partof
+                        && $partof != 0
+                        && $partofpartof  != 0
+                    ) {
+                        $partofpartof = self::getPartOf($partof, true);
+                    }
+                }
+            } else {
+                Helper::log('No document with UID ' . $uid . ' found or document not accessible', LOG_SEVERITY_WARNING);
+            }
+        } else {
+            Helper::log('Invalid UID ' . $uid . ' for document', LOG_SEVERITY_ERROR);
+        }
+        return $partof;
+    }
+    
 
     /**
      * This extracts all the metadata for the toplevel logical structure node / resource
