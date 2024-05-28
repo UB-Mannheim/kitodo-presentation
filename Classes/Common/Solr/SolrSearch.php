@@ -234,6 +234,14 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                     $document['title'] = '[' . $superiorTitle . ']';
                 }
             }
+	    # get title of parent if partOf
+	    # if issue its only year
+            if ($document['partOf'] > 0) {
+                $superiorTitle = AbstractDocument::getTitle($document['partOf'], true);
+                if (!empty($superiorTitle)) {
+                    $document['partOfTitle'] = '[' . $superiorTitle . ']';
+                }
+            }
         }
 
         return $document;
