@@ -240,6 +240,15 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                 $superiorTitle = AbstractDocument::getTitle($document['partOf'], true);
                 if (!empty($superiorTitle)) {
                     $document['partOfTitle'] = '[' . $superiorTitle . ']';
+		    
+		    #$metaPartOfPartOf = AbstractDocument::getToplevelMetadata($document['partOf']);
+		    $partOfPartOf = AbstractDocument::getPartOf($document['partOf'], true);
+		    #var_dump("in SolrSearch:<br/>");
+		    #var_dump($partOfPartOf);
+		    #var_dump("<br/>");
+		    $document['partOfP'] = $partOfPartOf;
+		    $superiorTitleP = AbstractDocument::getTitle($partOfPartOf, true);
+		    $document['partOfPT'] = '[' . $superiorTitleP . ']'; 
                 }
             }
         }
