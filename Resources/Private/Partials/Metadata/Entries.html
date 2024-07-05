@@ -113,14 +113,20 @@
                         
                     </f:then>
                     <f:else>
-                        <f:if condition="{configObject.indexName} != 'mets'">
-                            <f:then>
+                        <f:switch expression="{configObject.indexName}">
+                            <f:case value="mets">
                                 <f:comment>mets sollen nicht ausgegeben werden</f:comment>
+                            </f:case>
+                            <f:case value="prod_id">
+                                <f:comment>prod_id sollen nicht ausgegeben werden</f:comment>
+                                <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
+                            </f:case>
+                            <f:defaultCase>
                                 <!-- 83 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                                 {wrappedValues -> f:format.raw()}
-                            </f:then>
-                        </f:if>
+                            </f:defaultCase>
+                        </f:switch>                 <f:comment>expression="{configObject.indexName}"></f:comment>
                     </f:else>
                 </f:if>
             </f:else>
