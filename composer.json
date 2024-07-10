@@ -112,9 +112,9 @@
 		"docker stop dlf_docs"
 	],
 	"docs:rebuild": [
-	  	"@composer docs:stop",
-	  	"@composer docs:build",
-	  	"@composer docs:start"
+	  "@composer docs:stop",
+	  "@composer docs:build",
+	  "@composer docs:start"
 	],
 	"phpstan": [
 		"@php vendor/bin/phpstan --configuration=\".github/phpstan_13.4.neon\""
