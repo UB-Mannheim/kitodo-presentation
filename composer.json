@@ -36,9 +36,9 @@
     "typo3/cms-extbase": "^10.4.37|^11.5.40",
     "typo3/cms-scheduler" : "^10.4.37|^11.5.40",
     "typo3/cms-tstemplate": "^10.4.37|^11.5.40",
-    "caseyamcl/phpoaipmh": "^3.3",
-    "slub/php-mods-reader": "^0.4",
-    "ubl/php-iiif-prezi-reader": "0.3",
+    "caseyamcl/phpoaipmh": "^3.3.1",
+    "slub/php-mods-reader": "@dev",
+    "ubl/php-iiif-prezi-reader": "0.3.0",
     "solarium/solarium": "5.2 - 6.3",
 	"symfony/process": "^5.4"
   },
@@ -112,9 +112,9 @@
 		"docker stop dlf_docs"
 	],
 	"docs:rebuild": [
-	  	"@composer docs:stop",
-	  	"@composer docs:build",
-	  	"@composer docs:start"
+	  "@composer docs:stop",
+	  "@composer docs:build",
+	  "@composer docs:start"
 	],
 	"phpstan": [
 		"@php vendor/bin/phpstan --configuration=\".github/phpstan.neon\""
