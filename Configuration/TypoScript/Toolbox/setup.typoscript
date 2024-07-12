@@ -10,7 +10,7 @@ plugin.tx_dlf_fulltexttool {
 plugin.tx_dlf_searchindocumenttool {
     settings {
         tools = searchindocumenttool
-        searchUrl =
+        searchUrl = https://playground.bib.uni-mannheim.de
         documentIdUrlSchema =
         idInputName = tx_dlf[id]
         pidInputName = tx_dlf[pid]
