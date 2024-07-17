@@ -1,8 +1,8 @@
 {
-  "name": "bfallert/presentation",
+  "name": "ub-mannheim/presentation",
   "description": "Base plugins, modules, services and API of the Digital Library Framework. It is part of the community-based Kitodo Digitization Suite.",
   "type": "typo3-cms-extension",
-  "homepage": "https://github.com/BFallert/kitodo-presentation.git",
+  "homepage": "https://github.com/UB-Mannheim/kitodo-presentation.git",
   "readme": "README.md",
   "license": ["GPL-3.0-or-later"],
   "authors": [
@@ -20,8 +20,8 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/bfallert/kitodo-presentation/issues",
-    "source": "https://github.com/bfallert/kitodo-presentation",
+    "issues": "https://github.com/UB-Mannheim/kitodo-presentation/issues",
+    "source": "https://github.com/UB-Mannheim/kitodo-presentation",
     "docs": "https://docs.typo3.org/p/kitodo/presentation/main/en-us/"
   },
   "require": {
