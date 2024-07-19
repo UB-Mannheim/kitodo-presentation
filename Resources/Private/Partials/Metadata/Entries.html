@@ -19,7 +19,10 @@
     <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.{configObject.indexName}}')}">
         <f:then>
     <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
-        <f:comment><f:debug>{configObject.indexName}</f:debug></f:comment>
+        <f:comment>
+		<f:debug>{configObject.indexName}</f:debug>
+		<f:debug>{value}</f:debug>
+	</f:comment>
         <f:variable name="buildUrlVariable" value="{buildUrl.{sectionIterator.index}}" />
         <f:if condition="{buildUrlVariable.{configObject.indexName}}">
             <f:then>
@@ -63,6 +66,21 @@
         </f:else>
     </f:if>
 </f:spaceless></f:variable>
+
+<f:variable name="oriValues"><f:spaceless>
+    <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
+        <f:comment>
+        <f:debug>{configObject.indexName}</f:debug>
+        <f:debug>{value}</f:debug>
+	</f:comment>
+        <f:if condition="{configObject.indexName} == 'collection'">
+            <f:then>
+                {value}
+            </f:then>
+        </f:if>
+    </f:for>
+</f:spaceless></f:variable>
+
 
 <f:comment><f:debug>{metaSectionCObj}</f:debug></f:comment>
 <f:comment><f:debug>{metaSectionConfigObject}</f:debug></f:comment>
@@ -121,8 +139,100 @@
                                 <f:comment>prod_id sollen nicht ausgegeben werden</f:comment>
                                 <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
                             </f:case>
+                            <f:case value="collection">
+                                <f:comment>collection muss anders behandelt werden</f:comment>
+                                <!-- 95 {configObject.indexName } -->
+				   <f:comment>
+					<f:debug>{configObject}</f:debug>
+					<f:debug>{wrappedValues -> f:format.raw()}</f:debug>
+					<f:debug>{oriValues}</f:debug>
+				   </f:comment>
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
+					<f:variable name="basepath" value="/sammlungen/historische/cd/" />
+					<f:variable name="basepathWirtschafts" value="/sammlungen/wirtschaftswissenschaftliche/" />
+					<f:switch expression="{oriValues}">
+
+						<f:case value="Aktienführer & Saling's Börsenpapiere">
+							<dd><a href="{basepathWirtschafts}aktienfuehrer/cd/aktienfuehrer" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Hoppenstedt">
+							<dd><a href="{basepathWirtschafts}hoppenstedt/cd/hoppenstedt" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Geschäftsberichte">
+							<dd><a href="{basepathWirtschafts}geschaeftsberichte/cd/geschaeftsberichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Deutsche Statistische Jahrbücher">
+							<dd><a href="{basepathWirtschafts}deutsche-statistische-jahrbuecher/cd/statistische-jahrbuecher" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Gemeindeverzeichnisse">
+							<dd><a href="{basepathWirtschafts}gemeindeverzeichnisse/cd/gemeindeverzeichnisse" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+
+
+						<f:case value="Europäische Rechtsgeschichte">
+							<dd><a href="{basepath}europaeische-rechtsgeschichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Lesegesellschaft Harmonie">
+							<dd><a href="{basepath}lesegesellschaft-harmonie" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Nachlass Desbillons">
+							<dd><a href="{basepath}nachlass-desbillons" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Sammlung Naturkunde">
+							<dd><a href="{basepath}sammlung-naturkunde" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Städtische Schlossbücherei">
+							<dd><a href="{basepath}staedtische-schlossbuecherei" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+
+						<f:case value="Handschriften">
+							<dd><a href="{basepath}handschriften" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Mannheimer Hofbibliothek">
+							<dd><a href="{basepath}mannheimer-hofbibliothek" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Sammlung Desbillons">
+							<dd><a href="{basepath}sammlung-desbillons" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Sammlung Weickum">
+							<dd><a href="{basepath}sammlung-weickum" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Eingeschränkter Zugang">
+							<dd><a href="{basepath}restricted" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Historische Zeitungen">
+							<dd><a href="{basepath}zeitungen" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Jesuitenkolleg">
+							<dd><a href="{basepath}jesuitenkolleg" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Mannheimensien">
+							<dd><a href="{basepath}mannheimensien" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Nachlass Otto Selz">
+							<dd><a href="{basepath}nachlass-otto-selz" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Sammlung Mammelsdorf">
+							<dd><a href="{basepath}sammlung-mammelsdorf" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Sekundärliteratur">
+							<dd><a href="{basepath}sekundaerliteratur" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Varia">
+							<dd><a href="{basepath}varia" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+						<f:case value="Wissenschaftliche Stadtbibliothek">
+							<dd><a href="{basepath}wissenschaftliche-stadtbibliothek" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+						</f:case>
+
+						<f:defaultCase>
+							{wrappedValues -> f:format.raw()}
+						</f:defaultCase>
+					</f:switch>                 <f:comment>expression="{oriValues}"></f:comment>
+                            </f:case>
                             <f:defaultCase>
-                                <!-- 83 {configObject.indexName } -->
+                                <!-- 100 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                                 {wrappedValues -> f:format.raw()}
                             </f:defaultCase>
