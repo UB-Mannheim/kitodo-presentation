@@ -13,6 +13,7 @@
       xmlns:kitodo="http://typo3.org/ns/Kitodo/Dlf/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<!-- presentation Resources/Private/Partials/Metadata -->
 {configObject.wrap -> kitodo:metadataWrapVariable(name: 'metadataWrap')}
 <f:variable name="metaSectionConfigObject" value="{metaConfigObjectData.{sectionIterator.index}}" />
 <f:variable name="wrappedValues"><f:spaceless>
@@ -119,25 +120,27 @@
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                                 <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
 
-                                <f:variable name="basepath" value="/sammlungen/historische/cd/" />
-                                <f:variable name="basepathWirtschafts" value="/sammlungen/wirtschaftswissenschaftliche/" />
+                                <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
+                                <f:variable name="basepath" value="/sammlungen/" />
+                                <f:comment> Wird nicht mehr verwendet</f:comment>
+                                <f:comment><f:variable name="basepathWirtschafts" value="/sammlungen/wirtschaftswissenschaftliche/" /></f:comment>
 
                                 <f:switch expression="{oriValues}">
 
                                     <f:case value="Aktienführer & Saling's Börsenpapiere">
-                                        <dd><a href="{basepathWirtschafts}aktienfuehrer/cd/aktienfuehrer" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="/aktienfuehrer/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
                                     </f:case>
                                     <f:case value="Hoppenstedt">
-                                        <dd><a href="{basepathWirtschafts}hoppenstedt/cd/hoppenstedt" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="/hoppenstedt/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
                                     </f:case>
                                     <f:case value="Geschäftsberichte">
-                                        <dd><a href="{basepathWirtschafts}geschaeftsberichte/cd/geschaeftsberichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}geschaeftsberichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
                                     </f:case>
                                     <f:case value="Deutsche Statistische Jahrbücher">
-                                        <dd><a href="{basepathWirtschafts}deutsche-statistische-jahrbuecher/cd/statistische-jahrbuecher" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="/deutsche-statistische-jahrbuecher/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
                                     </f:case>
                                     <f:case value="Gemeindeverzeichnisse">
-                                        <dd><a href="{basepathWirtschafts}gemeindeverzeichnisse/cd/gemeindeverzeichnisse" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}gemeindeverzeichnisse" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
                                     </f:case>
 
                                     <f:case value="Europäische Rechtsgeschichte">
