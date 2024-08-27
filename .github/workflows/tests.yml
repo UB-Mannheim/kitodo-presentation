@@ -2,12 +2,13 @@ name: Unit and Functional Testing
 
 on:
   push:
-    branches: [ "master", "4.x-ocr" ]
+    branches: [ "5.x-ocr" ]
   pull_request:
-    branches: [ "master", "4.x-ocr" ]
+    branches: [ "5.x-ocr" ]
 
 jobs:
   test:
+    name: TYPO3
     runs-on: ubuntu-latest
     strategy:
       matrix:

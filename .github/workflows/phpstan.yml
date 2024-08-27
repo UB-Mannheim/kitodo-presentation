@@ -2,12 +2,13 @@ name: PHPStan
 
 on:
     push:
-      branches: [ "master" ]
+      branches: [ "5.x" ]
     pull_request:
-      branches: [ "master" ]
+      branches: [ "5.x" ]
 
 jobs:
   phpstan:
+    name: Static Code Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

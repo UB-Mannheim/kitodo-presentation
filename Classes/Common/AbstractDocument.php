@@ -213,13 +213,6 @@ abstract class AbstractDocument
 
     /**
      * @access protected
-     * @static
-     * @var array (AbstractDocument) This holds the singleton object of the document
-     */
-    protected static array $registry = [];
-
-    /**
-     * @access protected
      * @var int This holds the UID of the root document or zero if not multi-volumed
      */
     protected int $rootId = 0;
@@ -569,8 +562,8 @@ abstract class AbstractDocument
                     $contentAsJsonArray = json_decode($content, true);
                     if ($contentAsJsonArray !== null) {
                         IiifHelper::setUrlReader(IiifUrlReader::getInstance());
-                        IiifHelper::setMaxThumbnailHeight($extConf['iiifThumbnailHeight']);
-                        IiifHelper::setMaxThumbnailWidth($extConf['iiifThumbnailWidth']);
+                        IiifHelper::setMaxThumbnailHeight($extConf['iiif']['thumbnailHeight']);
+                        IiifHelper::setMaxThumbnailWidth($extConf['iiif']['thumbnailWidth']);
                         $iiif = IiifHelper::loadIiifResource($contentAsJsonArray);
                         if ($iiif instanceof IiifResourceInterface) {
                             $documentFormat = 'IIIF';
@@ -581,7 +574,7 @@ abstract class AbstractDocument
         }
 
         // Sanitize input.
-        $pid = max((int) $settings['storagePid'], 0);
+        $pid = array_key_exists('storagePid', $settings) ? max((int) $settings['storagePid'], 0) : 0;
         if ($documentFormat == 'METS') {
             $instance = new MetsDocument($pid, $location, $xml, $settings);
         } elseif ($documentFormat == 'IIIF') {
@@ -598,7 +591,7 @@ abstract class AbstractDocument
     }
 
     /**
-     * This clears the static registry to prevent memory exhaustion
+     * Clear document cache.
      *
      * @access public
      *
@@ -606,10 +599,10 @@ abstract class AbstractDocument
      *
      * @return void
      */
-    public static function clearRegistry(): void
+    public static function clearDocumentCache(): void
     {
-        // Reset registry array.
-        self::$registry = [];
+        $cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('tx_dlf_doc');
+        $cache->flush();
     }
 
     /**
@@ -660,7 +653,7 @@ abstract class AbstractDocument
         // ... physical structure ...
         $this->magicGetPhysicalStructure();
         // ... and extension configuration.
-        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'files');
         $fileGrpsFulltext = GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext']);
         $textFormat = "";
         if (!empty($this->physicalStructureInfo[$id])) {

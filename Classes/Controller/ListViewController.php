@@ -81,17 +81,14 @@ class ListViewController extends AbstractController
 
         // extract collection(s) from collection parameter
         $collections = [];
-        if ($this->searchParams['collection']) {
+        if (array_key_exists('collection', $this->searchParams)) {
             foreach(explode(',', $this->searchParams['collection']) as $collectionEntry) {
                 $collections[] = $this->collectionRepository->findByUid((int) $collectionEntry);
             }
         }
 
         // Get current page from request data because the parameter is shared between plugins
-        $currentPage = $this->requestData['page'];
-        if (empty($currentPage)) {
-            $currentPage = 1;
-        }
+        $currentPage = $this->requestData['page'] ?? 1;
 
         // get all sortable metadata records
         $sortableMetadata = $this->metadataRepository->findByIsSortable(true);

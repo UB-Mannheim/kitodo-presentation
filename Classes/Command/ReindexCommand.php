@@ -79,6 +79,18 @@ class ReindexCommand extends BaseCommand
                 'a',
                 InputOption::VALUE_NONE,
                 'Reindex all documents on the given page.'
+            )
+            ->addOption(
+                'index-limit',
+                'l',
+                InputOption::VALUE_OPTIONAL,
+                'Reindex the given amount of documents on the given page.'
+            )
+            ->addOption(
+                'index-begin',
+                'b',
+                InputOption::VALUE_OPTIONAL,
+                'Reindex documents on the given page starting from the given value.'
             );
     }
 
@@ -99,7 +111,7 @@ class ReindexCommand extends BaseCommand
         $io = new SymfonyStyle($input, $output);
         $io->title($this->getDescription());
 
-        $this->initializeRepositories($input->getOption('pid'));
+        $this->initializeRepositories((int) $input->getOption('pid'));
 
         if ($this->storagePid == 0) {
             $io->error('ERROR: No valid PID (' . $this->storagePid . ') given.');
@@ -115,15 +127,15 @@ class ReindexCommand extends BaseCommand
 
             // Abort if solrCoreUid is empty or not in the array of allowed solr cores.
             if (empty($solrCoreUid) || !in_array($solrCoreUid, $allSolrCores)) {
-                $output_solrCores = [];
-                foreach ($allSolrCores as $index_name => $uid) {
-                    $output_solrCores[] = $uid . ' : ' . $index_name;
+                $outputSolrCores = [];
+                foreach ($allSolrCores as $indexName => $uid) {
+                    $outputSolrCores[] = $uid . ' : ' . $indexName;
                 }
-                if (empty($output_solrCores)) {
+                if (empty($outputSolrCores)) {
                     $io->error('ERROR: No valid Solr core ("' . $input->getOption('solr') . '") given. No valid cores found on PID ' . $this->storagePid . ".\n");
                     return BaseCommand::FAILURE;
                 } else {
-                    $io->error('ERROR: No valid Solr core ("' . $input->getOption('solr') . '") given. ' . "Valid cores are (<uid>:<index_name>):\n" . implode("\n", $output_solrCores) . "\n");
+                    $io->error('ERROR: No valid Solr core ("' . $input->getOption('solr') . '") given. ' . "Valid cores are (<uid>:<index_name>):\n" . implode("\n", $outputSolrCores) . "\n");
                     return BaseCommand::FAILURE;
                 }
             }
@@ -143,19 +155,43 @@ class ReindexCommand extends BaseCommand
         }
 
         if (!empty($input->getOption('all'))) {
-            // Get all documents.
-            $documents = $this->documentRepository->findAll();
+            if (
+                !empty($input->getOption('index-limit'))
+                && $input->getOption('index-begin') >= 0
+            ) {
+                // Get all documents for given limit and start.
+                $documents = $this->documentRepository->findAll()
+                    ->getQuery()
+                    ->setLimit((int) $input->getOption('index-limit'))
+                    ->setOffset((int) $input->getOption('index-begin'))
+                    ->execute();
+                $io->writeln($input->getOption('index-limit') . ' documents starting from ' . $input->getOption('index-begin') . ' will be indexed.');
+            } else {
+                // Get all documents.
+                $documents = $this->documentRepository->findAll();
+            }
         } elseif (
             !empty($input->getOption('coll'))
             && !is_array($input->getOption('coll'))
         ) {
+            $collections = GeneralUtility::intExplode(',', $input->getOption('coll'), true);
             // "coll" may be a single integer or a comma-separated list of integers.
-            if (empty(array_filter(GeneralUtility::intExplode(',', $input->getOption('coll'), true)))) {
+            if (empty(array_filter($collections))) {
                 $io->error('ERROR: Parameter --coll|-c is not a valid comma-separated list of collection UIDs.');
                 return BaseCommand::FAILURE;
             }
-            // Get all documents of given collections.
-            $documents = $this->documentRepository->findAllByCollectionsLimited(GeneralUtility::intExplode(',', $input->getOption('coll'), true), 0);
+
+            if (
+                !empty($input->getOption('index-limit'))
+                && $input->getOption('index-begin') >= 0
+            ) {
+                $documents = $this->documentRepository->findAllByCollectionsLimited($collections, (int) $input->getOption('index-limit'), (int) $input->getOption('index-begin'));
+
+                $io->writeln($input->getOption('index-limit') . ' documents starting from ' . $input->getOption('index-begin') . ' will be indexed.');
+            } else {
+                // Get all documents of given collections.
+                $documents = $this->documentRepository->findAllByCollectionsLimited($collections, 0);
+            }
         } else {
             $io->error('ERROR: One of parameters --all|-a or --coll|-c must be given.');
             return BaseCommand::FAILURE;
@@ -181,9 +217,12 @@ class ReindexCommand extends BaseCommand
                 // add to index
                 Indexer::add($document, $this->documentRepository);
             }
-            // Clear document registry to prevent memory exhaustion.
-            AbstractDocument::clearRegistry();
+            // Clear document cache to prevent memory exhaustion.
+            AbstractDocument::clearDocumentCache();
         }
+
+        // Clear state of persistence manager to prevent memory exhaustion.
+        $this->persistenceManager->clearState();
 
         $io->success('All done!');
 

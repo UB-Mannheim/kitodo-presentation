@@ -89,12 +89,18 @@ class BaseCommand extends Command
      */
     protected ConfigurationManager $configurationManager;
 
+    /**
+     * @var PersistenceManager
+     */
+    protected PersistenceManager $persistenceManager;
+
     public function __construct(
         CollectionRepository $collectionRepository,
         DocumentRepository $documentRepository,
         LibraryRepository $libraryRepository,
         StructureRepository $structureRepository,
-        ConfigurationManager $configurationManager
+        ConfigurationManager $configurationManager,
+        PersistenceManager $persistenceManager
     ) {
         parent::__construct();
 
@@ -103,6 +109,7 @@ class BaseCommand extends Command
         $this->libraryRepository = $libraryRepository;
         $this->structureRepository = $structureRepository;
         $this->configurationManager = $configurationManager;
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -114,24 +121,16 @@ class BaseCommand extends Command
      *
      * @param int $storagePid The storage pid
      *
-     * @return bool
+     * @return void
      */
-    protected function initializeRepositories(int $storagePid): bool
+    protected function initializeRepositories(int $storagePid): void
     {
-        if (MathUtility::canBeInterpretedAsInteger($storagePid)) {
-            $frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-
-            $frameworkConfiguration['persistence']['storagePid'] = MathUtility::forceIntegerInRange((int) $storagePid, 0);
-            $this->configurationManager->setConfiguration($frameworkConfiguration);
-
-            // Get extension configuration.
-            $this->extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('dlf');
-        } else {
-            return false;
-        }
-        $this->storagePid = MathUtility::forceIntegerInRange((int) $storagePid, 0);
-
-        return true;
+        $frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $frameworkConfiguration['persistence']['storagePid'] = MathUtility::forceIntegerInRange($storagePid, 0);
+        $this->configurationManager->setConfiguration($frameworkConfiguration);
+        $this->extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('dlf');
+        $this->storagePid = MathUtility::forceIntegerInRange($storagePid, 0);
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
     }
 
     /**
@@ -202,23 +201,23 @@ class BaseCommand extends Command
         if ($doc === null) {
             return false;
         }
-        $persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
+
         $doc->cPid = $this->storagePid;
 
         $metadata = $doc->getToplevelMetadata($this->storagePid);
 
         // set title data
         $document->setTitle($metadata['title'][0] ? : '');
-        $document->setTitleSorting($metadata['title_sorting'][0]);
+        $document->setTitleSorting($metadata['title_sorting'][0] ? : '');
         $document->setPlace(implode('; ', $metadata['place']));
         $document->setYear(implode('; ', $metadata['year']));
 
         // Remove appended "valueURI" from authors' names for storing in database.
         foreach ($metadata['author'] as $i => $author) {
-            $splitName = explode(chr(31), $author);
+            $splitName = explode(pack('C', 31), $author);
             $metadata['author'][$i] = $splitName[0];
         }
-        $document->setAuthor(implode('; ', $metadata['author']));
+        $document->setAuthor($this->getAuthors($metadata['author']));
         $document->setThumbnail($doc->thumbnail ? : '');
         $document->setMetsLabel($metadata['mets_label'][0] ? : '');
         $document->setMetsOrderlabel($metadata['mets_orderlabel'][0] ? : '');
@@ -227,7 +226,7 @@ class BaseCommand extends Command
         $document->setStructure($structure);
 
         if (is_array($metadata['collection'])) {
-            $this->addCollections($document, $metadata['collection'], $persistenceManager);
+            $this->addCollections($document, $metadata['collection']);
         }
 
         // set identifiers
@@ -268,7 +267,7 @@ class BaseCommand extends Command
             $this->documentRepository->update($document);
         }
 
-        $persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
 
         return true;
     }
@@ -321,14 +320,13 @@ class BaseCommand extends Command
      * Add collections.
      *
      * @access private
-     * 
+     *
      * @param Document &$document
      * @param array $collections
-     * @param PersistenceManager $persistenceManager
      *
      * @return void
      */
-    private function addCollections(Document &$document, array $collections, PersistenceManager $persistenceManager): void
+    private function addCollections(Document &$document, array $collections): void
     {
         foreach ($collections as $collection) {
             $documentCollection = $this->collectionRepository->findOneByIndexName($collection);
@@ -337,17 +335,51 @@ class BaseCommand extends Command
                 $documentCollection = GeneralUtility::makeInstance(Collection::class);
                 $documentCollection->setIndexName($collection);
                 $documentCollection->setLabel($collection);
-                $documentCollection->setOaiName((!empty($this->extConf['publishNewCollections']) ? Helper::getCleanString($collection) : ''));
+                $documentCollection->setOaiName((!empty($this->extConf['general']['publishNewCollections']) ? Helper::getCleanString($collection) : ''));
                 $documentCollection->setIndexSearch('');
                 $documentCollection->setDescription('');
                 // add to CollectionRepository
                 $this->collectionRepository->add($documentCollection);
                 // persist collection to prevent duplicates
-                $persistenceManager->persistAll();
+                $this->persistenceManager->persistAll();
             }
             // add to document
             $document->addCollection($documentCollection);
         }
+    }
+
+    /**
+     * Get authors considering that database field can't accept
+     * more than 255 characters.
+     *
+     * @access private
+     *
+     * @param array $metadataAuthor
+     *
+     * @return string
+     */
+    private function getAuthors(array $metadataAuthor): string
+    {
+        $authors = '';
+        $delimiter = '; ';
+        $ellipsis = 'et al.';
+
+        $count = count($metadataAuthor);
+
+        for ($i = 0; $i < $count; $i++) {
+            // Build the next part to add
+            $nextPart = ($i === 0 ? '' : $delimiter) . $metadataAuthor[$i];
+            // Check if adding this part and ellipsis in future would exceed the character limit
+            if (strlen($authors . $nextPart . $delimiter . $ellipsis) > 255) {
+                // Add ellipsis and stop adding more authors
+                $authors .= $delimiter . $ellipsis;
+                break;
+            }
+            // Add the part to the main string
+            $authors .= $nextPart;
+        }
+
+        return $authors;
     }
 
     /**

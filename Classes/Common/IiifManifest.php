@@ -58,7 +58,6 @@ use Ubl\Iiif\Tools\IiifHelper;
  * @property array $rawTextArray this holds the documents' raw text pages with their corresponding structMap//div's ID (METS) or Range / Manifest / Sequence ID (IIIF) as array key
  * @property-read bool $ready Is the document instantiated successfully?
  * @property-read string $recordId the METS file's / IIIF manifest's record identifier
- * @property array $registry this holds the singleton object of the document
  * @property-read int $rootId this holds the UID of the root document or zero if not multi-volumed
  * @property-read array $smLinks this holds the smLinks between logical and physical structMap
  * @property bool $smLinksLoaded flag with information if the smLinks are loaded
@@ -234,7 +233,7 @@ final class IiifManifest extends AbstractDocument
     {
         if (!$this->useGrpsLoaded) {
             // Get configured USE attributes.
-            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'files');
             if (!empty($extConf['fileGrpImages'])) {
                 $this->useGrps['fileGrpImages'] = GeneralUtility::trimExplode(',', $extConf['fileGrpImages']);
             }
@@ -265,7 +264,7 @@ final class IiifManifest extends AbstractDocument
             if ($this->iiif == null || !($this->iiif instanceof ManifestInterface)) {
                 return [];
             }
-            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'iiif');
             $iiifId = $this->iiif->getId();
             $this->physicalStructureInfo[$iiifId]['id'] = $iiifId;
             $this->physicalStructureInfo[$iiifId]['dmdId'] = $iiifId;
@@ -367,7 +366,7 @@ final class IiifManifest extends AbstractDocument
             $this->fileInfos[$id]['mimeType'] = $this->getFileMimeType($id);
         }
 
-        return $this->fileInfos[$id];
+        return $this->fileInfos[$id] ?? null;
     }
 
     /**
@@ -755,7 +754,7 @@ final class IiifManifest extends AbstractDocument
             $this->magicGetPhysicalStructure();
             // ... and extension configuration.
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
-            $fileGrpsFulltext = GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext']);
+            $fileGrpsFulltext = GeneralUtility::trimExplode(',', $extConf['files']['fileGrpFulltext']);
             if (!empty($this->physicalStructureInfo[$id])) {
                 while ($fileGrpFulltext = array_shift($fileGrpsFulltext)) {
                     if (!empty($this->physicalStructureInfo[$id]['files'][$fileGrpFulltext])) {
@@ -763,7 +762,7 @@ final class IiifManifest extends AbstractDocument
                         break;
                     }
                 }
-                if ($extConf['indexAnnotations'] == 1) {
+                if ($extConf['iiif']['indexAnnotations'] == 1) {
                     $iiifResource = $this->iiif->getContainedResourceById($id);
                     // Get annotation containers
                     $annotationContainerIds = $this->physicalStructureInfo[$id]['annotationContainers'];
@@ -808,10 +807,10 @@ final class IiifManifest extends AbstractDocument
     {
         $fileResource = GeneralUtility::getUrl($location);
         if ($fileResource !== false) {
-            $conf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+            $conf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'iiif');
             IiifHelper::setUrlReader(IiifUrlReader::getInstance());
-            IiifHelper::setMaxThumbnailHeight($conf['iiifThumbnailHeight']);
-            IiifHelper::setMaxThumbnailWidth($conf['iiifThumbnailWidth']);
+            IiifHelper::setMaxThumbnailHeight($conf['thumbnailHeight']);
+            IiifHelper::setMaxThumbnailWidth($conf['thumbnailWidth']);
             $resource = IiifHelper::loadIiifResource($fileResource);
             if ($resource instanceof ManifestInterface) {
                 $this->iiif = $resource;
@@ -866,7 +865,7 @@ final class IiifManifest extends AbstractDocument
                     $this->hasFulltext = true;
                     return;
                 }
-                $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+                $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'iiif');
                 if ($extConf['indexAnnotations'] == 1 && !empty($canvas->getPossibleTextAnnotationContainers(Motivation::PAINTING))) {
                     foreach ($canvas->getPossibleTextAnnotationContainers(Motivation::PAINTING) as $annotationContainer) {
                         $textAnnotations = $annotationContainer->getTextAnnotations(Motivation::PAINTING);
@@ -999,10 +998,10 @@ final class IiifManifest extends AbstractDocument
      */
     public function __wakeup(): void
     {
-        $conf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey);
+        $conf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'iiif');
         IiifHelper::setUrlReader(IiifUrlReader::getInstance());
-        IiifHelper::setMaxThumbnailHeight($conf['iiifThumbnailHeight']);
-        IiifHelper::setMaxThumbnailWidth($conf['iiifThumbnailWidth']);
+        IiifHelper::setMaxThumbnailHeight($conf['thumbnailHeight']);
+        IiifHelper::setMaxThumbnailWidth($conf['thumbnailWidth']);
         $resource = IiifHelper::loadIiifResource($this->asJson);
         if ($resource instanceof ManifestInterface) {
             $this->asJson = '';
@@ -1024,6 +1023,6 @@ final class IiifManifest extends AbstractDocument
         // TODO implement serialization in IIIF library
         $jsonArray = $this->iiif->getOriginalJsonArray();
         $this->asJson = json_encode($jsonArray);
-        return ['uid', 'pid', 'recordId', 'parentId', 'asJson'];
+        return ['pid', 'recordId', 'parentId', 'asJson'];
     }
 }
