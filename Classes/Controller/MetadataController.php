@@ -453,7 +453,7 @@ class MetadataController extends AbstractController
     {
         $structure = $this->structureRepository->findOneBy(['indexName' => $metadata[$i]['type'][0]]);
         if ($structure) {
-            $metadata[$i]['type'][0] = $structure->getLabel();
+            $metadata[$i]['type'] = $structure->getLabel();
         }
     }
 
