@@ -474,7 +474,7 @@ class MetadataController extends AbstractController
         foreach ($value as $entry) {
             $collection = $this->collectionRepository->findOneBy(['indexName' => $entry]);
             if ($collection) {
-                $metadata[$i]['collection'][$j] = $collection->getLabel() ? : '';
+                $metadata[$i]['collection'] = $collection->getLabel() ? : '';
                 $j++;
             }
         }
