@@ -67,7 +67,7 @@
         </f:else>
     </f:if>
 </f:spaceless></f:variable>
-
+<f:comment>
 <f:variable name="oriValues"><f:spaceless>
     <f:for each="{documentMetadataSection.{configObject.indexName}}" as="value" iteration="iterator">
         <f:comment>
@@ -81,10 +81,34 @@
         </f:if>
     </f:for>
 </f:spaceless></f:variable>
-
-
+</f:comment>
+<f:comment>
+<f:debug>{documentMetadataSection}</f:debug>
+<f:debug>{configObject.indexName}</f:debug>
+<f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
+</f:comment>
+<f:if condition="{configObject.indexName} == 'collection'">
+    <f:then>
+	<f:variable name="collectionValue"  value="{documentMetadataSection.{configObject.indexName}}" />
+	<f:comment>
+	<f:debug>xxxxxx</f:debug>
+	<f:debug>{collectionValue}</f:debug>
+	<f:debug>xxxxxx</f:debug>
+	</f:comment>
+    </f:then>
+</f:if>
+<f:comment>
+<f:debug>{collectionValue}</f:debug>
+<f:debug>{configObject}</f:debug>
+<f:debug>{oriValues}</f:debug>
+<f:debug><hr></f:debug>
+</f:comment>
+<f:comment>
+<f:debug>{_all}</f:debug>
+<f:debug>{documentMetadataSection}</f:debug>
+</f:comment>
 <f:comment><f:debug>{metaSectionCObj}</f:debug></f:comment>
-<f:comment><f:debug>{metaSectionConfigObject}</f:debug></f:comment>
+<f:comment><f:debug>{metaSectionConfigObject} IST NULL gibt es glaube ich nicht mehr!</f:debug></f:comment>
 <f:comment><f:debug>{configObject}</f:debug></f:comment>
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
@@ -129,7 +153,7 @@
                                 {wrappedValues -> f:format.raw()}
                             </f:else>
                         </f:if>
-                        
+
                     </f:then>
                     <f:else>
                         <f:switch expression="{configObject.indexName}">
@@ -153,87 +177,92 @@
 
                                 <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
                                 <f:variable name="basepath" value="/sammlungen/" />
-                                <f:comment> Wird nicht mehr verwendet</f:comment>
-                                <f:comment><f:variable name="basepathWirtschafts" value="/sammlungen/wirtschaftswissenschaftliche/" /></f:comment>
+				   <f:variable name="collectionClearName" value="{collectionValue}" />
 
-                                <f:switch expression="{oriValues}">
+<f:comment>{collectionValue}
+<f:debug>{collectionClearName}</f:debug>
+</f:comment>
+                                <f:switch expression="{collectionClearName}">
 
-                                    <f:case value="Aktienführer & Saling's Börsenpapiere">
-                                        <dd><a href="/aktienfuehrer/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="AktienfÃ¼hrer & Saling's BÃ¶rsenpapiere">
+                                        <dd><a href="/aktienfuehrer/uebersicht" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Hoppenstedt">
-                                        <dd><a href="/hoppenstedt/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="/hoppenstedt/uebersicht" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Geschäftsberichte">
-                                        <dd><a href="{basepath}geschaeftsberichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="GeschÃ¤ftsberichte">
+                                        <dd><a href="{basepath}geschaeftsberichte" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Deutsche Statistische Jahrbücher">
-                                        <dd><a href="/deutsche-statistische-jahrbuecher/uebersicht" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="Deutsche Statistische JahrbÃ¼cher">
+                                        <dd><a href="/deutsche-statistische-jahrbuecher/uebersicht" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Gemeindeverzeichnisse">
-                                        <dd><a href="{basepath}gemeindeverzeichnisse" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}gemeindeverzeichnisse" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
 
-                                    <f:case value="Europäische Rechtsgeschichte">
-                                        <dd><a href="{basepath}europaeische-rechtsgeschichte" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="EuropÃ¤ische Rechtsgeschichte">
+                                        <dd><a href="{basepath}europaeische-rechtsgeschichte" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Lesegesellschaft Harmonie">
-                                        <dd><a href="{basepath}lesegesellschaft-harmonie" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}lesegesellschaft-harmonie" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Nachlass Desbillons">
-                                        <dd><a href="{basepath}nachlass-desbillons" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}nachlass-desbillons" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Sammlung Naturkunde">
-                                        <dd><a href="{basepath}sammlung-naturkunde" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}sammlung-naturkunde" title="Backlink zur {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Städtische Schlossbücherei">
-                                        <dd><a href="{basepath}staedtische-schlossbuecherei" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="StÃ¤dtische SchlossbÃ¼cherei">
+                                        <dd><a href="{basepath}staedtische-schlossbuecherei" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
 
                                     <f:case value="Handschriften">
-                                        <dd><a href="{basepath}handschriften" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}handschriften" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Mannheimer Hofbibliothek">
-                                        <dd><a href="{basepath}mannheimer-hofbibliothek" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}mannheimer-hofbibliothek" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Sammlung Desbillons">
-                                        <dd><a href="{basepath}sammlung-desbillons" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}sammlung-desbillons" title="Backlink zur {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Sammlung Weickum">
-                                        <dd><a href="{basepath}sammlung-weickum" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}sammlung-weickum" title="Backlink zur {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Eingeschränkter Zugang">
-                                        <dd><a href="{basepath}restricted" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="EingeschrÃ¤nkter Zugang">
+                                        <dd><a href="{basepath}restricted" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Historische Zeitungen">
-                                        <dd><a href="{basepath}zeitungen" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}zeitungen" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
+
                                     <f:case value="Jesuitenkolleg">
-                                        <dd><a href="{basepath}jesuitenkolleg" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}jesuitenkolleg" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Mannheimensien">
-                                        <dd><a href="{basepath}mannheimensien" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}mannheimensien" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Nachlass Otto Selz">
-                                        <dd><a href="{basepath}nachlass-otto-selz" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}nachlass-otto-selz" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Sammlung Mammelsdorf">
-                                        <dd><a href="{basepath}sammlung-mammelsdorf" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}sammlung-mammelsdorf" title="Backlink zur {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Sekundärliteratur">
-                                        <dd><a href="{basepath}sekundaerliteratur" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                    <f:case value="SekundÃ¤rliteratur">
+                                        <dd><a href="{basepath}sekundaerliteratur" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Varia">
-                                        <dd><a href="{basepath}varia" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}varia" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Wissenschaftliche Stadtbibliothek">
-                                        <dd><a href="{basepath}wissenschaftliche-stadtbibliothek" title="Backlink zur Sammlung {oriValues}">{oriValues}</a></dd>
+                                        <dd><a href="{basepath}wissenschaftliche-stadtbibliothek" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
 
                                     <f:defaultCase>
+					    <!-- default Beginn -->
                                         {wrappedValues -> f:format.raw()}
+					<!-- default Ende-->
                                     </f:defaultCase>
-                                </f:switch>                 <f:comment>expression="{oriValues}"></f:comment>
+                                </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
                             </f:case>
                             <f:defaultCase>
                                 <!-- 100 {configObject.indexName } -->
