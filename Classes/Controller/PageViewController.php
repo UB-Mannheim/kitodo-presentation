@@ -94,11 +94,15 @@ class PageViewController extends AbstractController
     public function mainAction(): void
     {
         // Load current document.
+        var_dump("<hr />Jetzt in mainAction");
         $this->loadDocument();
         if ($this->isDocMissingOrEmpty()) {
+            var_dump("<hr />Jetzt in mainAction in isDocMissingOrEmpty");
             // Quit without doing anything if required variables are not set.
             return;
         } else {
+            var_dump($this->document->getCurrentDocument()->tableOfContents[0]['type']);
+            var_dump($this->requestData);
             if (isset($this->settings['multiViewType']) && $this->document->getCurrentDocument()->tableOfContents[0]['type'] === $this->settings['multiViewType'] && empty($this->requestData['multiview'])) {
                 $params = array_merge(
                     ['tx_dlf' => $this->requestData],
@@ -109,6 +113,9 @@ class PageViewController extends AbstractController
                     ->setArguments($params)
                     ->setArgumentPrefix('tx_dlf')
                     ->uriFor('main');
+                var_dump("<hr />URI:");
+                var_dump($uri);
+                var_dump("<hr />");
                 $this->redirectToUri($uri);
             }
             $this->setPage();
@@ -121,6 +128,12 @@ class PageViewController extends AbstractController
         $this->setPage();
 
         // Get image data.
+        var_dump($this->getImage($this->requestData['page']));
+        var_dump("<hr />");
+        var_dump($this->requestData['page']);
+        var_dump("<hr />");
+        var_dump($this->getFulltext($this->requestData['page']));
+        var_dump("<hr />");
         $this->images[0] = $this->getImage($this->requestData['page']);
         $this->fulltexts[0] = $this->getFulltext($this->requestData['page']);
         $this->annotationContainers[0] = $this->getAnnotationContainers($this->requestData['page']);
@@ -130,17 +143,29 @@ class PageViewController extends AbstractController
             $this->annotationContainers[1] = $this->getAnnotationContainers($this->requestData['page'] + 1);
         }
 
+        var_dump("<hr />Rufe jetzt getScore");
         $this->scores = $this->getScore($this->requestData['page']);
+        var_dump("<hr />jetzt nach getScore");
         $this->measures = $this->getMeasures($this->requestData['page']);
 
         // Get the controls for the map.
+        var_dump("<hr />settings:");
+        var_dump($this->settings);
         $this->controls = explode(',', $this->settings['features']);
 
         $this->view->assign('forceAbsoluteUrl', $this->extConf['general']['forceAbsoluteUrl']);
 
-        $this->addViewerJS();
+        $this->logger->error('------------------------------ Rufe jetzt addViewerJS');
+        var_dump("<hr />Rufe jetzt addViewerJS");
+        var_dump($this->documentArray);
 
-        $this->view->assign('docCount', count($this->documentArray));
+        $this->logger->error('------------------------------ ANZAHL');
+        //$this->logger->error(count($this->documentArray));
+
+        $this->addViewerJS();
+        var_dump("<hr />jetzt nach addViewerJS");
+
+        //$this->view->assign('docCount', count($this->documentArray));
         $this->view->assign('docArray', $this->documentArray);
         $this->view->assign('docPage', $this->requestData['docPage']);
         $this->view->assign('docType', $this->document->getCurrentDocument()->tableOfContents[0]['type']);
