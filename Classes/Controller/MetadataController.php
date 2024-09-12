@@ -167,6 +167,8 @@ class MetadataController extends AbstractController
             );
 
             foreach ($metadata as $i => $section) {
+                var_dump("<hr />Wert von i in printMetdata:");
+                var_dump($i);
 
                 foreach ($section as $name => $value) {
                     // NOTE: Labels are to be escaped in Fluid template
