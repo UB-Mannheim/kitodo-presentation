@@ -475,6 +475,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
 
         if ($this->document) {
             $doc = AbstractDocument::getInstance($this->document->getLocation(), $this->settings, true);
+            $this->documentArray[] = $doc;
         } else {
             $this->logger->error('Invalid UID "' . $documentId . '" or PID "' . $this->settings['storagePid'] . '" for document loading');
         }
