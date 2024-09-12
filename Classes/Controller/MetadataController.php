@@ -425,7 +425,9 @@ class MetadataController extends AbstractController
     {
         $library = $this->document->getOwner();
         if ($library) {
-            $metadata[$i]['owner'][0] = $library->getLabel();
+            //$metadata[$i]['owner'][0] = $library->getLabel();
+            // use the hole Label and not the first letter
+            $metadata[$i]['owner'] = $library->getLabel();
         }
     }
 
