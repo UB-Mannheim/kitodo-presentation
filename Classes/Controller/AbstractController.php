@@ -102,8 +102,13 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function initialize(): void
     {
+
+        $this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class)->getLogger(__CLASS__);
+        $this->logger->warning('================= initialize');
         $this->requestData = GeneralUtility::_GPmerged('tx_dlf');
+        $this->logger->warning(serialize($this->requestData));
         $this->pageUid = (int) GeneralUtility::_GET('id');
+        $this->logger->warning($this->pageUid);
 
         // Sanitize user input to prevent XSS attacks.
         $this->sanitizeRequestData();
@@ -129,9 +134,15 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function loadDocument(int $documentId = 0): void
     {
+        $this->logger->warning('================= loadDocument');
+        $this->logger->warning(serialize($this->requestData));        
+        $this->logger->warning($documentId);
         // Get document ID from request data if not passed as parameter.
         if ($documentId === 0 && !empty($this->requestData['id'])) {
             $documentId = $this->requestData['id'];
+            $this->logger->warning('=================~~~~ documentId wurde gesetzt');
+            $this->logger->warning($this->requestData['id']);
+            $this->logger->warning($documentId);
         }
 
         // Try to get document format from database
@@ -140,14 +151,19 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             $doc = null;
 
             if (MathUtility::canBeInterpretedAsInteger($documentId)) {
+                $this->logger->warning('=================--- getDocumentByUid');
                 $doc = $this->getDocumentByUid($documentId);
             } elseif (GeneralUtility::isValidUrl($documentId)) {
+                $this->logger->warning('=================--- getDocumentByUrl');
                 $doc = $this->getDocumentByUrl($documentId);
             }
 
             if ($this->document !== null && $doc !== null) {
                 $this->document->setCurrentDocument($doc);
             }
+            $this->logger->warning('+++++++++++++++++++++++++++++++++++++++++++');
+            $this->logger->warning($this->document);
+            $this->logger->warning('+++++++++++++++++++++++++++++++++++++++++++');
 
         } elseif (!empty($this->requestData['recordId'])) {
 
@@ -177,6 +193,9 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function configureProxyUrl(string &$url): void
     {
+        $this->logger->warning('================= configureProxyUrl');
+        $this->logger->warning($url);
+
         $this->uriBuilder->reset()
             ->setTargetPageUid($this->pageUid)
             ->setCreateAbsoluteUri(!empty($this->extConf['general']['forceAbsoluteUrl']))
@@ -253,6 +272,9 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function sanitizeRequestData(): void
     {
+        $this->logger->warning('================= sanitizeRequestData');
+        $this->logger->warning(serialize($this->requestData));
+
         // tx_dlf[id] may only be an UID or URI.
         if (
             !empty($this->requestData['id'])
@@ -313,6 +335,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             if (isset($this->settings['multiViewType']) && $this->document->getCurrentDocument()->tableOfContents[0]['type'] === $this->settings['multiViewType']) {
                 $i = 0;
                 foreach ($this->documentArray as $document) {
+                    var_dump("document !== null");
                     if ($document !== null) {
                         $this->requestData['docPage'][$i] = MathUtility::forceIntegerInRange((int) $this->requestData['docPage'][$i], 1, $document->numPages, 1);
                         $i++;
@@ -494,12 +517,16 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function getDocumentByUrl(string $documentId)
     {
+        $this->logger->warning('================= getDocumentByUrl');
+        $this->logger->warning($documentId);
+
         $doc = AbstractDocument::getInstance($documentId, $this->settings, true);
 
         if (isset($this->settings['multiViewType']) && $doc->tableOfContents[0]['type'] === $this->settings['multiViewType']) {
             $childDocuments = $doc->tableOfContents[0]['children'];
             $i = 0;
             foreach ($childDocuments as $document) {
+                var_dump("TEST1");
                 $this->documentArray[] = AbstractDocument::getInstance($document['points'], $this->settings, true);
                 if (!isset($this->requestData['docPage'][$i]) && isset(explode('#', $document['points'])[1])) {
                     $initPage = explode('#', $document['points'])[1];
@@ -508,6 +535,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
                 $i++;
             }
         } else {
+            var_dump("TEST2");
             $this->documentArray[] = $doc;
         }
         if ($this->requestData['multipleSource'] && is_array($this->requestData['multipleSource'])) {
@@ -515,6 +543,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             foreach ($this->requestData['multipleSource'] as $location) {
                 $document = AbstractDocument::getInstance($location, $this->settings, true);
                 if ($document !== null) {
+                    var_dump("TEST3");
                     $this->documentArray['extra_' . $i] = $document;
                 }
                 $i++;
