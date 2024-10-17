@@ -128,6 +128,22 @@
                                 <f:comment>prod_id sollen nicht ausgegeben werden</f:comment>
                                 <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
                             </f:case>
+                            <f:case value="year">
+                                <f:comment><f:debug>{documentMetadataSection}</f:debug></f:comment>
+                                <!-- 134 {configObject.indexName } -->
+                                <f:if condition="{documentMetadataSection.collection} == 'Historische Zeitungen'">
+                                    <f:then>
+                                        <f:comment><f:debug>{documentMetadataSection.collection}</f:debug></f:comment>
+                                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                        <f:comment>entfernt bei Historischen Zeitungen den "-MM-TT" Teil</f:comment>
+                                        {wrappedValues -> v:format.substring(start: 0, length: 8) -> v:format.append(add: '</dd>') -> f:format.html()}
+                                    </f:then>
+                                    <f:else>
+                                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                        {wrappedValues -> f:format.raw()}
+                                    </f:else>
+                                </f:if>
+                            </f:case>
                             <f:case value="collection">
                                 <f:comment>collection muss anders behandelt werden</f:comment>
                                 <!-- 95 {configObject.indexName } -->
