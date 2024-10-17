@@ -63,6 +63,16 @@
         </f:else>
     </f:if>
 </f:spaceless></f:variable>
+<f:comment>
+    <f:debug>{configObject.indexName}</f:debug>
+    <f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
+</f:comment>
+<f:comment>Clear Name of Collection</f:comment>
+<f:if condition="{configObject.indexName} == 'collection'">
+    <f:then>
+        <f:variable name="collectionClearName" value="{documentMetadataSection.{configObject.indexName}}" />
+    </f:then>
+</f:if>
 
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
@@ -131,7 +141,6 @@
 
                                 <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
                                 <f:variable name="basepath" value="/sammlungen/" />
-                                <f:variable name="collectionClearName" value="{collectionValue}" />
 
                                 <f:switch expression="{collectionClearName}">
 
