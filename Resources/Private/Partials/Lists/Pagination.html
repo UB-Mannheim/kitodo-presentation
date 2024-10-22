@@ -84,8 +84,7 @@
                             argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                             additionalParams="{'tx_dlf[page]': pagination.nextPageNumber, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
                             arguments="{searchParameter: lastSearch}"
-                            title="{f:translate(key: 'nextPage')}"
-                            noCacheHash="1">&#9654;</f:link.action>
+                            title="{f:translate(key: 'nextPage')}">&#9654;</f:link.action>
             </li>
             <li class="last">
                         <f:comment>tx_dlf[id] add parameter id again, because it disappears with the current configuration</f:comment>
@@ -95,8 +94,7 @@
                             argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                             additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
                             arguments="{searchParameter: lastSearch}"
-                            title="{f:translate(key: 'lastPage')} ({pagination.lastPageNumber})"
-                            noCacheHash="1">&#9654;</f:link.action>
+                            title="{f:translate(key: 'lastPage')} ({pagination.lastPageNumber})">&#9654;</f:link.action>
             </li>
         </f:then>
         <f:else>
