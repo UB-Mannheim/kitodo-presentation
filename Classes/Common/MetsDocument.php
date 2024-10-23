@@ -794,6 +794,10 @@ final class MetsDocument extends AbstractDocument
     private function setMetadataFieldValues(array $resArray, DOMXPath $domXPath, DOMElement $domNode, array &$metadata, array $subentryResults): void
     {
         if ($resArray['format'] > 0 && !empty($resArray['xpath'])) {
+            //var_dump($resArray['xpath']);
+            //$this->logger->error("TEST". serialize($resArray['xpath']));
+            $this->logger->error("TEST". $resArray['xpath']);
+            if ($resArray['xpath'] !== './mods:extension/ns3:ubma/ns3:branchindustry') {
             $values = $domXPath->evaluate($resArray['xpath'], $domNode);
             if ($values instanceof DOMNodeList && $values->length > 0) {
                 $metadata[$resArray['index_name']] = [];
@@ -807,6 +811,7 @@ final class MetsDocument extends AbstractDocument
                 }
             } elseif (!($values instanceof DOMNodeList)) {
                 $metadata[$resArray['index_name']] = [trim((string) $values)];
+            }
             }
         }
     }

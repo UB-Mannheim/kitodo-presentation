@@ -331,7 +331,10 @@ class Indexer
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
         // Get metadata for logical unit.
+        if (($logicalUnit['id'] != 'LOG_0001') and ($logicalUnit['id'] != 'LOG_0002') and ($logicalUnit['id'] != 'LOG_0003') and ($logicalUnit['id'] != 'LOG_0004') ) {
         $metadata = $doc->metadataArray[$logicalUnit['id']];
+        //$this->logger->error('metadata ' . serialize($metadata) );
+        //self::handleException('metadata ' . serialize($metadata));
         if (!empty($metadata)) {
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'general');
             $validator = new DocumentValidator($metadata, explode(',', $extConf['requiredMetadataFields']));
@@ -356,7 +359,9 @@ class Indexer
                 // There can be only one toplevel unit per UID, independently of backend configuration
                 $solrDoc->setField('toplevel', $logicalUnit['id'] == $doc->toplevelId ? true : false);
                 $solrDoc->setField('title', $metadata['title'][0]);
-                $solrDoc->setField('volume', $metadata['volume'][0]);
+                if ( count($metadata['volume']) > 0 ){
+                    $solrDoc->setField('volume', $metadata['volume'][0]);
+                }
                 // verify date formatting
                 if(strtotime($metadata['date'][0])) {
                     $solrDoc->setField('date', self::getFormattedDate($metadata['date'][0]));
@@ -368,9 +373,11 @@ class Indexer
                 $solrDoc->setField('license', $metadata['license']);
                 $solrDoc->setField('terms', $metadata['terms']);
                 $solrDoc->setField('restrictions', $metadata['restrictions']);
-                $coordinates = json_decode($metadata['coordinates'][0]);
-                if (is_object($coordinates)) {
-                    $solrDoc->setField('geom', json_encode($coordinates->features[0]));
+                if ( array_key_exists('coordinates', $metadata) ) {
+                    $coordinates = json_decode($metadata['coordinates'][0]);
+                    if (is_object($coordinates)) {
+                        $solrDoc->setField('geom', json_encode($coordinates->features[0]));
+                    }
                 }
                 $autocomplete = self::processMetadata($document, $metadata, $solrDoc);
                 // Add autocomplete values to index.
@@ -395,6 +402,7 @@ class Indexer
             } else {
                 Helper::log('Tip: If "record_id" field is missing then there is possibility that METS file still contains it but with the wrong source type attribute in "recordIdentifier" element', LOG_SEVERITY_NOTICE);
                 return false;
+            }
             }
         }
         // Check for child elements...
@@ -522,7 +530,9 @@ class Indexer
                 $solrDoc->setField(self::getIndexFieldName($indexName, $document->getPid()), $data);
                 if (in_array($indexName, self::$fields['sortables'])) {
                     // Add sortable fields to index.
-                    $solrDoc->setField($indexName . '_sorting', $metadata[$indexName . '_sorting'][0]);
+                    if ( array_key_exists($indexName . '_sorting', $metadata) ) {
+                        $solrDoc->setField($indexName . '_sorting', $metadata[$indexName . '_sorting'][0]);
+                    }
                 }
                 if (in_array($indexName, self::$fields['facets'])) {
                     // Add facets to index.
