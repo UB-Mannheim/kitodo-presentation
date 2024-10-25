@@ -175,6 +175,7 @@ page.10.variables {
   isNewspaper = TEXT
   isNewspaper.value = newspaper_year
 }
+#page.bodyTagAdd=id="year"
 [END]
 
 [getDocumentType({$config.storagePid}) == "issue"]
