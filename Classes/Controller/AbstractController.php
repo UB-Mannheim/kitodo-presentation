@@ -238,9 +238,33 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      */
     protected function getParametersSafely(string $parameterName)
     {
+        //var_dump($parameterName);
+        //var_dump('<hr>getArguments');
+        //var_dump($this->request->getArguments());
+        //var_dump('<hr>getQueryParams');
+        //var_dump($this->request->getQueryParams());
+        //var_dump('<hr>');
         if ($this->request->hasArgument($parameterName)) {
             return $this->request->getArgument($parameterName);
         }
+        if ($this->request->getQueryParams()) {
+            $myQueryParams = $this->request->getQueryParams();
+            $myType = '';
+            if (array_key_exists('tx_dlf_search', $myQueryParams)) {
+                $myType = 'tx_dlf_search';
+            } elseif (array_key_exists('tx_dlf_listview', $myQueryParams)) {
+                $myType = 'tx_dlf_listview';
+            }
+            if ($myType <> '') {
+                $myDLFSearch = $myQueryParams[$myType];
+                if (array_key_exists($parameterName, $myDLFSearch)) {
+                    return($myDLFSearch[$parameterName]);
+                }
+            } else {
+                var_dump('<hr>getQueryParams unerwarteter Type');
+                var_dump($this->request->getQueryParams());
+            };
+    }
         return null;
     }
 
