@@ -252,7 +252,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                     $partOfPartOf = AbstractDocument::getPartOf($document['partOf'], true);
                     $document['partOfP'] = $partOfPartOf;
                     $superiorTitleP = AbstractDocument::getTitle($partOfPartOf, true);
-                    $document['partOfPT'] = '[' . $superiorTitleP . ']'; 
+                    $document['partOfPT'] = '[' . $superiorTitleP . ']';
                 }
             }
         }
@@ -560,21 +560,21 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                         if (!array_key_exists('fulltext', $this->searchParams) || $this->searchParams['fulltext'] != '1') {
                             $documents[$doc['uid']]['page'] = 1;
                             $children = $childrenOf[$doc['uid']] ?? [];
-                        
+
                             if (!empty($children)) {
                                 $batchSize = 100;
                                 $totalChildren = count($children);
-                        
+
                                 for ($start = 0; $start < $totalChildren; $start += $batchSize) {
                                     $batch = array_slice($children, $start, $batchSize, true);
-                        
+
                                     // Fetch metadata for the current batch
                                     $metadataOf = $this->fetchToplevelMetadataFromSolr([
                                         'query' => 'partof:' . $doc['uid'],
                                         'start' => $start,
                                         'rows' => min($batchSize, $totalChildren - $start),
                                     ]);
-                        
+
                                     foreach ($batch as $docChild) {
                                         // We need only a few fields from the children, but we need them as an array.
                                         $childDocument = [
@@ -867,7 +867,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             'uid' => !empty($resultDocument->getUid()) ? $resultDocument->getUid() : $parameters['uid'],
             'highlight' => $resultDocument->getHighlightsIds(),
         ];
-        
+
         foreach ($parameters['listMetadataRecords'] as $indexName => $solrField) {
             if (!empty($record->$solrField)) {
                     $document['metadata'][$indexName] = $record->$solrField;
