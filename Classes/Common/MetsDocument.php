@@ -212,6 +212,7 @@ final class MetsDocument extends AbstractDocument
         // Check for METS object @ID.
         if (!empty($this->mets['OBJID'])) {
             $this->recordId = (string) $this->mets['OBJID'];
+            $this->logger->warning('FT OBJID "' . $this->mets['OBJID'] . '"');
         }
         // Get hook objects.
         $hookObjects = Helper::getHookObjects('Classes/Common/MetsDocument.php');
@@ -219,6 +220,7 @@ final class MetsDocument extends AbstractDocument
         foreach ($hookObjects as $hookObj) {
             if (method_exists($hookObj, 'postProcessRecordId')) {
                 $hookObj->postProcessRecordId($this->xml, $this->recordId);
+                $this->logger->warning('FT recordId "' . $this->recordId . '"');
             }
         }
     }
@@ -271,7 +273,10 @@ final class MetsDocument extends AbstractDocument
      */
     public function getFileLocation(string $id): string
     {
+        $this->logger->warning('FT ID "' . $id . '"');
         $location = $this->mets->xpath('./mets:fileSec/mets:fileGrp/mets:file[@ID="' . $id . '"]/mets:FLocat[@LOCTYPE="URL"]');
+        $this->logger->warning('FT location id:' . $id);
+        $this->logger->warning('FT location href "' . $location[0]->attributes('http://www.w3.org/1999/xlink')->href . '"');
         if (
             !empty($id)
             && !empty($location)
@@ -490,18 +495,26 @@ final class MetsDocument extends AbstractDocument
 
         $thumbnail = null;
 
+        $this->logger->error("FT extConf: ");
+        $this->logger->error("FT extConf: ". serialize($extConf));
+        $this->logger->error("FT TEST3: ". serialize($fileGrpsThumb));
         while ($fileGrpThumb = array_shift($fileGrpsThumb)) {
+            $this->logger->error("FT TEST4: ". serialize($this->physicalStructure));
+            $this->logger->error("FT TEST5: ". serialize($this->physicalStructureInfo));
             if (empty($id)) {
                 $thumbnail = $this->physicalStructureInfo[$this->physicalStructure[1]]['files'][$fileGrpThumb] ?? null;
+                $this->logger->error("FT thumnanail 6: ". $thumbnail);
             } else {
                 $parentId = $this->smLinks['l2p'][$id][0] ?? null;
                 $thumbnail = $this->physicalStructureInfo[$parentId]['files'][$fileGrpThumb] ?? null;
+                $this->logger->error("FT thumnanail 7: ". $thumbnail);
             }
 
             if (!empty($thumbnail)) {
                 break;
             }
         }
+        $this->logger->error("FT thumnanail return: ". $thumbnail);
         return $thumbnail;
     }
 
@@ -795,8 +808,9 @@ final class MetsDocument extends AbstractDocument
     {
         if ($resArray['format'] > 0 && !empty($resArray['xpath'])) {
             //var_dump($resArray['xpath']);
-            //$this->logger->error("TEST". serialize($resArray['xpath']));
-            $this->logger->error("TEST". $resArray['xpath']);
+            //$this->logger->error("FT TEST". serialize($resArray['xpath']));
+            $this->logger->error("FT TEST: ". $resArray['xpath']);
+            $this->logger->error("FT TEST2: ". serialize($resArray));
             if ($resArray['xpath'] !== './mods:extension/ns3:ubma/ns3:branchindustry') {
             $values = $domXPath->evaluate($resArray['xpath'], $domNode);
             if ($values instanceof DOMNodeList && $values->length > 0) {
@@ -807,10 +821,12 @@ final class MetsDocument extends AbstractDocument
                         $metadata[$resArray['index_name']][] = $subentries;
                     } else {
                         $metadata[$resArray['index_name']][] = trim((string) $value->nodeValue);
+                        $this->logger->error("FT values 1: ". $value->nodeValue);
                     }
                 }
             } elseif (!($values instanceof DOMNodeList)) {
                 $metadata[$resArray['index_name']] = [trim((string) $values)];
+                $this->logger->error("FT values 2: ". $values);
             }
             }
         }
@@ -1581,6 +1597,7 @@ final class MetsDocument extends AbstractDocument
         ) {
             // Retain current PID.
             $cPid = $this->cPid ?: $this->pid;
+            $this->logger->warning('FT cPid ' . $cPid);
             if (!$cPid) {
                 $this->logger->error('Invalid PID ' . $cPid . ' for structure definitions');
                 $this->thumbnailLoaded = true;
@@ -1615,11 +1632,14 @@ final class MetsDocument extends AbstractDocument
 
             if (count($allResults) == 1) {
                 $resArray = $allResults[0];
+                $this->logger->warning('FT resArray:');
+                $this->logger->warning('FT resArray:' . serialize($resArray));
                 // Get desired thumbnail structure if not the toplevel structure itself.
                 if (!empty($resArray['thumbnail'])) {
                     $strctType = Helper::getIndexNameFromUid($resArray['thumbnail'], 'tx_dlf_structures', $cPid);
                     // Check if this document has a structure element of the desired type.
                     $strctIds = $this->mets->xpath('./mets:structMap[@TYPE="LOGICAL"]//mets:div[@TYPE="' . $strctType . '"]/@ID');
+                    $this->logger->warning('FT strctIds:' . $strctIds[0]);
                     if (!empty($strctIds)) {
                         $strctId = (string) $strctIds[0];
                     }
@@ -1634,10 +1654,13 @@ final class MetsDocument extends AbstractDocument
                         && !empty($this->smLinks['l2p'][$strctId])
                         && !empty($this->physicalStructureInfo[$this->smLinks['l2p'][$strctId][0]]['files'][$fileGrpThumb])
                     ) {
+
                         $this->thumbnail = $this->getFileLocation($this->physicalStructureInfo[$this->smLinks['l2p'][$strctId][0]]['files'][$fileGrpThumb]);
+                        $this->logger->warning('FT thumbnail1: ' . $this->thumbnail);
                         break;
                     } elseif (!empty($this->physicalStructureInfo[$this->physicalStructure[1]]['files'][$fileGrpThumb])) {
                         $this->thumbnail = $this->getFileLocation($this->physicalStructureInfo[$this->physicalStructure[1]]['files'][$fileGrpThumb]);
+                        $this->logger->warning('FT thumbnail2: ' . $this->thumbnail);
                         break;
                     }
                 }
@@ -1646,6 +1669,7 @@ final class MetsDocument extends AbstractDocument
             }
             $this->thumbnailLoaded = true;
         }
+        $this->logger->warning('FT thumbnail return');
         return $this->thumbnail;
     }
 
