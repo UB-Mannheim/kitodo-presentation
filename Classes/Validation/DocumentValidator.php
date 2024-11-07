@@ -81,6 +81,7 @@ class DocumentValidator
     public function hasAllMandatoryMetadataFields(): bool
     {
         foreach ($this->requiredMetadataFields as $requiredMetadataField) {
+            $this->logger->error('FT metadata: "' . serialize($this->metadata) . '".');
             if (empty($this->metadata[$requiredMetadataField][0])) {
                 $this->logger->error('Missing required metadata field "' . $requiredMetadataField . '".');
                 return false;
@@ -93,7 +94,7 @@ class DocumentValidator
      * Check if xml contains at least one logical structure with given type.
      *
      * @access public
-     * 
+     *
      * @param string $type e.g. documentary, newspaper or object
      *
      * @return bool
