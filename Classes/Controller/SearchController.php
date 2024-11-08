@@ -283,7 +283,7 @@ class SearchController extends AbstractController
         } else {
             $search['params']['filterquery'][]['query'] = '-type:page';
             // Retain given search field if valid.
-            if (!empty($searchParams['query'])) {
+            if (array_key_exists('query', $searchParams) && !empty($searchParams['query'])) {
                 $search['query'] = Solr::escapeQueryKeepField(trim($searchParams['query']), $this->settings['storagePid']);
             }
         }
@@ -570,7 +570,15 @@ class SearchController extends AbstractController
         $searchFields = GeneralUtility::trimExplode(',', $this->settings['extendedFields'], true);
         $extendedSlotCount = range(0, (int) $this->settings['extendedSlotCount'] - 1);
 
-        $this->view->assign('extendedSlotCount', $extendedSlotCount);
+        var_dump("<hr>this->settings");
+        var_dump($this->settings);
+        $slotCountArray = [];
+        for ($i = 0; $i < $this->settings['extendedSlotCount']; $i++) {
+            $slotCountArray[] = $i;
+        }
+
+        $this->view->assign('extendedSlotCount', $slotCountArray);
+        $this->view->assign('extendedFields', $this->settings['extendedFields']);
         $this->view->assign('operators', ['AND', 'OR', 'NOT']);
         $this->view->assign('searchFields', $searchFields);
     }
