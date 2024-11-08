@@ -583,7 +583,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                             'structure' => $docChild['structure'],
                                             'metsOrderlabel' => $docChild['metsOrderlabel'],
                                             'uid' => $docChild['uid'],
-                                            'metadata' => $metadataOf[$docChild['uid']],
+                                            'metadata' => array_key_exists($docChild['uid'], $metadataOf) ? $metadataOf[$docChild['uid']] : null,
                                         ];
                                         $documents[$doc['uid']]['children'][$docChild['uid']] = $childDocument;
                                     }
