@@ -542,7 +542,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                     $searchResult['metadata'][$indexName] = $doc['metadata'][$indexName];
                                 }
                             }
-                            if ($this->searchParams['fulltext'] == '1') {
+                            if (array_key_exists('fulltext', $this->searchParams) && $this->searchParams['fulltext'] == '1') {
                                 $searchResult['snippet'] = $doc['snippet'];
                                 $searchResult['highlight'] = $doc['highlight'];
                                 $searchResult['highlight_word'] = preg_replace('/^;|;$/', '',       // remove ; at beginning or end
@@ -873,7 +873,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      */
     private function translateLanguageCode(&$doc): void
     {
-        if (is_array($doc['metadata']) && array_key_exists('language', $doc['metadata'])) {
+        if (array_key_exists('metadata', $doc) && is_array($doc['metadata']) && array_key_exists('language', $doc['metadata'])) {
             foreach($doc['metadata']['language'] as $indexName => $language) {
                 $doc['metadata']['language'][$indexName] = Helper::getLanguageName($language);
             }
