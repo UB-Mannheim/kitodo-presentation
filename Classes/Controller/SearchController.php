@@ -512,9 +512,7 @@ class SearchController extends AbstractController
                             $entryArray['ITEM_STATE'] = 'IFSUB';
                         }
                         $entryArray['_SUB_MENU'][] = $this->getFacetsMenuEntry($field, $value, $count, $search, $entryArray['ITEM_STATE']);
-                        var_dump($i);
                         if (++$i == $this->settings['limitFacets']) {
-                            var_dump("Breakt bei $i");
                             break;
                         }
                     } else {
@@ -577,8 +575,6 @@ class SearchController extends AbstractController
         // Get field selector options.
         $searchFields = GeneralUtility::trimExplode(',', $this->settings['extendedFields'], true);
 
-        var_dump("<hr>this->settings");
-        var_dump($this->settings);
         $slotCountArray = [];
         for ($i = 0; $i < $this->settings['extendedSlotCount']; $i++) {
             $slotCountArray[] = $i;
