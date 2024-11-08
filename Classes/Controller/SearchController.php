@@ -273,8 +273,8 @@ class SearchController extends AbstractController
         // Set search query.
         $searchParams = $this->searchParams;
         if (
-            (!empty($searchParams['fulltext']))
-            || preg_match('/' . $fields['fulltext'] . ':\((.*)\)/', trim($searchParams['query']), $matches)
+            (array_key_exists('fulltext', $searchParams) && !empty($searchParams['fulltext']))
+            || (array_key_exists('query', $searchParams) && preg_match('/' . $fields['fulltext'] . ':\((.*)\)/', trim($searchParams['query']), $matches))
         ) {
             // If the query already is a fulltext query e.g using the facets
             $searchParams['query'] = empty($matches[1]) ? $searchParams['query'] : $matches[1];
@@ -284,7 +284,7 @@ class SearchController extends AbstractController
             }
         } else {
             // Retain given search field if valid.
-            if (!empty($searchParams['query'])) {
+            if (array_key_exists('query', $searchParams) && !empty($searchParams['query'])) {
                 $search['query'] = Solr::escapeQueryKeepField(trim($searchParams['query']), $this->settings['storagePid']);
             }
         }
@@ -512,7 +512,9 @@ class SearchController extends AbstractController
                             $entryArray['ITEM_STATE'] = 'IFSUB';
                         }
                         $entryArray['_SUB_MENU'][] = $this->getFacetsMenuEntry($field, $value, $count, $search, $entryArray['ITEM_STATE']);
-                        if (++$i == $this->settings['limit']) {
+                        var_dump($i);
+                        if (++$i == $this->settings['limitFacets']) {
+                            var_dump("Breakt bei $i");
                             break;
                         }
                     } else {
@@ -575,6 +577,8 @@ class SearchController extends AbstractController
         // Get field selector options.
         $searchFields = GeneralUtility::trimExplode(',', $this->settings['extendedFields'], true);
 
+        var_dump("<hr>this->settings");
+        var_dump($this->settings);
         $slotCountArray = [];
         for ($i = 0; $i < $this->settings['extendedSlotCount']; $i++) {
             $slotCountArray[] = $i;
