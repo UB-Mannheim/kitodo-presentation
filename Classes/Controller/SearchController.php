@@ -570,8 +570,6 @@ class SearchController extends AbstractController
         $searchFields = GeneralUtility::trimExplode(',', $this->settings['extendedFields'], true);
         $extendedSlotCount = range(0, (int) $this->settings['extendedSlotCount'] - 1);
 
-        var_dump("<hr>this->settings");
-        var_dump($this->settings);
         $slotCountArray = [];
         for ($i = 0; $i < $this->settings['extendedSlotCount']; $i++) {
             $slotCountArray[] = $i;
