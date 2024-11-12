@@ -252,7 +252,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                     $partOfPartOf = AbstractDocument::getPartOf($document['partOf'], true);
                     $document['partOfP'] = $partOfPartOf;
                     $superiorTitleP = AbstractDocument::getTitle($partOfPartOf, true);
-                    $document['partOfPT'] = '[' . $superiorTitleP . ']'; 
+                    $document['partOfPT'] = '[' . $superiorTitleP . ']';
                 }
             }
         }
@@ -542,7 +542,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                     $searchResult['metadata'][$indexName] = $doc['metadata'][$indexName];
                                 }
                             }
-                            if ($this->searchParams['fulltext'] == '1') {
+                            if (array_key_exists('fulltext', $this->searchParams) && $this->searchParams['fulltext'] == '1') {
                                 $searchResult['snippet'] = $doc['snippet'];
                                 $searchResult['highlight'] = $doc['highlight'];
                                 $searchResult['highlight_word'] = preg_replace('/^;|;$/', '',       // remove ; at beginning or end
@@ -560,21 +560,21 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                         if (!array_key_exists('fulltext', $this->searchParams) || $this->searchParams['fulltext'] != '1') {
                             $documents[$doc['uid']]['page'] = 1;
                             $children = $childrenOf[$doc['uid']] ?? [];
-                        
+
                             if (!empty($children)) {
                                 $batchSize = 100;
                                 $totalChildren = count($children);
-                        
+
                                 for ($start = 0; $start < $totalChildren; $start += $batchSize) {
                                     $batch = array_slice($children, $start, $batchSize, true);
-                        
+
                                     // Fetch metadata for the current batch
                                     $metadataOf = $this->fetchToplevelMetadataFromSolr([
                                         'query' => 'partof:' . $doc['uid'],
                                         'start' => $start,
                                         'rows' => min($batchSize, $totalChildren - $start),
                                     ]);
-                        
+
                                     foreach ($batch as $docChild) {
                                         // We need only a few fields from the children, but we need them as an array.
                                         $childDocument = [
@@ -583,7 +583,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                             'structure' => $docChild['structure'],
                                             'metsOrderlabel' => $docChild['metsOrderlabel'],
                                             'uid' => $docChild['uid'],
-                                            'metadata' => $metadataOf[$docChild['uid']],
+                                            'metadata' => array_key_exists($docChild['uid'], $metadataOf) ? $metadataOf[$docChild['uid']] : null,
                                         ];
                                         $documents[$doc['uid']]['children'][$docChild['uid']] = $childDocument;
                                     }
@@ -852,7 +852,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             'uid' => !empty($resultDocument->getUid()) ? $resultDocument->getUid() : $parameters['uid'],
             'highlight' => $resultDocument->getHighlightsIds(),
         ];
-        
+
         foreach ($parameters['listMetadataRecords'] as $indexName => $solrField) {
             if (!empty($record->$solrField)) {
                     $document['metadata'][$indexName] = $record->$solrField;
@@ -873,7 +873,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      */
     private function translateLanguageCode(&$doc): void
     {
-        if (array_key_exists('language', $doc['metadata'])) {
+        if (array_key_exists('metadata', $doc) && is_array($doc['metadata']) && array_key_exists('language', $doc['metadata'])) {
             foreach($doc['metadata']['language'] as $indexName => $language) {
                 $doc['metadata']['language'][$indexName] = Helper::getLanguageName($language);
             }
