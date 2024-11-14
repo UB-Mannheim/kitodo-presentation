@@ -64,6 +64,13 @@
     </f:if>
 </f:spaceless></f:variable>
 
+<f:comment>Clear Name of Collection</f:comment>
+<f:if condition="{configObject.indexName} == 'collection'">
+    <f:then>
+        <f:variable name="collectionClearName" value="{documentMetadataSection.{configObject.indexName}}" />
+    </f:then>
+</f:if>
+
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
         <f:comment>check if partOf when </f:comment>
@@ -118,6 +125,10 @@
                                 <f:comment>prod_id sollen nicht ausgegeben werden</f:comment>
                                 <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
                             </f:case>
+                            <f:case value="year">
+                                <f:comment>year sollen nicht ausgegeben werden</f:comment>
+                                <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
+                            </f:case>
                             <f:case value="collection">
                                 <f:comment>collection muss anders behandelt werden</f:comment>
                                 <!-- 95 {configObject.indexName } -->
@@ -131,7 +142,6 @@
 
                                 <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
                                 <f:variable name="basepath" value="/sammlungen/" />
-                                <f:variable name="collectionClearName" value="{collectionValue}" />
 
                                 <f:switch expression="{collectionClearName}">
 
