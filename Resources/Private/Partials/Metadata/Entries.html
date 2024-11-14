@@ -98,7 +98,7 @@
             <f:else>
                 <f:comment>normal metadata</f:comment>
                 <f:comment>
-                    <!-- 62 {configObject.indexName } -->
+                    <!-- 101 {configObject.indexName } -->
                     <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                     {wrappedValues -> f:format.raw()}
                 </f:comment>
@@ -112,7 +112,7 @@
                                 </f:comment>
                             </f:then>
                             <f:else>
-                                <!-- 75 {configObject.indexName } -->
+                                <!-- 115 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                                 {wrappedValues -> f:format.raw()}
                             </f:else>
@@ -129,8 +129,10 @@
                                 <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
                             </f:case>
                             <f:case value="year">
+                                <f:comment>mit der Umstellung auf year_short kann dieser Abschnitt auskommentiert werden!</f:comment>
                                 <f:comment><f:debug>{documentMetadataSection}</f:debug></f:comment>
-                                <!-- 134 {configObject.indexName } -->
+                                <f:comment>
+                                <!-- 135 {configObject.indexName } -->
                                 <f:if condition="{documentMetadataSection.collection} == 'Historische Zeitungen'">
                                     <f:then>
                                         <f:comment><f:debug>{documentMetadataSection.collection}</f:debug></f:comment>
@@ -143,10 +145,11 @@
                                         {wrappedValues -> f:format.raw()}
                                     </f:else>
                                 </f:if>
+                                </f:comment>
                             </f:case>
                             <f:case value="collection">
                                 <f:comment>collection muss anders behandelt werden</f:comment>
-                                <!-- 95 {configObject.indexName } -->
+                                <!-- 152 {configObject.indexName } -->
                                 <f:comment>
                                     <f:debug>{configObject}</f:debug>
                                     <f:debug>{wrappedValues -> f:format.raw()}</f:debug>
@@ -241,7 +244,7 @@
                                 </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
                             </f:case>
                             <f:defaultCase>
-                                <!-- 100 {configObject.indexName } -->
+                                <!-- 247 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                                 {wrappedValues -> f:format.raw()}
                             </f:defaultCase>
