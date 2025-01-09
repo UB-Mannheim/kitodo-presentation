@@ -73,6 +73,13 @@
         <f:variable name="collectionClearName" value="{documentMetadataSection.{configObject.indexName}}" />
     </f:then>
 </f:if>
+<f:comment>collection_new kommt vom Metadata-Eintrag, d.h. mods:relatedItem type series</f:comment>
+<f:if condition="{configObject.indexName} == 'collection_new'">
+    <f:then>
+        <f:variable name="collectionClearNameNew" value="{documentMetadataSection.{configObject.indexName}}" />
+        <f:debug>collection_new: {collectionClearNameNew}</f:debug>
+    </f:then>
+</f:if>
 
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
@@ -243,6 +250,32 @@
                                     </f:defaultCase>
                                 </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
                             </f:case>
+                            <f:case value="collection_new">
+                                <f:comment>collection_new muss anders behandelt werden</f:comment>
+                                <!-- 256 {configObject.indexName } -->
+                                <f:comment>
+                                    <f:debug>{configObject}</f:debug>
+                                    <f:debug>{wrappedValues -> f:format.raw()}</f:debug>
+                                    <f:debug>{oriValues}</f:debug>
+                                </f:comment>
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
+
+                                <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
+                                <f:variable name="basepath" value="/sammlungen/" />
+
+<!-- 266 {configObject.indexName } -->
+                                <f:switch expression="{collectionClearNameNew}">
+                                    <f:case value="historische Zeitungen">
+                                        <dd><a href="{basepath}zeitungen" title="NBacklink zur Sammlung {collectionClearNameNew}">{collectionClearNameNew}</a></dd>
+                                    </f:case>
+                                    <f:defaultCase>
+                                        <!-- default Beginn -->
+                                        {wrappedValues -> f:format.raw()}
+                                        <!-- default Ende-->
+                                    </f:defaultCase>
+                                </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
+                            </f:case>                                
                             <f:defaultCase>
                                 <!-- 247 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
