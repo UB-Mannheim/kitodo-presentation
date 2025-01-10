@@ -273,6 +273,10 @@
                                 </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
                                 </f:for>
                             </f:case>
+
+
+
+
                             <f:case value="collection_new">
                                 <f:comment>collection_new muss anders behandelt werden</f:comment>
                                 <!-- 256 {configObject.indexName } -->
@@ -288,16 +292,29 @@
                                 <f:variable name="basepath" value="/sammlungen/" />
 
 <!-- 266 {configObject.indexName} {collectionClearNameNew} -->
-<f:debug>{collectionClearNameNewArray}</f:debug>
+<f:comment>
+    <f:debug>TEST</f:debug>
+    <f:debug>{collectionClearNameNewArray}</f:debug>
+</f:comment>
                                 <f:for each="{collectionClearNameNewArray}" as="collectionClearName">
+                                    <f:comment><f:variable name="samlungsUrlTranslate" value="{f:translate( key: 'url.{collectionClearName}', extensionName: 'UbmaDigiMiniPackage', id: 'EXT:ubma_digi_mini_package/Resources/Private/Language/locallang.xlf', default: 'test' )}" /></f:comment>
+                                    <f:variable name="sammlungsUrlTranslate" value="{f:translate(key: 'LLL:EXT:ubma_digi_mini_package/Resources/Private/Language/locallang.xml:url.{item.collection.indexName}')}" />
+                                    <!-- url: {collectionClearName} {sammlungsUrlTranslate} -->
+                                    <f:comment>
+                                        <f:debug>{sammlungsUrlTranslate}</f:debug>
+                                        <f:debug>{collectionClearName}</f:debug>
+                                        <f:debug>{collectionClearName}</f:debug>
+                                    </f:comment>
                                     <f:switch expression="{collectionClearName}">
                                         <f:case value="historische Zeitungen">
                                             <!-- 295 {collectionClearName} -->
-                                            <dd><a href="{basepath}zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                            <!--<dd><a href="{basepath}zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>-->
+                                            <dd><a href="/sammlungen/historische-zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                         </f:case>
-                                        <f:case value="Reichsanzeiger und seine VorgängerzeitungenNNN">
+                                        <f:case value="Reichsanzeiger und seine Vorgaengerzeitungen">
                                             <!-- 299 {collectionClearName} -->
-                                            <dd><a href="{basepath}zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                            <!--<dd><a href="{basepath}zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>-->
+                                            <dd><a href="/sammlungen/reichsanzeiger-und-seine-vorgaengerzeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                         </f:case>
                                         <f:defaultCase>
                                             <!-- default Beginn -->
@@ -306,7 +323,7 @@
                                         </f:defaultCase>
                                     </f:switch>                 <f:comment>expression="{collectionClearName}"></f:comment>
                                 </f:for>
-                            </f:case>                                
+                            </f:case>
                             <f:defaultCase>
                                 <!-- 247 {configObject.indexName } -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
