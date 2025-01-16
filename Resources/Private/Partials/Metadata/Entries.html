@@ -63,6 +63,7 @@
         </f:else>
     </f:if>
 </f:spaceless></f:variable>
+
 <f:comment>
     <f:debug>{configObject.indexName}</f:debug>
     <f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
@@ -70,14 +71,22 @@
 <f:comment>Clear Name of Collection</f:comment>
 <f:if condition="{configObject.indexName} == 'collection'">
     <f:then>
+        <f:debug>{documentMetadataSection}</f:debug>
         <f:variable name="collectionClearNameString" value="{documentMetadataSection.{configObject.indexName}}" />
         <f:variable name="collectionClearNameNewArray" value="" />
         <v:iterator.explode content="{collectionClearNameString}" glue="</dd><dd>" as="part">
             <f:comment><f:debug>{part}</f:debug></f:comment>
             <f:variable name="collectionClearNameNewArray" value="{part}" />
+            <f:debug>{part}</f:debug>
         </v:iterator.explode>
-        <f:comment><f:debug>two</f:debug></f:comment>
-        <f:comment><f:debug>{collectionClearNameNewArray}</f:debug></f:comment>
+        <f:comment>
+            <f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
+            <f:debug>two</f:debug>
+        </f:comment>
+        <f:comment>
+            <f:debug>{collectionClearNameNewArray}</f:debug>
+            <f:debug>{collectionClearNameNewArray}</f:debug>
+        </f:comment>
     </f:then>
 </f:if>
 <f:comment>collection_new kommt vom Metadata-Eintrag, d.h. mods:relatedItem type series</f:comment>
@@ -86,10 +95,10 @@
         <f:variable name="collectionClearNameNewString" value="{documentMetadataSection.{configObject.indexName}}" />
         <f:variable name="collectionClearNameNewArray" value="" />
         <f:comment>
-        <f:debug>collection_new: {collectionClearNameNewString}</f:debug>
-        <f:debug>{configObject.indexName}</f:debug>
-        <f:debug>{collectionClearNameNewString^}</f:debug>
-        <f:debug>{documentMetadataSection}</f:debug>
+            <f:debug>collection_new: {collectionClearNameNewString}</f:debug>
+            <f:debug>{configObject.indexName}</f:debug>
+            <f:debug>{collectionClearNameNewString^}</f:debug>
+            <f:debug>{documentMetadataSection}</f:debug>
         </f:comment>
         <v:iterator.explode content="{collectionClearNameNewString}" glue="</dd><dd>" as="part">
             <f:variable name="collectionClearNameNewArray" value="{part}" />
@@ -237,12 +246,26 @@
                                     <f:case value="Eingeschränkter Zugang">
                                         <dd><a href="{basepath}restricted" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
+<f:comment>
                                     <f:case value="Historische Zeitungen">
                                         <dd><a href="{basepath}zeitungen" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Reichsanzeiger und seine VorgängerzeitungenNNNK">
+                                    <f:case value="Reichsanzeiger und seine Vorgängerzeitungen">
                                         <dd><a href="{basepath}zeitungen" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
+</f:comment>
+
+                                    <f:case value="Historische Zeitungen">
+                                        <!-- 295 {collectionClearName} -->
+                                        <dd><a href="{basepath}zeitungen" title="XNBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                    </f:case>
+                                    <f:case value="Reichsanzeiger und seine Vorgängerzeitungen">
+                                        <!-- 299 {collectionClearName} -->
+                                        <dd><a href="{basepath}reichsanzeiger-und-seine-vorgaengerzeitungen" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                    </f:case>
+
+
+
 
                                     <f:case value="Jesuitenkolleg">
                                         <dd><a href="{basepath}jesuitenkolleg" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
@@ -309,7 +332,7 @@
                                     <f:switch expression="{collectionClearName}">
                                         <f:case value="historische Zeitungen">
                                             <!-- 295 {collectionClearName} -->
-                                            <dd><a href="/sammlungen/historische-zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                            <dd><a href="/sammlungen/zeitungen" title="NBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                         </f:case>
                                         <f:case value="Reichsanzeiger und seine Vorgaengerzeitungen">
                                             <!-- 299 {collectionClearName} -->
