@@ -71,26 +71,24 @@
 <f:comment>Clear Name of Collection</f:comment>
 <f:if condition="{configObject.indexName} == 'collection'">
     <f:then>
-        <f:debug>{documentMetadataSection}</f:debug>
-        <f:variable name="collectionClearNameString" value="{documentMetadataSection.{configObject.indexName}}" />
-        <f:variable name="collectionClearNameNewArray" value="" />
+        <f:comment>ACHTUNG TRICK: nicht collection sondern collection_new nutzten, die unterscheiden sich!???!</f:comment>
+        <f:variable name="collectionClearNameString" value="{documentMetadataSection.collection_new}" />
+        <f:variable name="collectionClearNameArray" value="" />
         <v:iterator.explode content="{collectionClearNameString}" glue="</dd><dd>" as="part">
             <f:comment><f:debug>{part}</f:debug></f:comment>
-            <f:variable name="collectionClearNameNewArray" value="{part}" />
-            <f:debug>{part}</f:debug>
+            <f:variable name="collectionClearNameArray" value="{part}" />
         </v:iterator.explode>
         <f:comment>
             <f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
             <f:debug>two</f:debug>
         </f:comment>
         <f:comment>
-            <f:debug>{collectionClearNameNewArray}</f:debug>
-            <f:debug>{collectionClearNameNewArray}</f:debug>
+            <f:debug>{collectionClearNameArray}</f:debug>
         </f:comment>
     </f:then>
 </f:if>
 <f:comment>collection_new kommt vom Metadata-Eintrag, d.h. mods:relatedItem type series</f:comment>
-<f:if condition="{configObject.indexName} == 'collection_new'">
+<f:if condition="{configObject.indexName} == 'collection_new_'">
     <f:then>
         <f:variable name="collectionClearNameNewString" value="{documentMetadataSection.{configObject.indexName}}" />
         <f:variable name="collectionClearNameNewArray" value="" />
@@ -102,6 +100,7 @@
         </f:comment>
         <v:iterator.explode content="{collectionClearNameNewString}" glue="</dd><dd>" as="part">
             <f:variable name="collectionClearNameNewArray" value="{part}" />
+            <f:variable name="collectionClearNameArray" value="{part}" />
         </v:iterator.explode>
     </f:then>
 </f:if>
@@ -180,6 +179,11 @@
                                 </f:comment>
                             </f:case>
                             <f:case value="collection">
+                                <f:comment>
+                                    <f:debug>collection</f:debug>
+                                    <f:debug>{collectionClearNameArray}</f:debug>
+                                </f:comment>
+
                                 <f:comment>collection muss anders behandelt werden</f:comment>
                                 <!-- 152 {configObject.indexName } -->
                                 <f:comment>
@@ -193,8 +197,8 @@
                                 <f:comment><f:variable name="basepath" value="/sammlungen/historische/cd/" /></f:comment>
                                 <f:variable name="basepath" value="/sammlungen/" />
 
-                                <f:for each="{collectionClearNameNewArray}" as="collectionClearName">
-                                    <f:debug>{collectionClearName}</f:debug>
+                                <f:for each="{collectionClearNameArray}" as="collectionClearName">
+
                                     <f:comment><f:debug>{collectionClearName}</f:debug></f:comment>
 
                                 <f:switch expression="{collectionClearName}">
@@ -259,7 +263,7 @@
                                         <!-- 295 {collectionClearName} -->
                                         <dd><a href="{basepath}zeitungen" title="XNBacklink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
-                                    <f:case value="Reichsanzeiger und seine Vorgängerzeitungen">
+                                    <f:case value="Reichsanzeiger und seine Vorgaengerzeitungen">
                                         <!-- 299 {collectionClearName} -->
                                         <dd><a href="{basepath}reichsanzeiger-und-seine-vorgaengerzeitungen" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
@@ -300,8 +304,14 @@
 
 
 
-
                             <f:case value="collection_new">
+                                <!-- 308 keine Ausgabe bei collection_new -->
+                            </f:case>
+                            <f:case value="collection_new_stillgelegt">
+                                <f:debug>collection_new</f:debug>
+                                <f:debug>{collectionClearNameArray}</f:debug>
+                                <f:debug>{collectionClearNameNewArray}</f:debug>
+
                                 <f:comment>collection_new muss anders behandelt werden</f:comment>
                                 <!-- 256 {configObject.indexName } -->
                                 <f:comment>
