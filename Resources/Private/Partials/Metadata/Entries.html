@@ -63,7 +63,7 @@
         </f:else>
     </f:if>
 </f:spaceless></f:variable>
-
+<f:comment><f:debug>TEST ENTITIES</f:debug></f:comment>
 <f:comment>
     <f:debug>{configObject.indexName}</f:debug>
     <f:debug>{documentMetadataSection.{configObject.indexName}}</f:debug>
@@ -71,8 +71,9 @@
 <f:comment>Clear Name of Collection</f:comment>
 <f:if condition="{configObject.indexName} == 'collection'">
     <f:then>
-        <f:comment>ACHTUNG TRICK: nicht collection sondern collection_new nutzten, die unterscheiden sich!???!</f:comment>
-        <f:variable name="collectionClearNameString" value="{documentMetadataSection.collection_new}" />
+        <f:comment><f:debug>TEST ENTITIES: Collection</f:debug></f:comment>
+        <f:comment>Sammlung in array umwandeln, da mehrere Sammlungen möglich sind</f:comment>
+        <f:variable name="collectionClearNameString" value="{documentMetadataSection.collection}" />
         <f:variable name="collectionClearNameArray" value="" />
         <v:iterator.explode content="{collectionClearNameString}" glue="</dd><dd>" as="part">
             <f:comment><f:debug>{part}</f:debug></f:comment>
@@ -87,6 +88,8 @@
         </f:comment>
     </f:then>
 </f:if>
+
+<f:comment>soll nicht mehr verwendet werden, rückkehr zu collection</f:comment>
 <f:comment>collection_new kommt vom Metadata-Eintrag, d.h. mods:relatedItem type series</f:comment>
 <f:if condition="{configObject.indexName} == 'collection_new_'">
     <f:then>
@@ -213,7 +216,7 @@
                                         <dd><a href="{basepath}geschaeftsberichte" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Deutsche Statistische Jahrbücher">
-                                        <dd><a href="/deutsche-statistische-jahrbuecher/uebersicht" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
+                                        <dd><a href="/statistische-jahrbuecher/uebersicht" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
                                     </f:case>
                                     <f:case value="Gemeindeverzeichnisse">
                                         <dd><a href="{basepath}gemeindeverzeichnisse" title="Backlink zur Sammlung {collectionClearName}">{collectionClearName}</a></dd>
