@@ -381,6 +381,7 @@ class MetadataController extends AbstractController
             $this->parseType($i, $metadata);
         } elseif ($name == 'collection' && !empty($value)) {
             // Check if collections isn't hidden.
+            // Check if collections isn't hidden.
             $this->parseCollections($i, $value, $metadata);
         } elseif ($name == 'language' && !empty($value)) {
             // Translate ISO 639 language code.
@@ -463,10 +464,23 @@ class MetadataController extends AbstractController
     private function parseCollections(int $i, $value, array &$metadata) : void
     {
         $j = 0;
+        $metadata[$i]['collection'] = "";
         foreach ($value as $entry) {
             $collection = $this->collectionRepository->findOneByIndexName($entry);
             if ($collection) {
-                $metadata[$i]['collection'] = $collection->getLabel() ? : '';
+                //$metadata[$i]['collection'] = $collection->getLabel() ? : '';
+                if ($collection->getLabel() != '') {
+                    // first Element only series
+                    // next Elements separate with '</dd><dd'. In Mannheim in configuration
+                    // not default, this is #
+                    // return is a string
+                    // before a array, if i changed this i have to change Entries.html as well
+                    if (($j > 0) and ($collection->getLabel() != '') ) {
+                        $metadata[$i]['collection'] = $metadata[$i]['collection'] . '</dd><dd>' . $collection->getLabel();
+                    } else {
+                        $metadata[$i]['collection'] = $collection->getLabel();
+                    };
+                };
                 $j++;
             }
         }
