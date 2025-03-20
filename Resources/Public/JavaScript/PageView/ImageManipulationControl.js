@@ -37,7 +37,8 @@ dlfViewerImageManipulationControl = function(options) {
     this.anchor_ = $('<a/>', {
         href: '#image-manipulation',
         text: this.dic['imagemanipulation-on'],
-        title: this.dic['imagemanipulation-on']
+        title: this.dic['imagemanipulation-on'],
+        class: 'ubma-imageIcon'
     });
     $(options.controlTarget).append(this.anchor_);
 
