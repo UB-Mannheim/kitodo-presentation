@@ -798,6 +798,8 @@ final class MetsDocument extends AbstractDocument
     private function setMetadataFieldValues(array $resArray, DOMXPath $domXPath, DOMElement $domNode, array &$metadata, array $subentryResults): void
     {
         if ($resArray['format'] > 0 && !empty($resArray['xpath'])) {
+            var_dump($resArray['xpath']);
+            var_dump($domNode);
             $values = $domXPath->evaluate($resArray['xpath'], $domNode);
             if ($values instanceof DOMNodeList && $values->length > 0) {
                 $metadata[$resArray['index_name']] = [];

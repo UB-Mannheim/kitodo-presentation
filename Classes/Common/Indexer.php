@@ -331,7 +331,16 @@ class Indexer
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
         // Get metadata for logical unit.
-        $metadata = $doc->metadataArray[$logicalUnit['id']];
+        if (array_key_exists($logicalUnit['id'], $doc->metadataArray) && is_array($doc->metadataArray[$logicalUnit['id']])) {
+            //var_dump("-----------------logicalUnit['id']-----------");
+            //var_dump($logicalUnit['id']);
+            $metadata = $doc->metadataArray[$logicalUnit['id']];
+        } else {
+            //var_dump("-----------------keine Metadaten fuer logicalUnit['id']-----------");
+            //var_dump($logicalUnit['id']);
+            $metadata = "";
+        }
+        //$metadata = $doc->metadataArray[$logicalUnit['id']];
         if (!empty($metadata)) {
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'general');
             $validator = new DocumentValidator($metadata, explode(',', $extConf['requiredMetadataFields']));
@@ -355,27 +364,46 @@ class Indexer
                 }
                 // There can be only one toplevel unit per UID, independently of backend configuration
                 $solrDoc->setField('toplevel', $logicalUnit['id'] == $doc->toplevelId ? true : false);
+                //var_dump($metadata);
                 $solrDoc->setField('title', $metadata['title'][0]);
-                $solrDoc->setField('volume', $metadata['volume'][0]);
+                $length = sizeof($metadata['volume']);
+                if ($length>0) {
+                    $solrDoc->setField('volume', $metadata['volume'][0]);
+                };
                 // verify date formatting
                 if(strtotime($metadata['date'][0])) {
                     $solrDoc->setField('date', self::getFormattedDate($metadata['date'][0]));
                 }
-                $solrDoc->setField('record_id', $metadata['record_id'][0]);
-                $solrDoc->setField('purl', $metadata['purl'][0]);
-                $solrDoc->setField('location', $document->getLocation());
-                $solrDoc->setField('urn', $metadata['urn']);
-                $solrDoc->setField('license', $metadata['license']);
-                $solrDoc->setField('terms', $metadata['terms']);
-                $solrDoc->setField('restrictions', $metadata['restrictions']);
-                $coordinates = json_decode($metadata['coordinates'][0]);
-                if (is_object($coordinates)) {
-                    $feature = (array) $coordinates->features[0];
-                    $geometry = (array) $feature['geometry'];
-                    krsort($geometry);
-                    $feature['geometry'] = $geometry;
-                    $solrDoc->setField('geom', json_encode($feature));
-                }
+                if (array_key_exists('record_id', $metadata) && array_key_exists(0, $metadata['record_id'])) {
+                    $solrDoc->setField('record_id', $metadata['record_id'][0]);
+                    $solrDoc->setField('purl', $metadata['purl'][0]);
+                    $solrDoc->setField('location', $document->getLocation());
+                    $solrDoc->setField('urn', $metadata['urn']);
+                    $solrDoc->setField('license', $metadata['license']);
+                    $solrDoc->setField('terms', $metadata['terms']);
+                    $solrDoc->setField('restrictions', $metadata['restrictions']);
+                } else {
+                    //var_dump($metadata);
+                    $solrDoc->setField('record_id', "");
+                    $solrDoc->setField('purl', "");
+                    $solrDoc->setField('location', "");
+                    $solrDoc->setField('urn', "");
+                    $solrDoc->setField('license', "");
+                    $solrDoc->setField('terms', "");
+                    $solrDoc->setField('restrictions', "");
+                };
+
+                if (array_key_exists('coordinates', $metadata) && is_array($metadata['coordinates'])) {
+                    $length = sizeof($metadata['coordinates']);
+                    $coordinates = json_decode($metadata['coordinates'][0]);
+                    if (is_object($coordinates)) {
+                        $feature = (array) $coordinates->features[0];
+                        $geometry = (array) $feature['geometry'];
+                        krsort($geometry);
+                        $feature['geometry'] = $geometry;
+                        $solrDoc->setField('geom', json_encode($feature));
+                    }
+                };
                 $autocomplete = self::processMetadata($document, $metadata, $solrDoc);
                 // Add autocomplete values to index.
                 if (!empty($autocomplete)) {
@@ -526,7 +554,9 @@ class Indexer
                 $solrDoc->setField(self::getIndexFieldName($indexName, $document->getPid()), $data);
                 if (in_array($indexName, self::$fields['sortables'])) {
                     // Add sortable fields to index.
-                    $solrDoc->setField($indexName . '_sorting', $metadata[$indexName . '_sorting'][0]);
+                    if (array_key_exists($indexName . '_sorting', $metadata) && is_array($metadata[$indexName . '_sorting'])) {
+                        $solrDoc->setField($indexName . '_sorting', $metadata[$indexName . '_sorting'][0]);
+                    };
                 }
                 if (in_array($indexName, self::$fields['facets'])) {
                     // Add facets to index.
