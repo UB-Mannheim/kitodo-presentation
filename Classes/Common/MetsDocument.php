@@ -253,7 +253,10 @@ final class MetsDocument extends AbstractDocument
      */
     public function getFileInfo($id): ?array
     {
+        var_dump("==========> vor magicGetFileGrps getFileInfo");
+        var_dump($id);
         $this->magicGetFileGrps();
+        var_dump("==========> nach magicGetFileGrps getFileInfo");
 
         if (isset($this->fileInfos[$id]) && empty($this->fileInfos[$id]['location'])) {
             $this->fileInfos[$id]['location'] = $this->getFileLocation($id);
@@ -428,7 +431,9 @@ final class MetsDocument extends AbstractDocument
      */
     private function getFiles(array &$details, ?SimpleXMLElement $filePointers): void
     {
+        var_dump("==========> vor magicGetFileGrps getFiles");
         $fileUse = $this->magicGetFileGrps();
+        var_dump("==========> nach magicGetFileGrps getFiles");
         // Get the file representations from fileSec node.
         foreach ($filePointers as $filePointer) {
             $fileId = (string) $filePointer->attributes()->FILEID;
@@ -807,12 +812,14 @@ final class MetsDocument extends AbstractDocument
                 $errors = libxml_get_errors();
                 foreach ($errors as $error) {
                     if (strpos($error->message, 'Undefined namespace prefix') !== false) {
-                        error_log("Warning: An undefined namespace prefix was used in XPath: " . $resArray['xpath']);
+                        //error_log("Warning: An undefined namespace prefix was used in XPath: " . $resArray['xpath']);
+                        $this->logger->error('Warning: An undefined namespace prefix was used in XPath: ' . $resArray['xpath']);
                         //var_dump("Warning: An undefined namespace prefix was used in XPath: " . $resArray['xpath']);
                     };
                 }
             } catch (Exception $e) {
-                error_log("Error when evaluating XPath: " . $e->getMessage());
+                //error_log("Error when evaluating XPath: " . $e->getMessage());
+                $this->logger->error('Error when evaluating XPath: ' . $e->getMessage());
                 //var_dump("Error when evaluating XPath: " . $e->getMessage());
             };
             libxml_clear_errors(); // Deletes errors for the next use
@@ -1151,9 +1158,12 @@ final class MetsDocument extends AbstractDocument
         $fullText = '';
 
         // Load fileGrps and check for full text files.
+        var_dump("==========> vor magicGetFileGrps getFullText");
         $this->magicGetFileGrps();
+        var_dump("==========> nach magicGetFileGrps getFullText");
         if ($this->hasFulltext) {
             $fullText = $this->getFullTextFromXml($id);
+            var_dump($fullText);
         }
         return $fullText;
     }
@@ -1221,7 +1231,9 @@ final class MetsDocument extends AbstractDocument
     {
         // Are the fileGrps already loaded?
         if (!$this->fileGrpsLoaded) {
+            var_dump("==========> vor magicGetFileGrps ensureHasFulltextIsSet");
             $this->magicGetFileGrps();
+            var_dump("==========> nach magicGetFileGrps ensureHasFulltextIsSet");
         }
     }
 
@@ -1362,6 +1374,7 @@ final class MetsDocument extends AbstractDocument
      */
     protected function magicGetFileGrps(): array
     {
+
         if (!$this->fileGrpsLoaded) {
             // Get configured USE attributes.
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'files');
@@ -1387,6 +1400,7 @@ final class MetsDocument extends AbstractDocument
                     foreach ($fileGrps as $fileGrp) {
                         foreach ($fileGrp->children('http://www.loc.gov/METS/')->file as $file) {
                             $fileId = (string) $file->attributes()->ID;
+                            //var_dump($useGrp . " " . $fileId);
                             $this->fileGrps[$fileId] = $useGrp;
                             $this->fileInfos[$fileId] = [
                                 'fileGrp' => $useGrp,
@@ -1403,10 +1417,37 @@ final class MetsDocument extends AbstractDocument
                 !empty($extConf['fileGrpFulltext'])
                 && array_intersect(GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext']), $this->fileGrps) !== []
             ) {
+
+                var_dump("setze hasfulltext true");
+                var_dump("1412 =====> \$extConf['fileGrpFulltext']");
+                var_dump($extConf['fileGrpFulltext']);
+                var_dump("1414 =====> \$extConf['fileGrpFulltext']");
+                var_dump(array_intersect(GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext'])));
+                var_dump("==========================1416==");
+                //var_dump($this->fileGrps);
+                // Are there any fulltext files available?
+    
                 $this->hasFulltext = true;
-            }
+                var_dump($this->hasFulltext);
+                //var_dump($this);
+            } else {
+                var_dump("war hasfulltext false");
+                var_dump($this->hasFulltext);
+
+                var_dump("1426 =====> \$extConf['fileGrpFulltext'] Bedingung 1");
+                var_dump($extConf['fileGrpFulltext']);
+                var_dump("1428 =====> array_intersect              Bedingung 2");
+                var_dump(array_intersect(GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext'])));
+                var_dump("1430 =====> \$this->fileGrps             Bedingung 3");
+                //var_dump($this->fileGrps);
+                var_dump("==========================1430==");
+                // Are there any fulltext files available?
+    
+            };
             $this->fileGrpsLoaded = true;
         }
+        var_dump("=============vor Return ============= hasFulltext " . ($this->hasFulltext ? 'true': 'false'));
+        //var_dump($this);
         return $this->fileGrps;
     }
 
@@ -1448,7 +1489,9 @@ final class MetsDocument extends AbstractDocument
             $elementNodes = $this->mets->xpath('./mets:structMap[@TYPE="PHYSICAL"]/mets:div[@TYPE="physSequence"]/mets:div');
             if (!empty($elementNodes)) {
                 // Get file groups.
+                var_dump("==========> vor magicGetFileGrps Rekursive magicGetPhysicalStructure");
                 $fileUse = $this->magicGetFileGrps();
+                var_dump("==========> nach magicGetFileGrps Rekursive magicGetPhysicalStructure");
                 // Get the physical sequence's metadata.
                 $physicalNodes = $this->mets->xpath('./mets:structMap[@TYPE="PHYSICAL"]/mets:div[@TYPE="physSequence"]');
                 $firstNode = $physicalNodes[0];
@@ -1486,7 +1529,9 @@ final class MetsDocument extends AbstractDocument
     private function getFileRepresentation(string $id, SimpleXMLElement $physicalNode): void
     {
         // Get file groups.
+        var_dump("==========> vor magicGetFileGrps Rekursive getFileRepresentation");
         $fileUse = $this->magicGetFileGrps();
+        var_dump("==========> nach magicGetFileGrps Rekursive getFileRepresentation");
 
         foreach ($physicalNode->children('http://www.loc.gov/METS/')->fptr as $fptr) {
             $fileNode = $fptr->area ?? $fptr;
@@ -1782,7 +1827,9 @@ final class MetsDocument extends AbstractDocument
             if (!empty($elementNodes)) {
                 $musicalSeq = [];
                 // Get file groups.
+                var_dump("==========> vor magicGetFileGrps Rekursive magicGetMusicalStructure");
                 $fileUse = $this->magicGetFileGrps();
+                var_dump("==========> nach magicGetFileGrps Rekursive magicGetMusicalStructure");
 
                 // Get the musical sequence's metadata.
                 $musicalNode = $this->mets->xpath('./mets:structMap[@TYPE="MUSICAL"]/mets:div[@TYPE="measures"]');

@@ -134,6 +134,13 @@ class Indexer
                     }
                 }
                 // Index full text files if available.
+                var_dump("vor check auf fulltext");
+                var_dump($document->getCurrentDocument()->hasFulltext);
+                if ($document->getCurrentDocument()->hasFulltext) {
+                    var_dump("fulltext vorhanden");
+                } else {
+                    var_dump("fulltext NICHT vorhanden");
+                }
                 if ($document->getCurrentDocument()->hasFulltext) {
                     foreach ($document->getCurrentDocument()->physicalStructure as $pageNumber => $xmlId) {
                         if ($success) {
@@ -460,6 +467,11 @@ class Indexer
     {
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
+        if ($doc->hasFulltext) {
+            var_dump("fulltext ist vorhanden");
+        } else {
+            var_dump("fulltext ist NICHT vorhanden");
+        }
         if ($doc->hasFulltext && $fullText = $doc->getFullText($physicalUnit['id'])) {
             // Read extension configuration.
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'files');
