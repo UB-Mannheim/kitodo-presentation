@@ -798,9 +798,25 @@ final class MetsDocument extends AbstractDocument
     private function setMetadataFieldValues(array $resArray, DOMXPath $domXPath, DOMElement $domNode, array &$metadata, array $subentryResults): void
     {
         if ($resArray['format'] > 0 && !empty($resArray['xpath'])) {
-            var_dump($resArray['xpath']);
-            var_dump($domNode);
-            $values = $domXPath->evaluate($resArray['xpath'], $domNode);
+
+            libxml_use_internal_errors(true); // Prevents direct error output
+            try {
+                $values = $domXPath->evaluate($resArray['xpath'], $domNode);
+                
+                // Check whether errors have occurred
+                $errors = libxml_get_errors();
+                foreach ($errors as $error) {
+                    if (strpos($error->message, 'Undefined namespace prefix') !== false) {
+                        error_log("Warning: An undefined namespace prefix was used in XPath: " . $resArray['xpath']);
+                        //var_dump("Warning: An undefined namespace prefix was used in XPath: " . $resArray['xpath']);
+                    };
+                }
+            } catch (Exception $e) {
+                error_log("Error when evaluating XPath: " . $e->getMessage());
+                //var_dump("Error when evaluating XPath: " . $e->getMessage());
+            };
+            libxml_clear_errors(); // Deletes errors for the next use
+
             if ($values instanceof DOMNodeList && $values->length > 0) {
                 $metadata[$resArray['index_name']] = [];
                 foreach ($values as $value) {
