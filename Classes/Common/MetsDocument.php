@@ -253,10 +253,12 @@ final class MetsDocument extends AbstractDocument
      */
     public function getFileInfo($id): ?array
     {
-        var_dump("==========> vor magicGetFileGrps getFileInfo");
+        var_dump("================================================> vor magicGetFileGrps in getFileInfo");
         var_dump($id);
+        var_dump("===========1> " . $this->fileInfos[$id]);
         $this->magicGetFileGrps();
-        var_dump("==========> nach magicGetFileGrps getFileInfo");
+        var_dump("===========2> " . $this->fileInfos[$id]);
+        var_dump("================================================> nach magicGetFileGrps in getFileInfo");
 
         if (isset($this->fileInfos[$id]) && empty($this->fileInfos[$id]['location'])) {
             $this->fileInfos[$id]['location'] = $this->getFileLocation($id);
@@ -807,7 +809,7 @@ final class MetsDocument extends AbstractDocument
             libxml_use_internal_errors(true); // Prevents direct error output
             try {
                 $values = $domXPath->evaluate($resArray['xpath'], $domNode);
-                
+
                 // Check whether errors have occurred
                 $errors = libxml_get_errors();
                 foreach ($errors as $error) {
@@ -1426,9 +1428,15 @@ final class MetsDocument extends AbstractDocument
                 var_dump("==========================1416==");
                 //var_dump($this->fileGrps);
                 // Are there any fulltext files available?
-    
+
                 $this->hasFulltext = true;
                 var_dump($this->hasFulltext);
+
+                var_dump("======================================================================");
+                var_dump("======================================================================");
+                //var_dump($this->physicalStructureInfo[$id]['type']);
+                var_dump("======================================================================");
+                var_dump("======================================================================");
                 //var_dump($this);
             } else {
                 var_dump("war hasfulltext false");
@@ -1442,7 +1450,7 @@ final class MetsDocument extends AbstractDocument
                 //var_dump($this->fileGrps);
                 var_dump("==========================1430==");
                 // Are there any fulltext files available?
-    
+
             };
             $this->fileGrpsLoaded = true;
         }
