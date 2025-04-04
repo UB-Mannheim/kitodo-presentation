@@ -343,11 +343,14 @@ class Indexer
         $doc->cPid = $document->getPid();
         // Get metadata for logical unit.
         if (array_key_exists($logicalUnit['id'], $doc->metadataArray) && is_array($doc->metadataArray[$logicalUnit['id']])) {
-            //var_dump("-----------------logicalUnit['id']-----------");
+            var_dump("-----------------> in function processLogical: array_key_exists( logicalUnit['id']-----------");
+            var_dump("-----------------> in function processLogical: $metadata gefüllt -----------");
             //var_dump($logicalUnit['id']);
             $metadata = $doc->metadataArray[$logicalUnit['id']];
         } else {
             //var_dump("-----------------keine Metadaten fuer logicalUnit['id']-----------");
+            var_dump("-----------------> in function processLogical: NOT array_key_exists( logicalUnit['id']-----------");
+            var_dump("-----------------> in function processLogical: $metadata leer -----------");
             //var_dump($logicalUnit['id']);
             $metadata = "";
         }
