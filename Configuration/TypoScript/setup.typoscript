@@ -7,6 +7,9 @@ plugin.tx_dlf {
         storagePid = {$plugin.tx_dlf.persistence.storagePid}
         useInternalProxy = 0
     }
+    #features {
+    #    requireCHashArgumentForActionArguments = 0
+    #}
 }
 
 config {
