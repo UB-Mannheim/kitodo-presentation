@@ -194,7 +194,9 @@ class IndexCommand extends BaseCommand
             if ($io->isVerbose()) {
                 $io->section('Indexing ' . $document->getUid() . ' ("' . $document->getLocation() . '") on PID ' . $this->storagePid . '.');
             }
+            var_dump("IndexCommand.php: vor \$this->saveToDatabase");
             $isSaved = $this->saveToDatabase($document, $input->getOption('softCommit'));
+            var_dump("IndexCommand.php: nach \$this->saveToDatabase");
 
             if ($isSaved) {
                 if ($io->isVerbose()) {

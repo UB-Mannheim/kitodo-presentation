@@ -207,7 +207,8 @@ class BaseCommand extends Command
         }
 
         $doc->cPid = $this->storagePid;
-
+        var_dump("--++++++++-----------> BaseCommand.php: saveToDatabase vor \$doc->getToplevelMetadata " . $this->storagePid );
+        //var_dump($doc);
         $metadata = $doc->getToplevelMetadata($this->storagePid);
         $validator = new DocumentValidator($metadata, explode(',', $this->extConf['general']['requiredMetadataFields']));
 
@@ -306,8 +307,9 @@ class BaseCommand extends Command
                 $parentDocument->setCurrentDocument($parent);
                 $parentDocument->setLocation($doc->parentHref);
                 $parentDocument->setSolrcore($document->getSolrcore());
-
+                var_dump("vor \$this->saveToDatabase");
                 $success = $this->saveToDatabase($parentDocument, $softCommit);
+                var_dump("nach \$this->saveToDatabase");
 
                 if ($success === true) {
                     // add to index

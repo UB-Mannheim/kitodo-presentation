@@ -870,6 +870,7 @@ abstract class AbstractDocument
      */
     public function getToplevelMetadata(int $cPid = 0): array
     {
+        var_dump("=========> AbstractDocument: function getToplevelMetadata");
         $toplevelMetadata = $this->getMetadata($this->magicGetToplevelId(), $cPid);
         // Add information from METS structural map to toplevel metadata array.
         if ($this instanceof MetsDocument) {

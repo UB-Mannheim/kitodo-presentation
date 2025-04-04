@@ -97,6 +97,7 @@ class Indexer
      */
     public static function add(Document $document, DocumentRepository $documentRepository, bool $softCommit = false): bool
     {
+        var_dump("in function add");
         if (in_array($document->getUid(), self::$processedDocs)) {
             return true;
         } elseif (self::solrConnect($document->getSolrcore(), $document->getPid())) {
@@ -134,7 +135,7 @@ class Indexer
                     }
                 }
                 // Index full text files if available.
-                var_dump("vor check auf fulltext");
+                var_dump("+++++++++++++++++++++++> vor check auf fulltext in indexer.php");
                 var_dump($document->getCurrentDocument()->hasFulltext);
                 if ($document->getCurrentDocument()->hasFulltext) {
                     var_dump("fulltext vorhanden");
@@ -237,6 +238,7 @@ class Indexer
      */
     public static function getIndexFieldName(string $indexName, int $pid = 0): string
     {
+        var_dump("in function getIndexFieldName");
         // Sanitize input.
         $pid = max((int) $pid, 0);
         if (!$pid) {
@@ -266,6 +268,7 @@ class Indexer
      */
     protected static function loadIndexConf(int $pid): void
     {
+        var_dump("in function loadIndexConf");
         if (!self::$fieldsLoaded) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getQueryBuilderForTable('tx_dlf_metadata');
@@ -334,6 +337,7 @@ class Indexer
      */
     protected static function processLogical(Document $document, array $logicalUnit): bool
     {
+        var_dump("in function processLogical");
         $success = true;
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
@@ -465,6 +469,7 @@ class Indexer
      */
     protected static function processPhysical(Document $document, int $page, array $physicalUnit): bool
     {
+        var_dump("in function processPhysical");
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
         if ($doc->hasFulltext) {
@@ -527,6 +532,7 @@ class Indexer
      */
     protected static function solrConnect(int $core, int $pid = 0): bool
     {
+        var_dump("in function solrConnect");
         // Get Solr instance.
         $solr = Solr::getInstance($core);
         // Connect to Solr server.
@@ -556,6 +562,7 @@ class Indexer
      */
     private static function processMetadata($document, $metadata, &$solrDoc): array
     {
+        var_dump("in function processMetadata");
         $autocomplete = [];
         foreach ($metadata as $indexName => $data) {
             // TODO: Include also subentries if available.
@@ -596,6 +603,7 @@ class Indexer
      */
     private static function addFaceting($doc, &$solrDoc): void
     {
+        var_dump("in function addFaceting");
         // TODO: Include also subentries if available.
         foreach ($doc->metadataArray[$doc->toplevelId] as $indexName => $data) {
             if (
@@ -665,6 +673,7 @@ class Indexer
      */
     private static function getSolrDocument(Query $updateQuery, Document $document, array $unit, string $fullText = ''): DocumentInterface
     {
+        var_dump("in function getSolrDocument");
         $solrDoc = $updateQuery->createDocument();
         // Create unique identifier from document's UID and unit's XML ID.
         $solrDoc->setField('id', $document->getUid() . $unit['id']);
@@ -804,5 +813,6 @@ class Indexer
      */
     private function __construct()
     {
+        var_dump("in function __construct");
     }
 }

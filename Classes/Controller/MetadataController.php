@@ -114,6 +114,7 @@ class MetadataController extends AbstractController
         $this->currentDocument = $this->document->getCurrentDocument();
         $this->useOriginalIiifManifestMetadata = $this->settings['originalIiifMetadata'] == 1 && $this->currentDocument instanceof IiifManifest;
 
+        var_dump("~~~~~~~~ MetadataController: function mainAction");
         $metadata = $this->getMetadata();
         $topLevelId = $this->currentDocument->toplevelId;
         // Get toplevel metadata?
@@ -538,6 +539,7 @@ class MetadataController extends AbstractController
                 // @phpstan-ignore-next-line
                 $data = $this->currentDocument->getManifestMetadata($sid, $this->settings['storagePid']);
             } else {
+                var_dump("==========> function getMetadataForIds   \$id: " . $id)
                 $data = $this->currentDocument->getMetadata($sid, $this->settings['storagePid']);
             }
             if (!empty($data)) {

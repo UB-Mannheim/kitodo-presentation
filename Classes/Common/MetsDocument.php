@@ -228,6 +228,7 @@ final class MetsDocument extends AbstractDocument
      */
     public function getDownloadLocation(string $id): string
     {
+        var_dump("================> function getDownloadLocation: " . $id);
         $file = $this->getFileInfo($id);
         if ($file['mimeType'] === 'application/vnd.kitodo.iiif') {
             $file['location'] = (strrpos($file['location'], 'info.json') === strlen($file['location']) - 9) ? $file['location'] : (strrpos($file['location'], '/') === strlen($file['location']) ? $file['location'] . 'info.json' : $file['location'] . '/info.json');
@@ -253,12 +254,38 @@ final class MetsDocument extends AbstractDocument
      */
     public function getFileInfo($id): ?array
     {
-        var_dump("================================================> vor magicGetFileGrps in getFileInfo");
+        var_dump("\n\n================================================> vor magicGetFileGrps in getFileInfo");
         var_dump($id);
-        var_dump("===========1> " . $this->fileInfos[$id]);
+
+        /*
+        $attributes = $structure->attributes();
+
+        // Extract identity information.
+        $details = [
+            'id' => (string) $attributes['ID'],
+            'dmdId' => isset($attributes['DMDID']) ? (string) $attributes['DMDID'] : '',
+            'admId' => isset($attributes['ADMID']) ? (string) $attributes['ADMID'] : '',
+            'order' => isset($attributes['ORDER']) ? (string) $attributes['ORDER'] : '',
+            'label' => isset($attributes['LABEL']) ? (string) $attributes['LABEL'] : '',
+            'orderlabel' => isset($attributes['ORDERLABEL']) ? (string) $attributes['ORDERLABEL'] : '',
+            'contentIds' => isset($attributes['CONTENTIDS']) ? (string) $attributes['CONTENTIDS'] : '',
+            'volume' => '',
+            'year' => '',
+            'pagination' => '',
+            'type' => isset($attributes['TYPE']) ? (string) $attributes['TYPE'] : '',
+            'description' => '',
+            'thumbnailId' => null,
+            'files' => [],
+        ];
+        var_dump("id: " . $details['id'] . " type: " . $details['type'] , " label: " . $details['label']);
+        */
+
+
+
+
+
         $this->magicGetFileGrps();
-        var_dump("===========2> " . $this->fileInfos[$id]);
-        var_dump("================================================> nach magicGetFileGrps in getFileInfo");
+        var_dump("================================================> nach magicGetFileGrps in getFileInfo\n\n\n");
 
         if (isset($this->fileInfos[$id]) && empty($this->fileInfos[$id]['location'])) {
             $this->fileInfos[$id]['location'] = $this->getFileLocation($id);
@@ -387,8 +414,10 @@ final class MetsDocument extends AbstractDocument
             'files' => [],
         ];
 
+        var_dump("id: " . $details['id'] . " type: " . $details['type'] , " label: " . $details['label']);
         // Set volume and year information only if no label is set and this is the toplevel structure element.
         if (empty($details['label']) && empty($details['orderlabel'])) {
+            var_dump("============== function getLogicalStructureInfo empty label and orderlabel");
             $metadata = $this->getMetadata($details['id']);
             $details['volume'] = $metadata['volume'][0] ?? '';
             $details['year'] = $metadata['year'][0] ?? '';
@@ -396,6 +425,7 @@ final class MetsDocument extends AbstractDocument
 
         // add description for 3D objects
         if ($details['type'] == 'object') {
+            var_dump("============== function getLogicalStructureInfo type object");
             $metadata = $this->getMetadata($details['id']);
             $details['description'] = $metadata['description'][0] ?? '';
         }
@@ -433,7 +463,8 @@ final class MetsDocument extends AbstractDocument
      */
     private function getFiles(array &$details, ?SimpleXMLElement $filePointers): void
     {
-        var_dump("==========> vor magicGetFileGrps getFiles");
+        var_dump("==========> vor magicGetFileGrps getFiles: id: " .  $details['id'] . " type: " . $details['type']);
+        //var_dump($details);
         $fileUse = $this->magicGetFileGrps();
         var_dump("==========> nach magicGetFileGrps getFiles");
         // Get the file representations from fileSec node.
@@ -519,6 +550,7 @@ final class MetsDocument extends AbstractDocument
      */
     public function getMetadata(string $id, int $cPid = 0): array
     {
+        var_dump("===================> MetsDocument: function  getMetadata:  \$id: " . $id . "\$cPid: " . $cPid);
         $cPid = $this->ensureValidPid($cPid);
 
         if ($cPid == 0) {
@@ -532,7 +564,9 @@ final class MetsDocument extends AbstractDocument
             return [];
         }
 
+        var_dump("=========> vor \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
         $metadata = $this->processMetadataSections($id, $cPid, $metadata);
+        var_dump("=========> nach \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
 
         if (!empty($metadata)) {
             $metadata = $this->setDefaultTitleAndDate($metadata);
@@ -591,6 +625,9 @@ final class MetsDocument extends AbstractDocument
      */
     private function processMetadataSections(string $id, int $cPid, array $metadata): array
     {
+        var_dump("===================> function  processMetadataSections:  \$id: " . $id . " \$cPid:" . $cPid);
+        var_dump($metadata);
+
         $mdIds = $this->getMetadataIds($id);
         if (empty($mdIds)) {
             // There is no metadata section for this structure node.
@@ -1107,6 +1144,7 @@ final class MetsDocument extends AbstractDocument
      */
     protected function getMetadataIds(string $id): array
     {
+        var_dump("================> function getMetadataIds: " . $id);
         // Load amdSecChildIds concordance
         $this->magicGetMdSec();
         $fileInfo = $this->getFileInfo($id);
@@ -1128,6 +1166,8 @@ final class MetsDocument extends AbstractDocument
                 $admIds = '';
             }
         }
+        var_dump("########: \$dmdIds");
+        var_dump($dmdIds);
 
         // Handle multiple DMDIDs/ADMIDs
         $allMdIds = explode(' ', $dmdIds);
@@ -1160,13 +1200,15 @@ final class MetsDocument extends AbstractDocument
         $fullText = '';
 
         // Load fileGrps and check for full text files.
-        var_dump("==========> vor magicGetFileGrps getFullText");
+        var_dump("==========> vor magicGetFileGrps getFullText: " . $id );
         $this->magicGetFileGrps();
         var_dump("==========> nach magicGetFileGrps getFullText");
         if ($this->hasFulltext) {
             $fullText = $this->getFullTextFromXml($id);
+            var_dump("==========> in getFullText hasFulltext Ausgabe Fulltext");
             var_dump($fullText);
         }
+        var_dump("==========> Return getFullText");
         return $fullText;
     }
 
@@ -1464,6 +1506,7 @@ final class MetsDocument extends AbstractDocument
      */
     protected function prepareMetadataArray(int $cPid): void
     {
+        var_dump("==========function prepareMetadataArray \$cPid: " . $cPid);
         $ids = $this->mets->xpath('./mets:structMap[@TYPE="LOGICAL"]//mets:div[@DMDID]/@ID');
         // Get all logical structure nodes with metadata.
         if (!empty($ids)) {
@@ -1659,7 +1702,9 @@ final class MetsDocument extends AbstractDocument
                 return $this->thumbnail;
             }
             $strctId = $this->magicGetToplevelId();
+            var_dump("===================> vor MetsDocument: call \$this->getToplevelMetadata   \$cPid: " . $cPid . " in magicGetThumbnail");
             $metadata = $this->getToplevelMetadata($cPid);
+            var_dump("===================> nach MetsDocument: call \$this->getToplevelMetadata   \$cPid: " . $cPid . " in magicGetThumbnail");
 
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getQueryBuilderForTable('tx_dlf_structures');
