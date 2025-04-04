@@ -539,7 +539,7 @@ class MetadataController extends AbstractController
                 // @phpstan-ignore-next-line
                 $data = $this->currentDocument->getManifestMetadata($sid, $this->settings['storagePid']);
             } else {
-                var_dump("==========> function getMetadataForIds   \$id: " . $id)
+                var_dump("==========> function getMetadataForIds   \$id: " . $id);
                 $data = $this->currentDocument->getMetadata($sid, $this->settings['storagePid']);
             }
             if (!empty($data)) {
