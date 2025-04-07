@@ -797,7 +797,7 @@ abstract class AbstractDocument
         }
         return $title;
     }
-    
+
     /**
      * This determines a title for the given document
      *
@@ -857,7 +857,7 @@ abstract class AbstractDocument
         }
         return $partof;
     }
-    
+
 
     /**
      * This extracts all the metadata for the toplevel logical structure node / resource
@@ -871,7 +871,9 @@ abstract class AbstractDocument
     public function getToplevelMetadata(int $cPid = 0): array
     {
         var_dump("=========> AbstractDocument: function getToplevelMetadata");
+        var_dump("=========> AbstractDocument: getToplevelMetadata: call magicGetToplevelId");
         $toplevelMetadata = $this->getMetadata($this->magicGetToplevelId(), $cPid);
+        var_dump("=========> AbstractDocument: getToplevelMetadata: nach call magicGetToplevelId");
         // Add information from METS structural map to toplevel metadata array.
         if ($this instanceof MetsDocument) {
             $this->addMetadataFromMets($toplevelMetadata, $this->magicGetToplevelId());

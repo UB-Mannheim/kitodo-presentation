@@ -340,20 +340,27 @@ class Indexer
         var_dump("in function processLogical");
         $success = true;
         $doc = $document->getCurrentDocument();
+        var_dump("------------> Indexer.php: function processLogical: \$doc");
+        //var_dump($doc);
+        var_dump("------------> Indexer.php: function processLogical: \$doc ENDE");
         $doc->cPid = $document->getPid();
+
+        var_dump("------------> Indexer.php: function processLogical: \$doc->metadataArray");
+        var_dump("~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~");
+        var_dump($doc->metadataArray);
+        var_dump("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
         // Get metadata for logical unit.
         if (array_key_exists($logicalUnit['id'], $doc->metadataArray) && is_array($doc->metadataArray[$logicalUnit['id']])) {
             var_dump("-----------------> in function processLogical: array_key_exists( logicalUnit['id']-----------");
             var_dump("-----------------> in function processLogical: \$metadata gefüllt -----------");
-            //var_dump($logicalUnit['id']);
             $metadata = $doc->metadataArray[$logicalUnit['id']];
+            var_dump("metadataArray");
             var_dump($doc->metadataArray[$logicalUnit['id']]);
         } else {
-            //var_dump("-----------------keine Metadaten fuer logicalUnit['id']-----------");
             var_dump("-----------------> in function processLogical: NOT array_key_exists( logicalUnit['id']-----------");
             var_dump("-----------------> in function processLogical: \$metadata leer -----------");
-            //var_dump($logicalUnit['id']);
             $metadata = "";
+            var_dump($logicalUnit['id']);
         }
         //$metadata = $doc->metadataArray[$logicalUnit['id']];
         if (!empty($metadata)) {

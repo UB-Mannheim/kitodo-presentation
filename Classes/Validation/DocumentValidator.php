@@ -80,8 +80,14 @@ class DocumentValidator
      */
     public function hasAllMandatoryMetadataFields(): bool
     {
+        var_dump("DocumentVaidator.php: hasAllMandatoryMetadataFields");
+        var_dump($this->metadata);
+        var_dump("foreach (\$this->requiredMetadataFields as \$requiredMetadataField) {");
         foreach ($this->requiredMetadataFields as $requiredMetadataField) {
-            if (empty($this->metadata[$requiredMetadataField][0])) {
+            var_dump("\$requiredMetadataField");
+            var_dump(">" . $requiredMetadataField . "<");
+            if (!empty($requiredMetadataField) && empty($this->metadata[$requiredMetadataField][0])) {
+                var_dump("DocumentValidator: hasAllMadatoryMetadataFields empty empty(\$this->metadata[\$requiredMetadataField][0])");
                 $this->logger->error('Missing required metadata field "' . $requiredMetadataField . '".');
                 return false;
             }
@@ -93,7 +99,7 @@ class DocumentValidator
      * Check if xml contains at least one logical structure with given type.
      *
      * @access public
-     * 
+     *
      * @param string $type e.g. documentary, newspaper or object
      *
      * @return bool

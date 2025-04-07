@@ -210,6 +210,8 @@ class BaseCommand extends Command
         var_dump("--++++++++-----------> BaseCommand.php: saveToDatabase vor \$doc->getToplevelMetadata " . $this->storagePid );
         //var_dump($doc);
         $metadata = $doc->getToplevelMetadata($this->storagePid);
+        var_dump("==========> BaseCommand.php: saveToDatabase: nach getToplevelMetadata");
+        var_dump("==========> BaseCommand.php: saveToDatabase: call DocumentValidator");
         $validator = new DocumentValidator($metadata, explode(',', $this->extConf['general']['requiredMetadataFields']));
 
         if ($validator->hasAllMandatoryMetadataFields()) {

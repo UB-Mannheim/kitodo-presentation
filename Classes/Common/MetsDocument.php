@@ -394,6 +394,7 @@ final class MetsDocument extends AbstractDocument
      */
     protected function getLogicalStructureInfo(SimpleXMLElement $structure, bool $recursive = false): array
     {
+        var_dump("==================> MetdDocument.pnp: function getLogicalStructureInfo(SimpleXMLElement");
         $attributes = $structure->attributes();
 
         // Extract identity information.
@@ -414,7 +415,7 @@ final class MetsDocument extends AbstractDocument
             'files' => [],
         ];
 
-        var_dump("id: " . $details['id'] . " type: " . $details['type'] , " label: " . $details['label']);
+        var_dump(__LINE__ . " id: " . $details['id'] . " type: " . $details['type'] , " label: " . $details['label']);
         // Set volume and year information only if no label is set and this is the toplevel structure element.
         if (empty($details['label']) && empty($details['orderlabel'])) {
             var_dump("============== function getLogicalStructureInfo empty label and orderlabel");
@@ -463,10 +464,10 @@ final class MetsDocument extends AbstractDocument
      */
     private function getFiles(array &$details, ?SimpleXMLElement $filePointers): void
     {
-        var_dump("==========> vor magicGetFileGrps getFiles: id: " .  $details['id'] . " type: " . $details['type']);
+        var_dump("==========> MetsDocument: getFiles: vor magicGetFileGrps getFiles: id: " .  $details['id'] . " type: " . $details['type']);
         //var_dump($details);
         $fileUse = $this->magicGetFileGrps();
-        var_dump("==========> nach magicGetFileGrps getFiles");
+        var_dump("==========> MetsDocument: getFiles: nach magicGetFileGrps getFiles");
         // Get the file representations from fileSec node.
         foreach ($filePointers as $filePointer) {
             $fileId = (string) $filePointer->attributes()->FILEID;
@@ -550,7 +551,7 @@ final class MetsDocument extends AbstractDocument
      */
     public function getMetadata(string $id, int $cPid = 0): array
     {
-        var_dump("===================> MetsDocument: function  getMetadata:  \$id: " . $id . "\$cPid: " . $cPid);
+        var_dump("===================> MetsDocument: function  getMetadata:  \$id: " . $id);
         $cPid = $this->ensureValidPid($cPid);
 
         if ($cPid == 0) {
@@ -564,9 +565,9 @@ final class MetsDocument extends AbstractDocument
             return [];
         }
 
-        var_dump("=========> vor \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
+        var_dump("=========> MetsDocument.php: getMetadata: vor \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
         $metadata = $this->processMetadataSections($id, $cPid, $metadata);
-        var_dump("=========> nach \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
+        var_dump("=========> MetsDocument.php: getMetadata: nach \$this->processMetadataSections( \$id, \$cPid, \$metadata)");
 
         if (!empty($metadata)) {
             $metadata = $this->setDefaultTitleAndDate($metadata);
@@ -625,10 +626,13 @@ final class MetsDocument extends AbstractDocument
      */
     private function processMetadataSections(string $id, int $cPid, array $metadata): array
     {
-        var_dump("===================> function  processMetadataSections:  \$id: " . $id . " \$cPid:" . $cPid);
-        var_dump($metadata);
+        var_dump("===================> MetsDocument.php: function  processMetadataSections:  \$id: " . $id . " \$cPid:" . $cPid);
+        //var_dump($metadata);
 
+        var_dump("===================> call this->getMetadataIds");
         $mdIds = $this->getMetadataIds($id);
+        var_dump("\$mdIds");
+        var_dump($mdIds);
         if (empty($mdIds)) {
             // There is no metadata section for this structure node.
             return [];
@@ -636,11 +640,17 @@ final class MetsDocument extends AbstractDocument
         // Array used as set of available section types (dmdSec, techMD, ...)
         $metadataSections = [];
         // Load available metadata formats and metadata sections.
+        var_dump("===================> if processMetadataSections: call loadFormats");
         $this->loadFormats();
+        var_dump("===================> if processMetadataSections: call magicGetMdSec");
         $this->magicGetMdSec();
 
+        var_dump("===================> call getLogicalUnitType");
         $metadata['type'] = $this->getLogicalUnitType($id);
+        var_dump("\$metadata['type']");
+        var_dump($metadata['type']);
 
+        var_dump("===================> if processMetadataSections: if (!empty(\$this->mdSec))");
         if (!empty($this->mdSec)) {
             foreach ($mdIds as $dmdId) {
                 $mdSectionType = $this->mdSec[$dmdId]['section'];
@@ -1144,10 +1154,13 @@ final class MetsDocument extends AbstractDocument
      */
     protected function getMetadataIds(string $id): array
     {
-        var_dump("================> function getMetadataIds: " . $id);
+        var_dump("================> MetsDocuments: function getMetadataIds: " . $id);
         // Load amdSecChildIds concordance
+        var_dump("================> MetsDocuments: getMetadataIds: call magicGetMdSec: ");
         $this->magicGetMdSec();
+        var_dump("================> MetsDocuments: getMetadataIds: call getFileInfo: ");
         $fileInfo = $this->getFileInfo($id);
+        var_dump("================> MetsDocuments: getMetadataIds: nach call getFileInfo: ");
 
         // Get DMDID and ADMID of logical structure node
         if (!empty($this->logicalUnits[$id])) {
@@ -1166,7 +1179,7 @@ final class MetsDocument extends AbstractDocument
                 $admIds = '';
             }
         }
-        var_dump("########: \$dmdIds");
+        var_dump("================== MetsDocuments: function getMetadataIds: ########: \$dmdIds");
         var_dump($dmdIds);
 
         // Handle multiple DMDIDs/ADMIDs
@@ -1512,6 +1525,8 @@ final class MetsDocument extends AbstractDocument
         if (!empty($ids)) {
             foreach ($ids as $id) {
                 $this->metadataArray[(string) $id] = $this->getMetadata((string) $id, $cPid);
+                var_dump($ids);
+                var_dump("~~~~~~~~~~~~~prep");
             }
         }
         // Set current PID for metadata definitions.
