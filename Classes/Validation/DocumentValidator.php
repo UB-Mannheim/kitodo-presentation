@@ -81,7 +81,7 @@ class DocumentValidator
     public function hasAllMandatoryMetadataFields(): bool
     {
         var_dump("DocumentVaidator.php: hasAllMandatoryMetadataFields");
-        var_dump($this->metadata);
+        //var_dump($this->metadata);
         var_dump("foreach (\$this->requiredMetadataFields as \$requiredMetadataField) {");
         foreach ($this->requiredMetadataFields as $requiredMetadataField) {
             var_dump("\$requiredMetadataField");
