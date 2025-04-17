@@ -172,13 +172,17 @@
                             </f:case>
                             <f:case value="collection">
                                 <f:comment><f:debug>{_all}</f:debug></f:comment>
-                                <!-- 152 {configObject.indexName } {configObject.label} -->
+                                <!-- 175 configObject.indexName: {configObject.indexName }     configObject.label: #{configObject.label}# -->
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                                 <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
 
                                 <f:variable name="basepath" value="/sammlungen/" />
 
-                                <f:if condition="{configObject.label} == 'Sammlungen(en)'">
+                                <f:comment>gekuerzte Version des Labels um Problem mit Klammern zu vermeiden</f:comment>
+                                <f:variable name="KurzLabelSammlung" value="{configObject.label -> f:format.crop(maxCharacters: 8, append:'')}" />
+                                <!-- 183 configObject.indexName: {configObject.indexName } configObject.label: #{configObject.label}# #{KurzLabelSammlung}# -->
+
+                                <f:if condition="{KurzLabelSammlung} == 'Sammlung'">
                                     <f:then>
                                         <f:variable name="basepath" value="/sammlungen/" />
                                         <f:variable name="collectionBacklinkInfo" value="Backlink zur Sammlung" />
