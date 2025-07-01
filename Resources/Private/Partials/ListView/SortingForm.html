@@ -11,7 +11,7 @@
 </f:comment>
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
-
+    <!-- SortingForm.html -->
     <f:if condition="{sortableMetadata}">
         <f:variable name="currentPage" value="{pagination.currentPageNumber - 1}" />
         <f:variable name="pageOffset" value="{settings.list.paginate.itemsPerPage * currentPage}" />
@@ -65,5 +65,6 @@
                 </f:for>
             </div>
         </f:form>
+        <!-- SortingForm.html showResults END-->
     </f:if>
 </html>
