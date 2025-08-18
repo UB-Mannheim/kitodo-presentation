@@ -143,6 +143,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
         // Try to get document format from database
         if (!empty($documentId)) {
 
+
             $doc = null;
 
             if (MathUtility::canBeInterpretedAsInteger($documentId)) {
@@ -160,7 +161,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             $this->document = $this->documentRepository->findOneByRecordId($this->requestData['recordId']);
 
             if ($this->document !== null) {
-                $doc = AbstractDocument::getInstance($this->document->getLocation(), $this->settings, true);
+                $doc = AbstractDocument::getInstance($this->document->getLocation(), $this->settings);
                 if ($doc !== null) {
                     $this->document->setCurrentDocument($doc);
                 } else {
@@ -573,13 +574,13 @@ abstract class AbstractController extends ActionController implements LoggerAwar
      *
      * @access protected
      *
-     * @param string $documentId The document's URL
+     * @param string $documentUrl The document's URL
      *
      * @return AbstractDocument
      */
-    protected function getDocumentByUrl(string $documentId)
+    protected function getDocumentByUrl(string $documentUrl)
     {
-        $doc = AbstractDocument::getInstance($documentId, $this->settings, true);
+        $doc = AbstractDocument::getInstance($documentUrl, $this->settings);
 
         if (isset($this->settings['multiViewType']) && $doc->tableOfContents[0]['type'] === $this->settings['multiViewType']) {
             $childDocuments = $doc->tableOfContents[0]['children'];
@@ -622,9 +623,9 @@ abstract class AbstractController extends ActionController implements LoggerAwar
                 $doc->cPid = max($this->settings['storagePid'], 0);
             }
 
-            $this->document->setLocation($documentId);
+            $this->document->setLocation($documentUrl);
         } else {
-            $this->logger->error('Invalid location given "' . $documentId . '" for document loading');
+            $this->logger->error('Invalid location given "' . $documentUrl . '" for document loading');
         }
 
         return $doc;
