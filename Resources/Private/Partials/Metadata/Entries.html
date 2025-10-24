@@ -96,7 +96,6 @@
         </f:comment>
     </f:then>
 </f:if>
-
 <f:if condition="{wrappedValues}">
     <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
         <f:comment>check if partOf when </f:comment>
@@ -144,6 +143,21 @@
                     </f:then>
                     <f:else>
                         <f:switch expression="{configObject.indexName}">
+			    <f:case value="volume">
+			        <f:comment>
+                                    Titel übergeordnetes Werk ergänzen wenn der Band keinen eigenen Titel hat, Regel bei Bandbezeichnungen unter 4 Zeichen
+                                    in diesem Fall handelt es sich auch um einen partOf
+                                </f:comment>
+			    	<f:if condition="{documentMetadataSections.0.title->f:count()} == 0">
+			    	   <!-- titel von Hauptwerk ergaenzen -->
+				   <dd>[{allYearDocTitle}]</dd>
+			    	</f:if>
+
+			        <!-- xxx247xxx -->
+				<kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                {wrappedValues -> f:format.raw()}
+
+			    </f:case>
                             <f:case value="mets">
                                 <f:comment>mets sollen nicht ausgegeben werden</f:comment>
                             </f:case>
