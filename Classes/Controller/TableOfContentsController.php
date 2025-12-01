@@ -131,6 +131,21 @@ class TableOfContentsController extends AbstractController
         $entryArray['doNotLinkIt'] = 1;
         $entryArray['ITEM_STATE'] = 'NO';
 
+        // get getPartof ID (periodicas) or getOnlytPreviousDocumentUid (newspapers)
+        // points has an error in both of these cases; it contains a URL instead of an ID.
+        // This can be circumvented with these two values.
+        $nParentID = $this->document->getPartof();
+        if  ($nParentID) {
+            $entryArray['parentDocumentId'] = $this->document->getPartof();
+        
+            // get Anchor-DocumentUid
+            //For newspapers: $this->document->getPartof() only contains the ID for the year, so I have to go one level higher.
+            $prevOnlyDocumentUid = $this->documentRepository->getOnlytPreviousDocumentUid($nParentID);
+            if ($prevOnlyDocumentUid ) {
+                $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
+            };
+        };
+
         $this->buildMenuLinks($entryArray, $entry['id'], $entry['points'] ?? null, $entry['targetUid'] ?? null);
 
         // Set "ITEM_STATE" to "CUR" if this entry points to current page.
