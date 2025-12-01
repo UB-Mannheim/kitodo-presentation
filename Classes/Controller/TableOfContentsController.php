@@ -117,6 +117,7 @@ class TableOfContentsController extends AbstractController
      */
     private function getMenuEntry(array $entry, bool $recursive = false): array
     {
+	//var_dump("---------getMenuEntry-------------\n");
         $entry = $this->resolveMenuEntry($entry);
 
         $entryArray = [];
@@ -130,6 +131,20 @@ class TableOfContentsController extends AbstractController
         $entryArray['_OVERRIDE_HREF'] = '';
         $entryArray['doNotLinkIt'] = 1;
         $entryArray['ITEM_STATE'] = 'NO';
+
+	 // get getPartof ID
+	$nParentID = $this->document->getPartof();
+	if  ($nParentID) {
+		$entryArray['parentDocumentId'] = $this->document->getPartof();
+	
+		 // get Anchor-DocumentUid
+		$prevOnlyDocumentUid = $this->documentRepository->geOnlytPreviousDocumentUid($nParentID);
+		if ($prevOnlyDocumentUid ) {
+			$entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
+		};
+	};
+	
+	//var_dump("----getMenuEntry-----140---------\n\n");
 
         $this->buildMenuLinks($entryArray, $entry['id'], $entry['points'] ?? null, $entry['targetUid'] ?? null);
 
