@@ -117,7 +117,6 @@ class TableOfContentsController extends AbstractController
      */
     private function getMenuEntry(array $entry, bool $recursive = false): array
     {
-	//var_dump("---------getMenuEntry-------------\n");
         $entry = $this->resolveMenuEntry($entry);
 
         $entryArray = [];
@@ -132,19 +131,20 @@ class TableOfContentsController extends AbstractController
         $entryArray['doNotLinkIt'] = 1;
         $entryArray['ITEM_STATE'] = 'NO';
 
-	 // get getPartof ID
-	$nParentID = $this->document->getPartof();
-	if  ($nParentID) {
-		$entryArray['parentDocumentId'] = $this->document->getPartof();
-	
-		 // get Anchor-DocumentUid
-		$prevOnlyDocumentUid = $this->documentRepository->geOnlytPreviousDocumentUid($nParentID);
-		if ($prevOnlyDocumentUid ) {
-			$entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
-		};
-	};
-	
-	//var_dump("----getMenuEntry-----140---------\n\n");
+        // get getPartof ID (periodicas) or geOnlytPreviousDocumentUid (newspapers)
+        // points has an error in both of these cases; it contains a URL instead of an ID.
+        // This can be circumvented with these two values.
+        $nParentID = $this->document->getPartof();
+        if  ($nParentID) {
+            $entryArray['parentDocumentId'] = $this->document->getPartof();
+        
+            // get Anchor-DocumentUid
+            //For newspapers: $this->document->getPartof() only contains the ID for the year, so I have to go one level higher.
+            $prevOnlyDocumentUid = $this->documentRepository->geOnlytPreviousDocumentUid($nParentID);
+            if ($prevOnlyDocumentUid ) {
+                $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
+            };
+        };
 
         $this->buildMenuLinks($entryArray, $entry['id'], $entry['points'] ?? null, $entry['targetUid'] ?? null);
 
