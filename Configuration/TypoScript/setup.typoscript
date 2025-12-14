@@ -11,6 +11,10 @@ plugin.tx_dlf {
 
 config {
     # concatenate all JavaScript files by default
+    # concatenateJs = 0
+    # 12.12.25, Ft versuchsweise auf 1
+    # 13.12.25 Ft wieder auf 0 stellen wg. Fehlermeldung in Console
+    #concatenateJs = 1
     concatenateJs = 0
     # concatenate all CSS files by default
     concatenateCss = 0
@@ -25,7 +29,7 @@ page {
 
   includeJSFooterlibs {
     jQuery = EXT:dlf/Resources/Public/JavaScript/jQuery/jquery-3.6.0.min.js
-    jQuery.forceOnTop = 1
+    #jQuery.forceOnTop = 1
     jQueryJPlayer = EXT:dlf/Resources/Public/JavaScript/jPlayer/jquery.jplayer.min.js
     jQueryUiMouseSlider = EXT:dlf/Resources/Public/JavaScript/jQueryUI/jquery-ui-mouse-slider-resizable-autocomplete.js
   }
