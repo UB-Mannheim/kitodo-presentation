@@ -783,4 +783,14 @@ class Document extends AbstractEntity
         $this->crdate = $crdate;
     }
 
+    /**
+     * Returns the uid
+     *
+     * @return int|null
+     */
+    public function getUid(): int|null
+    {
+        return $this->uid;
+    }
+
 }
