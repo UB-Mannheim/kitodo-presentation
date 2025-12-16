@@ -126,6 +126,8 @@ class TableOfContentsController extends AbstractController
         $entryArray['year'] = $entry['year'];
         $entryArray['orderlabel'] = $entry['orderlabel'];
         $entryArray['type'] = $this->getTranslatedType($entry['type']);
+	// get index name of type
+	$entryArray['type-index'] = $entry['type'];
         $entryArray['pagination'] = htmlspecialchars($entry['pagination']);
         $entryArray['_OVERRIDE_HREF'] = '';
         $entryArray['doNotLinkIt'] = 1;
@@ -145,7 +147,11 @@ class TableOfContentsController extends AbstractController
                 $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
             };
         };
-
+	
+	// get own Document ID 
+	// instead of using points
+	$entryArray['ownDocumentId']  = $this->document->getUid();
+	
         $this->buildMenuLinks($entryArray, $entry['id'], $entry['points'] ?? null, $entry['targetUid'] ?? null);
 
         // Set "ITEM_STATE" to "CUR" if this entry points to current page.
@@ -178,6 +184,10 @@ class TableOfContentsController extends AbstractController
             // Append "IFSUB" to "ITEM_STATE" if this entry has sub-entries.
             $entryArray['ITEM_STATE'] = ($entryArray['ITEM_STATE'] == 'NO' ? 'IFSUB' : $entryArray['ITEM_STATE'] . 'IFSUB');
         }
+	//$ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+	//if ($ipAddress == '134.155.60.28') {
+	//	//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($entryArray);
+	//};
         return $entryArray;
     }
 
