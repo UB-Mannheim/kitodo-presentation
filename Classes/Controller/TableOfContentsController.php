@@ -131,7 +131,7 @@ class TableOfContentsController extends AbstractController
         $entryArray['doNotLinkIt'] = 1;
         $entryArray['ITEM_STATE'] = 'NO';
 
-        // get getPartof ID (periodicas) or geOnlytPreviousDocumentUid (newspapers)
+        // get getPartof ID (periodicas) or getOnlytPreviousDocumentUid (newspapers)
         // points has an error in both of these cases; it contains a URL instead of an ID.
         // This can be circumvented with these two values.
         $nParentID = $this->document->getPartof();
@@ -140,7 +140,7 @@ class TableOfContentsController extends AbstractController
         
             // get Anchor-DocumentUid
             //For newspapers: $this->document->getPartof() only contains the ID for the year, so I have to go one level higher.
-            $prevOnlyDocumentUid = $this->documentRepository->geOnlytPreviousDocumentUid($nParentID);
+            $prevOnlyDocumentUid = $this->documentRepository->getOnlytPreviousDocumentUid($nParentID);
             if ($prevOnlyDocumentUid ) {
                 $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
             };

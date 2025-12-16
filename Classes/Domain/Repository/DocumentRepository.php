@@ -659,6 +659,7 @@ class DocumentRepository extends Repository
     public function getPreviousDocumentUid($uid)
     {
         $currentDocument = $this->findOneByUid($uid);
+	
         if ($currentDocument) {
             $currentVolume = '';
             $parentId = $currentDocument->getPartof();
@@ -825,9 +826,10 @@ class DocumentRepository extends Repository
      *
      * @return int|null
      */
-    public function geOnlytPreviousDocumentUid($uid)
+    public function getOnlytPreviousDocumentUid($uid)
     {
         $currentDocument = $this->findOneByUid($uid);
+	
         if ($currentDocument) {
             $currentVolume = '';
             $parentId = $currentDocument->getPartof();
@@ -839,6 +841,6 @@ class DocumentRepository extends Repository
         }
         return null;
     }
-    
+
 }
 
