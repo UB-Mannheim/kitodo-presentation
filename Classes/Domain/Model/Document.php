@@ -786,9 +786,9 @@ class Document extends AbstractEntity
     /**
      * Returns the uid
      *
-     * @return int
+     * @return int|null
      */
-    public function getUid(): int
+    public function getUid(): int|null
     {
         return $this->uid;
     }
