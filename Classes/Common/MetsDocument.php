@@ -1386,6 +1386,7 @@ final class MetsDocument extends AbstractDocument
                 && array_intersect(GeneralUtility::trimExplode(',', $extConf['fileGrpFulltext']), $this->fileGrps) !== []
             ) {
                 $this->hasFulltext = true;
+		//var_dump("set_hasFulltext");
             }
             $this->fileGrpsLoaded = true;
         }

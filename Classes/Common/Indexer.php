@@ -127,17 +127,32 @@ class Indexer
 
                 // Index every logical unit as separate Solr document.
                 foreach ($document->getCurrentDocument()->tableOfContents as $logicalUnit) {
+            var_dump($document->getCurrentDocument()->tableOfContents);
                     if ($success) {
+                var_dump('$success 132');
+                var_dump($success);
+                var_dump($logicalUnit);
                         $success = self::processLogical($document, $logicalUnit);
+                var_dump('$success 135');
+                var_dump($success);
                     } else {
+            var_dump('break');
                         break;
                     }
                 }
                 // Index full text files if available.
+        var_dump("Indexer_vorHasFulltext");
                 if ($document->getCurrentDocument()->hasFulltext) {
+            var_dump("Indexer_InHasFulltext");
                     foreach ($document->getCurrentDocument()->physicalStructure as $pageNumber => $xmlId) {
+                //var_dump('$pageNumber');
+                //var_dump($pageNumber);
+                var_dump('$success 147');
+                var_dump($success);
                         if ($success) {
                             $success = self::processPhysical($document, $pageNumber, $document->getCurrentDocument()->physicalStructureInfo[$xmlId]);
+                var_dump('$success 151');
+                var_dump($success);
                         } else {
                             break;
                         }
@@ -331,6 +346,8 @@ class Indexer
         $doc = $document->getCurrentDocument();
         $doc->cPid = $document->getPid();
         // Get metadata for logical unit.
+	var_dump("doc->metadataArray");
+	var_dump($doc->metadataArray);
         $metadata = $doc->metadataArray[$logicalUnit['id']];
         if (!empty($metadata)) {
             $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get(self::$extKey, 'general');
@@ -393,10 +410,12 @@ class Indexer
                     $updateQuery->addDocument($solrDoc);
                     self::$solr->service->update($updateQuery);
                 } catch (\Exception $e) {
+                    var_dump('EXCEPTION return false');
                     self::handleException($e->getMessage());
                     return false;
                 }
             } else {
+                var_dump('Tip: If "record_id" field is missing then there is possibility that METS file still contains it but with the wrong source type attribute in recordIdentifier element, return false');
                 Helper::log('Tip: If "record_id" field is missing then there is possibility that METS file still contains it but with the wrong source type attribute in "recordIdentifier" element', LOG_SEVERITY_NOTICE);
                 return false;
             }
@@ -404,9 +423,16 @@ class Indexer
         // Check for child elements...
         if (!empty($logicalUnit['children'])) {
             foreach ($logicalUnit['children'] as $child) {
+                var_dump('$success 422');
+                var_dump($success);
+        
                 if ($success) {
                     // ...and process them, too.
+                    var_dump('untersuche child');
+                    var_dump($child);
                     $success = self::processLogical($document, $child);
+                    var_dump('$success 430');
+                    var_dump($success);
                 } else {
                     break;
                 }

@@ -676,7 +676,9 @@ abstract class AbstractDocument
         }
         // Is this text format supported?
         // This part actually differs from previous version of indexed OCR
+	//var_dump("AbstractDocument: vor fileContent");
         if (!empty($fileContent) && !empty($this->formats[$textFormat])) {
+		//var_dump("AbstractDocument: in fileContent");
             $textMiniOcr = '';
             if (!empty($this->formats[$textFormat]['class'])) {
                 $textMiniOcr = $this->getRawTextFromClass($id, $fileContent, $textFormat);
@@ -706,16 +708,21 @@ abstract class AbstractDocument
         // Get the raw text from class.
         if (class_exists($class)) {
             $obj = GeneralUtility::makeInstance($class);
+	    //var_dump("vor einlesen von fulltext");
             if ($obj instanceof FulltextInterface) {
                 // Load XML from file.
                 $ocrTextXml = Helper::getXmlFileAsString($fileContent);
+		//var_dump($ocrTextXml );
                 $textMiniOcr = $obj->getTextAsMiniOcr($ocrTextXml);
+		//var_dump($textMiniOcr );
                 $this->rawTextArray[$id] = $textMiniOcr;
             } else {
                 $this->logger->warning('Invalid class/method "' . $class . '->getRawText()" for text format "' . $textFormat . '"');
+		//var_dump("warning invalid class method");
             }
         } else {
             $this->logger->warning('Class "' . $class . ' does not exists for "' . $textFormat . ' text format"');
+	    //var_dump("warning class does not exists for ");
         }
         return $textMiniOcr;
     }

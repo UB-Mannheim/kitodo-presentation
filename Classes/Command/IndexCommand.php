@@ -201,15 +201,29 @@ class IndexCommand extends BaseCommand
                     $io->section('Indexing ' . $document->getUid() . ' ("' . $document->getLocation() . '") on Solr core ' . $solrCoreUid . '.');
                 }
                 $isSaved = Indexer::add($document, $this->documentRepository, $input->getOption('softCommit'));
+                var_dump('nach Indexer add');
+                var_dump('$isSaved');
+                var_dump($isSaved);
+                var_dump($document->getUid());
+                // hiermit werden die eingelesenen Daten angezeigt
+                //var_dump($document->getCurrentDocument());
+                
             } else {
                 $io->error('ERROR: Document with UID "' . $document->getUid() . '" could not be indexed on PID ' . $this->storagePid . ' . There are missing mandatory fields (at least one of those: ' . $this->extConf['general']['requiredMetadataFields'] . ') in this document.');
                 return BaseCommand::FAILURE;
             }
 
+            var_dump('vor All done');
+            var_dump('$isSaved');
+            var_dump($isSaved);
+
             if ($isSaved) {
                 $io->success('All done!');
                 return BaseCommand::SUCCESS;
             }
+            var_dump('nach All done');
+            var_dump('$isSaved');
+            var_dump($isSaved);
 
             $io->error('ERROR: Document with UID "' . $document->getUid() . '" could not be indexed on Solr core ' . $solrCoreUid . ' . There are missing mandatory fields (at least one of those: ' . $this->extConf['general']['requiredMetadataFields'] . ') in this document.');
             $io->info('INFO: Document with UID "' . $document->getUid() . '" is already in database. If you want to keep the database and index consistent you need to remove it.');

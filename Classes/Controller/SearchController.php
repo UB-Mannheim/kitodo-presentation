@@ -269,6 +269,11 @@ class SearchController extends AbstractController
 
         // Set search query.
         $searchParams = $this->searchParams;
+	$ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+	if ($ipAddress == '134.155.60.28') {
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($searchParams);
+	};
+	
         if (
             (array_key_exists('fulltext', $searchParams) && !empty($searchParams['fulltext']))
             || (array_key_exists('query', $searchParams) && preg_match('/' . $fields['fulltext'] . ':\((.*)\)/', trim($searchParams['query']), $matches))
@@ -278,6 +283,11 @@ class SearchController extends AbstractController
             // Search in fulltext field if applicable. Query must not be empty!
             if (!empty($searchParams['query'])) {
                 $search['query'] = $fields['fulltext'] . ':(' . Solr::escapeQuery(trim($searchParams['query'])) . ')';
+		if ($ipAddress == '134.155.60.28') {
+			\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump("fulltextsuche");
+			\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($search['query']);
+		};
+
             }
         } else {
             // Retain given search field if valid.
@@ -351,9 +361,23 @@ class SearchController extends AbstractController
         $search['params']['query'] = $search['query'];
         // Perform search.
         $selectQuery = $solr->service->createSelect($search['params']);
+	
         // check for solr response
         $solrRequest = $solr->service->createRequest($selectQuery);
+	$ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+	if ($ipAddress == '134.155.60.28') {
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump('$selectQuery');
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($selectQuery);
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump('$solrRequest');
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($solrRequest);
+	};
+	
         $response = $solr->service->executeRequest($solrRequest);
+	$ipAddress = $_SERVER['REMOTE_ADDR'] ?? '';
+	if ($ipAddress == '134.155.60.28') {
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump("\$response");
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($response);
+	};
         // return empty facet on solr error
         if ($response->getStatusCode() == 400) {
             return [];
