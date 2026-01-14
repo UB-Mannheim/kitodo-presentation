@@ -204,8 +204,10 @@ class ReindexCommand extends BaseCommand
         }
 
         $lError = false;
+	$nHits = sizeof($documents);
 
         foreach ($documents as $id => $document) {
+		
             $doc = AbstractDocument::getInstance($document->getLocation(), ['storagePid' => $this->storagePid], true);
 
             if ($doc === null) {
@@ -234,9 +236,13 @@ class ReindexCommand extends BaseCommand
         $this->persistenceManager->clearState();
         
         if ($lError) {
-            $io->success('Mindestens ein Fehler!');
+            $io->success('At least one error!');
             return BaseCommand::FAILURE;
         }
+	if ($nHits == 0) {
+		$io->success('End reached');
+		return 2;
+	}
 
         $io->success('All done!');
 
