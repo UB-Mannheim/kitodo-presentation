@@ -862,8 +862,10 @@ class Helper
 
         /** @var RequestFactory $requestFactory */
         $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+	            //'timeout' => 30,
+
         $configuration = [
-            'timeout' => 30,
+            'timeout' => 60,
             'headers' => [
                 'User-Agent' => $extConf['userAgent'] ?? 'Kitodo.Presentation Proxy',
             ],
