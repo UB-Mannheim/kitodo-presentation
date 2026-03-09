@@ -81,20 +81,23 @@ class PageGridController extends AbstractController
      */
     protected function getEntry(int $number): array
     {
+	$doc = $this->document->getCurrentDocument();
+	$phys = $doc->physicalStructure[$number];
+        $pageInfo = $doc->physicalStructureInfo[$phys];
         $entry = [];
 
         // Set pagination.
-        $entry['pagination'] = htmlspecialchars($this->document->getCurrentDocument()->physicalStructureInfo[$this->document->getCurrentDocument()->physicalStructure[$number]]['orderlabel']);
+        $entry['pagination'] = htmlspecialchars($pageInfo['orderlabel']);
         $entry['page'] = $number;
         $entry['thumbnail'] = '';
 
         // Get thumbnail or placeholder.
         $fileGrpsThumb = GeneralUtility::trimExplode(',', $this->extConf['files']['fileGrpThumbs']);
-        if (is_array($this->document->getCurrentDocument()->physicalStructureInfo[$this->document->getCurrentDocument()->physicalStructure[$number]]['files'])) {
-            if (array_intersect($fileGrpsThumb, array_keys($this->document->getCurrentDocument()->physicalStructureInfo[$this->document->getCurrentDocument()->physicalStructure[$number]]['files'])) !== []) {
+        if (is_array($pageInfo['files'])) {
+            if (array_intersect($fileGrpsThumb, array_keys($pageInfo['files'])) !== []) {
                 while ($fileGrpThumb = array_shift($fileGrpsThumb)) {
-                    if (!empty($this->document->getCurrentDocument()->physicalStructureInfo[$this->document->getCurrentDocument()->physicalStructure[$number]]['files'][$fileGrpThumb])) {
-                        $entry['thumbnail'] = $this->document->getCurrentDocument()->getFileLocation($this->document->getCurrentDocument()->physicalStructureInfo[$this->document->getCurrentDocument()->physicalStructure[$number]]['files'][$fileGrpThumb]);
+                    if (!empty($pageInfo['files'][$fileGrpThumb])) {
+                        $entry['thumbnail'] = $this->document->getCurrentDocument()->getFileLocation($pageInfo['files'][$fileGrpThumb]);
                         break;
                     }
                 }
