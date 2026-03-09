@@ -838,6 +838,48 @@ class Helper
         return $GLOBALS['LANG'];
     }
 
+    private static function urlToLocalPath(string $url): ?string
+    {
+        // Adjust these to match your actual server name and document root.
+        $localPrefixes = [
+            'https://digi.bib.uni-mannheim.de/fileadmin/digi/' => '/data/www/html/fileadmin/digi/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/gb/' => '/data/www/html/fileadmin/gb/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/gv/' => '/data/www/html/fileadmin/gv/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/hoppenstedt/' => '/data/www/html/fileadmin/hoppenstedt/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/pa/' => '/data/www/html/fileadmin/pa/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/statjahrb/' => '/data/www/html/fileadmin/statjahrb/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/vl/' => '/data/www/html/fileadmin/vl/',
+            'https://digi.bib.uni-mannheim.de/fileadmin/zost/' => '/data/www/html/fileadmin/zost/',
+            'https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/' => '/data/www/html/periodika/fileadmin/data/',
+        ];
+        foreach ($localPrefixes as $prefix => $localBase) {
+            if (str_starts_with($url, $prefix)) {
+                $relativePath = substr($url, strlen($prefix));
+
+                // Remove query string.
+                $relativePath = strtok($relativePath, '?');
+
+                // Resolve to absolute path without requiring file to exist yet.
+                $candidatePath = $localBase . $relativePath;
+                $realPath = realpath($candidatePath);
+
+                // realpath() returns false if file doesn't exist — fail safe.
+                if ($realPath === false) {
+                    return null;
+                }
+
+                // Ensure resolved path is still within the allowed base directory.
+                $realBase = realpath($localBase);
+                if ($realBase === false || !str_starts_with($realPath, $realBase . '/')) {
+                    return null;
+                }
+
+                return $realPath;
+            }
+        }
+        return null;
+    }
+
     /**
      * Replacement for the TYPO3 GeneralUtility::getUrl().
      *
@@ -853,6 +895,12 @@ class Helper
      */
     public static function getUrl(string $url)
     {
+        // Short-circuit for local files — avoid HTTP round-trip entirely.
+        $localPath = self::urlToLocalPath($url);
+        if ($localPath !== null && is_readable($localPath)) {
+            return file_get_contents($localPath);
+        }
+
         if (!Helper::isValidHttpUrl($url)) {
             return false;
         }
