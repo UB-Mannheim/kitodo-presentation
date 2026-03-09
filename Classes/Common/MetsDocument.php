@@ -184,6 +184,8 @@ final class MetsDocument extends AbstractDocument
      */
     protected int $numMeasures;
 
+    private array $fileLocationCache = [];
+
     /**
      * This adds metadata from METS structural map to metadata array.
      *
@@ -271,16 +273,24 @@ final class MetsDocument extends AbstractDocument
      */
     public function getFileLocation(string $id): string
     {
+        // Return cached result if available.
+        if (array_key_exists($id, $this->fileLocationCache)) {
+            return $this->fileLocationCache[$id];
+        }
+
         $location = $this->mets->xpath('./mets:fileSec/mets:fileGrp/mets:file[@ID="' . $id . '"]/mets:FLocat[@LOCTYPE="URL"]');
         if (
             !empty($id)
             && !empty($location)
         ) {
-            return (string) $location[0]->attributes('http://www.w3.org/1999/xlink')->href;
+            $result = (string) $location[0]->attributes('http://www.w3.org/1999/xlink')->href;
         } else {
             $this->logger->warning('There is no file node with @ID "' . $id . '"');
-            return '';
-        }
+            $result = '';
+	}
+
+        $this->fileLocationCache[$id] = $result;
+        return $result;
     }
 
     /**
