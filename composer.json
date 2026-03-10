@@ -47,7 +47,7 @@
   },
   "require-dev": {
     "fluidtypo3/vhs": "^7.1",
-    "phpstan/phpstan": "^1.12",
+    "phpstan/phpstan": "^2.1",
     "phpunit/phpunit": "^10.5",
     "spatie/phpunit-watcher": "^1.24",
     "typo3/cms-backend": "^12.4|^13.4",
