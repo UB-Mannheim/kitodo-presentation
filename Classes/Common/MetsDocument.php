@@ -287,7 +287,7 @@ final class MetsDocument extends AbstractDocument
         } else {
             $this->logger->warning('There is no file node with @ID "' . $id . '"');
             $result = '';
-	}
+        }
 
         $this->fileLocationCache[$id] = $result;
         return $result;
@@ -1380,11 +1380,28 @@ final class MetsDocument extends AbstractDocument
                         foreach ($fileGrp->children('http://www.loc.gov/METS/')->file as $file) {
                             $fileId = (string) $file->attributes()->ID;
                             $this->fileGrps[$fileId] = $useGrp;
+
+                            // Resolve FLocat via DOM traversal — avoids per-ID XPath in getFileLocation()
+                            $location = '';
+                            foreach ($file->children('http://www.loc.gov/METS/') as $child) {
+                                if ($child->getName() === 'FLocat'
+                                    && (string) $child->attributes()->LOCTYPE === 'URL'
+                                ) {
+                                    $location = (string) $child->attributes('http://www.w3.org/1999/xlink')->href;
+                                    break;
+                                }
+                            }
+
                             $this->fileInfos[$fileId] = [
-                                'fileGrp' => $useGrp,
-                                'admId' => (string) $file->attributes()->ADMID,
-                                'dmdId' => (string) $file->attributes()->DMDID,
+                                'fileGrp'  => $useGrp,
+                                'admId'    => (string) $file->attributes()->ADMID,
+                                'dmdId'    => (string) $file->attributes()->DMDID,
+                                'location' => $location,
+                                'mimeType' => (string) $file->attributes()->MIMETYPE,
                             ];
+
+                            // Prime location cache so getFileLocation() never falls through to XPath
+                            $this->fileLocationCache[$fileId] = $location;
                         }
                     }
                 }
