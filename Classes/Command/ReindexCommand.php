@@ -184,11 +184,15 @@ class ReindexCommand extends BaseCommand
             return Command::FAILURE;
         }
 
+        $lError = false;
+        $nHits = sizeof($documents);
+
         foreach ($documents as $id => $document) {
             $doc = AbstractDocument::getInstance($document->getLocation(), ['storagePid' => $this->storagePid], true);
 
             if ($doc === null) {
                 $io->warning('WARNING: Document "' . $document->getLocation() . '" could not be loaded. Skip to next document.');
+                $lError = true;
                 continue;
             }
 
@@ -211,6 +215,14 @@ class ReindexCommand extends BaseCommand
         // Clear state of persistence manager to prevent memory exhaustion.
         $this->persistenceManager->clearState();
 
+        if ($lError) {
+            $io->success('At least one error!');
+            return Command::FAILURE;
+        }
+        if ($nHits === 0) {
+            $io->success('End reached');
+            return 3;
+        }
         $io->success('All done!');
 
         return Command::SUCCESS;
