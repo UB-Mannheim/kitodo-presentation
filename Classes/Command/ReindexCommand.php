@@ -169,14 +169,16 @@ class ReindexCommand extends BaseCommand
             return Command::FAILURE;
         }
 
-        /** @var QueryResultInterface<int, Document> $documents PHPStan: narrows iterable|QueryResultInterface union to Countable */
+/** @var QueryResultInterface<int, Document> $documents PHPStan: narrows iterable|QueryResultInterface union to Countable */
         $amount = count($documents);
+        $lError = false;
 
         foreach ($documents as $id => $document) {
             $doc = AbstractDocument::getInstance($document->getLocation(), ['storagePid' => $this->storagePid], !$useCache);
 
             if ($doc === null) {
                 $io->warning('WARNING: Document "' . $document->getLocation() . '" could not be loaded. Skip to next document.');
+                $lError = true;
                 continue;
             }
 
@@ -196,6 +198,17 @@ class ReindexCommand extends BaseCommand
             GeneralUtility::makeInstance(DocumentCacheManager::class)->remove($document->getLocation());
         }
 
+// Clear state of persistence manager to prevent memory exhaustion.
+        $this->persistenceManager->clearState();
+
+        if ($lError) {
+            $io->success('At least one error!');
+            return Command::FAILURE;
+        }
+        if ($amount === 0) {
+            $io->success('End reached');
+            return 3;
+        }
         $io->success('All done!');
 
         return Command::SUCCESS;
