@@ -13,34 +13,35 @@
       data-namespace-typo3-fluid="true">
 
 <li>
-    <span class="tx-dlf-tools-pdf-page">
+    <f:comment><span class="tx-dlf-tools-pdf-page"></f:comment>
         <f:if condition="{double} === 0">
             <f:then>
                 <f:if condition="{pageLinks.0}">
-                    <f:link.external uri="{pageLinks.0}"><f:translate key="downloadSinglePage" /> (PDF)</f:link.external>
+                    <f:link.external uri="{pageLinks.0}" class="tx-dlf-tools-pdf-page"><f:translate key="downloadSinglePage"/> (PDF)</f:link.external>
                 </f:if>
             </f:then>
             <f:else>
                 <f:if condition="{pageLinks.0}">
-                    <f:link.external uri="{pageLinks.0}"><f:translate key="downloadLeftPage" /> (PDF)</f:link.external>
+                    <f:link.external uri="{pageLinks.0}" class="tx-dlf-tools-pdf-page"><f:translate key="downloadLeftPage" /> (PDF)</f:link.external>
                 </f:if>
                 <f:if condition="{pageLinks.1}">
-                    <f:link.external uri="{pageLinks.1}"><f:translate key="downloadRightPage" /> (PDF)</f:link.external>
+                    <f:link.external uri="{pageLinks.1}" class="tx-dlf-tools-pdf-page"><f:translate key="downloadRightPage"/> (PDF)</f:link.external>
                 </f:if>
             </f:else>
         </f:if>
-    </span>
-    <span class="tx-dlf-tools-pdf-work">
+    <f:comment></span></f:comment>
+    <f:comment><span class="tx-dlf-tools-pdf-work"></f:comment>
         <f:if condition="{workLink}">
-            <f:link.external uri="{workLink}"><f:translate key="downloadWork"/> (PDF)</f:link.external>
+            <f:link.external uri="{workLink}" class="tx-dlf-tools-pdf-work"><f:translate key="downloadWork"/> (PDF)</f:link.external>
         </f:if>
-    </span>
-    <span class="tx-dlf-tools-score">
-        <f:if condition="{scoreLinks}">
+    <f:comment></span></f:comment>
+    <f:if condition="{scoreLinks}">
+        <span class="tx-dlf-tools-score">
             <a href="#" id="tx-dlf-score-midi-download" class="download-document"><f:translate key="mididownload"/> (MIDI)</a>
             <a href="#" id="tx-dlf-score-download" class="download-document"><f:translate key="scoredownload"/> (PDF)</a>
-        </f:if>
-    </span>
+        </span>
+    </f:if>
+
 </li>
 
 </html>
