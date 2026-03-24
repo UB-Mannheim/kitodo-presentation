@@ -32,7 +32,14 @@
                                     </f:if>
                                 </f:else>
                             </f:if>
-                            <div class="tx-dlf-pagegrid-pagination">{entry.pagination}</div>
+                            <f:if condition="{entry.pagination}">
+                                <f:then>
+                                    <div class="tx-dlf-pagegrid-pagination">{entry.pagination}</div>
+                                </f:then>
+                                <f:else>
+                                    <div class="tx-dlf-pagegrid-pagination">-</div>
+                                </f:else>
+                            </f:if>
                         </f:link.page>
                     </div>
                 </li>
