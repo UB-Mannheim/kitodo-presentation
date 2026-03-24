@@ -289,6 +289,7 @@ var dlfViewerFullTextControl = function(map) {
       $(this.fullTextScrollElement).hide();
     }
 
+    // is emptied in PageView.js
     $(this.fullTextScrollElement).text(this.dic['fulltext-loading']);
 
     this.changeActiveBehaviour();
