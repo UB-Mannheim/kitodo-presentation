@@ -13,9 +13,9 @@
       xmlns:kitodo="http://typo3.org/ns/Kitodo/Dlf/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<!-- presentation Resources/Private/Partials/Metadata/Entries -->
 {configObject.wrap -> kitodo:metadataWrapVariable(name: 'metadataWrap')}
 <f:variable name="metaSectionConfigObject" value="{metaConfigObjectData.{sectionIterator.index}}" />
-
 <f:variable name="wrappedValues"><f:spaceless>
     <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.{configObject.indexName}}')}">
         <f:then>
@@ -65,9 +65,245 @@
     </f:if>
 </f:spaceless></f:variable>
 
+<f:comment>
+    Achtung _all erzeugt hier ggf. einen Speicherüberlauf!
+    <f:debug>{metaSectionConfigObject}</f:debug>
+    <f:debug>{configObject}</f:debug>
+    <f:debug>{configObject.indexName}</f:debug>
+</f:comment>
+
+<f:comment>
+    Sonderbehandlung der verschiedenen Metataten-Elemente>
+</f:comment>
 <f:if condition="{wrappedValues}">
-    <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
-        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
-        {wrappedValues -> f:format.raw()}
+    <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionCObj}">
+        <f:if condition="{configObject.indexName} == 'title' || {configObject.indexName} == 'title0'">
+            <f:then>
+                <f:if condition="{documentMetadataSections.0.title.0} == {allYearDocTitle}">
+                    <f:then>
+                        <f:comment>kein PartOfTitel weil identisch</f:comment>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:then>
+                    <f:else>
+                        <f:comment>PartOf liegt vor</f:comment>
+                        <f:comment>ToDo: if possible, this should be created as a link</f:comment>
+
+                        <div class="maintitle">{documentMainTitle}</div>
+                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                        {wrappedValues -> f:format.raw()}
+                    </f:else>
+                </f:if>
+            </f:then>
+            <f:else>
+                <f:comment>normal metadata</f:comment>
+                <f:comment>
+                    <!-- 101 {configObject.indexName } -->
+                    <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                    {wrappedValues -> f:format.raw()}
+                </f:comment>
+                <f:if condition="{configObject.indexName} == 'date'">
+                    <f:then>
+                        <f:if condition="{metaSectionCObj.date} == {metaSectionCObj.year}">
+                            <f:then>
+                                <f:comment>
+                                    <f:debug>{metaSectionCObj.date}</f:debug>
+                                    <f:debug>{metaSectionCObj.year}</f:debug>
+                                </f:comment>
+                            </f:then>
+                            <f:else>
+                                <!-- 115 {configObject.indexName } -->
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                {wrappedValues -> f:format.raw()}
+                            </f:else>
+                        </f:if>
+
+                    </f:then>
+                    <f:else>
+                        <f:switch expression="{configObject.indexName}">
+			                <f:case value="volume">
+			                    <f:comment>
+                                    Titel übergeordnetes Werk ergänzen wenn der Band keinen eigenen Titel hat, Regel bei Bandbezeichnungen unter 4 Zeichen
+                                    in diesem Fall handelt es sich auch um einen partOf
+                                </f:comment>
+			    	            <f:if condition="{documentMetadataSections.0.title->f:count()} == 0">
+			    	                <!-- titel von Hauptwerk ergaenzen -->
+				                    <dd>[{allYearDocTitle}]</dd>
+			    	            </f:if>
+
+			                    <!-- xxx247xxx -->
+				                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                    {wrappedValues -> f:format.raw()}
+
+			                </f:case>
+                            <f:case value="mets">
+                                <f:comment>mets sollen nicht ausgegeben werden</f:comment>
+                            </f:case>
+                            <f:case value="prod_id">
+                                <f:comment>prod_id sollen nicht ausgegeben werden</f:comment>
+                                <!-- {configObject.indexName }: {wrappedValues -> f:format.raw()} -->
+                            </f:case>
+                            <f:case value="year">
+                                <f:comment>mit der Umstellung auf year_short kann dieser Abschnitt auskommentiert werden!</f:comment>
+                                <f:comment><f:debug>{documentMetadataSection}</f:debug></f:comment>
+                                <f:comment>
+                                <!-- 135 {configObject.indexName } -->
+                                <f:if condition="{documentMetadataSection.collection} == 'Historische Zeitungen'">
+                                    <f:then>
+                                        <f:comment><f:debug>{documentMetadataSection.collection}</f:debug></f:comment>
+                                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                        <f:comment>entfernt bei Historischen Zeitungen den "-MM-TT" Teil</f:comment>
+                                        {wrappedValues -> v:format.substring(start: 0, length: 8) -> v:format.append(add: '</dd>') -> f:format.html()}
+                                    </f:then>
+                                    <f:else>
+                                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                        {wrappedValues -> f:format.raw()}
+                                    </f:else>
+                                </f:if>
+                                </f:comment>
+                            </f:case>
+
+
+                            <f:case value="collection">
+                                <f:comment><f:debug>{_all}</f:debug></f:comment>
+                                <!-- 175 configObject.indexName: {configObject.indexName }     configObject.label: #{configObject.label}# -->
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
+
+                                <f:variable name="basepath" value="/sammlungen/" />
+
+                                <f:comment>gekuerzte Version des Labels um Problem mit Klammern zu vermeiden</f:comment>
+                                <f:variable name="KurzLabelSammlung" value="{configObject.label -> f:format.crop(maxCharacters: 8, append:'')}" />
+                                <!-- 183 configObject.indexName: {configObject.indexName } configObject.label: #{configObject.label}# #{KurzLabelSammlung}# -->
+
+                                <f:if condition="{KurzLabelSammlung} == 'Sammlung'">
+                                    <f:then>
+                                        <f:variable name="basepath" value="/sammlungen/" />
+                                        <f:variable name="collectionBacklinkInfo" value="Backlink zur Sammlung" />
+                                        <f:variable name="collectionBacklinkInfoShort" value="Backlink zur" />
+                                    </f:then>
+                                    <f:else>
+                                        <f:variable name="basepath" value="/en/collections/" />
+                                        <f:variable name="collectionBacklinkInfo" value="Backlink to the collection" />
+                                        <f:variable name="collectionBacklinkInfoShort" value="Backlink to the " />
+                                    </f:else>
+                                </f:if>
+
+                                <f:comment><f:debug>{documentMetadataSection.collection.0}</f:debug></f:comment>
+                                
+                                <f:for each="{documentMetadataSection.collection}" as="collectionClearName">
+
+                                    <!-- 201 collectionClearName: {collectionClearName} -->
+
+                                    <f:switch expression="{collectionClearName}">
+                                        <f:case value="Aktienführer & Saling's Börsenpapiere">
+                                            <dd><a href="{basepath}aktienfuehrer" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Hoppenstedt">
+                                            <dd><a href="{basepath}hoppenstedt" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Geschäftsberichte">
+                                            <dd><a href="{basepath}geschaeftsberichte" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Deutsche Statistische Jahrbücher">
+                                            <dd><a href="{basepath}statistische-jahrbuecher" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Gemeindeverzeichnisse">
+                                            <dd><a href="{basepath}gemeindeverzeichnisse" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Patentregister">
+                                            <dd><a href="{basepath}patentregister" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Zoll- und Steuerwesen">
+                                            <dd><a href="{basepath}zoll-steuerwesen" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Gemeindverzeichnis Experiment">
+                                            <dd><a href="{basepath}gemeindeverzeichnisse" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Europäische Rechtsgeschichte">
+                                            <dd><a href="{basepath}europaeische-rechtsgeschichte" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Lesegesellschaft Harmonie">
+                                            <dd><a href="{basepath}lesegesellschaft-harmonie" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Nachlass Desbillons">
+                                            <dd><a href="{basepath}nachlass-desbillons" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Sammlung Naturkunde">
+                                            <dd><a href="{basepath}sammlung-naturkunde" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Städtische Schlossbücherei">
+                                            <dd><a href="{basepath}staedtische-schlossbuecherei" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Handschriften">
+                                            <dd><a href="{basepath}handschriften" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Mannheimer Hofbibliothek">
+                                            <dd><a href="{basepath}mannheimer-hofbibliothek" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Sammlung Desbillons">
+                                            <dd><a href="{basepath}sammlung-desbillons" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Sammlung Weickum">
+                                            <dd><a href="{basepath}sammlung-weickum" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Eingeschränkter Zugang">
+                                            <dd><a href="{basepath}restricted" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Historische Zeitungen">
+                                            <!-- 240 {collectionClearName} -->
+                                            <dd><a href="{basepath}zeitungen" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Reichsanzeiger und seine Vorgängerzeitungen">
+                                            <!-- 244 {collectionClearName} -->
+                                            <dd><a href="{basepath}reichsanzeiger" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Jesuitenkolleg">
+                                            <dd><a href="{basepath}jesuitenkolleg" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Mannheimensien">
+                                            <dd><a href="{basepath}mannheimensien" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Nachlass Otto Selz">
+                                            <dd><a href="{basepath}nachlass-otto-selz" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Sammlung Mammelsdorf">
+                                            <dd><a href="{basepath}sammlung-mammelsdorf" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Sekundärliteratur">
+                                            <dd><a href="{basepath}sekundaerliteratur" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Varia">
+                                            <dd><a href="{basepath}varia" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+                                        <f:case value="Wissenschaftliche Stadtbibliothek">
+                                            <dd><a href="{basepath}wissenschaftliche-stadtbibliothek" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:case>
+
+                                        <f:defaultCase>
+                                            <!-- 300 default Beginn for clearName {collectionClearName} -->
+                                            {wrappedValues -> f:format.raw()}
+                                            <!-- default Ende-->
+                                        </f:defaultCase>
+                                    </f:switch>
+                                </f:for>
+                            </f:case>
+
+                            <f:case value="collection_new">
+                                <!-- 308 keine Ausgabe bei collection_new -->
+                            </f:case>
+
+                            <f:defaultCase>
+                                <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
+                                    <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                    {wrappedValues -> f:format.raw()}
+                                </kitodo:stdWrap>
+                            </f:defaultCase>
+
+                        </f:switch>
+                    </f:else>
+                </f:if>
+            </f:else>
+        </f:if>
     </kitodo:stdWrap>
 </f:if>
