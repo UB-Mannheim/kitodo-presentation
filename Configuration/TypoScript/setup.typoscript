@@ -12,9 +12,11 @@ plugin.tx_dlf {
 
 config {
     # concatenate all JavaScript files by default
-    concatenateJs = 1
+    #concatenateJs = 1
+    concatenateJs = 0
     # concatenate all CSS files by default
-    concatenateCss = 1
+    #concatenateCss = 1
+    concatenateCss = 0
 }
 
 page {
