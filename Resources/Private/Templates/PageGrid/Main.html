@@ -15,7 +15,7 @@
     <f:debug title="all">{_all}</f:debug>
 </f:if>
 
-<div class="tx-dlf-pagegrid">
+<div class="tx-dlf-pagegrid ubma-pres">
     <ol class="tx-dlf-pagegrid-list">
         <f:for each="{paginator.paginatedItems}" as="entry" iteration="iterator">
             <li class="tx-dlf-pagegrid-{entry.state}" value="{entry.page}">
@@ -46,4 +46,5 @@
     </ol>
     <f:render partial="Lists/Pagination" arguments="{_all}" />
 </div>
+
 </html>
