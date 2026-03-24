@@ -15,7 +15,7 @@
     <f:debug title="all">{_all}</f:debug>
 </f:if>
 
-<div class="tx-dlf-pagegrid">
+<div class="tx-dlf-pagegrid ubma-pres">
     <f:if condition="{settings.placeholder}">
         <f:then>
             <f:image src="{settings.placeholder}" alt="" title="" maxWidth="250" id="tx-dlf-pagegrid-fallback" style="display:none" />
@@ -56,4 +56,5 @@
     </ol>
     <f:render partial="Lists/Pagination" arguments="{_all}" />
 </div>
+
 </html>
