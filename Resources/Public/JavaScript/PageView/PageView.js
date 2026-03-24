@@ -616,6 +616,10 @@ dlfViewer.prototype.addCustomControls = function(image) {
     }
     else {
         $('#tx-dlf-tools-annotations').remove();
+
+        // Will be filled with content in FulltextControl.js and emptied / switched off here.
+        //search for: $('#tx-dlf-fulltextselection').text(this.dic['fulltext-loading']);
+        $('#tx-dlf-fulltextselection').text('');
     }
 
     //
