@@ -12,6 +12,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
+<f:comment>it works only in Typo3 Version 12 not in 13!</f:comment>
 <f:variable name="condition" value="{viewData.requestData.page > 1 ? 1 : 0}" />
 
 <f:render partial="Navigation/Page" arguments="{class: 'tx-dlf-navigation-first', condition: condition, page: '1', value: 'firstPage', viewData: viewData}" />
