@@ -13,18 +13,20 @@
       data-namespace-typo3-fluid="true">
 
 <f:comment>it works only in Typo3 Version 12 not in 13!</f:comment>
+<!-- Line 16 from PageFirst.html Start -->
 <f:if condition="{viewData.requestData.page} && {viewData.requestData.page} > 1">
     <f:then>
-        <!-- Line 18 from PageFirst.html -->
+        <!-- Line 19 from PageFirst.html -->
         <f:variable name="condition" value="1" />
     </f:then>
     <f:else>
-        <!-- Line 22 from PageFirst.html -->
+        <!-- Line 23 from PageFirst.html -->
         <f:variable name="condition" value="0" />
     </f:else>
 </f:if>
 
-<!-- Line 27 from PageFirst.html render Navigation/Page -->
+<!-- Line 28 from PageFirst.html render Navigation/Page -->
 <f:render partial="Navigation/Page" arguments="{class: 'tx-dlf-navigation-first', condition: condition, page: '1', value: 'firstPage', viewData: viewData}" />
+<!-- Line 30 from PageFirst.html render Navigation/Page End-->
 
 </html>
