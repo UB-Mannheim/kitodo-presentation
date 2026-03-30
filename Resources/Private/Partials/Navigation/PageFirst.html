@@ -15,7 +15,8 @@
 <f:comment>it works only in Typo3 Version 12 not in 13!</f:comment>
 <!-- Line 16 from PageFirst.html Start -->
 <!-- ✅ Sicher in TYPO3 12 & 13, keine Ternär-Probleme -->
-<f:variable name="condition" value="{f:if(condition: '{viewData.requestData.page} > 1', then: 1, else: 0)}" />
+<f:variable name="pageInt" value="{viewData.requestData.page -> f:format.number(decimals: 0)}" />
+<f:variable name="condition" value="{f:if(condition: '{pageInt} > 1', then: 1, else: 0)}" />
 
 <!-- Line 22 from PageFirst.html render Navigation/Page -->
 <f:render partial="Navigation/Page" arguments="{class: 'tx-dlf-navigation-first', condition: condition, page: '1', value: 'firstPage', viewData: viewData}" />
