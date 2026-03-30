@@ -101,6 +101,12 @@
             <trans-unit id="metadata.year">
                 <source><![CDATA[Year of Publication]]></source>
             </trans-unit>
+            <trans-unit id="metadata.branchindustry">
+                <source><![CDATA[Industry]]></source>
+            </trans-unit>
+            <trans-unit id="metadata.EditorCorporate">
+                <source><![CDATA[Institution]]></source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
