@@ -80,6 +80,9 @@
             <trans-unit id="metadata.title">
                 <source><![CDATA[Title]]></source>
             </trans-unit>
+            <trans-unit id="metadata.subtitle">
+                <source><![CDATA[Subtitle]]></source>
+            </trans-unit>
             <trans-unit id="metadata.type">
                 <source><![CDATA[Type]]></source>
             </trans-unit>
@@ -100,6 +103,12 @@
             </trans-unit>
             <trans-unit id="metadata.year">
                 <source><![CDATA[Year of Publication]]></source>
+            </trans-unit>
+            <trans-unit id="metadata.shelfmark">
+                <source><![CDATA[Shelfmark]]></source>
+            </trans-unit>
+            <trans-unit id="metadata.shelfLocator" approved="yes">
+                <source><![CDATA[Shelfmark]]></source>
             </trans-unit>
             <trans-unit id="metadata.branchindustry">
                 <source><![CDATA[Industry]]></source>
