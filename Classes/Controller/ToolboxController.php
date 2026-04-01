@@ -74,7 +74,7 @@ class ToolboxController extends AbstractController
     {
         if (!empty($this->settings['tools'])) {
 
-            $tools = explode(',', $this->settings['tools']);
+            $tools = array_map('trim', explode(',', $this->settings['tools']));
 
             foreach ($tools as $tool) {
                 match ($tool) {
