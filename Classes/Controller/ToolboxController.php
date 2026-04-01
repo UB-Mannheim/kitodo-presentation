@@ -90,6 +90,7 @@ class ToolboxController extends AbstractController
                     'tx_dlf_scoretool', 'scoretool' => $this->renderToolByName('renderScoreTool'),
                     'tx_dlf_searchindocumenttool', 'searchindocumenttool' => $this->renderToolByName('renderSearchInDocumentTool'),
                     'tx_dlf_viewerselectiontool', 'viewerselectiontool' => $this->renderToolByName('renderViewerSelectionTool'),
+                    'tx_dlf_metsdownloadtool', 'metsdownloadtool' => $this->renderToolByName('renderMetsDownloadTool'),
                     default => $this->logger->warning('Incorrect tool configuration: "' . $this->settings['tools'] . '". Tool "' . $tool . '" does not exist.')
                 };
             }
@@ -629,6 +630,48 @@ class ToolboxController extends AbstractController
         ];
 
         $this->view->assign('searchInDocument', $viewArray);
+    }
+
+    /**
+     * Renders the mets download tool
+     *
+     * @access private
+     *
+     * @return void
+     */
+    private function renderMetsDownloadTool(): void
+    {
+        if (
+            $this->isDocMissingOrEmpty()
+            || empty($this->useGroupsConfiguration->getDownload())
+        ) {
+            // Quit without doing anything if required variables are not set.
+            return;
+        }
+
+        $this->setPage();
+
+        $metsArray = [];
+
+        // get mets url
+        $metsArray = $this->getMets();
+
+        $this->view->assign('metsDownload', $metsArray);
+    }
+
+    /**
+     * Get mets's URL
+     *
+     * @access private
+     *
+     * @param none
+     *
+     * @return array Array of mets link
+     */
+    private function getMets(): array
+    {
+        $mets['url'] = $this->document->getLocation();
+        return $mets;
     }
 
     /**
