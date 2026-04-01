@@ -452,6 +452,9 @@
             <trans-unit id="tx_dlf_toolbox.scoretool">
                 <source>Score</source>
             </trans-unit>
+            <trans-unit id="tx_dlf_toolbox.metsdownloadtool">
+                <source>Mets</source>
+            </trans-unit>
             <trans-unit id="tt_content.dlf_audioplayer">
                 <source>DLF: Audio Player</source>
             </trans-unit>
