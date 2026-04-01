@@ -79,8 +79,7 @@ class ToolboxController extends AbstractController
     {
         if (!empty($this->settings['tools'])) {
 
-            $tools = explode(',', $this->settings['tools']);
-            $toolsToRender = [];
+$tools = array_map('trim', explode(',', $this->settings['tools']));
             foreach ($tools as $tool) {
                 $this->renderToolByName($tool);
                 $toolsToRender[$tool] = true;
@@ -397,10 +396,10 @@ class ToolboxController extends AbstractController
                         $file['url'] = $this->currentDocument->getDownloadLocation($fileId);
                         $file['mimetype'] = $this->currentDocument->getFileMimeType($fileId);
                     } else {
-                        $this->logger->warning('File not found in fileGrp "' . $fileGrp . '" in Document (' . $this->document->getLocation() . ')');
+                        $this->logger->warning('File not found in fileGrp "' . $fileGrp . '" (getImage) page: "' . $page . '" in Document (' . $this->document->getLocation() . ')');
                     }
                 } else {
-                    $this->logger->warning('fileGrp "' . $fileGrp . '" not found in Document (' . $this->document->getLocation() . ') mets:fileSec');
+                    $this->logger->warning('fileGrp "' . $fileGrp . '" not found in Document (' . $this->document->getLocation() . ') mets:fileSec (getImage) page: "' . $page . '"');
                 }
             }
         }
@@ -554,7 +553,8 @@ class ToolboxController extends AbstractController
             empty($firstPageLink)
             && empty($secondPageLink)
         ) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '"');
+            // perhaps not warning notice
+            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Page Download)');
         }
 
         if (!empty($firstPageLink)) {
@@ -637,6 +637,43 @@ class ToolboxController extends AbstractController
         ];
 
         $this->view->assign('searchInDocument', $viewArray);
+    }
+
+    /**
+     * Renders the mets download tool
+     *
+     * @access private
+     *
+     * @return void
+     */
+    private function renderMetsDownloadTool(): void
+    {
+        if (
+            $this->isDocMissingOrEmpty()
+            || empty($this->useGroupsConfiguration->getDownload())
+        ) {
+            return;
+        }
+
+        $this->setPage();
+
+        $metsArray = [];
+        $metsArray = $this->getMets();
+
+        $this->view->assign('metsDownload', $metsArray);
+    }
+
+    /**
+     * Get mets's URL
+     *
+     * @access private
+     *
+     * @return array Array of mets link
+     */
+    private function getMets(): array
+    {
+        $mets['url'] = $this->document->getLocation();
+        return $mets;
     }
 
     /**
