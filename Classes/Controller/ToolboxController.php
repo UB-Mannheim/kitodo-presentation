@@ -588,7 +588,7 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
             }
         }
         if (empty($workLink)) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '"');
+            $this->logger->notice('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Work Download)');
         }
         return $workLink;
     }
