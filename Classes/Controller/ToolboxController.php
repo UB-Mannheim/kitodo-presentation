@@ -390,10 +390,12 @@ class ToolboxController extends AbstractController
                         $file['url'] = $this->currentDocument->getDownloadLocation($fileId);
                         $file['mimetype'] = $this->currentDocument->getFileMimeType($fileId);
                     } else {
-                        $this->logger->warning('File not found in fileGrp "' . $fileGrp . '"');
+                        // perhaps not warning notice
+                        $this->logger->warning('File not found in fileGrp "' . $fileGrp . '" (getImage) page: "' . $page . '"');
                     }
                 } else {
-                    $this->logger->warning('fileGrp "' . $fileGrp . '" not found in Document mets:fileSec');
+                    // perhaps not warning notice
+                    $this->logger->warning('fileGrp "' . $fileGrp . '" not found in Document mets:fileSec' . ' (getImage) page: "' . $page . '"');
                 }
             }
         }
@@ -547,7 +549,8 @@ class ToolboxController extends AbstractController
             empty($firstPageLink)
             && empty($secondPageLink)
         ) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '"');
+            // perhaps not warning notice
+            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Page Download)');
         }
 
         if (!empty($firstPageLink)) {
@@ -587,7 +590,7 @@ class ToolboxController extends AbstractController
             }
         }
         if (empty($workLink)) {
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '"');
+            $this->logger->notice('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Work Download)');
         }
         return $workLink;
     }
