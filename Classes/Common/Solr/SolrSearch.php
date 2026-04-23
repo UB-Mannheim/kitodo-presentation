@@ -487,7 +487,11 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
 
         // if collections are given, we prepare the collection query string
         if (!empty($this->collections)) {
-            $params['filterquery'][]['query'] = $this->getCollectionFilterQuery($query);
+            $lFacet = false;
+            if (isset($this->searchParams['fq']) && is_array($this->searchParams['fq'])) {
+                $lFacet = true;
+            }
+            $params['filterquery'][]['query'] = $this->getCollectionFilterQuery($query, $lFacet);
         }
 
         // Set some query parameters.
@@ -846,10 +850,11 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
      * @access private
      *
      * @param string $query
+     * @param boolean $lFacet when a facet is clicked
      *
      * @return string
      */
-    private function getCollectionFilterQuery(string $query): string
+    private function getCollectionFilterQuery(string $query, bool $lFacet): string
     {
         $collectionsQueryString = '';
         $virtualCollectionsQueryString = '';
@@ -868,7 +873,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         // distinguish between simple collection browsing and actual searching within the collection(s)
         if (!empty($collectionsQueryString)) {
             $collectionsQueryString = '(collection_faceting:(' . $collectionsQueryString . ')';
-            if (empty($query) || $query === '*') {
+            if ((empty($query) || $query === '*') AND !$lFacet) {
                 $collectionsQueryString .= ' AND toplevel:true AND partof:0';
             }
             $collectionsQueryString .= ')';
