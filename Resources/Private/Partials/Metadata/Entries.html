@@ -89,7 +89,8 @@
                         <f:comment>PartOf liegt vor</f:comment>
                         <f:comment>ToDo: if possible, this should be created as a link</f:comment>
 
-                        <div class="maintitle">{documentMainTitle}</div>
+                        <div class="maintitle c92_entries" title="{documentMainTitle}">[<f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{documentMainTitle}</f:format.htmlspecialchars></f:format.crop>]</div>
+
                         <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
                         {wrappedValues -> f:format.raw()}
                     </f:else>
@@ -128,7 +129,8 @@
                                 </f:comment>
 			    	            <f:if condition="{documentMetadataSections.0.title->f:count()} == 0">
 			    	                <!-- titel von Hauptwerk ergaenzen -->
-				                    <dd>[{allYearDocTitle}]</dd>
+				                    <f:comment><dd>[{allYearDocTitle}]</dd></f:comment>
+                                    <dd title="[{allYearDocTitle}]">[<f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{allYearDocTitle}</f:format.htmlspecialchars></f:format.crop>]</dd>                                    
 			    	            </f:if>
 
 			                    <!-- xxx247xxx -->
