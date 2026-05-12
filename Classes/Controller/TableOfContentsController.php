@@ -141,10 +141,33 @@ class TableOfContentsController extends AbstractController
         $entryArray['orderlabel'] = $entry['orderlabel'];
         $entryArray['type'] = $entry['type'];
         $entryArray['translatedType'] = $this->getTranslatedType($entry['type']);
+
+        // get index name of type
+        $entryArray['type-index'] = $entry['type'];
+
         $entryArray['pagination'] = htmlspecialchars($entry['pagination']);
         $entryArray['_OVERRIDE_HREF'] = '';
         $entryArray['doNotLinkIt'] = 1;
         $entryArray['ITEM_STATE'] = 'NO';
+
+        // get getPartof ID (periodicas) or getOnlytPreviousDocumentUid (newspapers)
+        // points has an error in both of these cases; it contains a URL instead of an ID.
+        // This can be circumvented with these two values.
+        $nParentID = $this->document->getPartof();
+        if  ($nParentID) {
+            $entryArray['parentDocumentId'] = $this->document->getPartof();
+
+            // get Anchor-DocumentUid
+            //For newspapers: $this->document->getPartof() only contains the ID for the year, so I have to go one level higher.
+            $prevOnlyDocumentUid = $this->documentRepository->getOnlytPreviousDocumentUid($nParentID);
+            if ($prevOnlyDocumentUid ) {
+                $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
+            };
+        };
+
+        // get own Document ID
+        // instead of using points
+        $entryArray['ownDocumentId']  = $this->document->getUid();
 
         $this->buildMenuLinks($entryArray, $entry['id'] ?? null, $entry['points'] ?? null, $entry['targetUid'] ?? null);
 
