@@ -845,4 +845,31 @@ class DocumentRepository extends AbstractRepository
         $query->setLimit(1);
         return $query;
     }
+
+    /**
+     * Find the uid of the previous document relative to the current document uid.
+     * Otherwise backtrack the closest previous leaf node.
+     *
+     * @access public
+     *
+     * @param int $uid
+     *
+     * @return int|null
+     */
+    public function getOnlytPreviousDocumentUid($uid)
+    {
+        $currentDocument = $this->findOneByUid($uid);
+
+        if ($currentDocument) {
+            $currentVolume = '';
+            $parentId = $currentDocument->getPartof();
+
+            if ($parentId) {
+
+                return $parentId;
+            }
+        }
+        return null;
+    }
+
 }
