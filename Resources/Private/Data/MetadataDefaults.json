@@ -688,5 +688,65 @@
         "is_listed": 0,
         "index_autocomplete": 0,
         "sorting": 30
+    },
+    "subtitle": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:titleInfo/mods:subTitle",
+                "xpath_sorting": "./mods:titleInfo/mods:subTitle"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-subtitle\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-subtitle\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 4.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 1,
+        "sorting": 31
+    },
+    "EditorCorporate": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:name[@type="corporate"]/mods:namePart",
+                "xpath_sorting": "./mods:name[@type="corporate"]/mods:namePart"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-corporate\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-corporate\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 32
+    },
+    "branchindustry": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:extension/ns3:ubma/ns3:branchindustry",
+                "xpath_sorting": "./mods:extension/ns3:ubma/ns3:branchindustry"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-branchindustry\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-branchindustry\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 33
     }
 }
