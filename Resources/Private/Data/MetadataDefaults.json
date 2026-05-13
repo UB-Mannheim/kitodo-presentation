@@ -438,7 +438,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-lizenz\">|</dt>\nvalue.required = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.extTarget = _blank\nvalue.typolink.value = Test\nvalue.typolink.returnLast = url\nvalue.wrap = <dd class=\"tx-dlf-metadata-lizenz\"><a target=\"_blank\" title=\"Link zu {$lizensText}\" href=\"|\">Public Domain Mark 1.0</a></dd>",
         "index_tokenized": 0,
         "index_stored": 1,
         "index_indexed": 1,
@@ -713,8 +713,8 @@
         "format": [
             {
                 "format_root": "mods",
-                "xpath": "./mods:name[@type="corporate"]/mods:namePart",
-                "xpath_sorting": "./mods:name[@type="corporate"]/mods:namePart"
+                "xpath": "./mods:name[@type=\"corporate\"]/mods:namePart",
+                "xpath_sorting": "./mods:name[@type=\"corporate\"]/mods:namePart"
             }
         ],
         "default_value": "",
@@ -748,5 +748,105 @@
         "is_listed": 1,
         "index_autocomplete": 0,
         "sorting": 33
+    },
+    "year_short": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)",
+                "xpath_sorting": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 34
+    },
+    "shelfLocator": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:location/mods:shelfLocator",
+                "xpath_sorting": "./mods:location/mods:shelfLocator"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-callnumber ok\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-callnumber\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 35
+    },
+    "dfgviewer": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:recordInfo/mods:recordIdentifier",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-dfgviewer\">|</dt>\nvalue.required = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https://dfg-viewer.de/show/?tx_dlf%5Bid%5D=https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.typolink.extTarget = _blank\nvalue.typolink.title = Titel im DFG-Viewer anzeigen\nvalue.wrap = <dd class=\"tx-dlf-metadata-dfgviewer-value\">|</dd>",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 0,
+        "index_boost": 1.00,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 36
+    },
+    "mets": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:identifier[@type=\"urn\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-mets meta_not_show ausblenden\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-mets meta_not_show btn\"><a class=\"metslink\" target=\"_blank\" href=\"\/met\/|\">METS</a></dd>",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 0,
+        "index_autocomplete": 0,
+        "sorting": 37
+    },
+    "notes": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:note[@type=\"source note\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-annotation_digital\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-annotation_digital\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 38
     }
 }

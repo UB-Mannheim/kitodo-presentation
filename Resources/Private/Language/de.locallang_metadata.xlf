@@ -101,6 +101,10 @@
                 <source><![CDATA[Terms of Use]]></source>
                 <target><![CDATA[Nutzungsbedingungen]]></target>
             </trans-unit>
+            <trans-unit id="metadata.notes" approved="yes">
+                <source><![CDATA[Note]]></source>
+                <target><![CDATA[Bemerkung(en)]]></target>
+            </trans-unit>
             <trans-unit id="metadata.title" approved="yes">
                 <source><![CDATA[Title]]></source>
                 <target><![CDATA[Titel]]></target>
