@@ -1,24 +1,4 @@
 {
-    "type": {
-        "format": [
-            {
-                "format_root": "IIIF2",
-                "xpath": "$.metadata.[?(@.label=='Manifest Type')].value",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "",
-        "index_tokenized": 0,
-        "index_stored": 1,
-        "index_indexed": 0,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 12
-    },
     "title": {
         "format": [
             {
@@ -49,6 +29,26 @@
         "index_autocomplete": 1,
         "sorting": 1
     },
+    "subtitle": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:titleInfo/mods:subTitle",
+                "xpath_sorting": "./mods:titleInfo/mods:subTitle"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-subtitle\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-subtitle\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 4.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 1,
+        "sorting": 2
+    },
     "volume": {
         "format": [
             {
@@ -68,26 +68,6 @@
         "is_listed": 1,
         "index_autocomplete": 0,
         "sorting": 3
-    },
-    "date": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:originInfo/*[@encoding=\"iso8601\" or @encoding=\"w3cdtf\"][@keyDate=\"yes\"]",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "",
-        "index_tokenized": 0,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 0,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 7
     },
     "author": {
         "format": [
@@ -114,21 +94,16 @@
         "index_autocomplete": 1,
         "sorting": 4
     },
-    "place": {
+    "EditorCorporate": {
         "format": [
             {
-                "format_root": "teiHeader",
-                "xpath": "./teihdr:fileDesc/teihdr:sourceDesc/teihdr:msDesc/teihdr:head/teihdr:origPlace",
-                "xpath_sorting": ""
-            },
-            {
-                "format_root": "IIIF2",
-                "xpath": "$.metadata.[?(@.label=='Place of publication')].value",
-                "xpath_sorting": ""
+                "format_root": "mods",
+                "xpath": "./mods:name[@type=\"corporate\"]/mods:namePart",
+                "xpath_sorting": "./mods:name[@type=\"corporate\"]/mods:namePart"
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-corporate\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-corporate\">|</dd>",
         "index_tokenized": 1,
         "index_stored": 1,
         "index_indexed": 1,
@@ -137,7 +112,47 @@
         "is_facet": 1,
         "is_listed": 1,
         "index_autocomplete": 0,
-        "sorting": 10
+        "sorting": 5
+    },
+    "branchindustry": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:extension/ns3:ubma/ns3:branchindustry",
+                "xpath_sorting": "./mods:extension/ns3:ubma/ns3:branchindustry"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-branchindustry\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-branchindustry\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 6
+    },
+    "date": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:originInfo/*[@encoding=\"iso8601\" or @encoding=\"w3cdtf\"][@keyDate=\"yes\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 0,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 7
     },
     "year": {
         "format": [
@@ -164,6 +179,51 @@
         "index_autocomplete": 0,
         "sorting": 8
     },
+    "year_short": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)",
+                "xpath_sorting": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 9
+    },
+    "place": {
+        "format": [
+            {
+                "format_root": "teiHeader",
+                "xpath": "./teihdr:fileDesc/teihdr:sourceDesc/teihdr:msDesc/teihdr:head/teihdr:origPlace",
+                "xpath_sorting": ""
+            },
+            {
+                "format_root": "IIIF2",
+                "xpath": "$.metadata.[?(@.label=='Place of publication')].value",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 10
+    },
     "language": {
         "format": [
             {
@@ -183,6 +243,26 @@
         "is_listed": 0,
         "index_autocomplete": 0,
         "sorting": 11
+    },
+    "type": {
+        "format": [
+            {
+                "format_root": "IIIF2",
+                "xpath": "$.metadata.[?(@.label=='Manifest Type')].value",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 0,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 12
     },
     "collection": {
         "format": [
@@ -244,6 +324,46 @@
         "index_autocomplete": 0,
         "sorting": 14
     },
+    "shelfLocator": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:location/mods:shelfLocator",
+                "xpath_sorting": "./mods:location/mods:shelfLocator"
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-callnumber ok\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-callnumber\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 15
+    },
+    "description": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:recordInfo/mods:recordInfoNote",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt>|</dt>\nvalue.required = 1\nvalue.wrap = <dd>|</dd>",
+        "index_tokenized": 0,
+        "index_stored": 0,
+        "index_indexed": 0,
+        "index_boost": 0.0,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 0,
+        "index_autocomplete": 0,
+        "sorting": 16
+    },
     "purl": {
         "format": [
             {
@@ -298,6 +418,46 @@
         "is_listed": 0,
         "index_autocomplete": 0,
         "sorting": 18
+    },
+    "dfgviewer": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:recordInfo/mods:recordIdentifier",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-dfgviewer\">|</dt>\nvalue.required = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https://dfg-viewer.de/show/?tx_dlf%5Bid%5D=https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.typolink.extTarget = _blank\nvalue.typolink.title = Titel im DFG-Viewer anzeigen\nvalue.wrap = <dd class=\"tx-dlf-metadata-dfgviewer-value\">|</dd>",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 0,
+        "index_boost": 1.00,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 19
+    },
+    "mets": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:identifier[@type=\"urn\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-mets meta_not_show ausblenden\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-mets meta_not_show btn\"><a class=\"metslink\" target=\"_blank\" href=\"\/met\/|\">METS</a></dd>",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 0,
+        "index_autocomplete": 0,
+        "sorting": 20
     },
     "opac_id": {
         "format": [
@@ -449,6 +609,26 @@
         "index_autocomplete": 0,
         "sorting": 26
     },
+    "notes": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:note[@type=\"source note\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-annotation_digital\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-annotation_digital\">|</dd>",
+        "index_tokenized": 1,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.00,
+        "is_sortable": 1,
+        "is_facet": 1,
+        "is_listed": 1,
+        "index_autocomplete": 0,
+        "sorting": 27
+    },
     "terms": {
         "format": [
             {
@@ -528,26 +708,6 @@
         "is_listed": 0,
         "index_autocomplete": 0,
         "sorting": 31
-    },
-    "description": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:recordInfo/mods:recordInfoNote",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt>|</dt>\nvalue.required = 1\nvalue.wrap = <dd>|</dd>",
-        "index_tokenized": 0,
-        "index_stored": 0,
-        "index_indexed": 0,
-        "index_boost": 0.0,
-        "is_sortable": 0,
-        "is_facet": 0,
-        "is_listed": 0,
-        "index_autocomplete": 0,
-        "sorting": 16
     },
     "identifier": {
         "format": [
@@ -688,165 +848,5 @@
         "is_listed": 0,
         "index_autocomplete": 0,
         "sorting": 38
-    },
-    "subtitle": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:titleInfo/mods:subTitle",
-                "xpath_sorting": "./mods:titleInfo/mods:subTitle"
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-subtitle\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-subtitle\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 4.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 1,
-        "sorting": 2
-    },
-    "EditorCorporate": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:name[@type=\"corporate\"]/mods:namePart",
-                "xpath_sorting": "./mods:name[@type=\"corporate\"]/mods:namePart"
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-corporate\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-corporate\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 5
-    },
-    "branchindustry": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:extension/ns3:ubma/ns3:branchindustry",
-                "xpath_sorting": "./mods:extension/ns3:ubma/ns3:branchindustry"
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-branchindustry\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-branchindustry\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 6
-    },
-    "year_short": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)",
-                "xpath_sorting": "substring(./mods:originInfo/mods:dateIssued[@keyDate=\"yes\"],1,4)"
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-erscheinungsdatum-year4\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 9
-    },
-    "shelfLocator": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:location/mods:shelfLocator",
-                "xpath_sorting": "./mods:location/mods:shelfLocator"
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-callnumber ok\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-callnumber\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 15
-    },
-    "dfgviewer": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:recordInfo/mods:recordIdentifier",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-dfgviewer\">|</dt>\nvalue.required = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https://dfg-viewer.de/show/?tx_dlf%5Bid%5D=https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.typolink.extTarget = _blank\nvalue.typolink.title = Titel im DFG-Viewer anzeigen\nvalue.wrap = <dd class=\"tx-dlf-metadata-dfgviewer-value\">|</dd>",
-        "index_tokenized": 0,
-        "index_stored": 1,
-        "index_indexed": 0,
-        "index_boost": 1.00,
-        "is_sortable": 0,
-        "is_facet": 0,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 19
-    },
-    "mets": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:identifier[@type=\"urn\"]",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-mets meta_not_show ausblenden\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-mets meta_not_show btn\"><a class=\"metslink\" target=\"_blank\" href=\"\/met\/|\">METS</a></dd>",
-        "index_tokenized": 0,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 0,
-        "is_facet": 0,
-        "is_listed": 0,
-        "index_autocomplete": 0,
-        "sorting": 20
-    },
-    "notes": {
-        "format": [
-            {
-                "format_root": "mods",
-                "xpath": "./mods:note[@type=\"source note\"]",
-                "xpath_sorting": ""
-            }
-        ],
-        "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-annotation_digital\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-annotation_digital\">|</dd>",
-        "index_tokenized": 1,
-        "index_stored": 1,
-        "index_indexed": 1,
-        "index_boost": 1.00,
-        "is_sortable": 1,
-        "is_facet": 1,
-        "is_listed": 1,
-        "index_autocomplete": 0,
-        "sorting": 27
     }
 }
