@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a884bebfaed95b2ebe92ea9c1dabfd75",
+    "content-hash": "58b28fb12e2743e8a8fa7b52b1180764",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2430,22 +2430,23 @@
         },
         {
             "name": "slub/php-mods-reader",
-            "version": "v0.4.0",
+            "version": "v0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slub/php-mods-reader.git",
-                "reference": "f12ece98bdcd2b1569055707bfe1e7e87bee0046"
+                "reference": "7e0f5e465606a5eeb39a477896024c5004f794b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slub/php-mods-reader/zipball/f12ece98bdcd2b1569055707bfe1e7e87bee0046",
-                "reference": "f12ece98bdcd2b1569055707bfe1e7e87bee0046",
+                "url": "https://api.github.com/repos/slub/php-mods-reader/zipball/7e0f5e465606a5eeb39a477896024c5004f794b9",
+                "reference": "7e0f5e465606a5eeb39a477896024c5004f794b9",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4"
             },
             "require-dev": {
+                "phpstan/phpstan": "^1.12",
                 "phpunit/phpunit": "~9.6"
             },
             "type": "library",
@@ -2472,9 +2473,9 @@
             ],
             "support": {
                 "issues": "https://github.com/slub/php-mods-reader/issues",
-                "source": "https://github.com/slub/php-mods-reader/tree/v0.4.0"
+                "source": "https://github.com/slub/php-mods-reader/tree/v0.5.0"
             },
-            "time": "2024-06-17T16:17:41+00:00"
+            "time": "2026-06-22T08:47:00+00:00"
         },
         {
             "name": "softcreatr/jsonpath",
