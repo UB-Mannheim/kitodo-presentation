@@ -127,7 +127,7 @@
 			    	            <f:if condition="{documentMetadataSections.0.title->f:count()} == 0">
 			    	                <!-- titel von Hauptwerk ergaenzen -->
 				                    <f:comment><dd>[{allYearDocTitle}]</dd></f:comment>
-                                    <dd title="[{allYearDocTitle}]">[<f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{allYearDocTitle}</f:format.htmlspecialchars></f:format.crop>]</dd>                                    
+                                    <dd title="[{allYearDocTitle}]">[<f:format.crop maxCharacters="55" append="&nbsp;..."><f:format.htmlspecialchars doubleEncode="false">{allYearDocTitle}</f:format.htmlspecialchars></f:format.crop>]</dd>
 			    	            </f:if>
 
 			                    <!-- xxx247xxx -->
@@ -189,7 +189,7 @@
                                 </f:if>
 
                                 <f:comment><f:debug>{documentMetadataSection.collection.0}</f:debug></f:comment>
-                                
+
                                 <f:for each="{documentMetadataSection.collection}" as="collectionClearName">
 
                                     <!-- 201 collectionClearName: {collectionClearName} -->
