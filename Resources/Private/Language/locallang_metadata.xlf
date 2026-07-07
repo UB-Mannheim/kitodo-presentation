@@ -77,6 +77,9 @@
             <trans-unit id="metadata.terms">
                 <source><![CDATA[Terms of Use]]></source>
             </trans-unit>
+            <trans-unit id="metadata.notes">
+                <source><![CDATA[Note(s)]]></source>
+            </trans-unit>
             <trans-unit id="metadata.title">
                 <source><![CDATA[Title]]></source>
             </trans-unit>
@@ -104,10 +107,13 @@
             <trans-unit id="metadata.year">
                 <source><![CDATA[Year of Publication]]></source>
             </trans-unit>
+            <trans-unit id="metadata.year_short">
+                <source><![CDATA[Year of Publication]]></source>
+            </trans-unit>
             <trans-unit id="metadata.shelfmark">
                 <source><![CDATA[Shelfmark]]></source>
             </trans-unit>
-            <trans-unit id="metadata.shelfLocator" approved="yes">
+            <trans-unit id="metadata.shelfLocator">
                 <source><![CDATA[Shelfmark]]></source>
             </trans-unit>
             <trans-unit id="metadata.branchindustry">
@@ -115,6 +121,12 @@
             </trans-unit>
             <trans-unit id="metadata.EditorCorporate">
                 <source><![CDATA[Institution]]></source>
+            </trans-unit>
+            <trans-unit id="metadata.dfgviewer">
+                <source><![CDATA[DFG-Viewer]]></source>
+            </trans-unit>
+            <trans-unit id="metadata.mets">
+                <source><![CDATA[METS]]></source>
             </trans-unit>
         </body>
     </file>
