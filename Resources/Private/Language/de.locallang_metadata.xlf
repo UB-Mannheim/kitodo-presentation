@@ -101,6 +101,10 @@
                 <source><![CDATA[Terms of Use]]></source>
                 <target><![CDATA[Nutzungsbedingungen]]></target>
             </trans-unit>
+            <trans-unit id="metadata.notes" approved="yes">
+                <source><![CDATA[Note]]></source>
+                <target><![CDATA[Bemerkung(en)]]></target>
+            </trans-unit>
             <trans-unit id="metadata.title" approved="yes">
                 <source><![CDATA[Title]]></source>
                 <target><![CDATA[Titel]]></target>
@@ -156,6 +160,14 @@
             <trans-unit id="metadata.EditorCorporate" approved="yes">
                 <source><![CDATA[Institution]]></source>
                 <target><![CDATA[Körperschaft]]></target>
+            </trans-unit>
+            <trans-unit id="metadata.dfgviewer" approved="yes">
+                <source><![CDATA[DFG-Viewer]]></source>
+                <target><![CDATA[DFG-Viewer]]></target>
+            </trans-unit>
+            <trans-unit id="metadata.mets" approved="yes">
+                <source><![CDATA[METS]]></source>
+                <target><![CDATA[METS]]></target>
             </trans-unit>
         </body>
     </file>
