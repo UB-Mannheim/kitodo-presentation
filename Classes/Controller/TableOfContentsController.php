@@ -154,14 +154,18 @@ class TableOfContentsController extends AbstractController
         // points has an error in both of these cases; it contains a URL instead of an ID.
         // This can be circumvented with these two values.
         $nParentID = $this->document->getPartof();
-        if  ($nParentID) {
-            $entryArray['parentDocumentId'] = $this->document->getPartof();
+
+        if ($nParentID) {
+
+            //$entryArray['parentDocumentId'] = $this->document->getPartof();
+            $entryArray['parentDocumentId'] = $nParentID;
 
             // get Anchor-DocumentUid
             //For newspapers: $this->document->getPartof() only contains the ID for the year, so I have to go one level higher.
             $prevOnlyDocumentUid = $this->documentRepository->getOnlytPreviousDocumentUid($nParentID);
+
             if ($prevOnlyDocumentUid ) {
-                $entryArray['AnchorDocumentId'] = $prevOnlyDocumentUid ;
+                $entryArray['AnchorDocumentID'] = $prevOnlyDocumentUid ;
             };
         };
 
