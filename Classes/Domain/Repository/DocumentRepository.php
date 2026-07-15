@@ -887,7 +887,7 @@ class DocumentRepository extends AbstractRepository
      */
     public function getOnlytPreviousDocumentUid($uid)
     {
-        $currentDocument = $this->findOneByUid($uid);
+        $currentDocument = $this->findOneBy(['uid' => $uid]);
 
         if ($currentDocument) {
             $currentVolume = '';
