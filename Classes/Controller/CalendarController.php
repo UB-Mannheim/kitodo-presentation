@@ -250,15 +250,15 @@ class CalendarController extends AbstractController
             $key = $year . '-' . $i;
 
             $calendarData[$key] = [
-                'DAYMON_NAME' => date('D', strtotime('last Monday')),
-                'DAYTUE_NAME' => date('D', strtotime('last Tuesday')),
-                'DAYWED_NAME' => date('D', strtotime('last Wednesday')),
-                'DAYTHU_NAME' => date('D', strtotime('last Thursday')),
-                'DAYFRI_NAME' => date('D', strtotime('last Friday')),
-                'DAYSAT_NAME' => date('D', strtotime('last Saturday')),
-                'DAYSUN_NAME' => date('D', strtotime('last Sunday')),
-                'MONTHNAME'  => date('F', strtotime($year . '-' . $i . '-1') ?: null) . ' ' . $year,
-                'CALYEAR' => ($i == $firstMonth) ? $year : ''
+                'MONTHKEY'  => strtolower(date('F', strtotime($year . '-' . $i . '-1') ?: null)),
+                'CALYEAR' => $year,
+                'DAYMON_KEY' => 'mon',
+                'DAYTUE_KEY' => 'tue',
+                'DAYWED_KEY' => 'wed',
+                'DAYTHU_KEY' => 'thu',
+                'DAYFRI_KEY' => 'fri',
+                'DAYSAT_KEY' => 'sat',
+                'DAYSUN_KEY' => 'sun',
             ];
 
             $firstOfMonth = strtotime($year . '-' . $i . '-1');
