@@ -22,7 +22,7 @@
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': 1,'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1'}"
                     arguments="{searchParameter: lastSearch}"
-                    title="1">1</f:link.action>
+                    title="{f:translate(key: 'navigation.page.firstPage')}">&#9664;</f:link.action>
             </li>
             <li class="tx-dlf-pagination-previous">
                 <f:comment>tx_dlf[id] add parameter id again, because it disappears with the current configuration</f:comment>
@@ -36,9 +36,10 @@
             </li>
         </f:then>
         <f:else>
-            <li class="tx-dlf-pagination-first disabled">
-                <span>1</span>
+            <li class="tx-dlf-pagination-first first disabled">
+                <span title="{f:translate(key: 'navigation.page.firstPage')}">&#9664;</span>
             </li>
+
             <li class="tx-dlf-pagination-previous disabled">
                 <span title="{f:translate(key: 'navigation.page.prevPage')}">&#9664;</span>
             </li>
@@ -96,7 +97,7 @@
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
                     arguments="{searchParameter: lastSearch}"
-                    title="{pagination.lastPageNumber}">{pagination.lastPageNumber}</f:link.action>
+                    title="{f:translate(key: 'navigation.page.lastPage')} ({pagination.lastPageNumber})">&#9654;</f:link.action>
             </li>
         </f:then>
         <f:else>
@@ -106,6 +107,10 @@
             <li class="tx-dlf-pagination-last disabled">
                 <span>{pagination.lastPageNumber}</span>
             </li>
+            <li class="tx-dlf-pagination-last last disabled">
+                <span title="{f:translate(key: 'navigation.page.lastPage')} ({pagination.lastPageNumber})">&#9654;</span>
+            </li>
+
         </f:else>
     </f:if>
 </ul>
