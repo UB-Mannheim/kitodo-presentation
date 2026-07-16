@@ -77,6 +77,63 @@
             <trans-unit id="calendar.view.list">
                 <source><![CDATA[List View]]></source>
             </trans-unit>
+            <trans-unit id="calendar.day.mon">
+                <source><![CDATA[Mon]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.tue">
+                <source><![CDATA[Tue]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.wed">
+                <source><![CDATA[Wed]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.thu">
+                <source><![CDATA[Thu]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.fri">
+                <source><![CDATA[Fri]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.sat">
+                <source><![CDATA[Sat]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.day.sun">
+                <source><![CDATA[Sun]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.january">
+                <source><![CDATA[January]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.february">
+                <source><![CDATA[February]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.march">
+                <source><![CDATA[March]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.april">
+                <source><![CDATA[April]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.may">
+                <source><![CDATA[May]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.june">
+                <source><![CDATA[June]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.july">
+                <source><![CDATA[July]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.august">
+                <source><![CDATA[August]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.september">
+                <source><![CDATA[September]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.october">
+                <source><![CDATA[October]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.november">
+                <source><![CDATA[November]]></source>
+            </trans-unit>
+            <trans-unit id="calendar.month.december">
+                <source><![CDATA[December]]></source>
+            </trans-unit>
             <trans-unit id="collection.feed.alt">
                 <source><![CDATA[RSS feed]]></source>
             </trans-unit>
