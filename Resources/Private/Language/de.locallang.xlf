@@ -101,6 +101,82 @@
                 <source><![CDATA[List View]]></source>
                 <target><![CDATA[Listenansicht]]></target>
             </trans-unit>
+            <trans-unit id="calendar.day.mon">
+                <source><![CDATA[Mon]]></source>
+                <target><![CDATA[Mo]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.tue">
+                <source><![CDATA[Tue]]></source>
+                <target><![CDATA[Di]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.wed">
+                <source><![CDATA[Wed]]></source>
+                <target><![CDATA[Mi]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.thu">
+                <source><![CDATA[Thu]]></source>
+                <target><![CDATA[Do]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.fri">
+                <source><![CDATA[Fri]]></source>
+                <target><![CDATA[Fr]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.sat">
+                <source><![CDATA[Sat]]></source>
+                <target><![CDATA[Sa]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.day.sun">
+                <source><![CDATA[Sun]]></source>
+                <target><![CDATA[So]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.january">
+                <source><![CDATA[January]]></source>
+                <target><![CDATA[Januar]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.february">
+                <source><![CDATA[February]]></source>
+                <target><![CDATA[Februar]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.march">
+                <source><![CDATA[March]]></source>
+                <target><![CDATA[März]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.april">
+                <source><![CDATA[April]]></source>
+                <target><![CDATA[April]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.may">
+                <source><![CDATA[May]]></source>
+                <target><![CDATA[Mai]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.june">
+                <source><![CDATA[June]]></source>
+                <target><![CDATA[Juni]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.july">
+                <source><![CDATA[July]]></source>
+                <target><![CDATA[Juli]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.august">
+                <source><![CDATA[August]]></source>
+                <target><![CDATA[August]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.september">
+                <source><![CDATA[September]]></source>
+                <target><![CDATA[September]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.october">
+                <source><![CDATA[October]]></source>
+                <target><![CDATA[Oktober]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.november">
+                <source><![CDATA[November]]></source>
+                <target><![CDATA[November]]></target>
+            </trans-unit>
+            <trans-unit id="calendar.month.december">
+                <source><![CDATA[December]]></source>
+                <target><![CDATA[Dezember]]></target>
+            </trans-unit>
             <trans-unit id="collection.feed.alt" approved="yes">
                 <source><![CDATA[RSS feed]]></source>
                 <target><![CDATA[RSS-Feed]]></target>
