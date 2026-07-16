@@ -256,6 +256,19 @@ class CalendarController extends AbstractController
                 'DAYSUN_NAME' => $this->getLocalizedDateString('%a', strtotime('last Sunday')),
                 'MONTHNAME'  => $this->getLocalizedDateString('%B', strtotime($year . '-' . $i . '-1') ?: null) . ' ' . $year,
                 'CALYEAR' => ($i == $firstMonth) ? $year : ''
+                /*
+                    //9ad08cc9 (fix calender, months and days in selected language)
+                    'MONTHKEY'  => strtolower(date('F', strtotime($year . '-' . $i . '-1') ?: null)),
+                    'CALYEAR' => $year,
+                    'DAYMON_KEY' => 'mon',
+                    'DAYTUE_KEY' => 'tue',
+                    'DAYWED_KEY' => 'wed',
+                    'DAYTHU_KEY' => 'thu',
+                    'DAYFRI_KEY' => 'fri',
+                    'DAYSAT_KEY' => 'sat',
+                    'DAYSUN_KEY' => 'sun',
+                    // 9ad08cc9 (fix calender, months and days in selected language)
+                */
             ];
 
             $firstOfMonth = strtotime($year . '-' . $i . '-1');
