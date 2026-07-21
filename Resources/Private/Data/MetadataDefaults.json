@@ -58,7 +58,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx_dlf_volume\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx_dlf_volume_value\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 1,
         "index_indexed": 0,
@@ -168,7 +168,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-erscheinungsdatum\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-metadata-erscheinungsdatum\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 1,
         "index_indexed": 1,
@@ -253,7 +253,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-type\">|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-type\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 1,
         "index_indexed": 0,
@@ -283,7 +283,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt>|</dt>\nvalue.required = 1\nvalue.wrap = <dd class=\"tx-dlf-ubma-collection-value\">|</dd>",
         "index_tokenized": 1,
         "index_stored": 0,
         "index_indexed": 1,
@@ -473,7 +473,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-oai\">|</dt>\nvalue.requred = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.wrap = <dd id=\n"tx-dlf-metadata-oai-value\n" class=\"tx-dlf-metadata-oai-value\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 0,
         "index_indexed": 1,
@@ -528,7 +528,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-oai\">|</dt>\nvalue.requred = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https:\/\/digi.bib.uni-mannheim.de\/oai\/?verb=GetRecord&metadataPrefix=mets&identifier=\nvalue.typolink.extTarget = _blank\nvalue.typolink.title = Titel in OAI Schnittstelle anzeigen\nvalue.wrap = <dd id=\"tx-dlf-metadata-oai\" class=\"ppn\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 0,
         "index_indexed": 1,
