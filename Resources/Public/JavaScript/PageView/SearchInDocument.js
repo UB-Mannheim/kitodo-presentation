@@ -205,13 +205,13 @@ function addImageHighlight(data, word) {
  */
 function triggerSearchAfterHitLoad() {
     var queryParams = getCurrentQueryParams(getBaseUrl(" "));
-    var searchedQueryParam = $("input[id='tx-dlf-toolbox-searchindocument-form-highlight-word']").attr('name');
+    var searchedQueryParam = $('#tx-dlf-toolbox-searchindocument-input-highlight-word').attr('name');
 
     for(var i = 0; i < queryParams.length; i++) {
         var queryParam = queryParams[i].split('=');
 
         if(searchedQueryParam && decodeURIComponent(queryParam[0]).indexOf(searchedQueryParam) !== -1) {
-            $("input[id='tx-dlf-toolbox-searchindocument-form-query']").val(decodeURIComponent(queryParam[1]));
+            $("input[id='tx-dlf-toolbox-searchindocument-input-query']").val(decodeURIComponent(queryParam[1]));
             $("#tx-dlf-toolbox-searchindocument-form").submit();
             break;
         }
@@ -228,6 +228,8 @@ $(document).ready(function() {
         $(id + '-clearing').hide();
         $(id + '-button-next').hide();
         $(id + '-button-previous').hide();
+        $('#tx-dlf-toolbox-searchindocument-input-highlight-word').val( $( '#tx-dlf-toolbox-searchindocument-input-query' ).val() );
+
         // Send the data using post
         $.post(
             "/",
