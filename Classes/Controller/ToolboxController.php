@@ -719,7 +719,7 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
     private function getEncryptedCoreName(): string
     {
         // Get core name.
-        $name = Helper::getIndexNameFromUid($this->settings['solrcore'], 'tx_dlf_solrcores');
+        $name = Helper::getIndexNameFromUid($this->settings['solrCoreUid'], 'tx_dlf_solrcores');
         // Encrypt core name.
         if (!empty($name)) {
             $name = Helper::encrypt($name);
