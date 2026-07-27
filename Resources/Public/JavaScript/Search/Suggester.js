@@ -18,28 +18,30 @@ $("#tx-dlf-search-query").attr({
 $(
     function () {
         // jQuery autocomplete integration
-        $("#tx-dlf-search-query").autocomplete({
-            source(request, response) {
-                return $.post(
-                    "/",
-                    {
-                        middleware: "dlf/search-suggest",
-                        q: encodeURIComponent(request.term.toLowerCase()),
-                        uHash: $("input[name='uHash']").val(),
-                        solrcore: $("input[name='solrcore']").val()
-                    },
-                    function (data) {
-                        var result = [];
-                        data.forEach(function (element, index) {
-                            element = element.replace(/(\?|!|:|\\)/g, "\\\$1");
-                            result.push(element);
-                        });
-                        return response(result);
-                    },
-                    "json");
-            },
-            minLength: 3,
-            appendTo: "#tx-dlf-search-suggest"
-        });
-    }
+        if ($("#tx-dlf-search-query").length) {
+            $("#tx-dlf-search-query").autocomplete({
+                source(request, response) {
+                    return $.post(
+                        "/",
+                        {
+                            middleware: "dlf/search-suggest",
+                            q: encodeURIComponent(request.term.toLowerCase()),
+                            uHash: $("input[name='uHash']").val(),
+                            solrcore: $("input[name='solrcore']").val()
+                        },
+                        function (data) {
+                            var result = [];
+                            data.forEach(function (element, index) {
+                                element = element.replace(/(\?|!|:|\\)/g, "\\\$1");
+                                result.push(element);
+                            });
+                            return response(result);
+                        },
+                        "json");
+                },
+                minLength: 3,
+                appendTo: "#tx-dlf-search-suggest"
+            });
+        }
+    };
 );
