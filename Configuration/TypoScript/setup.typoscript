@@ -43,6 +43,12 @@ page {
     kitodo-pdf= EXT:dlf/Resources/Public/JavaScript/Verovio/pdfkit.js
     kitodo-pdfkita = EXT:dlf/Resources/Public/JavaScript/Verovio/blobstream.js
     kitodo-htmlmidiplayer = EXT:dlf/Resources/Public/JavaScript/HtmlMidiPlayer/combined-html-midi-player.min.js
+    kitodo-htmlmidiplayer {
+      if {
+        value = 1
+        equals = {$plugin.tx_dlf.persistence.storagePid}
+      }
+    }    
 
     # PageView plugin
     kitodo-openLayers = EXT:dlf/Resources/Public/JavaScript/OpenLayers/openlayers.js
