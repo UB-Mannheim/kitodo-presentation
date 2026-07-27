@@ -18,6 +18,7 @@ $("#tx-dlf-search-query").attr({
 $(
     function () {
         // jQuery autocomplete integration
+
         if ($("#tx-dlf-search-query").length) {
             $("#tx-dlf-search-query").autocomplete({
                 source(request, response) {
@@ -43,5 +44,5 @@ $(
                 appendTo: "#tx-dlf-search-suggest"
             });
         }
-    };
+    }
 );
