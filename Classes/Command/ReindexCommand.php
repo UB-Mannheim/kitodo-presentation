@@ -199,7 +199,7 @@ class ReindexCommand extends BaseCommand
         }
 
 // Clear state of persistence manager to prevent memory exhaustion.
-        $this->persistenceManager->clearState();
+        //$this->persistenceManager->clearState();
 
         if ($lError) {
             $io->success('At least one error!');
