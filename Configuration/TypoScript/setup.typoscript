@@ -37,18 +37,12 @@ page {
     kitodo-validationForm = EXT:dlf/Resources/Public/JavaScript/ValidationForm/ValidationForm.js
 
     # Verovio plugin
-    kitodo-verovio = EXT:dlf/Resources/Public/JavaScript/Verovio/verovio-toolkit-wasm.js
-    kitodo-svgtopdfkit = EXT:dlf/Resources/Public/JavaScript/Verovio/svgtopdfkit.js
-    kitodo-saveas = EXT:dlf/Resources/Public/JavaScript/Verovio/saveas.js
-    kitodo-pdf= EXT:dlf/Resources/Public/JavaScript/Verovio/pdfkit.js
-    kitodo-pdfkita = EXT:dlf/Resources/Public/JavaScript/Verovio/blobstream.js
-    kitodo-htmlmidiplayer = EXT:dlf/Resources/Public/JavaScript/HtmlMidiPlayer/combined-html-midi-player.min.js
-    kitodo-htmlmidiplayer {
-      if {
-        value = 1
-        equals = {$plugin.tx_dlf.persistence.storagePid}
-      }
-    }    
+    #kitodo-verovio = EXT:dlf/Resources/Public/JavaScript/Verovio/verovio-toolkit-wasm.js
+    #kitodo-svgtopdfkit = EXT:dlf/Resources/Public/JavaScript/Verovio/svgtopdfkit.js
+    #kitodo-saveas = EXT:dlf/Resources/Public/JavaScript/Verovio/saveas.js
+    #kitodo-pdf= EXT:dlf/Resources/Public/JavaScript/Verovio/pdfkit.js
+    #kitodo-pdfkita = EXT:dlf/Resources/Public/JavaScript/Verovio/blobstream.js
+    #kitodo-htmlmidiplayer = EXT:dlf/Resources/Public/JavaScript/HtmlMidiPlayer/combined-html-midi-player.min.js
 
     # PageView plugin
     kitodo-openLayers = EXT:dlf/Resources/Public/JavaScript/OpenLayers/openlayers.js
@@ -64,8 +58,8 @@ page {
     kitodo-pageView-fullTextDownloadControl = EXT:dlf/Resources/Public/JavaScript/PageView/FulltextDownloadControl.js
     kitodo-pageView-fullTextControl = EXT:dlf/Resources/Public/JavaScript/PageView/FulltextControl.js
     kitodo-pageView-fullTextUtility = EXT:dlf/Resources/Public/JavaScript/PageView/FullTextUtility.js
-    kitodo-pageView-scoreControl = EXT:dlf/Resources/Public/JavaScript/PageView/ScoreControl.js
-    kitodo-pageView-scoreUtility = EXT:dlf/Resources/Public/JavaScript/PageView/ScoreUtility.js
+    #kitodo-pageView-scoreControl = EXT:dlf/Resources/Public/JavaScript/PageView/ScoreControl.js
+    #kitodo-pageView-scoreUtility = EXT:dlf/Resources/Public/JavaScript/PageView/ScoreUtility.js
     kitodo-pageView-syncControl = EXT:dlf/Resources/Public/JavaScript/PageView/SyncControl.js
     kitodo-pageView-searchInDocument = EXT:dlf/Resources/Public/JavaScript/PageView/SearchInDocument.js
     kitodo-pageView-pageView = EXT:dlf/Resources/Public/JavaScript/PageView/PageView.js
