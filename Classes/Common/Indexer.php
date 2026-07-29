@@ -381,7 +381,7 @@ class Indexer
                 $solrDoc->setField(self::$solrFields['structure_path'], json_encode($processedStructurePath, JSON_UNESCAPED_UNICODE));
                 // verify date formatting
                 if (strtotime($metadata['date'][0])) {
-                    $solrDoc->setField('date', self::getFormattedDate($metadata['date'][0]));
+                    $solrDoc->setField(self::$solrFields['date'], self::getFormattedDate($metadata['date'][0]));
                 }
                 $solrDoc->setField(self::$solrFields['record_id'], $metadata['record_id'][0] ?? '');
                 $solrDoc->setField(self::$solrFields['purl'], $metadata['purl'][0] ?? '');
