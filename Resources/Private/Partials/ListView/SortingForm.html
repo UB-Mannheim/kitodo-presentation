@@ -25,7 +25,7 @@
     </f:if>
 
     <f:form section="showResults" action="search" controller="Search" name="search" method="post" class="tx-dlf-search-form">
-        <div>
+        <div id="ft-unclear-7-presentation">
             <label for="form-orderBy-{uniqueId}"><f:translate key="listView.form.orderBy"/></label>
             <f:form.select id="form-orderBy-{uniqueId}" property="orderBy" value="{lastSearch.orderBy}" additionalAttributes="{'onchange': 'javascript:this.form.submit();'}">
                 <f:form.select.option value="score"><f:translate key="listView.form.relevance" /></f:form.select.option>
