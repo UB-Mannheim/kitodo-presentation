@@ -21,7 +21,7 @@
                     addQueryString="true"
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': 1,'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1'}"
-                    arguments="{searchParameter: lastSearch}"
+                    arguments="{search: lastSearch}"
                     title="{f:translate(key: 'navigation.page.firstPage')}">&#9664;</f:link.action>
             </li>
             <li class="tx-dlf-pagination-previous">
@@ -31,7 +31,7 @@
                     addQueryString="true"
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': pagination.previousPageNumber, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
-                    arguments="{searchParameter: lastSearch}"
+                    arguments="{search: lastSearch}"
                     title="{f:translate(key: 'navigation.page.prevPage')}">&#9664;</f:link.action>
             </li>
         </f:then>
@@ -86,7 +86,7 @@
                     addQueryString="true"
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': pagination.nextPageNumber, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
-                    arguments="{searchParameter: lastSearch}"
+                    arguments="{search: lastSearch}"
                     title="{f:translate(key: 'navigation.page.nextPage')}">&#9654;</f:link.action>
             </li>
             <li class="tx-dlf-pagination-last">
@@ -96,7 +96,7 @@
                     addQueryString="true"
                     argumentsToBeExcludedFromQueryString="{0: 'tx_dlf[page]'}"
                     additionalParams="{'tx_dlf[page]': pagination.lastPageNumberG, 'tx_dlf[id]': docUid, 'tx_dlf[pagegrid]': '1' }"
-                    arguments="{searchParameter: lastSearch}"
+                    arguments="{search: lastSearch}"
                     title="{f:translate(key: 'navigation.page.lastPage')} ({pagination.lastPageNumber})">&#9654;</f:link.action>
             </li>
         </f:then>
