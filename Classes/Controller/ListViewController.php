@@ -81,6 +81,12 @@ class ListViewController extends AbstractController
     {
         $this->search = $this->getArrayParameterSafely('search');
 
+        // PRG: if the sort form was submitted via POST, redirect to a GET URL so the
+        // sort parameters (and other search parameters) are reflected in the URL.
+        if ($this->request->getMethod() === 'POST' && !empty($this->search)) {
+            return $this->redirect('main', null, null, ['search' => $this->search]);
+        }
+
         $this->collectionRepository->useStoragePid($this->settings['storagePid']);
         $this->metadataRepository->useStoragePid($this->settings['storagePid']);
 
