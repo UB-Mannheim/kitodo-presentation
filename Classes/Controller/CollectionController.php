@@ -283,8 +283,8 @@ class CollectionController extends AbstractController
      */
     private function showDocuments(Collection $collection, array $search, int $currentPage): void
     {
-        // get all metadata records to be shown in results
-        $listedMetadata = $this->metadataRepository->findBy(['isListed' => true]);
+        // get all metadata records to be shown in results (ordered by `sorting` field)
+        $listedMetadata = $this->metadataRepository->findBySettings(['is_listed' => true]);
 
         // get all indexed metadata fields
         $indexedMetadata = $this->metadataRepository->findBy(['indexIndexed' => true]);
