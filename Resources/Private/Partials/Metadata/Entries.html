@@ -64,7 +64,9 @@
 
 <f:comment>
     Achtung _all erzeugt hier ggf. einen Speicherüberlauf!
+    Daten
     <f:debug>{metaSectionConfigObject}</f:debug>
+    konfiguration
     <f:debug>{configObject}</f:debug>
     <f:debug>{configObject.indexName}</f:debug>
 </f:comment>
@@ -102,12 +104,27 @@
                 </f:comment>
                 <f:if condition="{configObject.indexName} == 'date'">
                     <f:then>
-                        <f:if condition="{metaSectionCObj.date} == {metaSectionCObj.year}">
+                        <f:comment>
+                        <f:debug>{metaSectionConfigObject}</f:debug>    
+                        <f:debug>{metaSectionConfigObject.date}</f:debug>    
+                        <f:debug>{metaSectionConfigObject.year}</f:debug>    
+                        </f:comment>
+                        <f:comment>
+                        <f:debug>{configObject.indexName}</f:debug>
+                        beide NULL
+                        <f:debug>{metaSectionCObj.date}</f:debug>
+                        <f:debug>{metaSectionCObj.year}</f:debug>
+                        </f:comment>
+                        <f:if condition="{metaSectionConfigObject.date} == {metaSectionConfigObject.year_short}">
                             <f:then>
                                 <f:comment>
-                                    <f:debug>{metaSectionCObj.date}</f:debug>
-                                    <f:debug>{metaSectionCObj.year}</f:debug>
+                                    <f:debug>{metaSectionConfigObject.date}</f:debug>
+                                    <f:debug>{metaSectionConfigObject.year}</f:debug>
                                 </f:comment>
+                                <!-- 115 {configObject.indexName } -->
+                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                {wrappedValues -> f:format.raw()}
+
                             </f:then>
                             <f:else>
                                 <!-- 115 {configObject.indexName } -->
@@ -160,6 +177,26 @@
                                     </f:else>
                                 </f:if>
                                 </f:comment>
+                            </f:case>
+                            <f:case value="year_short">
+                                <f:if condition="{metaSectionConfigObject.date} != {metaSectionConfigObject.year_short}">
+                                    <f:comment>
+                                    1<kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                        {wrappedValues -> f:format.raw()}
+                                    </f:comment>
+                                    <f:if condition="{f:count(subject: {metaSectionConfigObject.date} -> f:explode(glue: '</dd><dd>'))} > 1">
+                                        <f:then>
+                                            <f:comment>enthält /dd dd
+                                            2<kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                            {wrappedValues -> f:format.raw()}</f:comment>
+                                        </f:then>
+                                        <f:else>enthält es nicht
+                                            <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
+                                            {wrappedValues -> f:format.raw()}
+                                        </f:else>
+                                    </f:if>                                
+                                </f:if>
+
                             </f:case>
 
 
