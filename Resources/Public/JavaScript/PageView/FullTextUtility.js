@@ -72,6 +72,8 @@ dlfFullTextUtils.fetchFullTextDataFromServer = function(fulltext, image, optOffs
             console.error(e); // eslint-disable-line no-console
             result.reject();
         }
+    }).fail(function () {
+        result.reject();
     });
 
     return result;

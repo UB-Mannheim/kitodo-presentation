@@ -93,6 +93,7 @@ var dlfViewerFullTextControl = function(map) {
         {
             'fulltext':'Fulltext',
             'fulltext-loading':'Loading full text...',
+            'fulltext-not-available':'No full text available',
             'fulltext-on':'Activate Fulltext',
             'fulltext-off':'Deactivate Fulltext',
             'activate-full-text-initially':'0',
@@ -271,6 +272,11 @@ dlfViewerFullTextControl.prototype.getFullTextScrollElementId = function() {
  */
 dlfViewerFullTextControl.prototype.loadFulltextData = function (fulltextData) {
 
+    if (!dlfUtils.exists(fulltextData)) {
+      this.showNoFulltextHint();
+      return;
+    }
+
     if(dlfUtils.exists(fulltextData.type) && fulltextData.type == 'tei') {
       document.getElementById(this.getFullTextScrollElementId()).innerHTML = fulltextData.fulltext;
       return;
@@ -293,7 +299,19 @@ dlfViewerFullTextControl.prototype.loadFulltextData = function (fulltextData) {
       if (this.isActive) {
         this.showFulltext(this.textblockFeatures_);
       }
+    } else {
+      // ALTO without any text (e.g. no <TextBlock>): remove the "loading" hint
+      this.showNoFulltextHint();
     }
+};
+
+/**
+ * Show hint that no full text is available for the current page.
+ *
+ * @returns {void}
+ */
+dlfViewerFullTextControl.prototype.showNoFulltextHint = function() {
+    $(this.fullTextScrollElement).text(this.dic['fulltext-not-available']);
 };
 
 /**
@@ -624,6 +642,11 @@ dlfViewerFullTextControl.prototype.showFulltext = function(features) {
     let target = document.getElementById(this.getFullTextScrollElementId());
     if (target !== null) {
         target.innerHTML = "";
+        if (features.length === 0) {
+            target.append(document.createTextNode(this.dic['fulltext-not-available']));
+            this.lastRenderedFeatures_ = features;
+            return;
+        }
         for (let feature of features) {
             let textLines = feature.get('textlines');
             for (let textLine of textLines) {
