@@ -98,18 +98,45 @@ dlfViewerOLStyles.textlineStyle = function() {
 };
 
 /**
+ * Resolve a highlight color from a CSS custom property.
+ *
+ * @param {string} name CSS custom property name
+ * @param {string} fallback fallback color
+ * @returns {string}
+ *
+ * @private
+ */
+dlfViewerOLStyles.getHighlightColor_ = function(name, fallback) {
+    try {
+        var color = getComputedStyle(document.body).getPropertyValue(name).trim();
+        if (color) {
+            return color;
+        }
+    } catch (e) {
+        // ignore and use fallback
+    }
+    return fallback;
+};
+
+/**
+ * Highlight style for search-in-document hits; the colors can be adjusted
+ * via CSS (class based), e.g.:
+ *   body.dfgviewer {
+ *       --dlf-search-highlight-stroke: rgba(255,235,59,0.9);
+ *       --dlf-search-highlight-fill: rgba(255,235,59,0.25);
+ *   }
+ *
  * @returns {ol.style.Style}
  */
 dlfViewerOLStyles.wordStyle = function() {
 
-    // Keep in sync with @search-highlight in EXT:dfgviewer/Resources/Private/Less/ubma/variables.less
     return new ol.style.Style({
         'stroke': new ol.style.Stroke({
-            'color': 'rgba(255,235,59,0.9)',
+            'color': dlfViewerOLStyles.getHighlightColor_('--dlf-search-highlight-stroke', 'rgba(255,235,59,0.9)'),
             'width': 2
         }),
         'fill': new ol.style.Fill({
-            'color': 'rgba(255,235,59,0.25)'
+            'color': dlfViewerOLStyles.getHighlightColor_('--dlf-search-highlight-fill', 'rgba(255,235,59,0.25)')
         })
     });
 
