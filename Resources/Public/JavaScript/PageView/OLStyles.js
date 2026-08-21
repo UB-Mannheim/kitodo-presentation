@@ -102,13 +102,14 @@ dlfViewerOLStyles.textlineStyle = function() {
  */
 dlfViewerOLStyles.wordStyle = function() {
 
+    // Keep in sync with @search-highlight in EXT:dfgviewer/Resources/Private/Less/ubma/variables.less
     return new ol.style.Style({
         'stroke': new ol.style.Stroke({
-            'color': 'rgba(238,153,0,0.8)',
-            'width': 1
+            'color': 'rgba(255,235,59,0.9)',
+            'width': 2
         }),
         'fill': new ol.style.Fill({
-            'color': 'rgba(238,153,0,0.2)'
+            'color': 'rgba(255,235,59,0.25)'
         })
     });
 
