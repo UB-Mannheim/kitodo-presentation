@@ -157,7 +157,7 @@ function getCurrentPage() {
     for(var i = 0; i < queryParams.length; i++) {
         var queryParam = queryParams[i].split('=');
 
-        if(decodeURIComponent(queryParam[0]) === $("input[id='tx-dlf-toolbox-searchindocument-input-page']").attr('name')) {
+        if(safeDecodeURIComponent(queryParam[0]) === $("input[id='tx-dlf-toolbox-searchindocument-input-page']").attr('name')) {
             page = parseInt(queryParam[1], 10);
             pageFound = true;
         }
@@ -201,6 +201,21 @@ function addImageHighlight(data, word) {
         }
     } else {
         setTimeout(addImageHighlight, 500, data, word);
+    }
+}
+
+/**
+ * Decode URI component, return raw value if it is malformed.
+ *
+ * @param {string} value
+ *
+ * @returns {string}
+ */
+function safeDecodeURIComponent(value) {
+    try {
+        return decodeURIComponent(value);
+    } catch (e) {
+        return value;
     }
 }
 
@@ -249,8 +264,8 @@ function triggerSearchAfterHitLoad() {
     for(var i = 0; i < queryParams.length; i++) {
         var queryParam = queryParams[i].split('=');
 
-        if(searchedQueryParam && decodeURIComponent(queryParam[0]).indexOf(searchedQueryParam) !== -1) {
-            $("input[id='tx-dlf-toolbox-searchindocument-input-query']").val(decodeURIComponent(queryParam[1]));
+        if(searchedQueryParam && safeDecodeURIComponent(queryParam[0]).indexOf(searchedQueryParam) !== -1) {
+            $("input[id='tx-dlf-toolbox-searchindocument-input-query']").val(safeDecodeURIComponent(queryParam[1]));
             $("#tx-dlf-toolbox-searchindocument-form").submit();
             break;
         }
