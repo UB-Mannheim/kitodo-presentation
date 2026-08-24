@@ -188,7 +188,8 @@ class SearchInDocument implements MiddlewareInterface
 
     /**
      * Check if uid is number, if yes convert it to int,
-     * otherwise leave uid not changed.
+     * otherwise return it as quoted phrase to prevent
+     * Solr query injection.
      *
      * @access private
      *
@@ -198,7 +199,10 @@ class SearchInDocument implements MiddlewareInterface
      */
     private function getUid(string $uid): int|string
     {
-        return is_numeric($uid) ? (int) $uid : $uid;
+        if (is_numeric($uid)) {
+            return (int) $uid;
+        }
+        return '"' . str_replace(['\\', '"'], ['\\\\', '\\"'], $uid) . '"';
     }
 
     /**
