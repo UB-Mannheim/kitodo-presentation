@@ -124,7 +124,9 @@ dlfViewerOLStyles.getHighlightColor_ = function(name, fallback) {
  *   body.dfgviewer {
  *       --dlf-search-highlight-stroke: rgba(255,235,59,0.9);
  *       --dlf-search-highlight-fill: rgba(255,235,59,0.25);
+ *       --dlf-hover-highlight-stroke: rgba(197,204,232,0.9);
  *   }
+ *   def. in dfg-viewer/Resources/Private/Less/modules/fulltext.less
  *
  * @returns {ol.style.Style}
  */
