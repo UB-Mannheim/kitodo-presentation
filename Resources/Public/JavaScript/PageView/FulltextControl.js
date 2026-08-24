@@ -722,8 +722,49 @@ dlfViewerFullTextControl.prototype.showFulltext = function(features) {
         }
 
         this.calculatePositions();
+        this.markHighlightWords_();
         this.lastRenderedFeatures_ = features;
     }
+};
+
+/**
+ * Add the search highlight class to every string element that contains the
+ * current highlight word(s). Word based (like the image highlight), so every
+ * occurrence in the rendered fulltext is marked, independent of the limited
+ * highlight coordinates returned by the search backend.
+ *
+ * @returns {void}
+ */
+dlfViewerFullTextControl.prototype.markHighlightWords_ = function() {
+    var highlightWords = (typeof tx_dlf_viewer !== 'undefined' && tx_dlf_viewer.highlightWords)
+        ? tx_dlf_viewer.highlightWords
+        : dlfUtils.getUrlParam('tx_dlf[highlight_word]');
+
+    if (!highlightWords) {
+        return;
+    }
+
+    var decoded = highlightWords;
+    try {
+        decoded = decodeURIComponent(highlightWords);
+    } catch (e) {
+        // keep the raw value if it is not url encoded
+    }
+    var words = decoded.split(';');
+
+    // remove stale search highlights from previous searches, then mark all occurrences
+    var stringEls = $('#' + this.getFullTextScrollElementId()).find('span.string');
+    stringEls.removeClass('highlight');
+    stringEls.each(function() {
+        var text = $(this).text().toLowerCase();
+        for (var i = 0; i < words.length; i++) {
+            var word = words[i].trim().toLowerCase();
+            if (word.length > 0 && text.indexOf(word) !== -1) {
+                $(this).addClass('highlight');
+                break;
+            }
+        }
+    });
 };
 
 /**
