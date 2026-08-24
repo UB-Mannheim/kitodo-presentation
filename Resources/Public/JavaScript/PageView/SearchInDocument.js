@@ -193,6 +193,12 @@ function addImageHighlight(data, word) {
         });
 
         tx_dlf_viewer.displayHighlightWord(word); // eslint-disable-line camelcase
+
+        // Re-apply the fulltext (span.string) highlight for the already rendered
+        // fulltext, so an in-page search marks every occurrence as well.
+        if (tx_dlf_viewer.fullTextControl) { // eslint-disable-line camelcase
+            tx_dlf_viewer.fullTextControl.markHighlightWords_();
+        }
     } else {
         setTimeout(addImageHighlight, 500, data, word);
     }

@@ -505,6 +505,7 @@ dlfViewer.prototype.addCustomControls = function(image) {
     // behavior is active
     if (this.fulltextsLoaded_[0] !== undefined && this.images.length === 1) {
         fulltextControl = new dlfViewerFullTextControl(this.map);
+        this.fullTextControl = fulltextControl;
         fulltextDownloadControl = new dlfViewerFullTextDownloadControl(this.map);
 
         this.fulltextsLoaded_[0]
