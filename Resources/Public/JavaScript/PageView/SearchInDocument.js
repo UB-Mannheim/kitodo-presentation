@@ -205,6 +205,39 @@ function addImageHighlight(data, word) {
 }
 
 /**
+ * Escape all HTML marks, keep Solr's <em> highlight tags only.
+ *
+ * @param {string} value
+ *
+ * @returns {string}
+ */
+function escapeHtmlKeepEm(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;')
+        .replace(/&lt;em&gt;/g, '<em>')
+        .replace(/&lt;\/em&gt;/g, '</em>');
+}
+
+/**
+ * Escape value for use in double quoted HTML attributes.
+ *
+ * @param {string} value
+ *
+ * @returns {string}
+ */
+function escapeHtmlAttr(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
+/**
  * Trigger search for document loaded from hit list.
  *
  * @returns {void}
@@ -261,7 +294,7 @@ $(document).ready(function() {
                                 + $(id + '-label-page').text() + ' ' + element.page
                                 + '</span><br />'
                                 + '<span class="textsnippet">'
-                                + '<a href=\"' + element.url + '\">' + element.snippet + '</a>'
+                                + '<a href=\"' + escapeHtmlAttr(element.url) + '\">' + escapeHtmlKeepEm(element.snippet) + '</a>'
                                 + '</span>';
                         }
                     });

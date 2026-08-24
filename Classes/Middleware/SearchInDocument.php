@@ -121,7 +121,7 @@ class SearchInDocument implements MiddlewareInterface
                     'id' => $resultDocument->getId(),
                     'uid' => $uid,
                     'page' => $resultDocument->getPage(),
-                    'snippet' => $resultDocument->getSnippets(),
+                    'snippet' => $this->escapeSnippet($resultDocument->getSnippets()),
                     'highlight' => $resultDocument->getHighlightsIds(),
                     'url' => $url
                 ];
@@ -199,5 +199,21 @@ class SearchInDocument implements MiddlewareInterface
     private function getUid(string $uid): int|string
     {
         return is_numeric($uid) ? (int) $uid : $uid;
+    }
+
+    /**
+     * Escape snippet as HTML, keep only Solr's <em> highlight tags.
+     *
+     * @access private
+     *
+     * @param string|null $snippet
+     *
+     * @return string escaped snippet
+     */
+    private function escapeSnippet(?string $snippet): string
+    {
+        $snippet = str_replace(['<em>', '</em>'], ['\x01', '\x02'], (string) $snippet);
+        $snippet = htmlspecialchars($snippet, ENT_QUOTES, 'UTF-8');
+        return str_replace(['\x01', '\x02'], ['<em>', '</em>'], $snippet);
     }
 }
