@@ -132,6 +132,7 @@ class SearchInDocument implements MiddlewareInterface
         // Create response object.
         /** @var Response $response */
         $response = GeneralUtility::makeInstance(Response::class);
+        $response = $response->withHeader('Content-Type', 'application/json; charset=utf-8');
         $response->getBody()->write(json_encode($output) ?: '');
         return $response;
     }
