@@ -111,7 +111,7 @@ class SearchInDocument implements MiddlewareInterface
                             preg_replace(
                                 '/;+/',
                                 ';',         // replace any multiple of ; with a single ;
-                                preg_replace('/[{~\d*}{\s+}{^=*\d+.*\d*}{\sAND\s}{\sOR\s}{\sNOT\s}`~!@#$%\^&*()_|+-=?;:\'",.<>\{\}\[\]\\\]/', ';', $parameters['q'])
+                                preg_replace('/\sAND\s|\sOR\s|\sNOT\s|~\d*|[`{}~!@#$%^&*()_|+?=;:\'",.<>\[\]\\\\-]/', ';', $parameters['q'])
                             )
                         ) // replace search operators and special characters with ;
                     ]
