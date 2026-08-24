@@ -617,7 +617,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                         '/;+/',
                                         ';',  // replace any multiple of ; with a single ;
                                         preg_replace(
-                                            '/[{~\d*}{\s+}{^=*\d+.*\d*}{\sAND\s}{\sOR\s}{\sNOT\s}`~!@#$%\^&*()_|+-=?;:\'",.<>\{\}\[\]\\\]/',
+                                            '/\sAND\s|\sOR\s|\sNOT\s|~\d*|[`{}~!@#$%^&*()_|+?=;:\'",.<>\[\]\\\\-]/',
                                             ';',
                                             $this->searchParams['query']
                                         )
