@@ -228,7 +228,8 @@ class CollectionController extends AbstractController
             ];
             // virtual collection might yield documents, that are not toplevel true or partof anything
             if ($collection->getIndexSearch()) {
-                $params['query'] = $solrQuery;
+                //$params['query'] = $solrQuery;
+                $params['query'] = $solrQuery . ' AND partof:0 AND toplevel:true';
             } else {
                 $params['query'] = $solrQuery . ' AND partof:0 AND toplevel:true';
             }
@@ -243,10 +244,14 @@ class CollectionController extends AbstractController
             foreach ($partOfNothing as $doc) {
                 $collectionInfo['titles'][$doc->uid] = $doc->uid;
             }
-            // Volumes are documents that are both
-            // a) "leaf" elements i.e. partof != 0
-            // b) "root" elements that are not referenced by other documents ("root" elements that have no descendants)
-            $collectionInfo['volumes'] = $collectionInfo['titles'];
+            //old: Volumes are documents that are both
+            //old: a) "leaf" elements i.e. partof != 0
+            //old: b) "root" elements that are not referenced by other documents ("root" elements that have no descendants)
+            //old: $collectionInfo['volumes'] = $collectionInfo['titles'];
+            //--------------------------------------------------------------------------
+            // Volumes: only leaf elements (partof != 0); for virtual collections
+            // titles are counted separately and must not be volumes as well            
+            $collectionInfo['volumes'] = $collection->getIndexSearch() ? [] : $collectionInfo['titles'];
             foreach ($partOfSomething as $doc) {
                 $collectionInfo['volumes'][$doc->uid] = $doc->uid;
                 // If a document is referenced via partof, it’s not a volume anymore.

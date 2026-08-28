@@ -884,6 +884,10 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         // virtual collections might query documents that are neither toplevel:true nor partof:0 and need to be searched separately
         if (!empty($virtualCollectionsQueryString)) {
             $virtualCollectionsQueryString = '(' . $virtualCollectionsQueryString . ')';
+            // like for regular collections: plain browsing (no search, no facet) lists root documents only
+            if ((empty($query) || $query === '*') AND !$lFacet) {
+                $virtualCollectionsQueryString = '(' . $virtualCollectionsQueryString . ' AND toplevel:true AND partof:0)';
+            }
         }
 
         // combine both query strings into a single filterquery via OR if both are given, otherwise pass either of those
