@@ -693,25 +693,6 @@ dlfUtils.scaleToImageSize = function (features, imageObj, width, height, optOffs
 };
 
 /**
- * Search a feature collection for a feature with the given coordinates
- *
- * @param {Array.<ol.Feature>} featureCollection
- * @param {string} coordinates for highlighting
- * @returns {Array.<ol.Feature>|undefined}
- */
-dlfUtils.searchFeatureCollectionForCoordinates = function (featureCollection, coordinates) {
-    var features = [];
-    featureCollection.forEach(function (ft) {
-        if (ft.get('fulltext') !== undefined) {
-            if (ft.getId() === coordinates) {
-                features.push(ft);
-            }
-        }
-    });
-    return features.length > 0 ? features : undefined;
-};
-
-/**
  * Search a feature collection for a feature with the given word in its fulltext
  *
  * @param {Array.<ol.Feature>} featureCollection
@@ -719,15 +700,16 @@ dlfUtils.searchFeatureCollectionForCoordinates = function (featureCollection, co
  * @returns {Array.<ol.Feature>|undefined}
  */
 dlfUtils.searchFeatureCollectionForWords = function (featureCollection, word) {
-    var features = [];
-    featureCollection.forEach(function (ft) {
-        if (ft.values_.fulltext !== undefined) {
-            if (ft.values_.fulltext.toLowerCase().includes(word.toLowerCase())) {
-                features.push(ft);
-            }
-        }
-    });
-    return features.length > 0 ? features : undefined;
+  let features = [];
+  const target = dlfUtils.normalizeText(word).toLowerCase();
+  featureCollection.forEach(function (ft) {
+    if (ft.values_.fulltext !== undefined) {
+      if (dlfUtils.normalizeText(ft.values_.fulltext).toLowerCase().includes(target)) {
+        features.push(ft);
+      }
+    }
+  });
+  return features.length > 0 ? features : undefined;
 };
 
 /**
@@ -747,3 +729,28 @@ dlfUtils.appendUrlParameterAndReload = function (parameterName, parameterValue, 
   window.location.href = url.toString();
 };
 
+/**
+ * Normalizes historical German spellings to modern letters for text comparison:
+ * ä/Ä → ae/Ae, ö/Ö → oe/Oe, ü/Ü → ue/Ue, aͤ/Aͤ (U+0364) → ae/Ae, ß → ss, ẞ → SS, ſ → s
+ * Both sides of a comparison must be normalized
+ * (query word and OCR/ALTO text), so that any writing style matches.
+ *
+ * @param {string} text
+ * @returns {string}
+ */
+dlfUtils.normalizeText = function (text) {
+  let s = String(text == null ? '' : text).normalize('NFD');
+  // modern umlauts: base + U+0308 (combining diaeresis, result of NFD)
+  s = s.replace(/a\u0308/g, 'ae').replace(/A\u0308/g, 'Ae')
+  .replace(/o\u0308/g, 'oe').replace(/O\u0308/g, 'Oe')
+  .replace(/u\u0308/g, 'ue').replace(/U\u0308/g, 'Ue');
+  // historical umlauts: base + U+0364 (combining graceful trill)
+  s = s.replace(/a\u0364/g, 'ae').replace(/A\u0364/g, 'Ae')
+  .replace(/o\u0364/g, 'oe').replace(/O\u0364/g, 'Oe')
+  .replace(/u\u0364/g, 'ue').replace(/U\u0364/g, 'Ue');
+  // eszett / capital eszett
+  s = s.replace(/ß/g, 'ss').replace(/[\u1E9E]/g, 'SS');
+  // long s
+  s = s.replace(/ſ/g, 's');
+  return s;
+};
