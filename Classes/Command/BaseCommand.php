@@ -213,7 +213,7 @@ class BaseCommand extends Command
         if ($validator->hasAllMandatoryMetadataFields()) {
             // set title data
             $document->setTitle($metadata['title'][0] ?? '');
-            $document->setTitleSorting($metadata['title_sorting'][0] ?? '');
+            $document->setTitleSorting($metadata['title_sorting'][0] ?? ($metadata['title'][0] ?? ''));
             $document->setPlace(implode('; ', $metadata['place'] ?? []));
             $document->setYear(implode('; ', $metadata['year'] ?? []));
             $document->setAuthor($this->getAuthors($metadata['author'] ?? []));
