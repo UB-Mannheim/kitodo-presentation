@@ -41,15 +41,15 @@
             </f:if>
             <div class="tx-dlf-calendar-month">
                 <table>
-                    <caption><f:translate key="calendar.month.{month.MONTHNAME}" /> {month.CALYEAR}</caption>
+                    <caption>{month.MONTHNAME}</caption>
                     <tr>
-                        <th class=""><f:translate key="calendar.day.{month.DAYMON_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYTUE_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYWED_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYTHU_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYFRI_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYSAT_NAME}" /></th>
-                        <th class=""><f:translate key="calendar.day.{month.DAYSUN_NAME}" /></th>
+                        <th class="">{month.DAYMON_NAME}</th>
+                        <th class="">{month.DAYTUE_NAME}</th>
+                        <th class="">{month.DAYWED_NAME}</th>
+                        <th class="">{month.DAYTHU_NAME}</th>
+                        <th class="">{month.DAYFRI_NAME}</th>
+                        <th class="">{month.DAYSAT_NAME}</th>
+                        <th class="">{month.DAYSUN_NAME}</th>
                     </tr>
 
                     <f:for each="{month.week}" as="week">
