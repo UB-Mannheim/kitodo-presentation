@@ -238,23 +238,24 @@ class CalendarController extends AbstractController
      * @param int $year Gregorian year
      * @param int $firstMonth 1 for January, 2 for February, ... 12 for December
      * @param int $lastMonth 1 for January, 2 for February, ... 12 for December
+     * @param string|Locale|null $locale Locale for localized month and day names, defaults to system locale
      *
      * @return void
      */
-    protected function getCalendarYear(array &$calendarData, array $calendarIssuesByMonth, int $year, int $firstMonth = 1, int $lastMonth = 12): void
-    {
-        for ($i = $firstMonth; $i <= $lastMonth; $i++) {
-            $key = $year . '-' . $i;
+     protected function getCalendarYear(array &$calendarData, array $calendarIssuesByMonth, int $year, int $firstMonth = 1, int $lastMonth = 12, string|Locale|null $locale = null): void
+     {
+         for ($i = $firstMonth; $i <= $lastMonth; $i++) {
+             $key = $year . '-' . $i;
 
-            $calendarData[$key] = [
-                'DAYMON_NAME' => $this->getLocalizedDateString('%a', strtotime('last Monday')),
-                'DAYTUE_NAME' => $this->getLocalizedDateString('%a', strtotime('last Tuesday')),
-                'DAYWED_NAME' => $this->getLocalizedDateString('%a', strtotime('last Wednesday')),
-                'DAYTHU_NAME' => $this->getLocalizedDateString('%a', strtotime('last Thursday')),
-                'DAYFRI_NAME' => $this->getLocalizedDateString('%a', strtotime('last Friday')),
-                'DAYSAT_NAME' => $this->getLocalizedDateString('%a', strtotime('last Saturday')),
-                'DAYSUN_NAME' => $this->getLocalizedDateString('%a', strtotime('last Sunday')),
-                'MONTHNAME'  => $this->getLocalizedDateString('%B', strtotime($year . '-' . $i . '-1') ?: null) . ' ' . $year,
+             $calendarData[$key] = [
+                 'DAYMON_NAME' => $this->getLocalizedDateString('%a', strtotime('last Monday'), $locale),
+                 'DAYTUE_NAME' => $this->getLocalizedDateString('%a', strtotime('last Tuesday'), $locale),
+                 'DAYWED_NAME' => $this->getLocalizedDateString('%a', strtotime('last Wednesday'), $locale),
+                 'DAYTHU_NAME' => $this->getLocalizedDateString('%a', strtotime('last Thursday'), $locale),
+                 'DAYFRI_NAME' => $this->getLocalizedDateString('%a', strtotime('last Friday'), $locale),
+                 'DAYSAT_NAME' => $this->getLocalizedDateString('%a', strtotime('last Saturday'), $locale),
+                 'DAYSUN_NAME' => $this->getLocalizedDateString('%a', strtotime('last Sunday'), $locale),
+                 'MONTHNAME'  => $this->getLocalizedDateString('%B', strtotime($year . '-' . $i . '-1') ?: null, $locale) . ' ' . $year,
                 'CALYEAR' => ($i == $firstMonth) ? $year : ''
                 /*
                     //9ad08cc9 (fix calender, months and days in selected language)
@@ -429,7 +430,7 @@ class CalendarController extends AbstractController
                     $lastMonth = (int) key($issuesByMonth);
                 }
             }
-            $this->getCalendarYear($calendarData, $issuesByMonth, (int) $year, $firstMonth, $lastMonth);
+            $this->getCalendarYear($calendarData, $issuesByMonth, (int) $year, $firstMonth, $lastMonth, $this->getLocale());
             $iteration++;
         }
 
@@ -543,19 +544,21 @@ class CalendarController extends AbstractController
     }
 
     /**
-     * Return a localized date string using the current TYPO3 frontend language.
+     * Return a localized date string using the given locale
+     * (defaults to the current TYPO3 frontend language / system locale).
      *
      * @access private
      *
-     * @param string $format
-     * @param int|null $timestamp
+     * @param string $format Strftime format
+     * @param int|null $timestamp Unix timestamp, defaults to now
+     * @param string|Locale|null $locale Locale, defaults to system locale
      *
      * @return string
      */
-    private function getLocalizedDateString(string $format, ?int $timestamp): string
+    private function getLocalizedDateString(string $format, ?int $timestamp, string|Locale|null $locale = null): string
     {
         $dateFormatter = new DateFormatter();
-        $localized = $dateFormatter->strftime($format, $timestamp ?? time());
+        $localized = $dateFormatter->strftime($format, $timestamp ?? time(), $locale);
         $normalized = preg_replace('/[\p{P}\p{S}]\s*$/u', '', $localized);
 
         return $normalized !== null ? $normalized : $localized;
