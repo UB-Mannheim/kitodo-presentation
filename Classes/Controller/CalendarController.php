@@ -116,7 +116,13 @@ class CalendarController extends AbstractController
 
         $calendarData = $this->buildCalendar();
 
-        $this->view->assign('issueData', $this->allIssues);
+        // Prepare list as alternative view.
+        $issueData = [];
+        foreach ($this->allIssues as $dayTimestamp => $issues) {
+            $issueData[$dayTimestamp]['dateString'] = $this->getLocalizedDateString('%A, %Y-%m-%d', $dayTimestamp, $this->getLocale());
+            $issueData[$dayTimestamp]['items'] = $issues;
+        }
+        $this->view->assign('issueData', $issueData);
 
         // Link to current year.
         $linkTitleData = $this->document->getCurrentDocument()->getToplevelMetadata();
