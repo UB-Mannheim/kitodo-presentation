@@ -480,6 +480,7 @@ class MetadataController extends AbstractController
             $collection = $this->collectionRepository->findOneBy(['indexName' => $entry]);
             if ($collection) {
                 $metadata[$i]['collection'][$j] = $collection->getLabel() ?: '';
+                $metadata[$i]['collection_index'][$j] = $collection->getIndexName();
                 $j++;
             }
         }
