@@ -487,7 +487,7 @@ class MetadataController extends AbstractController
                 $metadata[$i]['collection'][$j] = $collection->getLabel() ?: '';
                 $metadata[$i]['collection_index'][$j] = $collection->getIndexName();
                 $metadata[$i]['collection_url'][$j] = LocalizationUtility::translate(
-                    'url.' . $collection->getIndexName(),
+                    'collection.url.' . $collection->getIndexName(),
                     'ubma_digi_mini_package'
                 ) ?: '';
                 $j++;
