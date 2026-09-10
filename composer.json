@@ -38,6 +38,7 @@
     "typo3/cms-reports": "^12.4|^13.4",
     "typo3/cms-scheduler": "^12.4|^13.4",
     "typo3/cms-tstemplate": "^12.4|^13.4",
+    "ub-mannheim/ubma_digi_mini_package": "@dev",
     "caseyamcl/phpoaipmh": "^3.3",
 "slub/php-mods-reader": "@dev",
     "ubl/php-iiif-prezi-reader": "0.3.2",
