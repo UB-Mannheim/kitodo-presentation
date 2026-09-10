@@ -230,20 +230,16 @@
                                 <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
                                 <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
 
-                                <f:variable name="basepath" value="/sammlungen/" />
-
                                 <f:comment>gekuerzte Version des Labels um Problem mit Klammern zu vermeiden</f:comment>
                                 <f:variable name="KurzLabelSammlung" value="{configObject.label -> f:format.crop(maxCharacters: 8, append:'')}" />
                                 <!-- 183 configObject.indexName: {configObject.indexName } configObject.label: #{configObject.label}# #{KurzLabelSammlung}# -->
 
                                 <f:if condition="{KurzLabelSammlung} == 'Sammlung'">
                                     <f:then>
-                                        <f:variable name="basepath" value="/sammlungen/" />
                                         <f:variable name="collectionBacklinkInfo" value="Backlink zur Sammlung" />
                                         <f:variable name="collectionBacklinkInfoShort" value="Backlink zur" />
                                     </f:then>
                                     <f:else>
-                                        <f:variable name="basepath" value="/en/collections/" />
                                         <f:variable name="collectionBacklinkInfo" value="Backlink to the collection" />
                                         <f:variable name="collectionBacklinkInfoShort" value="Backlink to the " />
                                     </f:else>
@@ -251,102 +247,20 @@
 
                                 <f:comment><f:debug>{documentMetadataSection.collection.0}</f:debug></f:comment>
 
-                                <f:for each="{documentMetadataSection.collection}" as="collectionClearName">
-                                    <f:debug>{documentMetadataSection}</f:debug>
+                                <f:for each="{documentMetadataSection.collection}" as="collectionClearName" iteration="collectionIt">
+                                    <f:variable name="collectionIndex" value="{documentMetadataSection.collection_index.{collectionIt.index}}" />
+                                    <f:variable name="collectionUrl" value="{documentMetadataSection.collection_url.{collectionIt.index}}" />
+                                    <!-- 253 collectionClearName: {collectionClearName} collectionIndex: {collectionIndex} -->
 
-                                    <!-- 201 collectionClearName: {collectionClearName} -->
-
-                                    <f:switch expression="{collectionClearName}">
-                                        <f:case value="Aktienführer & Saling's Börsenpapiere">
-                                            <dd><a href="{basepath}aktienfuehrer" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Hoppenstedt">
-                                            <dd><a href="{basepath}hoppenstedt" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Geschäftsberichte">
-                                            <dd><a href="{basepath}geschaeftsberichte" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Deutsche Statistische Jahrbücher">
-                                            <dd><a href="{basepath}statistische-jahrbuecher" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Gemeindeverzeichnisse">
-                                            <dd><a href="{basepath}gemeindeverzeichnisse" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Patentregister">
-                                            <dd><a href="{basepath}patentregister" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Zoll- und Steuerwesen">
-                                            <dd><a href="{basepath}zoll-steuerwesen" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Gemeindverzeichnis Experiment">
-                                            <dd><a href="{basepath}gemeindeverzeichnisse" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Europäische Rechtsgeschichte">
-                                            <dd><a href="{basepath}europaeische-rechtsgeschichte" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Lesegesellschaft Harmonie">
-                                            <dd><a href="{basepath}lesegesellschaft-harmonie" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Nachlass Desbillons">
-                                            <dd><a href="{basepath}nachlass-desbillons" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Sammlung Naturkunde">
-                                            <dd><a href="{basepath}sammlung-naturkunde" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Städtische Schlossbücherei">
-                                            <dd><a href="{basepath}staedtische-schlossbuecherei" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Handschriften">
-                                            <dd><a href="{basepath}handschriften" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Mannheimer Hofbibliothek">
-                                            <dd><a href="{basepath}mannheimer-hofbibliothek" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Sammlung Desbillons">
-                                            <dd><a href="{basepath}sammlung-desbillons" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Sammlung Weickum">
-                                            <dd><a href="{basepath}sammlung-weickum" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Eingeschränkter Zugang">
-                                            <dd><a href="{basepath}restricted" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Historische Zeitungen">
-                                            <!-- 240 {collectionClearName} -->
-                                            <dd><a href="{basepath}zeitungen" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Reichsanzeiger und seine Vorgängerzeitungen">
-                                            <!-- 244 {collectionClearName} -->
-                                            <dd><a href="{basepath}reichsanzeiger" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Jesuitenkolleg">
-                                            <dd><a href="{basepath}jesuitenkolleg" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Mannheimensien">
-                                            <dd><a href="{basepath}mannheimensien" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Nachlass Otto Selz">
-                                            <dd><a href="{basepath}nachlass-otto-selz" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Sammlung Mammelsdorf">
-                                            <dd><a href="{basepath}sammlung-mammelsdorf" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Sekundärliteratur">
-                                            <dd><a href="{basepath}sekundaerliteratur" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Varia">
-                                            <dd><a href="{basepath}varia" title="{collectionBacklinkInfoShort} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-                                        <f:case value="Wissenschaftliche Stadtbibliothek">
-                                            <dd><a href="{basepath}wissenschaftliche-stadtbibliothek" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:case>
-
-                                        <f:defaultCase>
-                                            <!-- 300 default Beginn for clearName {collectionClearName} -->
-                                            {wrappedValues -> f:format.raw()}
-                                            <!-- default Ende-->
-                                        </f:defaultCase>
-                                    </f:switch>
+                                    <f:if condition="{collectionUrl}">
+                                        <f:then>
+                                            <dd><a href="{collectionUrl}" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                        </f:then>
+                                        <f:else>
+                                            <!-- collectionIndex {collectionIndex} ohne url.-Eintrag in der Sprachdatei -> ohne Link -->
+                                            <dd>{collectionClearName}</dd>
+                                        </f:else>
+                                    </f:if>
                                 </f:for>
                             </f:case>
 
