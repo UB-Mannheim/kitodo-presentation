@@ -19,6 +19,7 @@ use Kitodo\Dlf\Domain\Repository\CollectionRepository;
 use Kitodo\Dlf\Domain\Repository\MetadataRepository;
 use Kitodo\Dlf\Domain\Repository\StructureRepository;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Ubl\Iiif\Context\IRI;
 
 /**
@@ -481,6 +482,10 @@ class MetadataController extends AbstractController
             if ($collection) {
                 $metadata[$i]['collection'][$j] = $collection->getLabel() ?: '';
                 $metadata[$i]['collection_index'][$j] = $collection->getIndexName();
+                $metadata[$i]['collection_url'][$j] = LocalizationUtility::translate(
+                    'url.' . $collection->getIndexName(),
+                    'ubma_digi_mini_package'
+                ) ?: '';
                 $j++;
             }
         }
