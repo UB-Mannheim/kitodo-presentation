@@ -57,6 +57,26 @@ class CollectionRepository extends AbstractRepository
     }
 
     /**
+     * Find one collection by index name, ignoring the current frontend language
+     * (strict fallback sites do not find records without a translation of the current language)
+     *
+     * @access public
+     *
+     * @param string $indexName The index name to look up
+     *
+     * @return Collection|null
+     */
+    public function findOneByIndexName(string $indexName): ?Collection
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectSysLanguage(false);
+        $query->matching($query->equals('indexName', $indexName));
+        $query->setOrderings(['uid' => QueryInterface::ORDER_ASCENDING]);
+
+        return $query->execute()->getFirst();
+    }
+
+    /**
      * Finds all collection for the given settings
      *
      * @access public

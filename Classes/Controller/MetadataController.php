@@ -479,6 +479,10 @@ class MetadataController extends AbstractController
         $j = 0;
         foreach ($value as $entry) {
             $collection = $this->collectionRepository->findOneBy(['indexName' => $entry]);
+            if ($collection === null) {
+                // Strict-Fallback-Site: Collection ohne Übersetzung der aktuellen Sprache wird sprachsichtsneutral nachgeschlagen
+                $collection = $this->collectionRepository->findOneByIndexName($entry);
+            }
             if ($collection) {
                 $metadata[$i]['collection'][$j] = $collection->getLabel() ?: '';
                 $metadata[$i]['collection_index'][$j] = $collection->getIndexName();
