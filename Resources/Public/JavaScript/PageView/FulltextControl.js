@@ -186,7 +186,13 @@ var dlfViewerFullTextControl = function(map) {
      * @type {Array}
      * @private
      */
-     this.positions = {};
+      this.positions = {};
+
+    /**
+     * @type {number|undefined}
+     * @private
+     */
+    this.imagePanTimer_ = undefined;
 
 
     /**
@@ -523,6 +529,16 @@ dlfViewerFullTextControl.prototype.handleFulltextHoverElements = function(textli
                 textlineElement.addClass('highlight');
             }
         }
+
+        // pan the image to the hovered textline after a short delay,
+        // mirroring the delayed fulltext scroll in `addHighlightEffect`
+        if (this.imagePanTimer_ !== undefined) {
+            clearTimeout(this.imagePanTimer_);
+            this.imagePanTimer_ = undefined;
+        }
+        if (textlineFeature) {
+            this.imagePanTimer_ = setTimeout(this.panImageToTextline, 1000, this.map, hoverSourceTextline_, textlineFeature);
+        }
     }
 };
 
@@ -576,6 +592,58 @@ dlfViewerFullTextControl.prototype.scrollToText = function(element, fullTextScro
 };
 
 /**
+ * Pan the image (OpenLayers view) so that the given textline is visible.
+ * Mirrors the delayed fulltext scroll in `addHighlightEffect`: while hovering
+ * a fulltext line, the corresponding textline in the image can be off-screen;
+ * if it is not already in the visible view extent, the view is panned to it
+ * keeping the current zoom and rotation.
+ *
+ * @param {ol.Map} map
+ * @param {ol.source.Vector} hoverSourceTextline_
+ * @param {ol.Feature|undefined} textlineFeature
+ */
+dlfViewerFullTextControl.prototype.panImageToTextline = function(map, hoverSourceTextline_, textlineFeature) {
+    // the hover has already moved on -> abort
+    let hoverFeature = dlfFullTextUtils.getFeature(hoverSourceTextline_);
+    if (!dlfFullTextUtils.isFeatureEqual(hoverFeature, textlineFeature)) {
+        return;
+    }
+
+    let view = map.getView();
+    let size = map.getSize();
+    if (!view || !size) {
+        return;
+    }
+
+    let geometry = textlineFeature.getGeometry();
+    if (geometry === undefined) {
+        return;
+    }
+
+    let featureExtent = geometry.getExtent();
+    if (!featureExtent || isNaN(featureExtent[0]) || isNaN(featureExtent[2])) {
+        return;
+    }
+
+    let targetCenter = ol.extent.getCenter(featureExtent);
+    let centerPixel = map.getPixelFromCoordinate(targetCenter);
+    // keep a small margin so the line does not land exactly on the edge
+    let margin = 5;
+    let isVisible = centerPixel
+        && centerPixel[0] >= margin && centerPixel[0] <= size[0] - margin
+        && centerPixel[1] >= margin && centerPixel[1] <= size[1] - margin;
+    if (isVisible) {
+        return;
+    }
+
+    // pan only, keep current zoom/rotation by not touching resolution or rotation
+    view.animate({
+        center: targetCenter,
+        duration: 300
+    });
+};
+
+/**
  * Activate Fulltext Features
  */
 dlfViewerFullTextControl.prototype.activate = function() {
@@ -623,6 +691,11 @@ dlfViewerFullTextControl.prototype.disableFulltextSelect = function() {
     this.map.un('pointermove', this.handlers_.mapHover);
     $(this.fullTextScrollElement).off('mouseover', '.textline', this.handlers_.fulltextHover);
     $(this.fullTextScrollElement).off('mouseleave', this.handlers_.fulltextMouseLeave);
+
+    if (this.imagePanTimer_ !== undefined) {
+        clearTimeout(this.imagePanTimer_);
+        this.imagePanTimer_ = undefined;
+    }
 
     // remove layers
     for (let key in this.layers_) {
