@@ -264,13 +264,11 @@
                                     </f:for>
                             </f:case>
                             <f:case value="language">
-                                <f:comment>Sprache: dt mit class language-label, jede Sprache in eigenem dd mit class language-entry</f:comment>
+                                <f:comment>Sprache: dt mit class language-label, alle Sprachen in einem dd mit class language-entry, getrennt durch span.language-separator</f:comment>
                                 <dt class="language-label">{configObject.label}</dt>
                                 <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.language}')}">
                                     <f:then>
-                                        <f:for each="{documentMetadataSection.language}" as="languageValue">
-                                            <dd class="language-entry">{languageValue}</dd>
-                                        </f:for>
+                                        <dd class="language-entry"><f:for each="{documentMetadataSection.language}" as="languageValue" iteration="languageIterator">{languageValue}<f:if condition="{languageIterator.isLast} == false"><span class="language-separator">,</span></f:if></f:for></dd>
                                     </f:then>
                                     <f:else>
                                         <dd class="language-entry">{documentMetadataSection.language}</dd>
