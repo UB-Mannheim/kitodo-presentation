@@ -227,48 +227,55 @@
                             <f:case value="collection">
                                 <f:comment><f:debug>{_all}</f:debug></f:comment>
                                 <!-- 175 configObject.indexName: {configObject.indexName }     configObject.label: #{configObject.label}# -->
-                                <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                <dt class="collection-label">{configObject.label}</dt>
                                 <f:comment>{wrappedValues -> f:format.raw()}</f:comment>
 
-                                <f:comment>gekuerzte Version des Labels um Problem mit Klammern zu vermeiden</f:comment>
-                                <f:variable name="KurzLabelSammlung" value="{configObject.label -> f:format.crop(maxCharacters: 8, append:'')}" />
-                                <!-- 183 configObject.indexName: {configObject.indexName } configObject.label: #{configObject.label}# #{KurzLabelSammlung}# -->
+                                    <f:comment>gekuerzte Version des Labels um Problem mit Klammern zu vermeiden</f:comment>
+                                    <f:variable name="KurzLabelSammlung" value="{configObject.label -> f:format.crop(maxCharacters: 8, append:'')}" />
+                                    <!-- 183 configObject.indexName: {configObject.indexName } configObject.label: #{configObject.label}# #{KurzLabelSammlung}# -->
 
-                                <f:if condition="{KurzLabelSammlung} == 'Sammlung'">
-                                    <f:then>
-                                        <f:variable name="collectionBacklinkInfo" value="Backlink zur Sammlung" />
-                                        <f:variable name="collectionBacklinkInfoShort" value="Backlink zur" />
-                                    </f:then>
-                                    <f:else>
-                                        <f:variable name="collectionBacklinkInfo" value="Backlink to the collection" />
-                                        <f:variable name="collectionBacklinkInfoShort" value="Backlink to the " />
-                                    </f:else>
-                                </f:if>
+                                    <f:if condition="{KurzLabelSammlung} == 'Sammlung'">
+                                        <f:then>
+                                            <f:variable name="collectionBacklinkInfo" value="Backlink zur Sammlung" />
+                                            <f:variable name="collectionBacklinkInfoShort" value="Backlink zur" />
+                                        </f:then>
+                                        <f:else>
+                                            <f:variable name="collectionBacklinkInfo" value="Backlink to the collection" />
+                                            <f:variable name="collectionBacklinkInfoShort" value="Backlink to the " />
+                                        </f:else>
+                                    </f:if>
 
-                                <f:comment><f:debug>{documentMetadataSection.collection.0}</f:debug></f:comment>
+                                    <f:comment><f:debug>{documentMetadataSection.collection.0}</f:debug></f:comment>
 
-                                <f:for each="{documentMetadataSection.collection}" as="collectionClearName" iteration="collectionIt">
-                                    <f:variable name="collectionIndex" value="{documentMetadataSection.collection_index.{collectionIt.index}}" />
-                                    <f:variable name="collectionUrl" value="{documentMetadataSection.collection_url.{collectionIt.index}}" />
-                                    <!-- 253 collectionClearName: {collectionClearName} collectionIndex: {collectionIndex} -->
+                                    <f:for each="{documentMetadataSection.collection}" as="collectionClearName" iteration="collectionIt">
+                                        <f:variable name="collectionIndex" value="{documentMetadataSection.collection_index.{collectionIt.index}}" />
+                                        <f:variable name="collectionUrl" value="{documentMetadataSection.collection_url.{collectionIt.index}}" />
+                                        <!-- 253 collectionClearName: {collectionClearName} collectionIndex: {collectionIndex} -->
 
-                                    <f:if condition="{collectionUrl}">
-                                         <f:then>
-                                             <dd class="collection-entry"><a href="{collectionUrl}" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                         </f:then>
-                                         <f:else>
-                                             <!-- collectionIndex {collectionIndex} ohne url.-Eintrag in der Sprachdatei -> ohne Link -->
-                                             <dd class="collection-entry">{collectionClearName}</dd>
-                                         </f:else>
-                                     </f:if>
-                                </f:for>
+                                        <f:if condition="{collectionUrl}">
+                                             <f:then>
+                                                 <dd class="collection-entry"><a href="{collectionUrl}" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                             </f:then>
+                                             <f:else>
+                                                 <!-- collectionIndex {collectionIndex} ohne url.-Eintrag in der Sprachdatei -> ohne Link -->
+                                                 <dd class="collection-entry">{collectionClearName}</dd>
+                                             </f:else>
+                                         </f:if>
+                                    </f:for>
                             </f:case>
                             <f:case value="language">
-                                <f:comment><f:debug>{_all}</f:debug></f:comment>
-                                <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
-                                    <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
-                                    {wrappedValues -> f:format.raw()}
-                                </kitodo:stdWrap>
+                                <f:comment>Sprache: dt mit class language-label, jede Sprache in eigenem dd mit class language-entry</f:comment>
+                                <dt class="language-label">{configObject.label}</dt>
+                                <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.language}')}">
+                                    <f:then>
+                                        <f:for each="{documentMetadataSection.language}" as="languageValue">
+                                            <dd class="language-entry">{languageValue}</dd>
+                                        </f:for>
+                                    </f:then>
+                                    <f:else>
+                                        <dd class="language-entry">{documentMetadataSection.language}</dd>
+                                    </f:else>
+                                </f:if>
                             </f:case>
 
                             <f:case value="collection_new">
