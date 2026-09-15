@@ -253,15 +253,22 @@
                                     <!-- 253 collectionClearName: {collectionClearName} collectionIndex: {collectionIndex} -->
 
                                     <f:if condition="{collectionUrl}">
-                                        <f:then>
-                                            <dd><a href="{collectionUrl}" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
-                                        </f:then>
-                                        <f:else>
-                                            <!-- collectionIndex {collectionIndex} ohne url.-Eintrag in der Sprachdatei -> ohne Link -->
-                                            <dd>{collectionClearName}</dd>
-                                        </f:else>
-                                    </f:if>
+                                         <f:then>
+                                             <dd class="collection-entry"><a href="{collectionUrl}" title="{collectionBacklinkInfo} {collectionClearName}">{collectionClearName}</a></dd>
+                                         </f:then>
+                                         <f:else>
+                                             <!-- collectionIndex {collectionIndex} ohne url.-Eintrag in der Sprachdatei -> ohne Link -->
+                                             <dd class="collection-entry">{collectionClearName}</dd>
+                                         </f:else>
+                                     </f:if>
                                 </f:for>
+                            </f:case>
+                            <f:case value="language">
+                                <f:comment><f:debug>{_all}</f:debug></f:comment>
+                                <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
+                                    <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
+                                    {wrappedValues -> f:format.raw()}
+                                </kitodo:stdWrap>
                             </f:case>
 
                             <f:case value="collection_new">
