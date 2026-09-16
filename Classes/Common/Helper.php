@@ -761,7 +761,9 @@ class Helper
     {
         // Adjust these to match your actual server name and document root.
         $localPrefixes = [
+            'https://digi.bib.uni-mannheim.de/fileadmin/aktienfuehrer/' => '/data/www/html/fileadmin/aktienfuehrer/',
             'https://digi.bib.uni-mannheim.de/fileadmin/digi/' => '/data/www/html/fileadmin/digi/',
+            'https://digi.bib.uni-mannheim.de/f/' => '/data/www/files/',
             'https://digi.bib.uni-mannheim.de/fileadmin/gb/' => '/data/www/html/fileadmin/gb/',
             'https://digi.bib.uni-mannheim.de/fileadmin/gv/' => '/data/www/html/fileadmin/gv/',
             'https://digi.bib.uni-mannheim.de/fileadmin/hoppenstedt/' => '/data/www/html/fileadmin/hoppenstedt/',
@@ -769,7 +771,6 @@ class Helper
             'https://digi.bib.uni-mannheim.de/fileadmin/statjahrb/' => '/data/www/html/fileadmin/statjahrb/',
             'https://digi.bib.uni-mannheim.de/fileadmin/vl/' => '/data/www/html/fileadmin/vl/',
             'https://digi.bib.uni-mannheim.de/fileadmin/zost/' => '/data/www/html/fileadmin/zost/',
-            'https://digi.bib.uni-mannheim.de/f/' => '/data/www/files/',
             'https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/' => '/data/www/html/periodika/fileadmin/data/',
         ];
         foreach ($localPrefixes as $prefix => $localBase) {
