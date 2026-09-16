@@ -769,6 +769,7 @@ class Helper
             'https://digi.bib.uni-mannheim.de/fileadmin/statjahrb/' => '/data/www/html/fileadmin/statjahrb/',
             'https://digi.bib.uni-mannheim.de/fileadmin/vl/' => '/data/www/html/fileadmin/vl/',
             'https://digi.bib.uni-mannheim.de/fileadmin/zost/' => '/data/www/html/fileadmin/zost/',
+            'https://digi.bib.uni-mannheim.de/f/' => '/data/www/files/',
             'https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/' => '/data/www/html/periodika/fileadmin/data/',
         ];
         foreach ($localPrefixes as $prefix => $localBase) {
