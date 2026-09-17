@@ -41,11 +41,18 @@ class DocumentCacheManager implements SingletonInterface
     protected $cache;
 
     /**
+     * @var FrontendInterface
+     */
+    protected $failCache;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('tx_dlf_doc');
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $this->cache = $cacheManager->getCache('tx_dlf_doc');
+        $this->failCache = $cacheManager->getCache('tx_dlf_doc_fail');
     }
 
     /**
@@ -82,12 +89,29 @@ class DocumentCacheManager implements SingletonInterface
     }
 
     /**
+     * Get the cached "load failed" flag for a document location or false if not set.
+     *
+     * A failed load is recorded so that the same unloadable URL is not fetched
+     * over the network again on every request.
+     *
+     * @access public
+     *
+     * @param string $location
+     *
+     * @return mixed
+     */
+    public function getFail(string $location)
+    {
+        return $this->failCache->get($this->getIdentifier($location));
+    }
+
+    /**
      * Remember that loading a document failed.
      *
-     * The entry is stored in the same document cache but only for the
+     * The entry is stored in the dedicated fail cache for the
      * configured fail-cache lifetime (a short default is used so that a
-     * document that appears later is picked up again) and can be removed via
-     * remove() like a regular entry.
+     * document that appears later is picked up again) and can be removed
+     * via remove() like a regular entry.
      *
      * @access public
      *
@@ -97,7 +121,7 @@ class DocumentCacheManager implements SingletonInterface
      */
     public function setFail(string $location): void
     {
-        $this->cache->set($this->getIdentifier($location), self::LOAD_FAILED, [], $this->getFailLifetime());
+        $this->failCache->set($this->getIdentifier($location), true, [], $this->getFailLifetime());
     }
 
     /**
@@ -124,6 +148,7 @@ class DocumentCacheManager implements SingletonInterface
     public function flush(): void
     {
         $this->cache->flush();
+        $this->failCache->flush();
     }
 
     /**
@@ -138,6 +163,7 @@ class DocumentCacheManager implements SingletonInterface
     public function remove(string $location): void
     {
         $this->cache->remove($this->getIdentifier($location));
+        $this->failCache->remove($this->getIdentifier($location));
     }
 
     /**

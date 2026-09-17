@@ -45,6 +45,9 @@ class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functional\Functio
                     'tx_dlf_doc' => [
                         'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
                     ],
+                    'tx_dlf_doc_fail' => [
+                        'backend' => \TYPO3\CMS\Core\Cache\Backend\NullBackend::class,
+                    ],
                 ],
             ],
             'displayErrors' => '1'
