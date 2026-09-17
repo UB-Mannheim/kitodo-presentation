@@ -311,6 +311,9 @@
             <trans-unit id="pageview.overview-map">
                 <source><![CDATA[Overview Map]]></source>
             </trans-unit>
+            <trans-unit id="pageview.notFound">
+                <source><![CDATA[The requested document could not be loaded. Please check the address or go back and choose a document.]]></source>
+            </trans-unit>
             <trans-unit id="search.dateFrom">
                 <source><![CDATA[From]]></source>
             </trans-unit>

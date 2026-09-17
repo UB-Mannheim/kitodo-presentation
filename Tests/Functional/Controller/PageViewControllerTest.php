@@ -70,4 +70,29 @@ class PageViewControllerTest extends AbstractControllerTestCase
             </html>';
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * A document id that cannot be resolved to a readable document (e.g. a document URL that
+     * does not point to a readable document, or an unknown uid) must result in an HTTP 404 and
+     * set the "documentNotFound" flag so the template shows a localized message instead of the
+     * empty viewer.
+     */
+    #[Test]
+    public function returnsNotFoundForMissingDocument()
+    {
+        $settings = [
+            'storagePid' => self::$storagePid,
+            'solrcore' => self::$solrCoreId
+        ];
+
+        $templateHtml = '<html>notFound:{documentNotFound}</html>';
+        $controller = $this->setUpController(PageViewController::class, $settings, $templateHtml);
+        $request = $this->setUpRequest('main', ['tx_dlf' => [ 'id' => 999999 ] ]);
+
+        $response = $controller->processRequest($request);
+
+        $this->assertSame(404, $response->getStatusCode());
+        $response->getBody()->rewind();
+        $this->assertSame('<html>notFound:1</html>', $response->getBody()->getContents());
+    }
 }

@@ -20,6 +20,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Ubl\Iiif\Presentation\Common\Model\Resources\CanvasInterface;
 use Ubl\Iiif\Presentation\Common\Model\Resources\ManifestInterface;
 use Ubl\Iiif\Presentation\Common\Vocabulary\Motivation;
@@ -94,6 +95,15 @@ class PageViewController extends AbstractController
             if (!$this->isDocMissing() &&
                 $this->isMultiDocumentType($this->document->getCurrentDocument()->tableOfContents[0]['type'])) {
                 return $this->multiviewRedirect();
+            }
+            if ($this->isDocMissing()) {
+                // the document could not be loaded at all (e.g. a document URL that does not
+                // point to a readable document, such as an OAI-PMH GetRecord URL for an unknown
+                // identifier): answer with an HTTP 404 and tell the template to show a localized
+                // message instead of the empty viewer. Note: the view is rendered by
+                // htmlResponse(), so the flag must be assigned before calling it.
+                $this->view->assign('documentNotFound', true);
+                return $this->htmlResponse()->withStatus(404);
             }
             return $this->htmlResponse();
         } elseif (array_key_exists('multiViewSource', $this->requestData)) {

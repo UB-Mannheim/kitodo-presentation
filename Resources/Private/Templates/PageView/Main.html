@@ -16,13 +16,18 @@
     <f:debug title="all">{_all}</f:debug>
 </f:if>
 
-<div id="tx-dlf-map" class="tx-dlf-map" data-dic="overview-map:{f:translate(key: 'pageview.overview-map')}">
-    <div id="tx-dlf-annotationselection"></div>
-</div>
-<div id="ov_map"></div>
-<f:render partial="PageView/FulltextContainer" arguments="{_all}" />
+<f:if condition="{documentNotFound}">
+    <div class="tx-dlf-message tx-dlf-message--error" role="alert">
+        <f:translate key="LLL:EXT:dlf/Resources/Private/Language/locallang.xlf:pageview.notFound"/>
+    </div>
+<f:else>
+    <div id="tx-dlf-map" class="tx-dlf-map" data-dic="overview-map:{f:translate(key: 'pageview.overview-map')}">
+        <div id="tx-dlf-annotationselection"></div>
+    </div>
+    <div id="ov_map"></div>
+    <f:render partial="PageView/FulltextContainer" arguments="{_all}" />
 
-<f:if condition="{settings.basketButton} && {settings.targetBasket}">
+    <f:if condition="{settings.basketButton} && {settings.targetBasket}">
     <f:if condition="{settings.basket.crop}">
         <div class="tx-dlf-navigation-edit">
             <a href="javascript: tx_dlf_viewer.activateSelection();" title="{f:translate(key: 'basket.editMode')}">
@@ -54,6 +59,8 @@
             <f:form.submit value="{f:translate(key: 'basket.addBasket')}" />
         </f:form>
     </div>
+</f:if>
+</f:else>
 </f:if>
 
 <kitodo:jsFooter inlineCode="{viewerConfiguration}" />

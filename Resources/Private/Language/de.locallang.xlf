@@ -417,6 +417,10 @@
                 <source><![CDATA[Overview Map]]></source>
                 <target><![CDATA[Miniaturansicht]]></target>
             </trans-unit>
+            <trans-unit id="pageview.notFound">
+                <source><![CDATA[The requested document could not be loaded. Please check the address or go back and choose a document.]]></source>
+                <target><![CDATA[Das angeforderte Dokument konnte nicht geladen werden. Bitte prüfen Sie die Adresse oder kehren Sie zurück und wählen Sie ein Dokument.]]></target>
+            </trans-unit>
             <trans-unit id="search.dateFrom" approved="yes">
                 <source><![CDATA[From]]></source>
                 <target><![CDATA[Von]]></target>
