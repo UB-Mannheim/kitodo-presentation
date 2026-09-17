@@ -525,11 +525,6 @@ abstract class AbstractDocument
         $cacheManager = GeneralUtility::makeInstance(DocumentCacheManager::class);
 
         if (!$forceReload) {
-            if ($cacheManager->getFail($location) !== false) {
-                // A previous attempt to load this location failed; do not
-                // fetch it over the network again on every request.
-                return $instance;
-            }
             $instance = $cacheManager->get($location);
             if ($instance === DocumentCacheManager::LOAD_FAILED) {
                 // A previous attempt to load this location failed; do not
