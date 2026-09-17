@@ -317,6 +317,9 @@
             <trans-unit id="pageview.imageError">
                 <source><![CDATA[The page image could not be loaded because the image server is unavailable.]]></source>
             </trans-unit>
+            <trans-unit id="pageview.notFound">
+                <source><![CDATA[The requested document could not be loaded. Please check the address or go back and choose a document.]]></source>
+            </trans-unit>
             <trans-unit id="search.dateFrom">
                 <source><![CDATA[From]]></source>
             </trans-unit>
