@@ -283,6 +283,31 @@
                                 </f:if>
                             </f:case>
 
+                            <f:case value="author">
+                                <f:comment>Autor: Label mit class author-label, alle Autoren in einem dd mit class author-entry, getrennt durch span.author-separator (" / "), vgl. language/date; GND-ORCID-Verlinkung bleibt erhalten</f:comment>
+                                <dt class="author-label">{configObject.label}</dt>
+                                <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.author}')}">
+                                    <f:then>
+                                        <dd class="author-entry">
+                                            <f:for each="{documentMetadataSection.author}" as="authorValue" iteration="authorIterator">
+                                                <f:if condition="{authorIterator.isFirst} == false"><span class="author-separator"> / </span></f:if>
+                                                <f:if condition="{kitodo:isArray(subject: '{authorValue}')}">
+                                                    <f:then>
+                                                        <f:link.external class="external" title="{authorValue.name}" uri="{authorValue.url}">{authorValue.name}</f:link.external>
+                                                    </f:then>
+                                                    <f:else>
+                                                        {authorValue}
+                                                    </f:else>
+                                                </f:if>
+                                            </f:for>
+                                        </dd>
+                                    </f:then>
+                                    <f:else>
+                                        <dd class="author-entry">{documentMetadataSection.author}</dd>
+                                    </f:else>
+                                </f:if>
+                            </f:case>
+
                             <f:case value="collection_new">
                                 <!-- 308 keine Ausgabe bei collection_new -->
                             </f:case>
