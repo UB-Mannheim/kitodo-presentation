@@ -137,9 +137,16 @@
                                         </f:comment>
                                     </f:then>
                                     <f:else>
-                                        <!-- pres entries 140 {configObject.indexName } -->
-                                        <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionCObj}">{configObject.label}</kitodo:stdWrap>
-                                        {wrappedValues -> f:format.raw()}
+                                        <f:comment>Erscheinungsjahr: Label mit class date-label, alle Jahreswerte in einem dd mit class date-entry, getrennt durch span.date-separator (" / "), vgl. language</f:comment>
+                                        <dt class="date-label">{configObject.label}</dt>
+                                        <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.date}')}">
+                                            <f:then>
+                                                <dd class="date-entry"><f:for each="{documentMetadataSection.date}" as="dateValue" iteration="dateIterator"><f:if condition="{dateIterator.isFirst} == false"><span class="date-separator"> / </span></f:if>{dateValue}</f:for></dd>
+                                            </f:then>
+                                            <f:else>
+                                                <dd class="date-entry">{documentMetadataSection.date}</dd>
+                                            </f:else>
+                                        </f:if>
                                     </f:else>
                                 </f:if>
                             </f:else>
