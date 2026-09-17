@@ -39,10 +39,10 @@ class AbstractDocumentTest extends UnitTestCase
     public function getInstanceReturnsNullWithoutFetchingWhenFailIsCached(): void
     {
         $cacheManager = $this->createMock(DocumentCacheManager::class);
-        // The fail cache reports a previous failure ...
-        $cacheManager->expects(self::once())->method('getFail')->willReturn(true);
-        // ... and the success cache must not even be consulted.
-        $cacheManager->expects(self::never())->method('get');
+        // The document cache reports a previous failure for this location ...
+        $cacheManager->expects(self::once())
+            ->method('get')
+            ->willReturn(DocumentCacheManager::LOAD_FAILED);
         GeneralUtility::setSingletonInstance(DocumentCacheManager::class, $cacheManager);
 
         $document = AbstractDocument::getInstance('http://example.com/does-not-exist.xml', ['storagePid' => 1]);

@@ -29,33 +29,35 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class DocumentCacheManager implements SingletonInterface
 {
     /**
-     * @var FrontendInterface
+     * Sentinel stored in the document cache to remember that loading a
+     * document failed, so that the same unloadable location is not fetched
+     * over the network again on every request.
      */
-    protected $cache;
+    public const LOAD_FAILED = '__DLF_DOC_LOAD_FAILED__';
 
     /**
      * @var FrontendInterface
      */
-    protected $failCache;
+    protected $cache;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-        $this->cache = $cacheManager->getCache('tx_dlf_doc');
-        $this->failCache = $cacheManager->getCache('tx_dlf_doc_fail');
+        $this->cache = GeneralUtility::makeInstance(CacheManager::class)->getCache('tx_dlf_doc');
     }
 
     /**
-     * Get document instance from cache or false if not found.
+     * Get document instance from cache.
      *
      * @access public
      *
      * @param string $location
      *
-     * @return AbstractDocument|false
+     * @return AbstractDocument|false|self::LOAD_FAILED The cached document, the
+     * LOAD_FAILED sentinel if a previous load of this location failed, or false
+     * if nothing is cached
      */
     public function get(string $location)
     {
@@ -63,28 +65,29 @@ class DocumentCacheManager implements SingletonInterface
     }
 
     /**
-     * Get the cached "load failed" flag for a document location or false if not set.
+     * Set cache for document instance.
      *
-     * A failed load is recorded so that the same unloadable URL is not fetched
-     * over the network again on every request.
+     * The entry uses the cache's default lifetime (one day).
      *
      * @access public
      *
      * @param string $location
+     * @param AbstractDocument $currentDocument
      *
-     * @return mixed
+     * @return void
      */
-    public function getFail(string $location)
+    public function set(string $location, AbstractDocument $currentDocument): void
     {
-        return $this->failCache->get($this->getIdentifier($location));
+        $this->cache->set($this->getIdentifier($location), $currentDocument);
     }
 
     /**
      * Remember that loading a document failed.
      *
-     * The entry is cached for the configured fail-cache lifetime (a short
-     * default is used so that a document that appears later is picked up
-     * again) and can be removed via remove() like a regular entry.
+     * The entry is stored in the same document cache but only for the
+     * configured fail-cache lifetime (a short default is used so that a
+     * document that appears later is picked up again) and can be removed via
+     * remove() like a regular entry.
      *
      * @access public
      *
@@ -94,7 +97,7 @@ class DocumentCacheManager implements SingletonInterface
      */
     public function setFail(string $location): void
     {
-        $this->failCache->set($this->getIdentifier($location), true, [], $this->getFailLifetime());
+        $this->cache->set($this->getIdentifier($location), self::LOAD_FAILED, [], $this->getFailLifetime());
     }
 
     /**
@@ -121,7 +124,6 @@ class DocumentCacheManager implements SingletonInterface
     public function flush(): void
     {
         $this->cache->flush();
-        $this->failCache->flush();
     }
 
     /**
@@ -136,22 +138,6 @@ class DocumentCacheManager implements SingletonInterface
     public function remove(string $location): void
     {
         $this->cache->remove($this->getIdentifier($location));
-        $this->failCache->remove($this->getIdentifier($location));
-    }
-
-    /**
-     * Set cache for document instance.
-     *
-     * @access public
-     *
-     * @param string $location
-     * @param AbstractDocument $currentDocument
-     *
-     * @return void
-     */
-    public function set(string $location, AbstractDocument $currentDocument): void
-    {
-        $this->cache->set($this->getIdentifier($location), $currentDocument);
     }
 
     /**
