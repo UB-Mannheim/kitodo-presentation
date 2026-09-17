@@ -228,7 +228,7 @@ class Helper
     public static function getDocumentInstance(string $documentLocation, array $settings): AbstractDocument|null
     {
         $hash = hash('sha256', $documentLocation);
-        if (!isset(static::$docs[$hash])) {
+        if (!array_key_exists($hash, static::$docs)) {
             static::$docs[$hash] = AbstractDocument::getInstance($documentLocation, $settings);
         }
         return static::$docs[$hash];
