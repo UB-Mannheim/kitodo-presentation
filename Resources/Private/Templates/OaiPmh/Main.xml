@@ -21,7 +21,7 @@
         <?xml-stylesheet type="text/xsl" href="{f:uri.typolink(parameter:'{settings.stylesheet}', absolute:'1')}"?>
     </f:then>
     <f:else>
-        <?xml-stylesheet type="text/xsl" href="{f:uri.resource(path:'Stylesheets/OaiPmh.xsl', absolute:'1')}"?>
+        <?xml-stylesheet type="text/xsl" href="{f:uri.resource(path:'Stylesheets/OaiPmh.xsl', absolute:'1', useCacheBusting:'0')}"?>
     </f:else>
 </f:if>
 
