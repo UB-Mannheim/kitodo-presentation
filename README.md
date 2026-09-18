@@ -34,4 +34,5 @@ To ensure it can best advise and assist users on technical and organisational is
 
 * [Extension Documentation](https://kitodo.github.io/kitodo-presentation)
 * [DDEV Development Environment](https://github.com/kitodo/ddev-kitodo-presentation)
+* [No-Docker demo site](./Build/Demo/setup-demo.sh): run `Build/Demo/setup-demo.sh` to build a self-contained local demo (TYPO3 + SQLite, no Solr) with a generated sample document, so the PageView viewer can be tried out fully offline. Options (e.g. `--style` for the viewer stylesheet, `--serve` to start the servers) are listed in `Build/Demo/setup-demo.sh --help`.
 * [Supported Versions](https://github.com/kitodo/kitodo-presentation/blob/main/SUPPORTED_VERSIONS.md)
