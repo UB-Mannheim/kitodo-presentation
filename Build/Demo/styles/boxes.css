@@ -1,0 +1,80 @@
+/*
+ * Kitodo.Presentation demo stylesheet: "boxes".
+ *
+ * Frames each viewer tool in a box and labels it with its name, so the
+ * separate plugins (dlf_pageview, dlf_navigation, dlf_pagegrid,
+ * dlf_metadata, dlf_toolbox) are easy to tell apart.
+ *
+ * The demo page renders every plugin as one fsc frame
+ * (<div class="frame ...">). The frame is matched by the dlf element it
+ * contains, which is stable across sorting changes.
+ */
+
+/* --- the boxes ---------------------------------------------------------- */
+
+#main .frame:has(#tx-dlf-map),
+#main .frame:has(.tx-dlf-navigation-first),
+#main .frame:has(.tx-dlf-pagegrid),
+#main .frame:has(.tx-dlf-metadata-titledata),
+#main .frame:has([id^="tx-dlf-tools-"]) {
+    margin: 14px 0;
+    padding: 10px 16px 16px;
+    background: #fbfaf6;
+    border: 1px solid #c9c5b4;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(60, 55, 30, 0.12);
+}
+
+/* --- the labels ---------------------------------------------------------- */
+
+#main .frame:has(#tx-dlf-map)::before { content: "PageView (dlf_pageview)"; }
+#main .frame:has(.tx-dlf-navigation-first)::before { content: "Navigation (dlf_navigation)"; }
+#main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
+#main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
+#main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
+
+#main .frame:has(#tx-dlf-map)::before,
+#main .frame:has(.tx-dlf-navigation-first)::before,
+#main .frame:has(.tx-dlf-pagegrid)::before,
+#main .frame:has(.tx-dlf-metadata-titledata)::before,
+#main .frame:has([id^="tx-dlf-tools-"])::before {
+    display: block;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6d6752;
+    border-bottom: 1px solid #e3e0d2;
+}
+
+/* --- per-tool tweaks ------------------------------------------------------ */
+
+/* The metadata box can grow tall for documents with many fields. */
+#main .frame:has(.tx-dlf-metadata-titledata) {
+    max-height: 26em;
+    overflow: auto;
+}
+
+/* The fulltext panel rendered by the PageView plugin (appears when the
+ * fulltext tool is active). */
+.tx-dlf-toolbox-fulltext-container {
+    margin-top: 10px;
+    max-height: 14em;
+    overflow: auto;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    background: #fff;
+    border: 1px dashed #c9c5b4;
+    border-radius: 8px;
+}
+
+/* Keep the thumbnail strip on one row. */
+.tx-dlf-pagegrid-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+}
