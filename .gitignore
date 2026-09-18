@@ -23,3 +23,5 @@ _build
 venv
 *.map
 .php-cs-fixer.cache
+/issues/
+/kitodo-presentation.code-workspace
