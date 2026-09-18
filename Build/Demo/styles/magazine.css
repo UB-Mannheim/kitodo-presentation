@@ -1,0 +1,96 @@
+/*
+ * Kitodo.Presentation demo stylesheet: "magazine".
+ *
+ * A two-column layout: the page viewer stays left, while the navigation,
+ * metadata, toolbox and page grid form a right-hand sidebar. Same technique
+ * as boxes.css (frames matched by the dlf element they contain), plus a
+ * couple of box visuals, so the individual tools are still recognisable.
+ */
+
+/* --- the grid ------------------------------------------------------------- */
+
+#main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    grid-template-areas:
+        "main nav"
+        "main meta"
+        "main tools"
+        "grid grid";
+    gap: 0 20px;
+    align-items: start;
+}
+
+#main .frame:has(#tx-dlf-map) { grid-area: main; }
+#main .frame:has(.tx-dlf-navigation-first) { grid-area: nav; }
+#main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
+#main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
+#main .frame:has(.tx-dlf-pagegrid) {
+    grid-area: grid;
+    grid-column: 1 / -1;
+}
+
+/* --- the boxes ------------------------------------------------------------- */
+
+#main .frame:has(#tx-dlf-map),
+#main .frame:has(.tx-dlf-navigation-first),
+#main .frame:has(.tx-dlf-pagegrid),
+#main .frame:has(.tx-dlf-metadata-titledata),
+#main .frame:has([id^="tx-dlf-tools-"]) {
+    margin: 14px 0;
+    padding: 10px 16px 16px;
+    background: #f4f7fb;
+    border: 1px solid #b9c4d4;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(30, 45, 80, 0.10);
+}
+
+/* --- the labels ------------------------------------------------------------- */
+
+#main .frame:has(#tx-dlf-map)::before { content: "PageView (dlf_pageview)"; }
+#main .frame:has(.tx-dlf-navigation-first)::before { content: "Navigation (dlf_navigation)"; }
+#main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
+#main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
+#main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
+
+#main .frame:has(#tx-dlf-map)::before,
+#main .frame:has(.tx-dlf-navigation-first)::before,
+#main .frame:has(.tx-dlf-pagegrid)::before,
+#main .frame:has(.tx-dlf-metadata-titledata)::before,
+#main .frame:has([id^="tx-dlf-tools-"])::before {
+    display: block;
+    margin: 0 0 10px;
+    padding-bottom: 6px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4c5d78;
+    border-bottom: 1px solid #d5dce8;
+}
+
+/* --- per-tool tweaks ----------------------------------------------------------- */
+
+#main .frame:has(.tx-dlf-metadata-titledata) {
+    max-height: 22em;
+    overflow: auto;
+}
+
+.tx-dlf-toolbox-fulltext-container {
+    margin-top: 10px;
+    max-height: 14em;
+    overflow: auto;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    background: #fff;
+    border: 1px dashed #b9c4d4;
+    border-radius: 8px;
+}
+
+.tx-dlf-pagegrid-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+}
