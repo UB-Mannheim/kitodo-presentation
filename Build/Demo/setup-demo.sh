@@ -48,6 +48,11 @@
 #   --user <name>     Backend admin username (default: admin)
 #   --password <pw>   Backend admin password (default: demo-Passw0rd!, must
 #                     satisfy TYPO3 policy)
+#   --style <name>    Viewer stylesheet to use (default: boxes). The
+#                     available styles are the *.css files in Build/Demo/
+#                     styles/. All of them are copied into the site, and the
+#                     page carries a floating selector so the style can be
+#                     switched at runtime; --style only sets the default.
 #   --serve           Start both servers in the foreground after setup
 #   --no-sample       Skip the local sample document (the on-page form then
 #                     starts empty; paste any METS / IIIF URL)
@@ -63,6 +68,7 @@ REPO="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 DEMO_DIR="${DEMO_DIR:-$HOME/kitodo-demo-site}"
 DEMO_PORT="${DEMO_PORT:-8090}"
+STYLE="boxes"
 BRANCH="$(git -C "$REPO" branch --show-current 2>/dev/null || true)"
 BRANCH="${BRANCH:-main}"
 ADMIN_USER="admin"
@@ -87,6 +93,7 @@ while [ $# -gt 0 ]; do
         --branch) BRANCH="$2"; shift 2 ;;
         --user) ADMIN_USER="$2"; shift 2 ;;
         --password) ADMIN_PASSWORD="$2"; PASSWORD_IS_DEFAULT=0; shift 2 ;;
+        --style) STYLE="$2"; shift 2 ;;
         --serve) SERVE=1; shift ;;
         --no-sample) MAKE_SAMPLE=0; shift ;;
         -h|--help) usage; exit 0 ;;
@@ -106,6 +113,26 @@ done
 log "Extension checkout: $REPO (branch: $BRANCH)"
 log "Demo site directory: $DEMO_DIR"
 log "PHP: $(php -v | head -1)"
+
+# --- pick the viewer style -------------------------------------------------
+# Styles are the *.css files under Build/Demo/styles/. --style names one of
+# them (with or without the .css suffix); it is preselected in the page's
+# floating style selector. All stylesheets are copied into the site so the
+# selector can switch between them at runtime.
+STYLES_DIR="$SCRIPT_DIR/styles"
+[ -d "$STYLES_DIR" ] || die "Styles directory not found: $STYLES_DIR"
+STYLE_FILE="$STYLES_DIR/$STYLE.css"
+[ -f "$STYLE_FILE" ] || die "Unknown style '$STYLE'. Available styles: $(ls "$STYLES_DIR" | sed 's/\.css$//' | tr '\n' ' ')"
+# One <option> per stylesheet in Build/Demo/styles/; the current one is
+# preselected. New stylesheets are picked up automatically.
+STYLE_OPTIONS=""
+for f in "$STYLES_DIR/"*.css; do
+    name="$(basename "$f" .css)"
+    sel=""
+    [ "$name" = "$STYLE" ] && sel=" selected"
+    STYLE_OPTIONS="${STYLE_OPTIONS}<option value=\"${name}.css\"${sel}>${name}</option>"
+done
+log "Viewer style: $STYLE"
 
 # --- pick free ports -----------------------------------------------------
 find_free_port() {
@@ -127,6 +154,12 @@ DATA_URL="http://127.0.0.1:${DATA_PORT}"
 # --- create the project --------------------------------------------------
 mkdir -p "$DEMO_DIR"
 cd "$DEMO_DIR"
+
+mkdir -p public/kitodo-demo
+# All stylesheets (and the widget CSS) are copied verbatim; the page's
+# floating selector references them by file name. The --style option only
+# decides which one is preselected.
+cp "$STYLES_DIR/"*.css "$SCRIPT_DIR/assets/"*.css public/kitodo-demo/
 
 log "Writing composer.json"
 cat > composer.json <<JSON
@@ -442,14 +475,29 @@ plugin.tx_dlf_pagegrid {
 
 page = PAGE
 page.shortcutIcon = kitodo-favicon.ico
+page {
+    # The floating widget styles (never switched at runtime, so safe to let
+    # TYPO3 concatenate). The viewer style itself is NOT included via
+    # includeCSS: the widget JS below creates its own <link id="dlf-demo-css">
+    # pointing at kitodo-demo/<name>.css, because TYPO3's asset pipeline
+    # concatenates includeCSS files into a single merged-*.css, which a
+    # runtime link-href swap could not address.
+    includeCSS.dlfDemoWidgets = kitodo-demo/demo-widgets.css
+}
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label>METS / IIIF URL: </label><input type="text" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form>
+    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;});})();</script>
+    # Wrap the content in <div id="main"> so the demo stylesheets can
+    # address the plugin frames (#main .frame:has(...)).
+    20 = TEXT
+    20.value = <div id="main">
     30 < styles.content.get
+    40 = TEXT
+    40.value = </div>
 }
 TS
-sed -i.bak "s|__SAMPLE_URL__|${SAMPLE_URL}|g" demo.typoscript && rm -f demo.typoscript.bak
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
@@ -570,6 +618,7 @@ fi
 if [ "$MAKE_SAMPLE" = "1" ]; then
     echo "  Sample document: ${SAMPLE_URL}   (served from ${DEMO_DIR}/kitodo-demo)"
 fi
+echo "  Viewer style   : $STYLE   (switchable at runtime via the selector on the page)"
 echo
 if [ "$MAKE_SAMPLE" = "1" ]; then
     echo "  Start the servers (two ports are needed; see the header comment):"

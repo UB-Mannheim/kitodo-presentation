@@ -1,0 +1,31 @@
+/*
+ * Kitodo.Presentation demo: floating stylesheet selector widget.
+ *
+ * This file is deliberately *not* part of the selectable styles: it only
+ * styles the selector widget itself, so the widget keeps its position no
+ * matter which stylesheet is active.
+ */
+
+.dlf-demo-styles {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.45em 0.7em;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    color: #1b2a6b;
+    background: #fffef5;
+    border: 1px solid #c8c4b0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.dlf-demo-styles select {
+    font: inherit;
+    color: inherit;
+    padding: 0.15em 0.3em;
+}

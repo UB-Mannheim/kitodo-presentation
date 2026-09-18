@@ -1,0 +1,7 @@
+/*
+ * Kitodo.Presentation demo stylesheet: "default".
+ *
+ * A deliberate no-op: the unstyled baseline the fsc theme and the dlf
+ * extension produce on their own. Listed first in the page's style
+ * selector, so a user can always fall back to it.
+ */
