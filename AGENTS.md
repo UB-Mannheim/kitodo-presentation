@@ -13,6 +13,8 @@ Kitodo.Presentation: a TYPO3 extension (extension key `dlf`, PSR-4 `Kitodo\Dlf\`
 
 ## Local (no-Docker) test installation
 
+**Automated:** `Build/Demo/setup-demo.sh` builds the whole site end-to-end (composer install, `typo3 setup`, database seed, caches) and prints the URLs. It bakes in every workaround below and additionally generates a small **local** sample document (METS + 3 placeholder pages drawn with PHP GD) served on its own static port, so the PageView viewer works fully offline with the form pre-filled. Options: `--dir`, `--port`, `--branch`, `--user`, `--password`, `--serve` (start both servers in the foreground), `--no-sample`. It is idempotent. Use the manual steps below only to understand / tweak a specific part.
+
 A live TYPO3 site with this extension can be installed outside Docker. Reference working setup: TYPO3 13.4, PHP 8.5 (Homebrew) with `composer config platform.php 8.4.99` (composer.json pins `php: 8.2 - 8.4`, so the platform must be relaxed), SQLite as the database. The extension is pulled in as a `path` repository (symlink) so the local checkout is used.
 
 Steps (site dir, e.g. `/tmp/opencode/kitodo-site`):
