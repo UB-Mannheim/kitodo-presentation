@@ -36,15 +36,21 @@
  * links stay clearly clickable under any viewer style. */
 .dlf-demo-examples {
     margin: 0 0 1em;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35em 0.7em;
 }
 
 .dlf-demo-examples span {
     font-weight: 600;
+    /* a little extra air before the first example so the label does not sit
+     * flush against the first chip */
+    margin-right: 0.2em;
 }
 
 .dlf-demo-example {
     display: inline-block;
-    margin: 0 0.8em 0.3em 0;
     padding: 0.1em 0.55em;
     color: #1b2a6b;
     text-decoration: underline;
