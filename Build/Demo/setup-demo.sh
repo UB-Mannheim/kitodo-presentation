@@ -48,13 +48,15 @@
 #   --user <name>     Backend admin username (default: admin)
 #   --password <pw>   Backend admin password (default: demo-Passw0rd!, must
 #                     satisfy TYPO3 policy)
-#   --style <name>    Viewer stylesheet to use (default: boxes). The
-#                     available styles are the *.css files in Build/Demo/
-#                     styles/. All of them are copied into the site, and the
-#                     page carries a floating selector so the style can be
-#                     switched at runtime. The choice is remembered in
-#                     localStorage, so --style is only the default for a
-#                     first visit (until the user picks something else).
+#   --style <name>    Viewer theme to use (default: boxes). The available
+#                     themes are the subdirectories of Build/Demo/styles/;
+#                     each one holds its main stylesheet <name>.css and may
+#                     carry further assets (images, scripts, ...). All
+#                     themes are copied into the site, and the page carries
+#                     a floating selector so the theme can be switched at
+#                     runtime. The choice is remembered in localStorage, so
+#                     --style is only the default for a first visit (until
+#                     the user picks something else).
 #   --serve           Start both servers in the foreground after setup
 #   --no-sample       Skip the local sample document (the on-page form then
 #                     starts empty; paste any METS / IIIF URL)
@@ -117,22 +119,25 @@ log "Demo site directory: $DEMO_DIR"
 log "PHP: $(php -v | head -1)"
 
 # --- pick the viewer style -------------------------------------------------
-# Styles are the *.css files under Build/Demo/styles/. --style names one of
-# them (with or without the .css suffix); it is preselected in the page's
-# floating style selector. All stylesheets are copied into the site so the
+# A style is a directory under Build/Demo/styles/ containing its main
+# stylesheet <name>.css; it may carry further assets (images, scripts, ...)
+# that are copied alongside it, so a style can grow into a full theme.
+# --style names one of those directories; it is preselected in the page's
+# floating style selector. All styles are copied into the site so the
 # selector can switch between them at runtime.
 STYLES_DIR="$SCRIPT_DIR/styles"
 [ -d "$STYLES_DIR" ] || die "Styles directory not found: $STYLES_DIR"
-STYLE_FILE="$STYLES_DIR/$STYLE.css"
-[ -f "$STYLE_FILE" ] || die "Unknown style '$STYLE'. Available styles: $(ls "$STYLES_DIR" | sed 's/\.css$//' | tr '\n' ' ')"
-# One <option> per stylesheet in Build/Demo/styles/; the current one is
-# preselected. New stylesheets are picked up automatically.
+STYLE_DIR="$STYLES_DIR/$STYLE"
+[ -d "$STYLE_DIR" ] || die "Unknown style '$STYLE'. Available styles: $(find "$STYLES_DIR" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | tr '\n' ' ')"
+[ -f "$STYLE_DIR/$STYLE.css" ] || die "Style directory '$STYLE' does not contain the main stylesheet '$STYLE.css'."
+# One <option> per style directory in Build/Demo/styles/; the current one is
+# preselected. New styles are picked up automatically.
 STYLE_OPTIONS=""
-for f in "$STYLES_DIR/"*.css; do
-    name="$(basename "$f" .css)"
+for d in "$STYLES_DIR"/*/; do
+    name="$(basename "$d")"
     sel=""
     [ "$name" = "$STYLE" ] && sel=" selected"
-    STYLE_OPTIONS="${STYLE_OPTIONS}<option value=\"${name}.css\"${sel}>${name}</option>"
+    STYLE_OPTIONS="${STYLE_OPTIONS}<option value=\"${name}/${name}.css\"${sel}>${name}</option>"
 done
 log "Viewer style: $STYLE"
 
@@ -158,10 +163,12 @@ mkdir -p "$DEMO_DIR"
 cd "$DEMO_DIR"
 
 mkdir -p public/kitodo-demo
-# All stylesheets (and the widget CSS) are copied verbatim; the page's
-# floating selector references them by file name. The --style option only
-# decides which one is preselected.
-cp "$STYLES_DIR/"*.css "$SCRIPT_DIR/assets/"*.css public/kitodo-demo/
+# All styles (each a directory, copied verbatim so any extra theme assets
+# come along) and the widget CSS are copied; the page's floating selector
+# references them by <style>/<style>.css. The --style option only decides
+# which one is preselected. (No trailing slash on the glob, so the style
+# *directories* are copied, not their contents.)
+cp -R "$STYLES_DIR"/* "$SCRIPT_DIR/assets/"*.css public/kitodo-demo/
 
 log "Writing composer.json"
 cat > composer.json <<JSON
@@ -400,6 +407,14 @@ else
     SAMPLE_URL=""
 fi
 
+# The "Local sample" example link is only shown when a local sample document
+# was generated (otherwise its URL would be empty).
+if [ "$MAKE_SAMPLE" = "1" ]; then
+    SAMPLE_EXAMPLE="<a href=\"#\" class=\"dlf-demo-example\" data-doc=\"${SAMPLE_URL}\">Local sample (offline)</a>"
+else
+    SAMPLE_EXAMPLE=""
+fi
+
 # --- write the frontend TypoScript (stored in a sys_template record) ------
 log "Writing frontend TypoScript (demo.typoscript)"
 cat > demo.typoscript <<'TS'
@@ -482,15 +497,15 @@ page {
     # The floating widget styles (never switched at runtime, so safe to let
     # TYPO3 concatenate). The viewer style itself is NOT included via
     # includeCSS: the widget JS below creates its own <link id="dlf-demo-css">
-    # pointing at kitodo-demo/<name>.css, because TYPO3's asset pipeline
-    # concatenates includeCSS files into a single merged-*.css, which a
-    # runtime link-href swap could not address.
+    # pointing at kitodo-demo/<name>/<name>.css, because TYPO3's asset
+    # pipeline concatenates includeCSS files into a single merged-*.css,
+    # which a runtime link-href swap could not address.
     includeCSS.dlfDemoWidgets = kitodo-demo/demo-widgets.css
 }
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script>
+    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><span>Examples:</span><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_18710504/DeutReunP_856399094_18710504.xml">Reichsanzeiger, 04.05.1871</a><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/fileadmin/stefan/DeutReunP_856399094_18920102.xml">Reichsanzeiger, 02.01.1892</a>__SAMPLE_EXAMPLE__</p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var f=document.getElementById('dlf-demo-doc');var form=f?f.form:null;var a=document.querySelectorAll('.dlf-demo-example');for(var i=0;i<a.length;i++){(function(el){el.addEventListener('click',function(e){if(!form||!f){return;}e.preventDefault();f.value=el.getAttribute('data-doc');form.submit();});})(a[i]);}})();</script>
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
@@ -500,7 +515,7 @@ page.10 {
     40.value = </div>
 }
 TS
-sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__SAMPLE_EXAMPLE__|${SAMPLE_EXAMPLE}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
