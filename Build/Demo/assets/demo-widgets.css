@@ -30,6 +30,33 @@
     padding: 0.15em 0.3em;
 }
 
+/* The example-document links on the start page. Clicking one fills the URL
+ * form and submits it (see the inline script in setup-demo.sh), so it behaves
+ * exactly like pasting the URL by hand. Kept here (always loaded) so the
+ * links stay clearly clickable under any viewer style. */
+.dlf-demo-examples {
+    margin: 0 0 1em;
+}
+
+.dlf-demo-examples span {
+    font-weight: 600;
+}
+
+.dlf-demo-example {
+    display: inline-block;
+    margin: 0 0.8em 0.3em 0;
+    padding: 0.1em 0.55em;
+    color: #1b2a6b;
+    text-decoration: underline;
+    background: #eef2fb;
+    border: 1px solid #c8c4b0;
+    border-radius: 6px;
+}
+
+.dlf-demo-example:hover {
+    background: #dfe6f7;
+}
+
 /* The page grid's pagination controls and the navigation's page controls
  * are rendered as plain <span> elements (no link) when they are
  * deactivated — e.g. all thumbnails fit on one page, or there is no
