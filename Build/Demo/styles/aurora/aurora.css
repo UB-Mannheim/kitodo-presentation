@@ -1,0 +1,709 @@
+/*
+ * Kitodo.Presentation demo stylesheet: "aurora".
+ *
+ * A modern, responsive, accessible look for the demo viewer:
+ *
+ *   * soft, card-based layout on a calm gradient background
+ *   * icon-based navigation bar and toolbox (the text stays in the DOM
+ *     for screen readers; the native title attribute acts as a tooltip)
+ *   * responsive: two columns on wide screens, stacked on narrow ones
+ *   * WCAG-minded: 4.5:1 or better text contrast, visible focus rings,
+ *     reduced-motion support
+ *
+ * Frames are matched by the dlf element they contain (same technique as
+ * the other demo stylesheets). The fsc theme wraps every plugin in a
+ * <div class="frame ..."> directly under #main.
+ */
+
+/* --- design tokens ---------------------------------------------------- */
+
+:root {
+    --a-accent: #4f46e5;
+    --a-accent-strong: #4338ca;
+    --a-accent-soft: #eef2ff;
+    --a-accent-ring: rgba(79, 70, 229, 0.25);
+    --a-text: #1e2433;
+    --a-muted: #5b6478;
+    --a-surface: #ffffff;
+    --a-border: #e5e8f0;
+    --a-radius: 16px;
+    --a-radius-sm: 10px;
+    --a-shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 10px 28px rgba(17, 24, 39, 0.08);
+    --a-focus: 3px solid var(--a-accent-ring);
+    --a-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    font-family: var(--a-font);
+    color: var(--a-text);
+    background: linear-gradient(180deg, #eef1fb 0%, #f7f8fd 420px);
+}
+
+/* --- page header & demo form ------------------------------------------ */
+/* (The header, intro and URL form are direct children of <body>, i.e.
+ * siblings of #main, not inside it.) */
+
+body > h1 {
+    margin: 28px 24px 4px;
+    font-size: 1.6em;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+body > p {
+    margin: 0 24px 16px;
+    color: var(--a-muted);
+}
+
+body > form {
+    margin: 0 24px 8px;
+}
+
+body > form label {
+    margin-right: 0.5em;
+    font-weight: 600;
+}
+
+body > form input[type="text"] {
+    padding: 0.5em 0.75em;
+    font: inherit;
+    color: var(--a-text);
+    background: var(--a-surface);
+    border: 1px solid var(--a-border);
+    border-radius: var(--a-radius-sm);
+    box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+
+body > form input[type="text"]:focus-visible {
+    outline: var(--a-focus);
+    outline-offset: 2px;
+}
+
+body > form button {
+    margin-left: 0.5em;
+    padding: 0.5em 1.2em;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--a-accent);
+    border: 0;
+    border-radius: var(--a-radius-sm);
+    cursor: pointer;
+    box-shadow: var(--a-shadow);
+}
+
+body > form button:hover {
+    background: var(--a-accent-strong);
+}
+
+body > form button:focus-visible {
+    outline: var(--a-focus);
+    outline-offset: 2px;
+}
+
+/* --- the layout --------------------------------------------------------- */
+
+/* Wide screens: viewer left, metadata + toolbox in a right column, a full-
+ * width navigation bar, and the page grid full-width at the bottom. The nav
+ * spans both columns so all its controls (including the double-page toggle)
+ * fit on one line. */
+#main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    grid-template-areas:
+        "viewer  meta"
+        "viewer  tools"
+        "nav     nav"
+        "thumbs  thumbs";
+    gap: 20px;
+    align-items: start;
+    padding: 8px 24px 48px;
+}
+
+#main .frame:has(#tx-dlf-map) { grid-area: viewer; }
+#main .frame:has(.tx-dlf-navigation-first) { grid-area: nav; }
+#main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
+#main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
+#main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
+
+/* Small screens: everything stacks. */
+@media (max-width: 980px) {
+    #main {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "viewer"
+            "meta"
+            "tools"
+            "nav"
+            "thumbs";
+        gap: 16px;
+        padding: 8px 12px 32px;
+    }
+    body > h1,
+    body > p,
+    body > form {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+}
+
+/* --- shared card look ---------------------------------------------------- */
+
+#main .frame:has(#tx-dlf-map),
+#main .frame:has(.tx-dlf-navigation-first),
+#main .frame:has(.tx-dlf-pagegrid),
+#main .frame:has(.tx-dlf-metadata-titledata),
+#main .frame:has([id^="tx-dlf-tools-"]) {
+    margin: 0;
+    padding: 16px 20px 20px;
+    background: var(--a-surface);
+    border: 1px solid var(--a-border);
+    border-radius: var(--a-radius);
+    box-shadow: var(--a-shadow);
+}
+
+/* --- section labels ------------------------------------------------------ */
+
+#main .frame:has(#tx-dlf-map)::before { content: "PageView (dlf_pageview)"; }
+#main .frame:has(.tx-dlf-navigation-first)::before { content: "Navigation (dlf_navigation)"; }
+#main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
+#main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
+#main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
+
+#main .frame:has(#tx-dlf-map)::before,
+#main .frame:has(.tx-dlf-navigation-first)::before,
+#main .frame:has(.tx-dlf-pagegrid)::before,
+#main .frame:has(.tx-dlf-metadata-titledata)::before,
+#main .frame:has([id^="tx-dlf-tools-"])::before {
+    display: block;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--a-muted);
+    border-bottom: 1px solid var(--a-border);
+}
+
+/* --- focus visibility (accessibility) ------------------------------------- */
+
+#main a:focus-visible,
+#main button:focus-visible,
+#main input:focus-visible,
+#main select:focus-visible {
+    outline: var(--a-focus);
+    outline-offset: 2px;
+}
+
+/* --- the viewer ------------------------------------------------------------ */
+/* The map container gets its height from the extension's own JS: PageView.js
+ * sets it to 57em when it finds a computed height of 0. Do NOT set a
+ * min-height here, or that non-zero value would suppress the fallback and
+ * leave the map (and thus the page image) too short. Only cosmetic styling
+ * that cannot change the height is safe. */
+#tx-dlf-map {
+    border-radius: var(--a-radius-sm);
+    background: #f1f4fa;
+    overflow: hidden;
+}
+
+/* The overview map is shown/hidden by the viewer JS; do not force a height,
+ * or an empty (hidden) element renders as a visible blank box. While it has
+ * no content yet (the JS has not initialised it), suppress the border so no
+ * empty box is visible. */
+#ov_map {
+    margin-top: 10px;
+    background: #f1f4fa;
+    border: 1px solid var(--a-border);
+    border-radius: var(--a-radius-sm);
+    overflow: hidden;
+}
+
+#ov_map:empty {
+    margin: 0;
+    border: 0;
+}
+
+/* --- the navigation bar ----------------------------------------------------- */
+
+/* Each feature is a <div class="tx-dlf-navigation-*"> holding an <a> (or a
+ * deactivated <span title="...">). Turn them into a rounded icon bar. */
+#main .frame > div[class^="tx-dlf-navigation-"] {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 6px;
+    padding: 6px 10px;
+    background: var(--a-accent-soft);
+    border-radius: 999px;
+}
+
+#main .frame > div[class^="tx-dlf-navigation-"] a,
+#main .frame > div[class^="tx-dlf-navigation-"] span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.4em;
+    min-height: 2.4em;
+    padding: 0 0.45em;
+    font-size: 15px;
+    line-height: 1;
+    color: var(--a-text);
+    text-decoration: none;
+    border-radius: 999px;
+}
+
+#main .frame > div[class^="tx-dlf-navigation-"] a {
+    cursor: pointer;
+}
+
+#main .frame > div[class^="tx-dlf-navigation-"] a:hover {
+    background: #e0e5fa;
+    color: var(--a-accent-strong);
+}
+
+/* Deactivated features are rendered as <span> with a title. */
+#main .frame > div[class^="tx-dlf-navigation-"] span[title] {
+    color: #9aa3b8;
+}
+
+/* Icons: the (translated) text remains in the DOM for screen readers; a
+ * glyph is prepended and the label doubles as a native tooltip. The
+ * feature classes are the per-button ones (first / back / forward / last),
+ * not the backward / forward wrapper divs. */
+#main .frame > div[class^="tx-dlf-navigation-"] a::before,
+#main .frame > div[class^="tx-dlf-navigation-"] span[title]::before {
+    margin-right: 0.35em;
+}
+
+#main .frame > div.tx-dlf-navigation-first a::before,
+#main .frame > div.tx-dlf-navigation-first span[title]::before { content: "⏮"; }
+#main .frame > div.tx-dlf-navigation-back a::before,
+#main .frame > div.tx-dlf-navigation-back span[title]::before { content: "«"; }
+#main .frame > div.tx-dlf-navigation-prev a::before,
+#main .frame > div.tx-dlf-navigation-prev span[title]::before { content: "◀"; }
+#main .frame > div.tx-dlf-navigation-next a::before,
+#main .frame > div.tx-dlf-navigation-next span[title]::before { content: "▶"; }
+#main .frame > div.tx-dlf-navigation-fwd a::before,
+#main .frame > div.tx-dlf-navigation-fwd span[title]::before { content: "»"; }
+#main .frame > div.tx-dlf-navigation-last a::before,
+#main .frame > div.tx-dlf-navigation-last span[title]::before { content: "⏭"; }
+#main .frame > div.tx-dlf-navigation-double a::before { content: "📖"; }
+#main .frame > div.tx-dlf-navigation-single a::before { content: "▭"; }
+#main .frame > div.tx-dlf-navigation-double+ a::before { content: "▤"; }
+
+/* The page selector (label + <select>, rendered as an <li>). */
+#main .frame > li.tx-dlf-navigation-pages {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin: 0 0 6px;
+    padding: 6px 14px 6px 12px;
+    background: var(--a-accent-soft);
+    border-radius: 999px;
+}
+
+#main .frame > li.tx-dlf-navigation-pages::before {
+    content: "#";
+    font-weight: 700;
+    color: var(--a-accent);
+}
+
+#main .frame > li.tx-dlf-navigation-pages label {
+    font-size: 0.95em;
+    color: var(--a-muted);
+}
+
+#main .frame > li.tx-dlf-navigation-pages select {
+    font: inherit;
+    color: var(--a-text);
+    padding: 0.3em 0.5em;
+    border: 1px solid var(--a-border);
+    border-radius: 8px;
+    background: var(--a-surface);
+}
+
+/* --- the page grid ------------------------------------------------------------ */
+
+.tx-dlf-pagegrid-list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+    margin: 0;
+    padding: 2px;
+    list-style: none;
+    overflow-x: auto;
+}
+
+.tx-dlf-pagegrid-list li {
+    flex: 0 0 auto;
+}
+
+.tx-dlf-pagegrid-thumbnail a {
+    display: block;
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: var(--a-radius-sm);
+    text-decoration: none;
+}
+
+.tx-dlf-pagegrid-thumbnail a:hover {
+    border-color: var(--a-accent);
+}
+
+.tx-dlf-pagegrid-thumbnail img {
+    display: block;
+    height: 120px;
+    width: auto;
+    border-radius: calc(var(--a-radius-sm) - 2px);
+}
+
+.tx-dlf-pagegrid-cur a {
+    border-color: var(--a-accent);
+    box-shadow: 0 0 0 3px var(--a-accent-ring);
+}
+
+.tx-dlf-pagegrid-pagination {
+    margin-top: 6px;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--a-muted);
+}
+
+.tx-dlf-pagegrid-cur .tx-dlf-pagegrid-pagination {
+    color: var(--a-accent-strong);
+    font-weight: 700;
+}
+
+/* The page grid's pagination row. */
+.tx-dlf-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 14px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tx-dlf-pagination li a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.2em;
+    min-height: 2.2em;
+    padding: 0 0.5em;
+    font-size: 0.95em;
+    color: var(--a-text);
+    text-decoration: none;
+    border: 1px solid var(--a-border);
+    border-radius: 999px;
+    background: var(--a-surface);
+}
+
+.tx-dlf-pagination li a:hover {
+    border-color: var(--a-accent);
+    color: var(--a-accent-strong);
+    background: var(--a-accent-soft);
+}
+
+.tx-dlf-pagination li.tx-dlf-pagination-current a {
+    background: var(--a-accent);
+    border-color: var(--a-accent);
+    color: #fff;
+    font-weight: 700;
+}
+
+.tx-dlf-pagination li.disabled {
+    opacity: 0.55;
+}
+
+.tx-dlf-pagination li.dots span {
+    padding: 0 0.3em;
+    color: var(--a-muted);
+}
+
+/* --- the metadata ---------------------------------------------------------------- */
+
+#main .frame:has(.tx-dlf-metadata-titledata) {
+    max-height: 24em;
+    overflow: auto;
+}
+
+/* One dt/dd pair per line. */
+.tx-dlf-metadata-titledata {
+    margin: 0;
+}
+
+.tx-dlf-metadata-titledata dt {
+    margin: 0;
+    font-weight: 600;
+    color: var(--a-muted);
+}
+
+.tx-dlf-metadata-titledata dt + dd {
+    margin-top: 2px;
+    margin-bottom: 12px;
+}
+
+/* --- the toolbox ------------------------------------------------------------------- */
+
+/* The tools are the frame's direct <li> children (there is no <ul> unless
+ * settings.showAsList is set). Lay them out as a wrapping row; the card label
+ * spans the full width on its own row above them. */
+#main .frame:has([id^="tx-dlf-tools-"]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"])::before {
+    flex-basis: 100%;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) > li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Group the download tools together (after the view toggles) so the several
+ * download actions read as one set. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltext { order: 1; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation { order: 2; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload { order: 3; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload { order: 4; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload { order: 5; }
+
+/* Tool buttons: an icon (sized ::before glyph) plus the translated text,
+ * styled as a real button. The anchor may be nested (e.g.
+ * "Download right page" is <li> > span > span > a), so select any <a> under
+ * the tool <li>. */
+#main .frame:has([id^="tx-dlf-tools-"]) li a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    min-height: 48px;
+    padding: 0.55em 0.9em;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--a-text);
+    text-decoration: none;
+    background: var(--a-accent-soft);
+    border: 1px solid #dfe4fb;
+    border-radius: var(--a-radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li a:hover {
+    background: #e0e5fa;
+    border-color: var(--a-accent);
+    color: var(--a-accent-strong);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li a::before {
+    font-size: 1.25em;
+    line-height: 1;
+}
+
+/* The download group shares a consistent, slightly distinct look. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload a {
+    background: #fff;
+    border-color: var(--a-border);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload a:hover,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload a:hover,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload a:hover {
+    background: var(--a-accent-soft);
+    border-color: var(--a-accent);
+}
+
+/* The individual tool icons. */
+#main .frame:has([id^="tx-dlf-tools-"]) a.select::before {
+    content: "🔍";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-imagedownload a::before {
+    content: "⬇";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-page a::before {
+    content: "📄";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-work a::before {
+    content: "📚";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-tools-fulltextdownload::before {
+    content: "⬇";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-score-download::before {
+    content: "🎼";
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-score-midi-download::before {
+    content: "🎹";
+}
+
+/* The image manipulation toggle: an empty <span> the viewer JS fills with a
+ * toggle <a>. Inactive it is a normal tool button. */
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-tools-imagemanipulation a {
+    min-width: 48px;
+    justify-content: center;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-tools-imagemanipulation a::before {
+    content: "🎚";
+}
+
+/* The image manipulation panel: the viewer JS appends an .image-manipulation
+ * block (sliders, invert checkbox, reset button) into the tool <li>. When the
+ * toggle is active, turn the <li> into a full-width card that holds the
+ * toggle on top and the panel below. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation:has(a.active) {
+    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 12px;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid var(--a-border);
+    border-radius: var(--a-radius-sm);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation .image-manipulation {
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* The sliders: label above the track (from the title attribute), the value
+ * badge following the handle below the track. */
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation {
+    position: relative;
+    height: 6px;
+    margin: 20px 0 24px;
+    background: #dfe4fb;
+    border: 0;
+    border-radius: 999px;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation::before {
+    content: attr(title);
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 0.75em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--a-muted);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation .ui-slider-handle {
+    position: absolute;
+    top: -6px;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    background: var(--a-accent);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation .tooltip.value {
+    position: absolute;
+    top: 8px;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--a-accent-strong);
+}
+
+/* The invert checkbox and reset button. */
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container .checkbox {
+    margin-top: 10px;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container .checkbox label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-size: 0.9em;
+    color: var(--a-text);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container .checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--a-accent);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container .reset-btn {
+    margin-top: 10px;
+    padding: 0.4em 1em;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: #fff;
+    background: var(--a-accent);
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) .slider-container .reset-btn:hover {
+    background: var(--a-accent-strong);
+}
+
+/* The "fulltext not available" placeholder. */
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-fulltext-not-available {
+    font-size: 0.85em;
+    color: var(--a-muted);
+}
+
+/* The fulltext panel rendered by the PageView plugin when the fulltext
+ * tool is active. */
+.tx-dlf-toolbox-fulltext-container {
+    margin-top: 14px;
+    padding: 12px 14px;
+    max-height: 16em;
+    overflow: auto;
+    font-size: 0.92em;
+    line-height: 1.5;
+    background: var(--a-accent-soft);
+    border-left: 3px solid var(--a-accent);
+    border-radius: 0 var(--a-radius-sm) var(--a-radius-sm) 0;
+}
+
+/* --- reduced motion ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+    #main * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
