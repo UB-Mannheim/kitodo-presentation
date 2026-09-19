@@ -14,6 +14,7 @@ namespace Kitodo\Dlf\Common;
 
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Information\Typo3Version;
@@ -75,10 +76,12 @@ class TypoScriptHelper
             $this->includeConditionVerdictAware,
         );
 
+        $expressionMatcherVariables = $this->buildExpressionMatcherVariables($pid, $rootLine, $site);
+
         $frontendTypoScript = $frontendTypoScriptFactory->createSettingsAndSetupConditions(
             $site,
             $sysTemplateRows,
-            [],
+            $expressionMatcherVariables,
             null,
         );
 
@@ -87,11 +90,51 @@ class TypoScriptHelper
             $frontendTypoScript,
             $site,
             $sysTemplateRows,
-            [],
+            $expressionMatcherVariables,
             '0',
             null,
             null,
         );
+    }
+
+    /**
+     * Build the expression matcher variables for TypoScript condition evaluation.
+     *
+     * Without a valid page record and rootline the condition matcher cannot
+     * evaluate conditions referring to "page" or "tree" (and "request" stays
+     * empty), causing repeated parse errors in the log.
+     *
+     * @param int $pid
+     * @param array<int, array<string, mixed>> $rootLine
+     * @param \TYPO3\CMS\Core\Site\Entity\SiteInterface $site
+     *
+     * @return array<string, mixed>
+     */
+    private function buildExpressionMatcherVariables(int $pid, array $rootLine, \TYPO3\CMS\Core\Site\Entity\SiteInterface $site): array
+    {
+        $topDownRootLine = $rootLine;
+        ksort($topDownRootLine);
+
+        $variables = [
+            'pageId' => $pid,
+            'page' => [],
+            'fullRootLine' => $topDownRootLine,
+            'localRootLine' => $topDownRootLine,
+            'site' => $site,
+            'siteLanguage' => $site->getDefaultLanguage(),
+            'tsfe' => null,
+        ];
+
+        if (!empty($topDownRootLine)) {
+            $variables['page'] = $topDownRootLine[array_key_last($topDownRootLine)];
+        }
+
+        $request = $GLOBALS['TYPO3_REQUEST'] ?? null;
+        if ($request instanceof ServerRequestInterface) {
+            $variables['request'] = $request;
+        }
+
+        return $variables;
     }
 
     /**
