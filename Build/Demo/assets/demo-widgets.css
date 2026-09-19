@@ -30,36 +30,35 @@
     padding: 0.15em 0.3em;
 }
 
-/* The example-document links on the start page. Clicking one fills the URL
- * form and submits it (see the inline script in setup-demo.sh), so it behaves
- * exactly like pasting the URL by hand. Kept here (always loaded) so the
- * links stay clearly clickable under any viewer style. */
+/* The "Examples" control on the start page: a compact <select> of sample
+ * documents. Picking one fills the URL form and submits it (see the inline
+ * script in setup-demo.sh), so it behaves exactly like pasting a URL by hand.
+ * Kept here (always loaded) so it looks consistent under any viewer style. */
 .dlf-demo-examples {
-    margin: 0 0 1em;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.35em 0.7em;
+    margin-bottom: 1em;
+    /* Left/right margins are deliberately NOT set here, so each theme's own
+     * header alignment applies: aurora insets its whole header block
+     * (body > h1/p/form { margin: 0 24px … }) and the other themes keep the
+     * browser defaults. Overriding it (the old `margin: 0 0 1em`) stripped
+     * that inset and left the label misaligned with the form above it. */
 }
 
-.dlf-demo-examples span {
+.dlf-demo-examples label {
     font-weight: 600;
-    /* a little extra air before the first example so the label does not sit
-     * flush against the first chip */
-    margin-right: 0.2em;
 }
 
-.dlf-demo-example {
-    display: inline-block;
-    padding: 0.1em 0.55em;
+.dlf-demo-examples select {
+    margin-left: 0.5em;
+    padding: 0.3em 0.5em;
+    font: inherit;
     color: #1b2a6b;
-    text-decoration: underline;
     background: #eef2fb;
     border: 1px solid #c8c4b0;
     border-radius: 6px;
+    cursor: pointer;
 }
 
-.dlf-demo-example:hover {
+.dlf-demo-examples select:hover {
     background: #dfe6f7;
 }
 
