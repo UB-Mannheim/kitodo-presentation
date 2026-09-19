@@ -12,7 +12,6 @@
 
 namespace Kitodo\Dlf\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -41,19 +40,11 @@ class JsFooterViewHelper extends AbstractViewHelper
     /**
      * @access public
      *
-     * @static
-     *
-     * @param mixed[] $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
+     * @return void
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): void
+    public function render(): void
     {
-        $inlineCode = $arguments['inlineCode'];
+        $inlineCode = $this->arguments['inlineCode'];
 
         /** @var PageRenderer $pageRenderer */
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);

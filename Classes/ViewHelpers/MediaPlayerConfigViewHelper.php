@@ -12,7 +12,6 @@ namespace Kitodo\Dlf\ViewHelpers;
  * LICENSE.txt file that was distributed with this source code.
  */
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Localization\Locale;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
@@ -38,24 +37,15 @@ class MediaPlayerConfigViewHelper extends AbstractViewHelper
     /**
      * @access public
      *
-     * @static
-     *
-     * @param mixed[] $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
      * @return string
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): string
+    public function render(): string
     {
-        $id = $arguments['id'];
-        $inputSettings = $arguments['settings'];
+        $id = $this->arguments['id'];
+        $inputSettings = $this->arguments['settings'];
 
         /** @var RenderingContext $renderingContext */
+        $renderingContext = $this->renderingContext;
         $request = $renderingContext->getRequest();
 
         /** @var SiteLanguage $language */
