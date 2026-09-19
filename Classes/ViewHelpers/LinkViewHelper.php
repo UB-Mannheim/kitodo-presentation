@@ -13,6 +13,7 @@ namespace Kitodo\Dlf\ViewHelpers;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
@@ -44,7 +45,12 @@ final class LinkViewHelper extends AbstractTagBasedViewHelper
     {
         /** @var RenderingContext $renderingContext */
         $renderingContext = $this->renderingContext;
-        $request = $renderingContext->getRequest();
+        if ($renderingContext->hasAttribute(ServerRequestInterface::class)) {
+            $request = $renderingContext->getAttribute(ServerRequestInterface::class);
+        } else {
+            // TYPO3 12 fallback, can be removed once TYPO3 13 is the minimum version.
+            $request = $renderingContext->getRequest();
+        }
 
         $requestData = $this->arguments['requestData'];
 
