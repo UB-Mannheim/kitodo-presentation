@@ -245,7 +245,6 @@ function draw_page(string $file, int $num, array $bg, array $fg, ?string $font):
         imagestring($im, 5, 60, 1520, "Kitodo.Presentation demo - page $num", $c);
     }
     imagejpeg($im, $file, 85);
-    imagedestroy($im);
 }
 
 function draw_thumb(string $file, int $num, array $bg, array $fg, ?string $font): void
@@ -361,6 +360,8 @@ $mets = <<<XML
                     <mods:titleInfo><mods:title>Kitodo.Presentation demo document</mods:title></mods:titleInfo>
                     <mods:name><mods:namePart>Kitodo. Key to digital objects e.V.</mods:namePart></mods:name>
                     <mods:typeOfResource>manuscript</mods:typeOfResource>
+                    <mods:originInfo><mods:place><mods:placeTerm>Mannheim</mods:placeTerm></mods:place><mods:dateIssued>2026</mods:dateIssued></mods:originInfo>
+                    <mods:abstract>A locally generated sample document with three placeholder pages. All metadata shown in the demo viewer is part of this document.</mods:abstract>
                 </mods:mods>
             </mets:xmlData>
         </mets:mdWrap>
@@ -376,7 +377,7 @@ $fulltexts        </mets:fileGrp>
 $downloads        </mets:fileGrp>
     </mets:fileSec>
     <mets:structMap TYPE="LOGICAL">
-        <mets:div ID="LOG_0000" LABEL="Kitodo.Presentation demo document" TYPE="monograph">
+        <mets:div ID="LOG_0000" DMDID="DMD_0001" LABEL="Kitodo.Presentation demo document" TYPE="monograph">
             <mets:fptr FILEID="PAGE_0001_DOWNLOAD"/>
 $log        </mets:div>
     </mets:structMap>
@@ -534,19 +535,74 @@ $pages->insert('pages', [
     'slug' => '/dlf-data', 'doktype' => 1, 'hidden' => 1,
 ]);
 
-// 4. Register the ALTO fulltext format (pid = storage pid). Without a
-//    tx_dlf_formats row the ALTO class is unknown, so the OCR full text of a
-//    page would not be parsed (MetsDocument::getFulltext). The type must
-//    match the ALTO root element name in upper case ("ALTO").
-$formats = $pool->getConnectionForTable('tx_dlf_formats');
-$formats->delete('tx_dlf_formats', ['uid' => 5001]);
-$formats->insert('tx_dlf_formats', [
-    'uid' => 5001, 'pid' => 100, 'deleted' => 0,
-    'type' => 'ALTO',
-    'root' => 'alto',
-    'namespace' => 'http://www.loc.gov/standards/alto/ns-v2#',
-    'class' => 'Kitodo\\Dlf\\Format\\Alto',
-]);
+// 4. Register the metadata formats (pid = storage pid). The type must match
+//    the mdWrap @MDTYPE in upper case; without the rows the parser class is
+//    unknown and the document's metadata is not parsed ("No supported
+//    descriptive metadata found ...").
+$formatsTable = $pool->getConnectionForTable('tx_dlf_formats');
+$formats = [
+    [5001, 'ALTO', 'alto', 'http://www.loc.gov/standards/alto/ns-v2#', 'Kitodo\\Dlf\\Format\\Alto'],
+    [5002, 'MODS', 'mods', 'http://www.loc.gov/mods/v3', 'Kitodo\\Dlf\\Format\\Mods'],
+];
+foreach ($formats as [$uid, $type, $root, $namespace, $class]) {
+    $formatsTable->delete('tx_dlf_formats', ['uid' => $uid]);
+    $formatsTable->insert('tx_dlf_formats', [
+        'uid' => $uid, 'pid' => 100, 'deleted' => 0,
+        'type' => $type, 'root' => $root, 'namespace' => $namespace,
+        'class' => $class,
+    ]);
+}
+
+// 4b. Metadata field definitions (tx_dlf_metadata). The dlf_metadata template
+//     only renders fields that have a row here (it iterates over the rows to
+//     decide what to show). Author / place / year are filled directly by the
+//     Mods parser class, so they need no xpath; title and description come
+//     from tx_dlf_metadataformat rows (below), one per format, keyed by
+//     parent_id -> tx_dlf_metadata.uid and encoded -> tx_dlf_formats.uid.
+//     The wrap column is parsed as TypoScript (key. / value. / all.), like
+//     in the dfg-viewer seed data.
+$metadataTable = $pool->getConnectionForTable('tx_dlf_metadata');
+$metadataFormatTable = $pool->getConnectionForTable('tx_dlf_metadataformat');
+// The wrap column holds TypoScript (key. / value. / all.). It must contain a
+// REAL newline between the key. and value. lines (a literal "\n" would be
+// stored verbatim, so use actual line breaks).
+$dtdd = "key.wrap = <dt>|</dt>\nvalue.wrap = <dd>|</dd>";
+$metadataFields = [
+    // uid, label, index_name, wrap, format rows [encoded, xpath], format count
+    [5101, 'Title', 'title',
+        "key.wrap = <dt class=\"tx-dlf-title\">|</dt>\nvalue.wrap = <dd class=\"tx-dlf-title\">|</dd>",
+        [[5002, './mods:titleInfo[not(@type="uniform")]/mods:title']], 1],
+    [5102, 'Author', 'author', $dtdd, [], 0],
+    [5103, 'Place', 'place', $dtdd, [], 0],
+    [5104, 'Year', 'year', $dtdd, [], 0],
+    [5105, 'Description', 'description', $dtdd,
+        [[5002, './mods:abstract']], 1],
+];
+foreach ($metadataFields as $n => [$uid, $label, $indexName, $wrap, $formatRows, $formatCount]) {
+    $metadataTable->delete('tx_dlf_metadata', ['uid' => $uid]);
+    $metadataTable->insert('tx_dlf_metadata', [
+        'uid' => $uid, 'pid' => 100, 'deleted' => 0, 'hidden' => 0,
+        // mediumblob NOT NULL without a default; SQLite rejects the insert
+        // without it (MariaDB fills BLOBs implicitly).
+        'l18n_diffsource' => '{}',
+        'sorting' => ($n + 1) * 256,
+        'label' => $label,
+        'index_name' => $indexName,
+        'format' => $formatCount,
+        'wrap' => $wrap,
+        'index_stored' => 1, 'index_indexed' => 1, 'index_boost' => 1,
+        'is_listed' => 1,
+    ]);
+    foreach ($formatRows as $fn => [$encoded, $xpath]) {
+        $formatRowUid = 5151 + $n * 2 + $fn;
+        $metadataFormatTable->delete('tx_dlf_metadataformat', ['uid' => $formatRowUid]);
+        $metadataFormatTable->insert('tx_dlf_metadataformat', [
+            'uid' => $formatRowUid, 'pid' => 100, 'deleted' => 0,
+            'parent_id' => $uid, 'encoded' => $encoded,
+            'xpath' => $xpath,
+        ]);
+    }
+}
 
 // 5. The frontend TypoScript. sys_template is matched by pid in the rootline,
 //    so it must be attached to the root page (uid 1), not uid 0.
@@ -571,7 +627,7 @@ foreach ($plugins as $i => $plugin) {
     ]);
 }
 
-echo "seeded: storage page (uid 100), sys_template (uid 1), viewer plugins (uid 20-24)\n";
+echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), sys_template (uid 1), viewer plugins (uid 20-24)\n";
 PHP
 
 # --- favicon (cosmetic; needs ImageMagick, skipped if absent) -------------
