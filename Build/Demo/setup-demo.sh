@@ -407,12 +407,13 @@ else
     SAMPLE_URL=""
 fi
 
-# The "Local sample" example link is only shown when a local sample document
-# was generated (otherwise its URL would be empty).
+# Build the <option> list for the on-page "Examples" <select>. The digi
+# samples are always present; the local sample (when generated) is added as
+# the preselected entry, since the URL form is pre-filled with it too.
+EXAMPLE_OPTIONS="<option value=\"https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_18710504/DeutReunP_856399094_18710504.xml\">Reichsanzeiger, 04.05.1871</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/stefan/DeutReunP_856399094_18920102.xml\">Reichsanzeiger, 02.01.1892</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1885328680/1885328680.xml\">Mannheimer Privilegien, 1652</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1799303241/1799303241.xml\">Gemeinde-Registratur-Ordnung, 1843</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1840280522/1840280522.xml\">Knabenhorten (Vortrag), 1887</option>"
 if [ "$MAKE_SAMPLE" = "1" ]; then
-    SAMPLE_EXAMPLE="<a href=\"#\" class=\"dlf-demo-example\" data-doc=\"${SAMPLE_URL}\">Local sample (offline)</a>"
-else
-    SAMPLE_EXAMPLE=""
+    # The local sample is the default (selected) entry and is listed first.
+    EXAMPLE_OPTIONS="<option value=\"${SAMPLE_URL}\" selected>Local sample (offline)</option>${EXAMPLE_OPTIONS}"
 fi
 
 # --- write the frontend TypoScript (stored in a sys_template record) ------
@@ -505,7 +506,7 @@ page {
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><span>Examples:</span><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_18710504/DeutReunP_856399094_18710504.xml">Reichsanzeiger, 04.05.1871</a><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/fileadmin/stefan/DeutReunP_856399094_18920102.xml">Reichsanzeiger, 02.01.1892</a><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/fileadmin/digi/1885328680/1885328680.xml">Mannheimer Privilegien, 1652</a><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/fileadmin/digi/1799303241/1799303241.xml">Gemeinde-Registratur-Ordnung, 1843</a><a href="#" class="dlf-demo-example" data-doc="https://digi.bib.uni-mannheim.de/fileadmin/digi/1840280522/1840280522.xml">Knabenhorten (Vortrag), 1887</a>__SAMPLE_EXAMPLE__</p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var f=document.getElementById('dlf-demo-doc');var form=f?f.form:null;var a=document.querySelectorAll('.dlf-demo-example');for(var i=0;i<a.length;i++){(function(el){el.addEventListener('click',function(e){if(!form||!f){return;}e.preventDefault();f.value=el.getAttribute('data-doc');form.submit();});})(a[i]);}})();</script>
+    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;s.addEventListener('change',function(){f.value=s.value;form.submit();});})();</script>
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
@@ -515,7 +516,7 @@ page.10 {
     40.value = </div>
 }
 TS
-sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__SAMPLE_EXAMPLE__|${SAMPLE_EXAMPLE}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
