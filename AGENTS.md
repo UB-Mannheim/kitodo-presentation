@@ -15,8 +15,10 @@ This local checkout is a UB Mannheim fork. Remotes: `kitodo` (upstream
 github.com/kitodo/kitodo-presentation), `origin` (stweil's fork), `UB-Mannheim`
 and `code` (code.bib.uni-mannheim.de:digi/typo3.git). Upstream `main` is being
 adapted for TYPO3 14; many local branches (incl. current `ubma/*` ones) target
-TYPO3 12.4. Commit subjects follow `BUGFIX:` / `FEATURE:` / `TASK:` /
-`MAINTENANCE:` scope prefixes.
+TYPO3 12.4. Commit subjects use bracketed scope prefixes `[BUGFIX]` /
+`[FEATURE]` / `[TASK]` / `[MAINTENANCE]` (matching upstream `kitodo/main` and
+the local `ubma/*` branches; the `origin/main` branch alone uses the colon
+form `BUGFIX: ...`).
 
 ## Running the extension locally
 
