@@ -1,9 +1,9 @@
 /*
- * Kitodo.Presentation demo: floating stylesheet selector widget.
+ * Kitodo.Presentation demo: helper stylesheet (always loaded).
  *
- * This file is deliberately *not* part of the selectable styles: it only
- * styles the selector widget itself, so the widget keeps its position no
- * matter which stylesheet is active.
+ * This file is deliberately *not* part of the selectable styles: it styles
+ * the selector widget itself (so the widget keeps its position no matter
+ * which stylesheet is active) and small demo-wide usability hints.
  */
 
 .dlf-demo-styles {
@@ -28,4 +28,16 @@
     font: inherit;
     color: inherit;
     padding: 0.15em 0.3em;
+}
+
+/* The page grid's pagination controls and the navigation's page controls
+ * are rendered as plain <span> elements (no link) when they are
+ * deactivated — e.g. all thumbnails fit on one page, or there is no
+ * previous page to go back to. Grey them out so it is obvious they are
+ * not clickable. (Active controls are <a> links; only the deactivated
+ * spans carry a title attribute. The navigation feature divs all carry a
+ * class starting with tx-dlf-navigation-.) */
+.tx-dlf-pagination li.disabled span,
+div[class^="tx-dlf-navigation-"] > span[title] {
+    color: #999;
 }
