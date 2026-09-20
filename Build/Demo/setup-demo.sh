@@ -21,10 +21,10 @@
 # The script bakes in the workarounds a fresh install otherwise needs
 # (documented in AGENTS.md, "Local (no-Docker) test installation"):
 #
-#   * composer.json relaxes the PHP platform (the extension pins 8.2-8.4,
-#     Homebrew ships newer) and pulls dlf from the local checkout as a
-#     symlinked `path` repository, plus a `github` repository for
-#     ubl/php-iiif-prezi-reader (its tag is not on Packagist).
+#   * composer.json pins the PHP platform to 8.4.99 (Homebrew may ship a PHP
+#     newer than the one the dependencies support) and pulls dlf from the
+#     local checkout as a symlinked `path` repository, plus a `github`
+#     repository for ubl/php-iiif-prezi-reader (its tag is not on Packagist).
 #   * `enableContentLengthHeader = 0` in the site TypoScript so the
 #     PageView proxy (a non-seekable guzzle stream) is not given a bogus
 #     `Content-Length: 0` by cms-frontend's content-length middleware.
