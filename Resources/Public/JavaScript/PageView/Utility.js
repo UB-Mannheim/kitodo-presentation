@@ -204,7 +204,12 @@ dlfUtils.createOlView = function (images) {
         maxZoom: window.DLF_MAX_ZOOM,
         minZoom: 1,
         extent,
-        constrainOnlyCenter: true,
+        // Constrain the whole viewport to the image extent (not just the
+        // center) so the image cannot be panned off-screen without revealing
+        // new parts of it. showFullExtent keeps the ability to zoom out until
+        // the whole page is visible even when its aspect ratio differs from
+        // the map container's.
+        showFullExtent: true,
         constrainRotation: false
     };
 
