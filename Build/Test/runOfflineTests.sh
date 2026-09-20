@@ -20,6 +20,7 @@
 # Usage:
 #   Build/Test/runOfflineTests.sh                 # PHP 8.4 (default)
 #   PHP_VERSION=8.2 Build/Test/runOfflineTests.sh # PHP 8.2
+#   PHP_VERSION=8.5 Build/Test/runOfflineTests.sh # PHP 8.5
 #
 # The full output is written to a temporary log file; its location is printed
 # at the end. The exit code is 0 only if both suites passed.
@@ -32,8 +33,8 @@ CT="$SCRIPT_DIR"
 COMPOSE="$CT/docker-compose.yml"
 PHP_VERSION="${PHP_VERSION:-8.4}"
 case "$PHP_VERSION" in
-    8.2|8.4) ;;
-    *) echo "PHP_VERSION must be 8.2 or 8.4" >&2; exit 1 ;;
+    8.2|8.4|8.5) ;;
+    *) echo "PHP_VERSION must be 8.2, 8.4 or 8.5" >&2; exit 1 ;;
 esac
 # Same transformation as runTests.sh: "8.4" -> "php84"
 DOCKER_PHP_IMAGE="php${PHP_VERSION//./}"
