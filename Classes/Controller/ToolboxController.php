@@ -679,8 +679,10 @@ class ToolboxController extends AbstractController
      */
     private function getEncryptedCoreName(): string
     {
-        // Get core name.
-        $name = Helper::getIndexNameFromUid($this->settings['solrcore'], 'tx_dlf_solrcores');
+        // The plugin may be configured with `solrCoreUid` (falling back to the
+        // main Solr core) instead of `solrcore`, in which case there is no
+        // Solr core name to resolve / encrypt here.
+        $name = !empty($this->settings['solrcore']) ? Helper::getIndexNameFromUid($this->settings['solrcore'], 'tx_dlf_solrcores') : '';
         // Encrypt core name.
         if (!empty($name)) {
             $name = Helper::encrypt($name);
