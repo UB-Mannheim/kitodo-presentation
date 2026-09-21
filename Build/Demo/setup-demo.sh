@@ -49,7 +49,7 @@
 #   --user <name>     Backend admin username (default: admin)
 #   --password <pw>   Backend admin password (default: demo-Passw0rd!, must
 #                     satisfy TYPO3 policy)
-#   --style <name>    Viewer theme to use (default: boxes). The available
+#   --style <name>    Viewer theme to use (default: aurora). The available
 #                     themes are the subdirectories of Build/Demo/styles/;
 #                     each one holds its main stylesheet <name>.css and may
 #                     carry further assets (images, scripts, ...). All
@@ -73,7 +73,7 @@ REPO="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 DEMO_DIR="${DEMO_DIR:-$HOME/kitodo-demo-site}"
 DEMO_PORT="${DEMO_PORT:-8090}"
-STYLE="boxes"
+STYLE="aurora"
 BRANCH="$(git -C "$REPO" branch --show-current 2>/dev/null || true)"
 BRANCH="${BRANCH:-main}"
 ADMIN_USER="admin"
