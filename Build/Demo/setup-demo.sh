@@ -223,13 +223,33 @@ composer install --no-interaction --no-progress
 # data server's base URL and drop the files where the data server serves them
 # ($DEMO_DIR/kitodo-demo on $DATA_PORT).
 if [ "$MAKE_SAMPLE" = "1" ]; then
-    log "Installing the local sample document (examples/local-sample)"
+    log "Installing the local sample documents (examples/)"
     mkdir -p "$DEMO_DIR/kitodo-demo"
+    # The image sample is installed at the top level of the data root.
     cp "$SCRIPT_DIR/examples/local-sample/"* "$DEMO_DIR/kitodo-demo/"
     sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/sample_mets.xml" && rm -f "$DEMO_DIR/kitodo-demo/sample_mets.xml.bak"
     SAMPLE_URL="${DATA_URL}/sample_mets.xml"
+    # The audio / video / 3D samples each live in their own subdirectory (so
+    # they can share file names like sample.mp4 / poster.jpg) and their METS
+    # files use the same __DATA_BASE__ placeholder, resolved to the sample's
+    # own subdirectory.
+    AV3D_SOURCES=()
+    AV3D_SAMPLES=()
+    for dir in "$SCRIPT_DIR/examples/"*/; do
+        name="$(basename "$dir")"
+        [ "$name" = "local-sample" ] && continue
+        [ -f "${dir}sample_mets.xml" ] || continue
+        # Copy the directory itself (name + contents) into the data root so each
+        # sample lives in its own subdirectory (they share file names).
+        cp -R "$SCRIPT_DIR/examples/$name" "$DEMO_DIR/kitodo-demo/"
+        sed -i.bak "s|__DATA_BASE__|${DATA_URL}/${name}|g" "$DEMO_DIR/kitodo-demo/${name}/sample_mets.xml" && rm -f "$DEMO_DIR/kitodo-demo/${name}/sample_mets.xml.bak"
+        AV3D_SOURCES+=("$name")
+        AV3D_SAMPLES+=("${DATA_URL}/${name}/sample_mets.xml")
+    done
 else
     SAMPLE_URL=""
+    AV3D_SOURCES=()
+    AV3D_SAMPLES=()
 fi
 
 # Build the <option> list for the on-page "Examples" <select>. The digi
@@ -239,6 +259,21 @@ EXAMPLE_OPTIONS="<option value=\"https://digi.bib.uni-mannheim.de/periodika/file
 if [ "$MAKE_SAMPLE" = "1" ]; then
     # The local sample is the default (selected) entry and is listed first.
     EXAMPLE_OPTIONS="<option value=\"${SAMPLE_URL}\" selected>Local sample (offline)</option>${EXAMPLE_OPTIONS}"
+    # The audio / video / 3D samples follow the image sample, so the on-page
+    # selector offers a non page-image example for each media type. Friendly
+    # labels are looked up by directory name; unknown ones fall back to the
+    # directory name itself.
+    av3d_label() {
+        case "$1" in
+            audio-sample) echo "Audio sample (offline)" ;;
+            video-sample) echo "Video sample (offline)" ;;
+            model3d-sample) echo "3D model sample (offline)" ;;
+            *) echo "$1" ;;
+        esac
+    }
+    for i in "${!AV3D_SOURCES[@]}"; do
+        EXAMPLE_OPTIONS="${EXAMPLE_OPTIONS}<option value=\"${AV3D_SAMPLES[$i]}\">$(av3d_label "${AV3D_SOURCES[$i]}")</option>"
+    done
 fi
 
 # --- write the frontend TypoScript (stored in a sys_template record) ------
@@ -323,6 +358,24 @@ plugin.tx_dlf_pagegrid {
         paginate {
             itemsPerPage = 12
         }
+    }
+}
+
+# The audio / video media player. It renders nothing for documents that have
+# no audio or video file in a configured use group, so it only appears for the
+# AV sample documents.
+plugin.tx_dlf_mediaplayer {
+    settings {
+    }
+}
+
+# The embedded 3D viewer. It renders nothing unless the current document's
+# toplevel type is "object" and page 1 has a model file in the model use group
+# (default DEFAULT), so it only appears for the 3D sample document. It falls
+# back to the built-in model-viewer for glb / gltf, so no external 3D viewer
+# needs to be installed.
+plugin.tx_dlf_embedded3dviewer {
+    settings {
     }
 }
 
@@ -475,7 +528,7 @@ $templates->insert('sys_template', [
 //    page. All read the global tx_dlf[id] / tx_dlf[page] params, so none of
 //    them need Solr.
 $contents = $pool->getConnectionForTable('tt_content');
-$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_metadata', 'dlf_toolbox'];
+$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_metadata', 'dlf_toolbox', 'dlf_mediaplayer', 'dlf_embedded3dviewer'];
 foreach ($plugins as $i => $plugin) {
     $uid = 20 + $i;
     $contents->delete('tt_content', ['uid' => $uid]);
@@ -536,7 +589,7 @@ echo "  Viewer style   : $STYLE   (switchable at runtime via the selector on the
 echo
 if [ "$MAKE_SAMPLE" = "1" ]; then
     echo "  Start the servers (two ports are needed; see the header comment):"
-    echo "    php -S 127.0.0.1:$DATA_PORT -t $DEMO_DIR/kitodo-demo &"
+    echo "    php -S 127.0.0.1:$DATA_PORT -t $DEMO_DIR/kitodo-demo $SCRIPT_DIR/assets/data-router.php &"
     echo "    php -S 127.0.0.1:$PORT -t $DEMO_DIR/public"
     echo
     echo "  Then open ${BASE_URL} and click \"Open\" (the sample document is pre-filled)."
@@ -550,7 +603,10 @@ echo
 
 if [ "$SERVE" = "1" ]; then
     if [ "$MAKE_SAMPLE" = "1" ]; then
-        php -S "127.0.0.1:$DATA_PORT" -t "$DEMO_DIR/kitodo-demo" >/dev/null 2>&1 &
+        # The router script adds CORS headers to the data server's
+        # responses: the media player fetches the media files via XHR from
+        # a different port, so without them the browser blocks them.
+        php -S "127.0.0.1:$DATA_PORT" -t "$DEMO_DIR/kitodo-demo" "$SCRIPT_DIR/assets/data-router.php" >/dev/null 2>&1 &
         DATA_PID=$!
         trap 'kill "$DATA_PID" 2>/dev/null || true' EXIT
         log "Data server on $DATA_URL (PID $DATA_PID)"
