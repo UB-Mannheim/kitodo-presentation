@@ -73,3 +73,31 @@
 div[class^="tx-dlf-navigation-"] > span[title] {
     color: #999;
 }
+
+/* The fulltext panel's OCR lines. The PageView fulltext control renders each
+ * line as an inline <span class="textline"> (with <span class="sp"> word
+ * separators) inside #tx-dlf-toolbox-fulltext-selection and, when the mouse
+ * is over the page image (or the line is hovered in the panel), adds a
+ * "highlight" class to the matching line and scrolls it into view. None of
+ * this is styled by the extension, so it is defined here (always loaded) to
+ * keep it consistent across themes. The inner element is the scroller the
+ * control scrolls, so the line-max-height + overflow go on it, not on the
+ * themed outer .tx-dlf-toolbox-fulltext-container. */
+#tx-dlf-toolbox-fulltext-selection {
+    max-height: 16em;
+    overflow: auto;
+    line-height: 1.55;
+}
+
+#tx-dlf-toolbox-fulltext-selection .textline,
+#tx-dlf-toolbox-fulltext-selection .sp {
+    display: inline;
+}
+
+#tx-dlf-toolbox-fulltext-selection .sp {
+    white-space: pre;
+}
+
+#tx-dlf-toolbox-fulltext-selection .textline.highlight {
+    background: #e6d97a;
+}
