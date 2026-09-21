@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <mets:metsHdr CREATEDATE="2026-01-01T00:00:00">
+        <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
+            <mets:name>Kitodo. Key to digital objects e.V.</mets:name>
+        </mets:agent>
+    </mets:metsHdr>
+    <mets:dmdSec ID="DMD_VIDEO_0001">
+        <mets:mdWrap MDTYPE="MODS">
+            <mets:xmlData>
+                <mods:mods>
+                    <mods:titleInfo>
+                        <mods:title>Local video sample</mods:title>
+                    </mods:titleInfo>
+                    <mods:name type="corporate">
+                        <mods:namePart>Kitodo. Key to digital objects e.V.</mods:namePart>
+                    </mods:name>
+                    <mods:typeOfResource valueURI="http://d-nb.info/gnd/4017102-4">Film</mods:typeOfResource>
+                    <mods:genre>Test pattern</mods:genre>
+                    <mods:originInfo>
+                        <mods:place>
+                            <mods:placeTerm>Mannheim</mods:placeTerm>
+                        </mods:place>
+                        <mods:dateIssued>2026</mods:dateIssued>
+                    </mods:originInfo>
+                    <mods:language>
+                        <mods:languageTerm type="code" authority="iso639-2b">und</mods:languageTerm>
+                    </mods:language>
+                    <mods:physicalDescription>
+                        <mods:internetMediaType>video/mp4</mods:internetMediaType>
+                        <mods:extent>1 Online-Ressource (00:00:08)</mods:extent>
+                    </mods:physicalDescription>
+                    <mods:abstract>
+                        A locally generated video sample (an eight second animated gradient)
+                        used by the Kitodo.Presentation demo. Open the Audio/Video tool in the
+                        viewer to play it in the integrated media player.
+                    </mods:abstract>
+                </mods:mods>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+        <mets:fileGrp USE="VIDEO">
+            <mets:file ID="VIDEO_0001" MIMETYPE="video/mp4">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/sample.mp4"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="THUMBS">
+            <mets:file ID="VIDEO_0001_THUMBS" MIMETYPE="image/jpeg">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/poster.jpg"/>
+            </mets:file>
+        </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="LOGICAL">
+        <mets:div DMDID="DMD_VIDEO_0001" ID="LOG_VIDEO_0001" LABEL="Local video sample" TYPE="monograph">
+            <mets:div ID="LOG_VIDEO_0002" LABEL="1. Intro" TYPE="page"/>
+            <mets:div ID="LOG_VIDEO_0003" LABEL="2. Test pattern" TYPE="page"/>
+        </mets:div>
+    </mets:structMap>
+    <mets:structMap TYPE="PHYSICAL">
+        <mets:div ID="PHYS_VIDEO_0000" TYPE="physSequence">
+            <mets:div ID="PHYS_VIDEO_0001" ORDER="1" TYPE="page">
+                <mets:fptr>
+                    <mets:area FILEID="VIDEO_0001" BEGIN="00:00:00" BETYPE="TIME" EXTENT="00:00:04" EXTTYPE="TIME"/>
+                </mets:fptr>
+                <mets:fptr FILEID="VIDEO_0001_THUMBS"/>
+            </mets:div>
+            <mets:div ID="PHYS_VIDEO_0002" ORDER="2" TYPE="page">
+                <mets:fptr>
+                    <mets:area FILEID="VIDEO_0001" BEGIN="00:00:04" BETYPE="TIME" EXTENT="00:00:04" EXTTYPE="TIME"/>
+                </mets:fptr>
+            </mets:div>
+        </mets:div>
+    </mets:structMap>
+    <mets:structLink>
+        <mets:smLink xlink:from="LOG_VIDEO_0002" xlink:to="PHYS_VIDEO_0001"/>
+        <mets:smLink xlink:from="LOG_VIDEO_0003" xlink:to="PHYS_VIDEO_0002"/>
+    </mets:structLink>
+</mets:mets>
