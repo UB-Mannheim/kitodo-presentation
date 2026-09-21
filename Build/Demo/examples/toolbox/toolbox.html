@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kitodo.Presentation — toolbox buttons (all types)</title>
+<!--
+  Reference page showing every dlf toolbox button, grouped the same way the
+  aurora demo theme lays them out (view / content / media / downloads / other,
+  with a divider between groups). The markup matches the real Toolbox partials
+  (same ids and classes), and the styling is the aurora theme, so this is a
+  faithful preview of how the toolbox renders.
+
+  Open it directly in a browser — no server needed. The theme is linked
+  relatively to the demo styles (Build/Demo/styles/aurora/aurora.css), so keep
+  this file under Build/Demo/examples/toolbox/.
+-->
+<link rel="stylesheet" href="../../styles/aurora/aurora.css">
+<style>
+  body { background: #eef2fb; padding: 24px; font-family: system-ui, -apple-system, sans-serif; }
+  body > h1 { margin: 0 0 .2em; font-size: 1.25em; color: #1e2433; }
+  body > p.desc { margin: 0 0 1em; max-width: 70em; color: #5b6478; font-size: .95em; }
+</style>
+</head>
+<body>
+<h1>Toolbox buttons — all types</h1>
+<p class="desc">
+  Every <code>dlf_toolbox</code> button the demo shows, in the aurora theme.
+  The buttons are grouped into related clusters (view, content, media,
+  downloads, other) with a divider between them. This is static reference
+  markup that matches the real Toolbox partials, not a live plugin.
+</p>
+
+<div id="main">
+  <div class="frame frame-default frame-type-list frame-layout-0" style="max-width: 980px;">
+
+    <!-- VIEW: zoom / rotate -->
+    <li class="tx-dlf-tools-zoom-in"><a href="#" title="Zoom In" onclick="return false;">Zoom In</a></li>
+    <li class="tx-dlf-tools-zoom-out"><a href="#" title="Zoom Out" onclick="return false;">Zoom Out</a></li>
+    <li class="tx-dlf-tools-fullscreen"><a href="#" title="Fullscreen Mode">Fullscreen Mode</a></li>
+    <li class="tx-dlf-tools-rotate-left"><a href="#" title="Rotate Left" onclick="return false;">Rotate Left</a></li>
+    <li class="tx-dlf-tools-rotate-right"><a href="#" title="Rotate Right" onclick="return false;">Rotate Right</a></li>
+    <li class="tx-dlf-tools-rotate-reset"><a href="#" title="Reset Rotation" onclick="return false;">Reset Rotation</a></li>
+
+    <!-- CONTENT: fulltext / annotations / image manipulation -->
+    <li class="tx-dlf-tools-fulltext">
+        <a class="select switchoff" id="tx-dlf-tools-fulltext" href="#" title=""
+           data-dic="fulltext:Full text;fulltext-on:Activate full text;fulltext-off:Deactivate full text">Full text</a>
+    </li>
+    <li class="tx-dlf-tools-annotation">
+        <span class="tx-dlf-tools-annotation">
+            <a class="select switchoff" id="tx-dlf-tools-annotation" href="#" title=""
+               data-dic="annotations-on:Annotations on;annotations-off:Annotations off"></a>
+        </span>
+    </li>
+    <li class="tx-dlf-tools-imagemanipulation">
+        <span id="tx-dlf-tools-imagemanipulation"
+              data-dic="imagemanipulation-on:Activate image manipulation;imagemanipulation-off:Deactivate image manipulation"
+              title="Image manipulation"><a class="select switchoff" href="#" title="Image manipulation"></a></span>
+    </li>
+
+    <!-- MEDIA: video / audio / equalizer / marker table -->
+    <li class="tx-dlf-tools-audiovideo tx-dlf-tools-videomediaplayer" id="tx-dlf-tools-videomediaplayer" data-tools-audiovideo="videomediaplayer">
+        <a href="#" class="button-videomediaplayer" title="Video media player">Video media player</a>
+    </li>
+    <li class="tx-dlf-tools-audiovideo tx-dlf-tools-audiolabelimage" id="tx-dlf-tools-audiolabelimage" data-tools-audiovideo="audiolabelimage">
+        <a href="#" class="button-audiolabelimage" title="Audio label image">Audio label image</a>
+    </li>
+    <li class="tx-dlf-tools-audiovideo tx-dlf-tools-equalizer" id="tx-dlf-tools-equalizer" data-tools-audiovideo="equalizer">
+        <a href="#" class="button-equalizer" title="Equalizer">Equalizer</a>
+    </li>
+    <li class="tx-dlf-tools-audiovideo tx-dlf-tools-markertable" id="tx-dlf-tools-markertable" data-tools-audiovideo="markertable">
+        <a href="#" class="button-markertable" title="Marker table">Marker table</a>
+    </li>
+
+    <!-- DOWNLOADS: image / fulltext / pdf / model / score -->
+    <li class="tx-dlf-tools-imagedownload">
+        <span class="tx-dlf-tools-imagedownload"><a href="#" title="Download single page (JPG)">Download single page (JPG)</a></span>
+    </li>
+    <li class="tx-dlf-tools-fulltextdownload">
+        <span class="tx-dlf-tools-fulltextdownload"><a href="#" id="tx-dlf-tools-fulltextdownload" title="Download current page">Download current page</a></span>
+    </li>
+    <li class="tx-dlf-tools-pdfdownload">
+        <span class="tx-dlf-tools-pdf-page"><a href="#" title="Download single page (PDF)">Download single page (PDF)</a></span>
+        <span class="tx-dlf-tools-pdf-work"><a href="#" title="Download work (PDF)">Download work (PDF)</a></span>
+    </li>
+    <li class="tx-dlf-tools-modeldownload">
+        <span class="tx-dlf-tools-modeldownload"><a href="#" title="Download model">Download model</a></span>
+    </li>
+    <li class="tx-dlf-tools-score">
+        <a class="select switchoff" id="tx-dlf-tools-score-0" title="" data-dic="">Score</a>
+    </li>
+    <li class="tx-dlf-tools-score">
+        <a id="tx-dlf-tools-score-midi" href="#" title="Score player">Score player</a>
+    </li>
+
+    <!-- OTHER: search / viewer selection / add second document -->
+    <li class="tx-dlf-toolbox-searchindocument">
+        <form class="tx-dlf-search-form" id="tx-dlf-toolbox-searchindocument-form" action="#" method="get" onsubmit="return false;">
+            <div>
+                <label for="tx-dlf-toolbox-searchindocument-input-query">Query</label>
+                <input type="text" id="tx-dlf-toolbox-searchindocument-input-query" placeholder="Search in document" name="q" />
+            </div>
+        </form>
+    </li>
+    <li class="tx-dlf-tools-viewerselection">
+        <form method="get" onsubmit="return false;">
+            <select id="tx-dlf-tools-viewer" name="tx_dlf[viewer]">
+                <option value="">Choose viewer</option>
+                <option value="prezi3d">Prezi 3D</option>
+            </select>
+        </form>
+    </li>
+    <li class="tx-dlf-tools-multiviewaddsource">
+        <a href="#" title="Add document" onclick="return false;">Add document</a>
+        <form class="tx-dlf-tools-multiviewaddsource" onsubmit="return false;">
+            <p class="tx-dlf-tools-multiviewaddsource-add-document-description">Add a second document to compare side by side.</p>
+            <label for="tx-dlf-tools-multiviewaddsource-location-field">Add document</label>
+            <input type="text" id="tx-dlf-tools-multiviewaddsource-location-field" placeholder="METS / IIIF URL" name="location" required />
+            <button type="submit">Add</button>
+        </form>
+    </li>
+
+  </div>
+</div>
+</body>
+</html>
