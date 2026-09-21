@@ -9,9 +9,10 @@
 #
 # Instead of pointing the viewer at a public document (some hosts sit behind
 # anti-bot challenges that a plain HTTP client cannot pass, so a pasted URL
-# may fail or return HTML), the script generates a small *local* sample
-# document -- a METS file plus three placeholder page images, drawn with PHP
-# GD -- and serves it on its own static HTTP port. The on-page form is
+# may fail or return HTML), the script installs a small *local* sample
+# document -- committed under examples/local-sample/ (a METS file plus three
+# placeholder pages, thumbnails, ALTO fulltext and per-page PDFs) -- and
+# serves it on its own static HTTP port. The on-page form is
 # pre-filled with that document's URL, so the viewer works completely
 # offline. A *separate* port for the data also sidesteps the built-in PHP
 # server's single-threaded self-reference deadlock: the app fetches the METS
@@ -216,192 +217,16 @@ log "composer install (this can take a while the first time)"
 composer install --no-interaction --no-progress
 
 # --- local sample document -----------------------------------------------
-# Three placeholder page images (PHP GD) + a METS file pointing at them.
-# Served from $DEMO_DIR/kitodo-demo on $DATA_PORT.
+# A self-contained sample (METS + 3 placeholder pages, thumbnails, ALTO
+# fulltext and per-page PDFs) committed under examples/local-sample/. The METS
+# uses absolute FLocat URLs, so rewrite its __DATA_BASE__ placeholder to the
+# data server's base URL and drop the files where the data server serves them
+# ($DEMO_DIR/kitodo-demo on $DATA_PORT).
 if [ "$MAKE_SAMPLE" = "1" ]; then
-    log "Generating the local sample document (METS + 3 placeholder pages)"
-    cat > make_sample.php <<'PHP'
-<?php
-declare(strict_types=1);
-$dir  = rtrim($argv[1], '/');
-$port = (int)$argv[2];
-@mkdir($dir, 0755, true);
-
-$font = null;
-foreach ([
-    '/System/Library/Fonts/Supplemental/Arial.ttf',
-    '/System/Library/Fonts/Helvetica.ttc',
-    '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
-    '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf',
-] as $c) {
-    if (file_exists($c)) { $font = $c; break; }
-}
-if ($font === null) {
-    $globbed = (array)glob('/usr/share/fonts/**/*.ttf', GLOB_BRACE);
-    $font = $globbed ? $globbed[0] : null;
-}
-
-function draw_page(string $file, int $num, array $bg, array $fg, ?string $font): void
-{
-    $im = imagecreatetruecolor(1200, 1600);
-    imagefill($im, 0, 0, imagecolorallocate($im, $bg[0], $bg[1], $bg[2]));
-    $c = imagecolorallocate($im, $fg[0], $fg[1], $fg[2]);
-    if ($font !== null) {
-        imagettftext($im, 320, 0, 600, 820, $c, $font, (string)$num);
-        imagettftext($im, 52, 0, 90, 1520, $c, $font, "Kitodo.Presentation demo - page $num");
-    } else {
-        imagestring($im, 5, 560, 780, (string)$num, $c);
-        imagestring($im, 5, 60, 1520, "Kitodo.Presentation demo - page $num", $c);
-    }
-    imagejpeg($im, $file, 85);
-}
-
-function draw_thumb(string $file, int $num, array $bg, array $fg, ?string $font): void
-{
-    // Smaller version for the dlf_pagegrid thumbnail strip.
-    $im = imagecreatetruecolor(150, 200);
-    imagefill($im, 0, 0, imagecolorallocate($im, $bg[0], $bg[1], $bg[2]));
-    $c = imagecolorallocate($im, $fg[0], $fg[1], $fg[2]);
-    if ($font !== null) {
-        imagettftext($im, 90, 0, 75, 110, $c, $font, (string)$num);
-    } else {
-        imagestring($im, 5, 65, 90, (string)$num, $c);
-    }
-    imagejpeg($im, $file, 85);
-    imagedestroy($im);
-}
-
-draw_page("$dir/page1.jpg", 1, [220, 234, 254], [27, 42, 107], $font);
-draw_page("$dir/page2.jpg", 2, [231, 246, 226], [30, 91, 30], $font);
-draw_page("$dir/page3.jpg", 3, [253, 233, 230], [122, 31, 18], $font);
-draw_thumb("$dir/thumb1.jpg", 1, [220, 234, 254], [27, 42, 107], $font);
-draw_thumb("$dir/thumb2.jpg", 2, [231, 246, 226], [30, 91, 30], $font);
-draw_thumb("$dir/thumb3.jpg", 3, [253, 233, 230], [122, 31, 18], $font);
-
-// Embed a single JPEG as a one-page PDF. Pure PHP (no ImageMagick / Ghostscript
-// dependency), so the demo can build a working "download page (PDF)" button
-// offline. The JPEG is embedded verbatim with the /DCTDecode filter.
-function write_pdf(string $jpgPath, string $pdfPath, int $w, int $h): void
-{
-    $jpg  = file_get_contents($jpgPath);
-    $len  = strlen($jpg);
-    $objs = [
-        1 => "<< /Type /Catalog /Pages 2 0 R >>",
-        2 => "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-        3 => "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 $w $h] /Resources << /ProcSet [/PDF /ImageC] /XObject << /Im0 4 0 R >> >> /Contents 5 0 R >>",
-        4 => "<< /Type /XObject /Subtype /Image /Width $w /Height $h /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length $len >>\nstream\n$jpg\nendstream",
-    ];
-    $content = "q $w 0 0 $h 0 0 cm /Im0 Do Q";
-    $objs[5] = "<< /Length " . strlen($content) . " >>\nstream\n$content\nendstream";
-
-    $pdf = "%PDF-1.3\n";
-    $offsets = [];
-    for ($i = 1; $i <= 5; $i++) {
-        $offsets[$i] = strlen($pdf);
-        $pdf .= "$i 0 obj\n" . $objs[$i] . "\nendobj\n";
-    }
-    $xref = strlen($pdf);
-    $pdf .= "xref\n0 6\n0000000000 65535 f \n";
-    for ($i = 1; $i <= 5; $i++) {
-        $pdf .= sprintf("%010d 00000 n \n", $offsets[$i]);
-    }
-    $pdf .= "trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n$xref\n%%EOF";
-    file_put_contents($pdfPath, $pdf);
-}
-
-write_pdf("$dir/page1.jpg", "$dir/page1.pdf", 1200, 1600);
-write_pdf("$dir/page2.jpg", "$dir/page2.pdf", 1200, 1600);
-write_pdf("$dir/page3.jpg", "$dir/page3.pdf", 1200, 1600);
-
-// One ALTO file per page, so the FULLTEXT file group is populated. The ALTO
-// parser (Kitodo\Dlf\Format\Alto) only reads the <TextBlock> content, so a
-// single block with a couple of lines is enough.
-function write_alto(string $file, string $text): void
-{
-    $xml = <<<ALTO
-<?xml version="1.0" encoding="UTF-8"?>
-<alto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/standards/alto/ns-v2#">
-    <Description><MeasurementUnit>pixel</MeasurementUnit></Description>
-    <Layout>
-        <Page HEIGHT="1600" WIDTH="1200">
-            <PrintSpace HEIGHT="1600" WIDTH="1200" VPOS="0" HPOS="0">
-                <TextBlock HEIGHT="100" WIDTH="800" VPOS="100" HPOS="100">
-                    <TextLine HEIGHT="80" WIDTH="800" VPOS="100" HPOS="100">
-                        <String CONTENT="$text" HEIGHT="80" WIDTH="800" VPOS="100" HPOS="100"/>
-                    </TextLine>
-                </TextBlock>
-            </PrintSpace>
-        </Page>
-    </Layout>
-</alto>
-ALTO;
-    file_put_contents($file, $xml);
-}
-
-$fulltextTexts = [
-    1 => 'Page one: this is the full text of the first page of the demo document.',
-    2 => 'Page two: this is the full text of the second page of the demo document.',
-    3 => 'Page three: this is the full text of the third page of the demo document.',
-];
-foreach ($fulltextTexts as $i => $text) {
-    write_alto("$dir/fulltext_$i.xml", $text);
-}
-
-$base  = "http://127.0.0.1:" . $port;
-$files = $thumbs = $fulltexts = $downloads = $phys = $sm = $log = '';
-for ($i = 1; $i <= 3; $i++) {
-    $files     .= sprintf("            <mets:file ID=\"PAGE_%04d\" MIMETYPE=\"image/jpeg\">\n                <mets:FLocat LOCTYPE=\"URL\" xlink:href=\"%s/page%d.jpg\"/>\n            </mets:file>\n", $i, $base, $i);
-    $thumbs    .= sprintf("            <mets:file ID=\"PAGE_%04d_THUMBS\" MIMETYPE=\"image/jpeg\">\n                <mets:FLocat LOCTYPE=\"URL\" xlink:href=\"%s/thumb%d.jpg\"/>\n            </mets:file>\n", $i, $base, $i);
-    $fulltexts .= sprintf("            <mets:file ID=\"PAGE_%04d_FULLTEXT\" MIMETYPE=\"text/xml\">\n                <mets:FLocat LOCTYPE=\"URL\" xlink:href=\"%s/fulltext_%d.xml\"/>\n            </mets:file>\n", $i, $base, $i);
-    $downloads .= sprintf("            <mets:file ID=\"PAGE_%04d_DOWNLOAD\" MIMETYPE=\"application/pdf\">\n                <mets:FLocat LOCTYPE=\"URL\" xlink:href=\"%s/page%d.pdf\"/>\n            </mets:file>\n", $i, $base, $i);
-    $phys      .= sprintf("                <mets:div ID=\"PHYS_%04d\" ORDER=\"%d\" TYPE=\"page\">\n                    <mets:fptr FILEID=\"PAGE_%04d\"/>\n                    <mets:fptr FILEID=\"PAGE_%04d_THUMBS\"/>\n                    <mets:fptr FILEID=\"PAGE_%04d_FULLTEXT\"/>\n                    <mets:fptr FILEID=\"PAGE_%04d_DOWNLOAD\"/>\n                </mets:div>\n", $i, $i, $i, $i, $i, $i);
-    $sm        .= sprintf("        <mets:smLink xlink:from=\"LOG_000%d\" xlink:to=\"PHYS_%04d\"/>\n", $i, $i);
-    $log       .= sprintf("            <mets:div ID=\"LOG_000%d\" LABEL=\"Page %d\" TYPE=\"page\"/>\n", $i, $i);
-}
-
-$mets = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <mets:dmdSec ID="DMD_0001">
-        <mets:mdWrap MDTYPE="MODS">
-            <mets:xmlData>
-                <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
-                    <mods:titleInfo><mods:title>Kitodo.Presentation demo document</mods:title></mods:titleInfo>
-                    <mods:name><mods:namePart>Kitodo. Key to digital objects e.V.</mods:namePart></mods:name>
-                    <mods:typeOfResource>manuscript</mods:typeOfResource>
-                    <mods:originInfo><mods:place><mods:placeTerm>Mannheim</mods:placeTerm></mods:place><mods:dateIssued>2026</mods:dateIssued></mods:originInfo>
-                    <mods:abstract>A locally generated sample document with three placeholder pages. All metadata shown in the demo viewer is part of this document.</mods:abstract>
-                </mods:mods>
-            </mets:xmlData>
-        </mets:mdWrap>
-    </mets:dmdSec>
-    <mets:fileSec>
-        <mets:fileGrp USE="DEFAULT">
-$files        </mets:fileGrp>
-        <mets:fileGrp USE="THUMBS">
-$thumbs        </mets:fileGrp>
-        <mets:fileGrp USE="FULLTEXT">
-$fulltexts        </mets:fileGrp>
-        <mets:fileGrp USE="DOWNLOAD">
-$downloads        </mets:fileGrp>
-    </mets:fileSec>
-    <mets:structMap TYPE="LOGICAL">
-        <mets:div ID="LOG_0000" DMDID="DMD_0001" LABEL="Kitodo.Presentation demo document" TYPE="monograph">
-            <mets:fptr FILEID="PAGE_0001_DOWNLOAD"/>
-$log        </mets:div>
-    </mets:structMap>
-    <mets:structMap TYPE="PHYSICAL">
-        <mets:div ID="PHYS_0000" TYPE="physSequence">
-$phys        </mets:div>
-    </mets:structMap>
-    <mets:structLink>
-$sm    </mets:structLink>
-</mets:mets>
-XML;
-file_put_contents("$dir/sample_mets.xml", $mets);
-echo "sample document written to $dir (3 pages; METS at $base/sample_mets.xml)\n";
-PHP
-    php make_sample.php "$DEMO_DIR/kitodo-demo" "$DATA_PORT"
+    log "Installing the local sample document (examples/local-sample)"
+    mkdir -p "$DEMO_DIR/kitodo-demo"
+    cp "$SCRIPT_DIR/examples/local-sample/"* "$DEMO_DIR/kitodo-demo/"
+    sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/sample_mets.xml" && rm -f "$DEMO_DIR/kitodo-demo/sample_mets.xml.bak"
     SAMPLE_URL="${DATA_URL}/sample_mets.xml"
 else
     SAMPLE_URL=""
@@ -471,7 +296,11 @@ plugin.tx_dlf_metadata {
 
 plugin.tx_dlf_toolbox {
     settings {
-        tools = fulltextTool,imageDownloadTool,imageManipulationTool,fulltextDownloadTool,pdfDownloadTool
+        # rotationTool / zoomTool always work (plain map view controls); the
+        # remaining tools only render buttons when the current document has
+        # the matching content (annotation lists, audio/video files, fulltext,
+        # 3D model, score file, ...).
+        tools = fulltextTool,imageDownloadTool,imageManipulationTool,fulltextDownloadTool,pdfDownloadTool,rotationTool,zoomTool,annotationTool,audioVideoTool,modelDownloadTool,multiViewAddSourceTool,scoreTool,searchInDocumentTool,viewerSelectionTool
         # The fulltext control appends the OCR text to the element named here.
         # It has no default, so without it getElementById("") is null and the
         # text is silently skipped (the region overlay still works, since that
