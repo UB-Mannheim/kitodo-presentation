@@ -50,7 +50,7 @@ export default class DlfMediaPlugin extends HTMLElement {
       // Wait for DOM being parsed
       setTimeout(() => {
         const forPlayer = this.forPlayer;
-        if (forPlayer === null) {
+        if (!forPlayer) {
           return;
         }
 
