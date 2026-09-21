@@ -15,6 +15,7 @@ namespace Kitodo\Dlf\Controller;
 use Kitodo\Dlf\Common\AbstractDocument;
 use Kitodo\Dlf\Common\Helper;
 use Kitodo\Dlf\Middleware\Embedded3dViewer;
+use Kitodo\Dlf\Service\MediaPlayerService;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Loader\YamlFileLoader;
 use TYPO3\CMS\Core\Resource\Exception\InsufficientFolderAccessPermissionsException;
@@ -32,6 +33,11 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  */
 class ToolboxController extends AbstractController
 {
+    public function __construct(
+        protected readonly MediaPlayerService $mediaPlayerService
+    )
+    {
+    }
     /**
      * @access private
      * @var AbstractDocument This holds the current document
@@ -261,9 +267,18 @@ class ToolboxController extends AbstractController
 
         $this->setPage();
         $page = $this->requestData['page'] ?? 0;
-        $audioLabelImage = $this->getImage($page);
 
-        if (!empty($audioLabelImage) && Helper::filterFilesByMimeType($audioLabelImage, ['image'], ['JPG'])) {
+        // Detect the media type from the actual audio/video files of the
+        // document instead of requiring the page level `isAudio` / `isVideo`
+        // variables, which only exist in setups following the documented
+        // MediaPlayer configuration.
+        $doc = $this->document->getCurrentDocument();
+        $isAudio = $this->mediaPlayerService->hasAudioSources($doc, (int) $page);
+        $isVideo = $this->mediaPlayerService->hasVideoSources($doc, (int) $page);
+        $this->view->assign('isAudio', $isAudio);
+        $this->view->assign('isVideo', $isVideo);
+
+        if (!empty($audioLabelImage = $this->getImage($page)) && Helper::filterFilesByMimeType($audioLabelImage, ['image'], ['JPG'])) {
             // assign flag to view if Audio Label Image is available
             $this->view->assign('hasAudioLabelImage', true);
         }
