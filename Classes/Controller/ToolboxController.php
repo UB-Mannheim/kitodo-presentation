@@ -134,6 +134,13 @@ class ToolboxController extends AbstractController
                 $mimeType = $file['mimetype'] ?? '';
             }
         }
+        // The configured model file group (e.g. the default `DEFAULT`) may be
+        // shared with the page image group of a 2D document, in which case the
+        // "model" would resolve to a page image. An image is never a 3D model,
+        // so reject it to avoid the model tools being offered for 2D content.
+        if ($mimeType !== '' && Helper::filterFilesByMimeType(['mimetype' => $mimeType], ['image'])) {
+            return ['url' => '', 'format' => ''];
+        }
         return ['url' => $modelUrl, 'format' => $this->getModelFormat($modelUrl, $mimeType)];
     }
 
