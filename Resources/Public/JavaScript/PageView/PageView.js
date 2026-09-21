@@ -885,8 +885,14 @@ dlfViewer.prototype.displayHighlightWord = function(highlightWords = null) {
  */
 dlfViewer.prototype.init = function(controlNames) {
 
-    if (!dlfUtils.hasContent(this.imageUrls))
-        throw new Error('Missing image source objects.');
+    // The document has no page image (e.g. a pure audio / video or 3D document).
+    // Instead of throwing an uncaught error, show a placeholder in the map
+    // container and stop here: without an image there is no OpenLayers layer,
+    // view, map or fulltext to set up.
+    if (!dlfUtils.hasContent(this.imageUrls)) {
+        this.showNoImagePlaceholder();
+        return;
+    }
 
     this.initLayer(this.imageUrls)
         .done($.proxy(function(layers){
@@ -1028,6 +1034,37 @@ dlfViewer.prototype.showImageLoadError = function() {
     if (source.textContent) {
         message.appendChild(source);
     }
+    mapContainer.appendChild(message);
+};
+
+/**
+ * Show a placeholder in the map container when the document has no page image
+ * at all (e.g. a pure audio / video or 3D document), so the container is not
+ * left empty and no uncaught "Missing image source objects" error is raised.
+ *
+ * @private
+ */
+dlfViewer.prototype.showNoImagePlaceholder = function() {
+    var mapContainer = document.getElementById(this.div);
+    if (!mapContainer) {
+        return;
+    }
+    // Ensure the container has a visible height and a positioning context so
+    // the centered message is shown even without a theme CSS styling it.
+    if (getComputedStyle(mapContainer).height === '0px') {
+        mapContainer.style.height = '57em';
+    }
+    if (getComputedStyle(mapContainer).position === 'static') {
+        mapContainer.style.position = 'relative';
+    }
+    var message = document.createElement('div');
+    message.className = 'tx-dlf-pageview-empty';
+    message.id = 'tx-dlf-pageview-empty';
+    message.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;max-width:32em;text-align:center;font-size:1.1em;line-height:1.4;color:#888;';
+    var text = document.createElement('p');
+    text.style.cssText = 'margin:0;';
+    text.textContent = 'This document has no page image.';
+    message.appendChild(text);
     mapContainer.appendChild(message);
 };
 
