@@ -16,7 +16,9 @@
 #main .frame:has(.tx-dlf-navigation-first),
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
-#main .frame:has([id^="tx-dlf-tools-"]) {
+#main .frame:has([id^="tx-dlf-tools-"]),
+#main .frame:has(slub-media),
+#main .frame:has(.tx-dlf-embedded3dviewer) {
     margin: 14px 0;
     padding: 10px 16px 16px;
     background: #fbfaf6;
@@ -32,12 +34,16 @@
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
+#main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
+#main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
 
 #main .frame:has(#tx-dlf-map)::before,
 #main .frame:has(.tx-dlf-navigation-first)::before,
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
-#main .frame:has([id^="tx-dlf-tools-"])::before {
+#main .frame:has([id^="tx-dlf-tools-"])::before,
+#main .frame:has(slub-media)::before,
+#main .frame:has(.tx-dlf-embedded3dviewer)::before {
     display: block;
     margin: 0 0 10px;
     padding-bottom: 6px;
@@ -50,12 +56,27 @@
     border-bottom: 1px solid #e3e0d2;
 }
 
+/* The fsc frame also renders a <header><h2> with the row's header text (the
+ * seeded plugin key, e.g. "dlf_pageview"). That duplicates the card title above,
+ * so hide it. (The no-op "default" theme keeps the h2, since it has no
+ * ::before title of its own.) */
+#main .frame > header {
+    display: none;
+}
+
 /* --- per-tool tweaks ------------------------------------------------------ */
 
 /* The metadata box can grow tall for documents with many fields. */
 #main .frame:has(.tx-dlf-metadata-titledata) {
     max-height: 26em;
     overflow: auto;
+}
+
+/* The embedded 3D viewer. The extension ships the viewer container at
+ * height:100%, which collapses in a fluid frame without an explicit height,
+ * so give it a fixed height here (the iframe fills it). */
+#main .frame:has(.tx-dlf-embedded3dviewer) .tx-dlf-embedded3dviewer {
+    height: 30em;
 }
 
 /* The fulltext panel rendered by the PageView plugin (appears when the
