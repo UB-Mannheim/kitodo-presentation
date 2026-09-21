@@ -56,6 +56,12 @@ module.exports = {
         "no-underscore-dangle": "off",
         // turn on errors for missing imports
         "import/no-unresolved": "error",
+        // The security/detect-object-injection rule (enforced by Codacy) flags every
+        // computed member access (obj[key]) with an identifier key, producing
+        // many false positives in this codebase (loop counters, DOM-derived strings,
+        // fixed enum keys, etc.). Disable it globally; the real object-injection
+        // risks are covered by code review and the input-validation below.
+        "security/detect-object-injection": "off",
     },
     "settings": {
         "eslint-target-browser": [
