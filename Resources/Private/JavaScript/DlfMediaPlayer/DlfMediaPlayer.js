@@ -228,7 +228,7 @@ export default class DlfMediaPlayer extends HTMLElement {
     }
 
     const playerViewId = this.getAttribute('player-view');
-    if (playerViewId !== null) {
+    if (playerViewId) {
       this.playerView = document.getElementById(playerViewId);
     }
 
