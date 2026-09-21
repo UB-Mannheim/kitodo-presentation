@@ -45,6 +45,16 @@
 #   --dir <path>      Where to create the site (default: $HOME/kitodo-demo-site)
 #   --port <n>        Frontend dev-server port / base URL (default: 8090, next
 #                     free port used if taken)
+#   --base-url <url>  Serve the site under a public base URL instead of the
+#                     localhost dev server (e.g. https://host.example/demo/
+#                     when an Apache vhost or reverse proxy fronts the site).
+#                     It becomes the TYPO3 site base, and the web server must
+#                     serve $DEMO_DIR/public at that URL. --serve is not
+#                     allowed with this option.
+#   --data-url <url>  Public base URL of the sample data files
+#                     ($DEMO_DIR/kitodo-demo), e.g.
+#                     https://host.example/demo-data. Required with --base-url
+#                     unless --no-sample is given.
 #   --branch <name>   dlf branch to install (default: current git branch)
 #   --user <name>     Backend admin username (default: admin)
 #   --password <pw>   Backend admin password (default: demo-Passw0rd!, must
@@ -88,6 +98,8 @@ else
 fi
 SERVE=0
 MAKE_SAMPLE=1
+BASE_URL=""
+DATA_URL=""
 
 usage() { awk 'NR==1{next} /^set -euo/{exit} {sub(/^# ?/,""); print}' "$0"; }
 
@@ -95,6 +107,8 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --dir) DEMO_DIR="$2"; shift 2 ;;
         --port) DEMO_PORT="$2"; shift 2 ;;
+        --base-url) BASE_URL="$2"; shift 2 ;;
+        --data-url) DATA_URL="$2"; shift 2 ;;
         --branch) BRANCH="$2"; shift 2 ;;
         --user) ADMIN_USER="$2"; shift 2 ;;
         --password) ADMIN_PASSWORD="$2"; PASSWORD_IS_DEFAULT=0; shift 2 ;;
@@ -142,22 +156,51 @@ for d in "$STYLES_DIR"/*/; do
 done
 log "Viewer style: $STYLE"
 
-# --- pick free ports -----------------------------------------------------
-find_free_port() {
-    local start="$1" p
-    for ((p = start; p < start + 100; p++)); do
-        if ! lsof -iTCP:"$p" -sTCP:LISTEN >/dev/null 2>&1; then
-            printf '%s' "$p"
-            return 0
-        fi
-    done
-    return 1
-}
-PORT="$(find_free_port "$DEMO_PORT")" || die "Could not find a free port at/after $DEMO_PORT."
-[ "$PORT" != "$DEMO_PORT" ] && warn "Port $DEMO_PORT is busy, using $PORT."
-DATA_PORT="$(find_free_port "$((PORT + 1))")" || die "Could not find a free data port."
-BASE_URL="http://127.0.0.1:${PORT}/"
-DATA_URL="http://127.0.0.1:${DATA_PORT}"
+# --- pick ports / base URLs ----------------------------------------------
+# By default the site is served by the built-in PHP dev server on localhost.
+# With --base-url the site is served by a real web server (Apache, ...) that
+# frontends $DEMO_DIR/public at the given URL; the sample data must then be
+# reachable at --data-url (e.g. via an Apache Alias) and the dev servers are
+# not started.
+PUBLIC_BASE=0
+if [ -n "$BASE_URL" ]; then
+    PUBLIC_BASE=1
+    case "$BASE_URL" in
+        http://|https://*) ;;
+        *) die "--base-url must be an absolute http(s) URL (trailing slash recommended)." ;;
+    esac
+    case "$BASE_URL" in
+        */) ;;
+        *) warn "--base-url should end with a slash; appending one."
+           BASE_URL="${BASE_URL}/" ;;
+    esac
+    [ "$SERVE" = "1" ] && die "--serve cannot be used with --base-url (the external web server serves the site)."
+    if [ "$MAKE_SAMPLE" = "1" ]; then
+        [ -n "$DATA_URL" ] || die "--data-url is required with --base-url (unless --no-sample is given)."
+        case "$DATA_URL" in
+            http://|https://*) ;;
+            *) die "--data-url must be an absolute http(s) URL." ;;
+        esac
+    fi
+elif [ -n "$DATA_URL" ]; then
+    die "--data-url is only meaningful with --base-url."
+else
+    find_free_port() {
+        local start="$1" p
+        for ((p = start; p < start + 100; p++)); do
+            if ! lsof -iTCP:"$p" -sTCP:LISTEN >/dev/null 2>&1; then
+                printf '%s' "$p"
+                return 0
+            fi
+        done
+        return 1
+    }
+    PORT="$(find_free_port "$DEMO_PORT")" || die "Could not find a free port at/after $DEMO_PORT."
+    [ "$PORT" != "$DEMO_PORT" ] && warn "Port $DEMO_PORT is busy, using $PORT."
+    DATA_PORT="$(find_free_port "$((PORT + 1))")" || die "Could not find a free data port."
+    BASE_URL="http://127.0.0.1:${PORT}/"
+    DATA_URL="http://127.0.0.1:${DATA_PORT}"
+fi
 
 # --- create the project --------------------------------------------------
 mkdir -p "$DEMO_DIR"
@@ -583,21 +626,49 @@ else
     echo "                   (user: $ADMIN_USER, password: <as provided>)"
 fi
 if [ "$MAKE_SAMPLE" = "1" ]; then
-    echo "  Sample document: ${SAMPLE_URL}   (served from ${DEMO_DIR}/kitodo-demo)"
+    echo "  Sample document: ${SAMPLE_URL}   (files in ${DEMO_DIR}/kitodo-demo)"
 fi
 echo "  Viewer style   : $STYLE   (switchable at runtime via the selector on the page)"
 echo
-if [ "$MAKE_SAMPLE" = "1" ]; then
-    echo "  Start the servers (two ports are needed; see the header comment):"
-    echo "    php -S 127.0.0.1:$DATA_PORT -t $DEMO_DIR/kitodo-demo $SCRIPT_DIR/assets/data-router.php &"
-    echo "    php -S 127.0.0.1:$PORT -t $DEMO_DIR/public"
+if [ "$PUBLIC_BASE" = "1" ]; then
+    # The external web server serves the site; make the site and var/
+    # (SQLite database, caches) readable/writable by its user.
+    if [ "$(id -un)" = "root" ]; then
+        chown -R www-data:www-data "$DEMO_DIR" 2>/dev/null || warn "Could not chown $DEMO_DIR to www-data; do it manually if the web server cannot write var/."
+    else
+        warn "Make $DEMO_DIR (especially var/) writable by your web server's user so it can write the SQLite database and caches."
+    fi
+    echo "  The web server must serve ${DEMO_DIR}/public at ${BASE_URL}"
+    if [ "$MAKE_SAMPLE" = "1" ]; then
+        echo "  and ${DEMO_DIR}/kitodo-demo at ${DATA_URL} (e.g. Apache:"
+        echo
+        echo "      Alias /demo       $DEMO_DIR/public"
+        echo "      Alias /demo-data  $DEMO_DIR/kitodo-demo"
+        echo
+        echo "  ), then flush the caches if the URLs change:"
+        echo "      php vendor/bin/typo3 cache:flush"
+        echo "      (in ${DEMO_DIR})."
+    fi
     echo
-    echo "  Then open ${BASE_URL} and click \"Open\" (the sample document is pre-filled)."
+    echo "  Then open ${BASE_URL}"
+    if [ "$MAKE_SAMPLE" = "1" ]; then
+        echo "  and click \"Open\" (the sample document is pre-filled)."
+    else
+        echo "  and paste any METS / IIIF manifest URL into the form."
+    fi
 else
-    echo "  Start the server:"
-    echo "    php -S 127.0.0.1:$PORT -t $DEMO_DIR/public"
-    echo
-    echo "  Then open ${BASE_URL} and paste any METS / IIIF manifest URL into the form."
+    if [ "$MAKE_SAMPLE" = "1" ]; then
+        echo "  Start the servers (two ports are needed; see the header comment):"
+        echo "    php -S 127.0.0.1:$DATA_PORT -t $DEMO_DIR/kitodo-demo $SCRIPT_DIR/assets/data-router.php &"
+        echo "    php -S 127.0.0.1:$PORT -t $DEMO_DIR/public"
+        echo
+        echo "  Then open ${BASE_URL} and click \"Open\" (the sample document is pre-filled)."
+    else
+        echo "  Start the server:"
+        echo "    php -S 127.0.0.1:$PORT -t $DEMO_DIR/public"
+        echo
+        echo "  Then open ${BASE_URL} and paste any METS / IIIF manifest URL into the form."
+    fi
 fi
 echo
 
