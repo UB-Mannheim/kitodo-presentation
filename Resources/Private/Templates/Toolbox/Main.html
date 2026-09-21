@@ -31,7 +31,9 @@
 </f:if>
 
 <f:section name="render.multiViewAddSourceTool">
-    <f:render partial="Toolbox/MultiViewAddSourceTool" arguments="{_all}" />
+    <f:if condition="{multiViewAddSourceTool}">
+        <f:render partial="Toolbox/MultiViewAddSourceTool" arguments="{_all}" />
+    </f:if>
 </f:section>
 
 <f:section name="render.annotationTool">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.loc.gov/standards/alto/ns-v2#">
+    <Description><MeasurementUnit>pixel</MeasurementUnit></Description>
+    <Layout>
+        <Page HEIGHT="1600" WIDTH="1200">
+            <PrintSpace HEIGHT="1600" WIDTH="1200" VPOS="0" HPOS="0">
+                <TextBlock HEIGHT="320" WIDTH="800" VPOS="120" HPOS="100">
+                    <TextLine HEIGHT="80" WIDTH="800" VPOS="120" HPOS="100">
+                        <String CONTENT="Page one: this is the first line of the full text of the demo document." HEIGHT="80" WIDTH="800" VPOS="120" HPOS="100"/>
+                    </TextLine>                    <TextLine HEIGHT="80" WIDTH="800" VPOS="180" HPOS="100">
+                        <String CONTENT="It is the second line, so that the fulltext panel is tall enough to scroll." HEIGHT="80" WIDTH="800" VPOS="180" HPOS="100"/>
+                    </TextLine>                    <TextLine HEIGHT="80" WIDTH="800" VPOS="240" HPOS="100">
+                        <String CONTENT="This third line can be located by hovering the corresponding area of the page image." HEIGHT="80" WIDTH="800" VPOS="240" HPOS="100"/>
+                    </TextLine>                    <TextLine HEIGHT="80" WIDTH="800" VPOS="300" HPOS="100">
+                        <String CONTENT="A fourth line to make scrolling in the fulltext panel visible." HEIGHT="80" WIDTH="800" VPOS="300" HPOS="100"/>
+                    </TextLine>                    <TextLine HEIGHT="80" WIDTH="800" VPOS="360" HPOS="100">
+                        <String CONTENT="And a fifth line, still part of the first page." HEIGHT="80" WIDTH="800" VPOS="360" HPOS="100"/>
+                    </TextLine>                </TextBlock>
+            </PrintSpace>
+        </Page>
+    </Layout>
+</alto>
