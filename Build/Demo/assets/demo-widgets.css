@@ -101,3 +101,56 @@ div[class^="tx-dlf-navigation-"] > span[title] {
 #tx-dlf-toolbox-fulltext-selection .textline.highlight {
     background: #e6d97a;
 }
+
+/* The embedded 3D viewer plugin renders its <iframe> unconditionally. When
+ * the current document has no model (i.e. every non-3D document) the iframe
+ * is emitted with an empty src, which the browser resolves to the *current*
+ * URL — so it embeds a copy of the whole demo page in a box (recursion). Hide
+ * the frame when the iframe has no model to show. (The media player plugin
+ * renders nothing at all for non-audio/video documents, so it needs no such
+ * rule.) */
+#main .frame:has(.tx-dlf-embedded3dviewer iframe[src=""]) {
+    display: none;
+}
+
+/* The media player plugin renders an empty frame (just an empty <header>) for
+ * documents that have no audio / video file, so in the grid layouts it would
+ * otherwise occupy a blank row. Hide any frame that contains none of the
+ * known plugin content markers. (The 3D viewer frame always carries its
+ * .tx-dlf-embedded3dviewer wrapper, so it is governed by the rule above, not
+ * this one.) */
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
+    display: none;
+}
+
+/* The media player's #combined-container is position:absolute; width:100%;
+ * height:100% in the extension CSS. Inside a demo frame it has no positioned
+ * ancestor, so it escapes to the viewport and the player (and its controls)
+ * overflow the frame / card and misalign. Make it flow normally so it is
+ * constrained to the frame width like the other plugins' content. (This is
+ * style-agnostic, so it lives here rather than in a theme.) */
+#main .frame:has(slub-media) slub-media {
+    display: block;
+}
+
+#main .frame:has(slub-media) #combined-container {
+    position: static;
+    width: 100%;
+    height: auto;
+}
+
+/* The .media-panel (audio label image / equalizer / marker table) reserves a
+ * 70vh min-height for the album-art panel. In the demo none of those panels is
+ * enabled, so without this the (hidden) reservation leaves a large empty area
+ * above the controls. */
+#main .frame:has(slub-media) #combined-container .media-panel-wrappers {
+    min-height: 0;
+}
+
+/* In audio mode the extension sizes the player itself (a compact bar), so the
+ * card hugs it. In video mode give the player a roomy, fixed-height area; the
+ * video element fills it. Without this the video player would collapse to
+ * nothing (its container is height:100% of an auto-height parent). */
+#main .frame:has(slub-media) #combined-container .dlf-shaka[data-mode="video"] {
+    height: 32em;
+}

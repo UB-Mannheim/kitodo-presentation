@@ -30,13 +30,22 @@
     grid-column: 1 / -1;
 }
 
+/* The media player and 3D viewer are not part of the fixed template: they only
+ * appear for media / 3D documents, so let them auto-place as full-width rows
+ * below the named areas. (When the current document has no media / model the
+ * frame is empty and hidden, see demo-widgets.css, so no blank row remains.) */
+#main .frame:has(slub-media) { grid-column: 1 / -1; }
+#main .frame:has(.tx-dlf-embedded3dviewer) { grid-column: 1 / -1; }
+
 /* --- the boxes ------------------------------------------------------------- */
 
 #main .frame:has(#tx-dlf-map),
 #main .frame:has(.tx-dlf-navigation-first),
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
-#main .frame:has([id^="tx-dlf-tools-"]) {
+#main .frame:has([id^="tx-dlf-tools-"]),
+#main .frame:has(slub-media),
+#main .frame:has(.tx-dlf-embedded3dviewer) {
     margin: 14px 0;
     padding: 10px 16px 16px;
     background: #f4f7fb;
@@ -52,12 +61,16 @@
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
+#main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
+#main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
 
 #main .frame:has(#tx-dlf-map)::before,
 #main .frame:has(.tx-dlf-navigation-first)::before,
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
-#main .frame:has([id^="tx-dlf-tools-"])::before {
+#main .frame:has([id^="tx-dlf-tools-"])::before,
+#main .frame:has(slub-media)::before,
+#main .frame:has(.tx-dlf-embedded3dviewer)::before {
     display: block;
     margin: 0 0 10px;
     padding-bottom: 6px;
@@ -70,11 +83,27 @@
     border-bottom: 1px solid #d5dce8;
 }
 
+/* The fsc frame also renders a <header><h2> with the row's header text (the
+ * seeded plugin key, e.g. "dlf_pageview"). That duplicates the card title above,
+ * so hide it. (The no-op "default" theme keeps the h2, since it has no
+ * ::before title of its own.) */
+#main .frame > header {
+    display: none;
+}
+
 /* --- per-tool tweaks ----------------------------------------------------------- */
 
 #main .frame:has(.tx-dlf-metadata-titledata) {
     max-height: 22em;
     overflow: auto;
+}
+
+/* The media player's sizing (compact bar in audio mode, fixed area in video
+ * mode) is handled by demo-widgets.css, which also makes #combined-container
+ * flow inside the frame. The 3D viewer's iframe fills its (collapsed,
+ * height:100%) wrapper, so it needs a fixed height here. */
+#main .frame:has(.tx-dlf-embedded3dviewer) .tx-dlf-embedded3dviewer {
+    height: 30em;
 }
 
 /* The inner #tx-dlf-toolbox-fulltext-selection is the scroller
