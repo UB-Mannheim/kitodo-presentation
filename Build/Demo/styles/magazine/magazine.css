@@ -77,10 +77,10 @@
     overflow: auto;
 }
 
+/* The inner #tx-dlf-toolbox-fulltext-selection is the scroller
+ * (see demo-widgets.css), so no overflow/max-height on this outer box. */
 .tx-dlf-toolbox-fulltext-container {
     margin-top: 10px;
-    max-height: 14em;
-    overflow: auto;
     padding: 8px 12px;
     font-size: 0.9em;
     background: #fff;
