@@ -476,19 +476,53 @@ body > form button:focus-visible {
     list-style: none;
 }
 
-/* Group the download tools together (after the view toggles) so the several
- * download actions read as one set. */
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltext { order: 1; }
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation { order: 2; }
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload { order: 3; }
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload { order: 4; }
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload { order: 5; }
+/* Group the tools into related clusters and order them so each cluster sits
+ * together: view controls, content overlays, downloads, then the rest. (There
+ * is a deliberate gap in the order values so a divider can be placed between
+ * clusters; see below.) */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-in            { order: 1; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-out           { order: 2; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fullscreen         { order: 3; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-left        { order: 4; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-right       { order: 5; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-reset       { order: 6; }
 
-/* Tool buttons: an icon (sized ::before glyph) plus the translated text,
- * styled as a real button. The anchor may be nested (e.g.
- * "Download right page" is <li> > span > span > a), so select any <a> under
- * the tool <li>. */
-#main .frame:has([id^="tx-dlf-tools-"]) li a {
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltext           { order: 7; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-annotation         { order: 8; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation  { order: 9; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-videomediaplayer   { order: 10; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-audiolabelimage    { order: 11; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-equalizer          { order: 12; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-markertable        { order: 13; }
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload      { order: 21; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload   { order: 22; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload        { order: 23; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-modeldownload      { order: 24; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-score              { order: 25; }
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument { order: 31; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection    { order: 32; }
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource { order: 33; }
+
+/* A subtle divider before the first tool of each cluster (except the first),
+ * so the related groups read as separate sets. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltext,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument {
+    margin-left: 8px;
+    padding-left: 14px;
+    border-left: 1px solid #dfe4fb;
+}
+
+/* Tool buttons: an icon (sized ::before glyph) plus the label, styled as a
+ * real chip. Link tools render one control — an <a>, possibly nested in a
+ * wrapper <span> (e.g. the download actions) — so target any <a> under the
+ * tool <li>. The form-based tools (search-in-document, viewer selection,
+ * multi-view add-source) chip their whole <form> instead. */
+#main .frame:has([id^="tx-dlf-tools-"]) li a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -506,15 +540,61 @@ body > form button:focus-visible {
     white-space: nowrap;
 }
 
-#main .frame:has([id^="tx-dlf-tools-"]) li a:hover {
+/* The form chips hold their input / select / submit plainly inside. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form label,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form input,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form select,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form input,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form button {
+    margin: 0;
+    padding: 0.35em 0.55em;
+    font: inherit;
+    color: var(--a-text);
+    background: #fff;
+    border: 1px solid #dfe4fb;
+    border-radius: var(--a-radius-sm);
+}
+#main .frame:has([id^="tx-dlf-tools-"]) li a:hover,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form:hover,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form:hover {
     background: #e0e5fa;
     border-color: var(--a-accent);
     color: var(--a-accent-strong);
 }
 
-#main .frame:has([id^="tx-dlf-tools-"]) li a::before {
+#main .frame:has([id^="tx-dlf-tools-"]) li a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form::before {
     font-size: 1.25em;
     line-height: 1;
+}
+
+/* The multi-view add-source chip is its <a> "Add document" button; the form
+ * it toggles sits below as a plain input card. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form {
+    flex: 1 1 100%;
+    margin: 4px 0 0;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid var(--a-border);
+    border-radius: var(--a-radius-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    white-space: normal;
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form p {
+    flex-basis: 100%;
+    margin: 0 0 2px;
+    font-size: 0.82em;
+    color: var(--a-muted);
+}
+
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form label {
+    font-size: 0.85em;
+    font-weight: 600;
 }
 
 /* The download group shares a consistent, slightly distinct look. */
@@ -532,34 +612,33 @@ body > form button:focus-visible {
     border-color: var(--a-accent);
 }
 
-/* The individual tool icons. */
-#main .frame:has([id^="tx-dlf-tools-"]) a.select::before {
-    content: "🔍";
-}
+/* The individual tool icons, as ::before glyphs on each tool's control. The
+ * view / content tools render as a bare glyph chip (their visible label is the
+ * title attribute), so they target the <li>'s <a> directly. */
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-in a::before          { content: "🔍"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-out a::before         { content: "➖"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-fullscreen a::before       { content: "⛶"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-left a::before      { content: "↺"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-right a::before     { content: "↻"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-reset a::before     { content: "⟲"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-fulltext a::before         { content: "📝"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-annotation a::before       { content: "💬"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-videomediaplayer a::before { content: "🎬"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-audiolabelimage a::before  { content: "🎧"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-equalizer a::before        { content: "🎛"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-markertable a::before      { content: "📋"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-toolbox-searchindocument form::before { content: "🔎"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-viewerselection form::before { content: "🖥"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-multiviewaddsource a::before { content: "➕"; }
 
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-imagedownload a::before {
-    content: "⬇";
-}
-
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-page a::before {
-    content: "📄";
-}
-
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-work a::before {
-    content: "📚";
-}
-
-#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-tools-fulltextdownload::before {
-    content: "⬇";
-}
-
-#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-score-download::before {
-    content: "🎼";
-}
-
-#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-score-midi-download::before {
-    content: "🎹";
-}
+/* Nested download actions keep their own chips + glyphs. */
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-imagedownload a::before   { content: "⬇"; }
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-tools-fulltextdownload::before  { content: "⬇"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-page a::before { content: "📄"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-pdfdownload .tx-dlf-tools-pdf-work a::before { content: "📚"; }
+#main .frame:has([id^="tx-dlf-tools-"]) #tx-dlf-score-download::before          { content: "🎼"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-score a::before           { content: "🎼"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-modeldownload a::before   { content: "🧊"; }
 
 /* The image manipulation toggle: an empty <span> the viewer JS fills with a
  * toggle <a>. Inactive it is a normal tool button. */
