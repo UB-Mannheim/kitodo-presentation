@@ -304,7 +304,6 @@ dlfViewerFullTextControl.prototype.getFullTextScrollElementId = function() {
     }
     return fullTextScrollElementId.trim();
 };
-
 /**
  * @param {FullTextFeature} fulltextData
  */
