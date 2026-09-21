@@ -246,6 +246,11 @@ log "Writing frontend TypoScript (demo.typoscript)"
 cat > demo.typoscript <<'TS'
 @import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript';
 @import 'EXT:fluid_styled_content/Configuration/TypoScript/Styling/setup.typoscript';
+# NB: FSC's styling TypoScript references {$styles.content.textmedia.*}
+# constants. Those resolve against the *constants* tree, so they are loaded
+# into the sys_template's `constants` field (see the bootstrap.php below), not
+# here — an @import inside this setup tree would not be available for {$...}
+# substitution and the placeholders would leak into the served CSS.
 @import 'EXT:dlf/Configuration/TypoScript/setup.typoscript';
 
 config {
@@ -457,7 +462,13 @@ $templates = $pool->getConnectionForTable('sys_template');
 $templates->delete('sys_template', ['uid' => 1]);
 $templates->insert('sys_template', [
     'uid' => 1, 'pid' => 1, 'title' => 'DLF template', 'root' => 1,
-    'constants' => '', 'config' => $typoScript,
+    // FSC's styling TypoScript (Styling/setup.typoscript) emits CSS that
+    // references {$styles.content.textmedia.*} constants. Those resolve against
+    // the *constants* tree (this field), not the setup tree, so load FSC's
+    // constants file here. Without it TYPO3 leaves the {$...} placeholders
+    // literal in the served CSS, which Firefox drops as invalid declarations.
+    'constants' => "@import 'EXT:fluid_styled_content/Configuration/TypoScript/constants.typoscript'",
+    'config' => $typoScript,
 ]);
 
 // 6. The viewer is several plugins, each its own tt_content row on the root
