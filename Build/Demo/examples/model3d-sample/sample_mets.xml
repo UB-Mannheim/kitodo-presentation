@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <mets:metsHdr CREATEDATE="2026-01-01T00:00:00">
+        <mets:agent ROLE="CREATOR" TYPE="ORGANIZATION">
+            <mets:name>Kitodo. Key to digital objects e.V.</mets:name>
+        </mets:agent>
+    </mets:metsHdr>
+    <mets:dmdSec ID="DMD_MODEL_0001">
+        <mets:mdWrap MDTYPE="MODS">
+            <mets:xmlData>
+                <mods:mods>
+                    <mods:titleInfo>
+                        <mods:title>Local 3D model sample</mods:title>
+                    </mods:titleInfo>
+                    <mods:name type="corporate">
+                        <mods:namePart>Kitodo. Key to digital objects e.V.</mods:namePart>
+                    </mods:name>
+                    <mods:typeOfResource valueURI="http://d-nb.info/gnd/4018445-9">Kunst</mods:typeOfResource>
+                    <mods:genre>3D object</mods:genre>
+                    <mods:originInfo>
+                        <mods:place>
+                            <mods:placeTerm>Mannheim</mods:placeTerm>
+                        </mods:place>
+                        <mods:dateIssued>2026</mods:dateIssued>
+                    </mods:originInfo>
+                    <mods:physicalDescription>
+                        <mods:internetMediaType>model/gltf-binary</mods:internetMediaType>
+                        <mods:extent>1 Online-Ressource (glTF binary)</mods:extent>
+                    </mods:physicalDescription>
+                    <mods:abstract>
+                        A locally generated 3D model (a coloured cube in glTF binary / GLB
+                        format) used by the Kitodo.Presentation demo. The integrated 3D viewer
+                        renders it, and the model download tool offers it for download.
+                    </mods:abstract>
+                </mods:mods>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+        <mets:fileGrp USE="DEFAULT">
+            <mets:file ID="MODEL_0001" MIMETYPE="model/gltf-binary">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/sample.glb"/>
+            </mets:file>
+        </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="LOGICAL">
+        <mets:div DMDID="DMD_MODEL_0001" ID="LOG_MODEL_0001" LABEL="Local 3D model sample" TYPE="object"/>
+    </mets:structMap>
+    <mets:structMap TYPE="PHYSICAL">
+        <mets:div ID="PHYS_MODEL_0000" TYPE="physSequence">
+            <mets:div ID="PHYS_MODEL_0001" ORDER="1" TYPE="page">
+                <mets:fptr FILEID="MODEL_0001"/>
+            </mets:div>
+        </mets:div>
+    </mets:structMap>
+    <mets:structLink>
+        <mets:smLink xlink:from="LOG_MODEL_0001" xlink:to="PHYS_MODEL_0001"/>
+    </mets:structLink>
+</mets:mets>
