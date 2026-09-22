@@ -141,9 +141,188 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * otherwise occupy a blank row. Hide any frame that contains none of the
  * known plugin content markers. (The 3D viewer frame always carries its
  * .tx-dlf-embedded3dviewer wrapper, so it is governed by the rule above, not
- * this one.) */
-#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
+ * this one.)
+ *
+ * The pageview marker is the (always present) #tx-dlf-map container, NOT a
+ * rendered map: OpenLayers adds its .ol-viewport child at runtime only after
+ * the page image has loaded, so keying on it would hide the pageview whenever
+ * the image is slow or fails. Whether the pageview should be shown at all is
+ * instead decided by the overview rule below. */
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
     display: none;
+}
+
+/* The pageview and the calendar are the two "main content" widgets and they
+ * are mutually exclusive: a page-image document (e.g. a newspaper issue) has
+ * pages in the pageview but an empty calendar, while a newspaper overview
+ * document (the anchor / year files) has the calendar but no pages. The
+ * calendar frame renders its .tx-dlf-calendar(-years) element server-side only
+ * for overview documents, so its presence is a reliable, load-independent
+ * signal: when the calendar has content, hide the (empty) pageview so the
+ * calendar takes its place. The general rule above already hides the (empty)
+ * calendar for page documents. Net effect: only the currently relevant one of
+ * the two is shown. */
+#main:has([class^="tx-dlf-calendar"]) .frame:has(#tx-dlf-map) {
+    display: none;
+}
+
+/* The media player and the 3D viewer are also mutually exclusive with the
+ * pageview: an audio / video / 3D document has no page images, so its pageview
+ * map is empty and the real content is the player (slub-media) or the model.
+ * Both signals are server-side and reliable: the media player renders its
+ * <slub-media> element only when a media source exists, and the 3D viewer
+ * always renders its <iframe> but leaves the src empty when there is no model.
+ * Hide the (empty) pageview so the media / 3D content takes its place; the
+ * general rule above already hides the (empty) media / 3D frame for page
+ * documents. */
+#main:has(slub-media, .tx-dlf-embedded3dviewer iframe[src]:not([src=""])) .frame:has(#tx-dlf-map) {
+    display: none;
+}
+
+/* The calendar plugin ships no stylesheet at all, so give its month tables,
+ * header and year list a compact neutral layout. The extension's theme CSS
+ * (which the demo does not load) is expected to style it for production. */
+.tx-dlf-calendar-meta-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25em 1em;
+    margin-bottom: 8px;
+    font-size: 0.85em;
+}
+
+.tx-dlf-calendar-meta-header a {
+    text-decoration: none;
+}
+
+.tx-dlf-calendar-meta-header a:hover {
+    text-decoration: underline;
+}
+
+.tx-dlf-calendar-list-selection a {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.tx-dlf-calendar-list-selection a.active {
+    font-weight: 600;
+    opacity: 1;
+}
+
+/* The extension renders *both* the month-grid (calendar) view and the list
+ * view and expects the site theme to show only one. The demo has no theme, so
+ * show only the active view: the extension marks the matching selection link
+ * with the .active class, and the demo script (setup-demo.sh) toggles the
+ * data-view attribute when a selection link is clicked. */
+.tx-dlf-calendar[data-view="calendar"] .tx-dlf-calendar-list-view {
+    display: none;
+}
+
+.tx-dlf-calendar[data-view="list"] .tx-dlf-calendar-calendar-view {
+    display: none;
+}
+
+/* The month tables in the calendar view. */
+.tx-dlf-calendar-month table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8em;
+    margin-bottom: 10px;
+}
+
+.tx-dlf-calendar-month caption {
+    text-align: left;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.tx-dlf-calendar-month th {
+    padding: 2px 4px;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.55);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.tx-dlf-calendar-month td {
+    padding: 2px 4px;
+    vertical-align: top;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* The year divider above the first month of a year. */
+.tx-dlf-calendar-calendar-view > .tx-dlf-calendar-year {
+    margin: 12px 0 4px;
+    font-weight: 700;
+}
+
+.tx-dlf-calendar-issues h4 {
+    margin: 0 0 1px;
+    font-size: 0.95em;
+    font-weight: 600;
+}
+
+.tx-dlf-calendar-day-link-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tx-dlf-calendar-day-link-list li {
+    font-size: 0.85em;
+}
+
+.tx-dlf-calendar-day-link-list a {
+    text-decoration: none;
+}
+
+.tx-dlf-calendar-day-link-list a:hover {
+    text-decoration: underline;
+}
+
+/* The list view (issues grouped by day). */
+.tx-dlf-calendar-list-view ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tx-dlf-calendar-list-view li {
+    padding: 2px 0;
+}
+
+.tx-dlf-calendar-list-view-date {
+    display: block;
+    font-weight: 600;
+}
+
+/* The year list in the "all years" view. */
+.tx-dlf-calendar-year-view ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.tx-dlf-calendar-year-view li.tx-dlf-calendar-year a {
+    display: inline-block;
+    padding: 2px 8px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.tx-dlf-calendar-year-view li.tx-dlf-calendar-year a:hover {
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.tx-dlf-calendar-year-view li.tx-dlf-calendar-year-empty {
+    padding: 2px 8px;
+    opacity: 0.5;
 }
 
 /* The media player's #combined-container is position:absolute; width:100%;

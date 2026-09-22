@@ -26,18 +26,24 @@
 #main .frame:has(.tx-dlf-navigation-first) { grid-area: nav; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
 #main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
+/* The calendar and the pageview share the main block: they are mutually
+ * exclusive (a page document shows the pageview, an overview document shows
+ * the calendar, see demo-widgets.css), so both can claim the same area. */
+#main .frame:has([class^="tx-dlf-calendar"]) { grid-area: main; }
 #main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
 #main .frame:has(.tx-dlf-pagegrid) {
     grid-area: grid;
     grid-column: 1 / -1;
 }
 
-/* The media player and 3D viewer are not part of the fixed template: they only
- * appear for media / 3D documents, so let them auto-place as full-width rows
- * below the named areas. (When the current document has no media / model the
- * frame is empty and hidden, see demo-widgets.css, so no blank row remains.) */
-#main .frame:has(slub-media) { grid-column: 1 / -1; }
-#main .frame:has(.tx-dlf-embedded3dviewer) { grid-column: 1 / -1; }
+/* The media player and 3D viewer replace the pageview (like the calendar): an
+ * audio / video / 3D document has no pages, so the pageview map is empty and
+ * they take the main block instead of sitting below it. They are mutually
+ * exclusive with the pageview (see demo-widgets.css), so they can claim the
+ * same area. (When the document has no media / model the frame is empty and
+ * hidden, so no blank area is left behind.) */
+#main .frame:has(slub-media) { grid-area: main; }
+#main .frame:has(.tx-dlf-embedded3dviewer) { grid-area: main; }
 
 /* --- the boxes ------------------------------------------------------------- */
 
@@ -46,6 +52,7 @@
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
 #main .frame:has(.tx-dlf-tableofcontents),
+#main .frame:has([class^="tx-dlf-calendar"]),
 #main .frame:has([id^="tx-dlf-tools-"]),
 #main .frame:has(slub-media),
 #main .frame:has(.tx-dlf-embedded3dviewer) {
@@ -64,6 +71,7 @@
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
 #main .frame:has(.tx-dlf-tableofcontents)::before { content: "Contents (dlf_tableofcontents)"; }
+#main .frame:has([class^="tx-dlf-calendar"])::before { content: "Calendar (dlf_calendar)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
 #main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
 #main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
@@ -73,6 +81,7 @@
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
 #main .frame:has(.tx-dlf-tableofcontents)::before,
+#main .frame:has([class^="tx-dlf-calendar"])::before,
 #main .frame:has([id^="tx-dlf-tools-"])::before,
 #main .frame:has(slub-media)::before,
 #main .frame:has(.tx-dlf-embedded3dviewer)::before {
