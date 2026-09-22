@@ -17,6 +17,7 @@
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
 #main .frame:has(.tx-dlf-tableofcontents),
+#main .frame:has([class^="tx-dlf-calendar"]),
 #main .frame:has([id^="tx-dlf-tools-"]),
 #main .frame:has(slub-media),
 #main .frame:has(.tx-dlf-embedded3dviewer) {
@@ -35,6 +36,7 @@
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
 #main .frame:has(.tx-dlf-tableofcontents)::before { content: "Contents (dlf_tableofcontents)"; }
+#main .frame:has([class^="tx-dlf-calendar"])::before { content: "Calendar (dlf_calendar)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
 #main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
 #main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
@@ -44,6 +46,7 @@
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
 #main .frame:has(.tx-dlf-tableofcontents)::before,
+#main .frame:has([class^="tx-dlf-calendar"])::before,
 #main .frame:has([id^="tx-dlf-tools-"])::before,
 #main .frame:has(slub-media)::before,
 #main .frame:has(.tx-dlf-embedded3dviewer)::before {
