@@ -144,6 +144,7 @@ body > form button:focus-visible {
         "viewer  meta"
         "viewer  toc"
         "viewer  tools"
+        "cal     cal"
         "nav     nav"
         "thumbs  thumbs";
     gap: 20px;
@@ -156,10 +157,13 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
 #main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
-/* The calendar and the pageview share the main viewer block: they are mutually
- * exclusive (a page document shows the pageview, an overview document shows
- * the calendar, see demo-widgets.css), so both can claim the same area. */
-#main .frame:has([class^="tx-dlf-calendar"]) { grid-area: viewer; }
+/* The calendar (a newspaper overview's month grid) is too tall to share the
+ * main viewer block: if it sat in "viewer" (which spans the meta / toc /
+ * tools rows) the metadata and table of contents would be stranded beside a
+ * near-empty left column. Give it its own full-width row below the three
+ * right-column widgets so they stack compactly and the calendar is read
+ * underneath. */
+#main .frame:has([class^="tx-dlf-calendar"]) { grid-area: cal; }
 #main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
 /* The media player and 3D viewer replace the pageview (like the calendar): an
  * audio / video / 3D document has no pages, so the pageview map is empty and
@@ -179,6 +183,7 @@ body > form button:focus-visible {
             "meta"
             "toc"
             "tools"
+            "cal"
             "nav"
             "thumbs";
         gap: 16px;
