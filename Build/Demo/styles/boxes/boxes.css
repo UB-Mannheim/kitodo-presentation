@@ -16,6 +16,7 @@
 #main .frame:has(.tx-dlf-navigation-first),
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
+#main .frame:has(.tx-dlf-tableofcontents),
 #main .frame:has([id^="tx-dlf-tools-"]),
 #main .frame:has(slub-media),
 #main .frame:has(.tx-dlf-embedded3dviewer) {
@@ -33,6 +34,7 @@
 #main .frame:has(.tx-dlf-navigation-first)::before { content: "Navigation (dlf_navigation)"; }
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
+#main .frame:has(.tx-dlf-tableofcontents)::before { content: "Contents (dlf_tableofcontents)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
 #main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
 #main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
@@ -41,6 +43,7 @@
 #main .frame:has(.tx-dlf-navigation-first)::before,
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
+#main .frame:has(.tx-dlf-tableofcontents)::before,
 #main .frame:has([id^="tx-dlf-tools-"])::before,
 #main .frame:has(slub-media)::before,
 #main .frame:has(.tx-dlf-embedded3dviewer)::before {
@@ -68,6 +71,12 @@
 
 /* The metadata box can grow tall for documents with many fields. */
 #main .frame:has(.tx-dlf-metadata-titledata) {
+    max-height: 26em;
+    overflow: auto;
+}
+
+/* The table of contents can grow very tall (a full year of issues). */
+#main .frame:has(.tx-dlf-tableofcontents) {
     max-height: 26em;
     overflow: auto;
 }
