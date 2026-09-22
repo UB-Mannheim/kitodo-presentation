@@ -615,7 +615,14 @@ body > form button:focus-visible {
     white-space: nowrap;
 }
 
-/* The form chips hold their input / select / submit plainly inside. */
+/* The form chips hold their input / select / submit plainly inside. The
+ * search-in-document form is the only one wide enough to outgrow the 350px
+ * tools column, so let it wrap its controls onto a second line instead of
+ * forcing a single nowrap line that pushes the whole frame past the viewport. */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form {
+    flex-wrap: wrap;
+    white-space: normal;
+}
 #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form label,
 #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form input,
 #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form select,
