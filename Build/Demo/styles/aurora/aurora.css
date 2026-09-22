@@ -6,6 +6,9 @@
  *   * soft, card-based layout on a calm gradient background
  *   * icon-based navigation bar and toolbox (the text stays in the DOM
  *     for screen readers; the native title attribute acts as a tooltip)
+ *   * dark mode: re-declares the design tokens for
+ *     :root[data-theme="dark"] (the demo page toggles the attribute and
+ *     remembers the choice in localStorage)
  *   * responsive: two columns on wide screens, stacked on narrow ones
  *   * WCAG-minded: 4.5:1 or better text contrast, visible focus rings,
  *     reduced-motion support
@@ -31,6 +34,28 @@
     --a-shadow: 0 1px 2px rgba(17, 24, 39, 0.05), 0 10px 28px rgba(17, 24, 39, 0.08);
     --a-focus: 3px solid var(--a-accent-ring);
     --a-font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Dark mode: the whole stylesheet resolves its colors through the tokens
+ * above, so re-declaring them for :root[data-theme="dark"] (set by the demo
+ * page) re-themes nearly every rule at once; only the few hard-coded colors
+ * outside the tokens need their own dark variants (at the bottom of the
+ * sheet). The accent is kept indigo so the theme stays recognisable. */
+:root[data-theme="dark"] {
+    --a-accent: #818cf8;
+    --a-accent-strong: #a5b4fc;
+    --a-accent-soft: #272648;
+    --a-accent-ring: rgba(129, 140, 248, 0.4);
+    --a-text: #dfe3ee;
+    --a-muted: #9aa3ba;
+    --a-surface: #1b1f2a;
+    --a-border: #2e3547;
+    --a-shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="dark"] body {
+    background: linear-gradient(180deg, #12151d 0%, #171b24 420px);
+    color-scheme: dark;
 }
 
 html,
@@ -807,6 +832,84 @@ body > form button:focus-visible {
  * needs a fixed height here. */
 #main .frame:has(.tx-dlf-embedded3dviewer) .tx-dlf-embedded3dviewer {
     height: 30em;
+}
+
+/* --- dark mode: hard-coded colors ---------------------------------------- */
+/* Everything else resolves through the design tokens, which are re-declared
+ * for :root[data-theme="dark"] at the top of the sheet; only the colors that
+ * were hard-coded (not tokenised) need a dark variant here. */
+
+:root[data-theme="dark"] body > form input[type="text"] {
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* The accent is a light indigo in dark mode, so accent-on-white text becomes
+ * low-contrast; use dark text instead (also keeps the 4.5:1 target). */
+:root[data-theme="dark"] body > form button,
+:root[data-theme="dark"] .tx-dlf-pagination li.tx-dlf-pagination-current a {
+    color: #101321;
+}
+
+:root[data-theme="dark"] #tx-dlf-map,
+:root[data-theme="dark"] #ov_map {
+    background: #141821;
+}
+
+:root[data-theme="dark"] #main .frame > div[class^="tx-dlf-navigation-"] a:hover {
+    background: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame > div[class^="tx-dlf-navigation-"] span[title] {
+    color: #6a7390;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltext,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument {
+    border-left-color: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li a,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form {
+    border-color: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form input,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form label,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form select,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form input,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form button {
+    background: #262b39;
+    border-color: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li a:hover,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument form:hover,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection form:hover {
+    background: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource form {
+    background: #262b39;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagedownload a,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fulltextdownload a,
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-pdfdownload a {
+    background: #262b39;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-imagemanipulation:has(a.active) {
+    background: #262b39;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation {
+    background: #312f5b;
+}
+
+:root[data-theme="dark"] #main .frame:has([id^="tx-dlf-tools-"]) .slider.slider-imagemanipulation .ui-slider-handle {
+    border-color: #1b1f2a;
 }
 
 /* --- reduced motion ------------------------------------------------------------ */

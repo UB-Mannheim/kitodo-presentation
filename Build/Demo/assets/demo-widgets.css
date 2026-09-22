@@ -30,6 +30,19 @@
     padding: 0.15em 0.3em;
 }
 
+/* Dark mode (the demo page sets data-theme="dark" on <html>; see the toggle
+ * in setup-demo.sh). The widget is always loaded, so it needs its own dark
+ * variant here, independent of the active viewer style. */
+:root[data-theme="dark"] .dlf-demo-styles {
+    color: #cdd4e4;
+    background: #1b1f2a;
+    border-color: #3a4152;
+}
+
+:root[data-theme="dark"] .dlf-demo-styles select {
+    background: #262b39;
+}
+
 /* The "Examples" control on the start page: a compact <select> of sample
  * documents. Picking one fills the URL form and submits it (see the inline
  * script in setup-demo.sh), so it behaves exactly like pasting a URL by hand.
@@ -60,6 +73,16 @@
 
 .dlf-demo-examples select:hover {
     background: #dfe6f7;
+}
+
+:root[data-theme="dark"] .dlf-demo-examples select {
+    color: #cdd4e4;
+    background: #262b39;
+    border-color: #3a4152;
+}
+
+:root[data-theme="dark"] .dlf-demo-examples select:hover {
+    background: #2e3547;
 }
 
 /* The page grid's pagination controls and the navigation's page controls

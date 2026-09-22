@@ -60,14 +60,16 @@
 #   --password <pw>   Backend admin password (default: demo-Passw0rd!, must
 #                     satisfy TYPO3 policy)
 #   --style <name>    Viewer theme to use (default: aurora). The available
-#                     themes are the subdirectories of Build/Demo/styles/;
-#                     each one holds its main stylesheet <name>.css and may
-#                     carry further assets (images, scripts, ...). All
-#                     themes are copied into the site, and the page carries
-#                     a floating selector so the theme can be switched at
-#                     runtime. The choice is remembered in localStorage, so
-#                     --style is only the default for a first visit (until
-#                     the user picks something else).
+ #                     themes are the subdirectories of Build/Demo/styles/;
+ #                     each one holds its main stylesheet <name>.css and may
+ #                     carry further assets (images, scripts, ...). All
+ #                     themes are copied into the site, and the page carries
+ #                     a floating selector so the theme can be switched at
+ #                     runtime. A "Dark" checkbox next to it toggles dark
+ #                     mode for styles that support it (e.g. aurora). The
+ #                     choices are remembered in localStorage, so --style is
+ #                     only the default for a first visit (until the user
+ #                     picks something else).
 #   --serve           Start both servers in the foreground after setup
 #   --no-sample       Skip the local sample document (the on-page form then
 #                     starts empty; paste any METS / IIIF URL)
@@ -436,7 +438,7 @@ page {
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;var p=new URLSearchParams(window.location.search).get('tx_dlf[id]');if(p){f.value=p;}s.addEventListener('change',function(){f.value=s.value;form.submit();});})();</script>
+    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var c=document.getElementById('dlf-demo-dark');if(!c){return;}var K='kitodo-demo-dark';var off='';try{off=localStorage.getItem(K);}catch(e){}c.checked=off==='1';document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');c.addEventListener('change',function(){document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');try{localStorage.setItem(K,c.checked?'1':'0');}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;var p=new URLSearchParams(window.location.search).get('tx_dlf[id]');if(p){f.value=p;}s.addEventListener('change',function(){f.value=s.value;form.submit();});})();</script>
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
