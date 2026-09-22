@@ -144,7 +144,6 @@ body > form button:focus-visible {
         "viewer  meta"
         "viewer  toc"
         "viewer  tools"
-        "cal     cal"
         "nav     nav"
         "thumbs  thumbs";
     gap: 20px;
@@ -157,17 +156,18 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
 #main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
-/* The calendar (a newspaper overview's month grid) is the large element of an
- * overview document. It cannot share the "viewer" area with the pageview: a
- * spanning item's height is distributed across the rows it spans, so a tall
- * calendar would inflate the meta / toc / tools rows and leave a large gap
- * between the metadata and the table of contents. Give it its own full-width
- * row below the right column: the right column (metadata, table of contents,
- * toolbox) stacks compactly at the top and the calendar is read underneath,
- * with the large element on the left and the smaller widgets stacked on the
- * right. The pageview keeps "viewer" (a page document has no calendar, so the
- * two never contend for the area). */
-#main .frame:has([class^="tx-dlf-calendar"]) { grid-area: cal; }
+/* The calendar (a newspaper overview's month grid) shares the main viewer
+ * block with the pageview: they are mutually exclusive (a page document shows
+ * the pageview, an overview document shows the calendar, see demo-widgets.css),
+ * so both can claim the same area. The calendar sits on the left and the
+ * right column (metadata, table of contents, toolbox) stacks beside it.
+ * The calendar is capped in height so it does not inflate the meta / toc /
+ * tools rows; it scrolls internally instead. */
+#main .frame:has([class^="tx-dlf-calendar"]) {
+    grid-area: viewer;
+    max-height: 40em;
+    overflow: auto;
+}
 #main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
 /* The media player and 3D viewer replace the pageview (like the calendar): an
  * audio / video / 3D document has no pages, so the pageview map is empty and
@@ -187,7 +187,6 @@ body > form button:focus-visible {
             "meta"
             "toc"
             "tools"
-            "cal"
             "nav"
             "thumbs";
         gap: 16px;
