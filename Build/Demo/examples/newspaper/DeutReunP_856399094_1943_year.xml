@@ -1,0 +1,1616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-0.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/mix/v10 http://www.loc.gov/standards/mix/mix10/mix10.xsd">
+  <mets:metsHdr CREATEDATE="2024-08-23T07:47:45" LASTMODDATE="2026-09-22T00:00:00">
+    <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+      <mets:name>Kitodo - kitodo-ugh-2.1.3-kitodo-ugh-2.1.1-11-g4b06eaa - 30−July−2019</mets:name>
+      <mets:note>Kitodo</mets:note>
+    </mets:agent>
+  </mets:metsHdr>
+  <mets:dmdSec ID="DMDLOG_0000">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:titleInfo>
+            <mods:title>Deutscher Reichsanzeiger und Preußischer Staatsanzeiger</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:dmdSec ID="DMDLOG_0001">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:location>
+            <mods:physicalLocation valueURI="https://ld.zdb-services.de/resource/organisations/DE-180">Universitätsbibliothek, Mannheim, Germany</mods:physicalLocation>
+            <mods:shelfLocator>Z 9043</mods:shelfLocator>
+          </mods:location>
+          <mods:titleInfo>
+            <mods:title>1943</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:amdSec ID="AMD">
+    <mets:rightsMD ID="RIGHTS">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Mannheim</dv:owner>
+            <dv:ownerLogo>https://digi.bib.uni-mannheim.de/ubma-logo.png</dv:ownerLogo>
+            <dv:ownerSiteURL>https://www.bib.uni-mannheim.de/</dv:ownerSiteURL>
+            <dv:ownerContact>mailto:info.ub@uni-mannheim.de</dv:ownerContact>
+            <dv:license>https://creativecommons.org/publicdomain/mark/1.0/</dv:license>
+          </dv:rights>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:rightsMD>
+    <mets:digiprovMD ID="DIGIPROV">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>https://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=856399094&amp;INDEXSET=21</dv:reference>
+          </dv:links>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+  </mets:amdSec>
+
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div ADMID="AMD" CONTENTIDS="https://digi.bib.uni-mannheim.de/resolve?id=DeutReunP_856399094_19430104" DMDID="DMDLOG_0000" ID="LOG_0000" LABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" ORDERLABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" TYPE="newspaper">
+      <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_anchor.xml"/>
+      <mets:div ADMID="AMD" DMDID="DMDLOG_0001" ID="LOG_0001" LABEL="1943" ORDERLABEL="1943" TYPE="year">
+        <mets:div ID="LOG_2" LABEL="01" ORDERLABEL="1943-01" TYPE="month">
+          <mets:div ID="LOG_3" LABEL="1943-01-04" ORDERLABEL="1943-01-04" TYPE="day">
+            <mets:div ID="LOG_4" LABEL="04.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430104/DeutReunP_856399094_19430104.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_5" LABEL="1943-01-05" ORDERLABEL="1943-01-05" TYPE="day">
+            <mets:div ID="LOG_6" LABEL="05.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430105/DeutReunP_856399094_19430105.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_7" LABEL="1943-01-06" ORDERLABEL="1943-01-06" TYPE="day">
+            <mets:div ID="LOG_8" LABEL="06.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430106/DeutReunP_856399094_19430106.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_9" LABEL="1943-01-07" ORDERLABEL="1943-01-07" TYPE="day">
+            <mets:div ID="LOG_10" LABEL="07.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430107/DeutReunP_856399094_19430107.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_11" LABEL="1943-01-08" ORDERLABEL="1943-01-08" TYPE="day">
+            <mets:div ID="LOG_12" LABEL="08.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430108/DeutReunP_856399094_19430108.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_13" LABEL="1943-01-09" ORDERLABEL="1943-01-09" TYPE="day">
+            <mets:div ID="LOG_14" LABEL="09.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430109/DeutReunP_856399094_19430109.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_15" LABEL="1943-01-11" ORDERLABEL="1943-01-11" TYPE="day">
+            <mets:div ID="LOG_16" LABEL="11.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430111/DeutReunP_856399094_19430111.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_17" LABEL="1943-01-12" ORDERLABEL="1943-01-12" TYPE="day">
+            <mets:div ID="LOG_18" LABEL="12.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430112/DeutReunP_856399094_19430112.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_19" LABEL="1943-01-13" ORDERLABEL="1943-01-13" TYPE="day">
+            <mets:div ID="LOG_20" LABEL="13.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430113/DeutReunP_856399094_19430113.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_21" LABEL="1943-01-14" ORDERLABEL="1943-01-14" TYPE="day">
+            <mets:div ID="LOG_22" LABEL="14.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430114/DeutReunP_856399094_19430114.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_23" LABEL="1943-01-15" ORDERLABEL="1943-01-15" TYPE="day">
+            <mets:div ID="LOG_24" LABEL="15.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430115/DeutReunP_856399094_19430115.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_25" LABEL="1943-01-16" ORDERLABEL="1943-01-16" TYPE="day">
+            <mets:div ID="LOG_26" LABEL="16.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430116/DeutReunP_856399094_19430116.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_27" LABEL="1943-01-18" ORDERLABEL="1943-01-18" TYPE="day">
+            <mets:div ID="LOG_28" LABEL="18.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430118/DeutReunP_856399094_19430118.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_29" LABEL="1943-01-19" ORDERLABEL="1943-01-19" TYPE="day">
+            <mets:div ID="LOG_30" LABEL="19.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430119/DeutReunP_856399094_19430119.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_31" LABEL="1943-01-20" ORDERLABEL="1943-01-20" TYPE="day">
+            <mets:div ID="LOG_32" LABEL="20.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430120/DeutReunP_856399094_19430120.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_33" LABEL="1943-01-21" ORDERLABEL="1943-01-21" TYPE="day">
+            <mets:div ID="LOG_34" LABEL="21.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430121/DeutReunP_856399094_19430121.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_35" LABEL="1943-01-22" ORDERLABEL="1943-01-22" TYPE="day">
+            <mets:div ID="LOG_36" LABEL="22.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430122/DeutReunP_856399094_19430122.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_37" LABEL="1943-01-23" ORDERLABEL="1943-01-23" TYPE="day">
+            <mets:div ID="LOG_38" LABEL="23.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430123/DeutReunP_856399094_19430123.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_39" LABEL="1943-01-25" ORDERLABEL="1943-01-25" TYPE="day">
+            <mets:div ID="LOG_40" LABEL="25.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430125/DeutReunP_856399094_19430125.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_41" LABEL="1943-01-26" ORDERLABEL="1943-01-26" TYPE="day">
+            <mets:div ID="LOG_42" LABEL="26.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430126/DeutReunP_856399094_19430126.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_43" LABEL="1943-01-27" ORDERLABEL="1943-01-27" TYPE="day">
+            <mets:div ID="LOG_44" LABEL="27.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430127/DeutReunP_856399094_19430127.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_45" LABEL="1943-01-28" ORDERLABEL="1943-01-28" TYPE="day">
+            <mets:div ID="LOG_46" LABEL="28.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430128/DeutReunP_856399094_19430128.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_47" LABEL="1943-01-29" ORDERLABEL="1943-01-29" TYPE="day">
+            <mets:div ID="LOG_48" LABEL="29.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430129/DeutReunP_856399094_19430129.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_49" LABEL="1943-01-30" ORDERLABEL="1943-01-30" TYPE="day">
+            <mets:div ID="LOG_50" LABEL="30.01.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430130/DeutReunP_856399094_19430130.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_51" LABEL="02" ORDERLABEL="1943-02" TYPE="month">
+          <mets:div ID="LOG_52" LABEL="1943-02-01" ORDERLABEL="1943-02-01" TYPE="day">
+            <mets:div ID="LOG_53" LABEL="01.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430201/DeutReunP_856399094_19430201.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_54" LABEL="1943-02-02" ORDERLABEL="1943-02-02" TYPE="day">
+            <mets:div ID="LOG_55" LABEL="02.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430202/DeutReunP_856399094_19430202.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_56" LABEL="1943-02-03" ORDERLABEL="1943-02-03" TYPE="day">
+            <mets:div ID="LOG_57" LABEL="03.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430203/DeutReunP_856399094_19430203.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_58" LABEL="1943-02-04" ORDERLABEL="1943-02-04" TYPE="day">
+            <mets:div ID="LOG_59" LABEL="04.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430204/DeutReunP_856399094_19430204.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_60" LABEL="1943-02-05" ORDERLABEL="1943-02-05" TYPE="day">
+            <mets:div ID="LOG_61" LABEL="05.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430205/DeutReunP_856399094_19430205.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_62" LABEL="1943-02-06" ORDERLABEL="1943-02-06" TYPE="day">
+            <mets:div ID="LOG_63" LABEL="06.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430206/DeutReunP_856399094_19430206.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_64" LABEL="1943-02-08" ORDERLABEL="1943-02-08" TYPE="day">
+            <mets:div ID="LOG_65" LABEL="08.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430208/DeutReunP_856399094_19430208.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_66" LABEL="1943-02-09" ORDERLABEL="1943-02-09" TYPE="day">
+            <mets:div ID="LOG_67" LABEL="09.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430209/DeutReunP_856399094_19430209.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_68" LABEL="1943-02-10" ORDERLABEL="1943-02-10" TYPE="day">
+            <mets:div ID="LOG_69" LABEL="10.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430210/DeutReunP_856399094_19430210.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_70" LABEL="1943-02-11" ORDERLABEL="1943-02-11" TYPE="day">
+            <mets:div ID="LOG_71" LABEL="11.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430211/DeutReunP_856399094_19430211.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_72" LABEL="1943-02-12" ORDERLABEL="1943-02-12" TYPE="day">
+            <mets:div ID="LOG_73" LABEL="12.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430212/DeutReunP_856399094_19430212.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_74" LABEL="1943-02-13" ORDERLABEL="1943-02-13" TYPE="day">
+            <mets:div ID="LOG_75" LABEL="13.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430213/DeutReunP_856399094_19430213.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_76" LABEL="1943-02-15" ORDERLABEL="1943-02-15" TYPE="day">
+            <mets:div ID="LOG_77" LABEL="15.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430215/DeutReunP_856399094_19430215.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_78" LABEL="1943-02-16" ORDERLABEL="1943-02-16" TYPE="day">
+            <mets:div ID="LOG_79" LABEL="16.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430216/DeutReunP_856399094_19430216.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_80" LABEL="1943-02-17" ORDERLABEL="1943-02-17" TYPE="day">
+            <mets:div ID="LOG_81" LABEL="17.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430217/DeutReunP_856399094_19430217.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_82" LABEL="1943-02-18" ORDERLABEL="1943-02-18" TYPE="day">
+            <mets:div ID="LOG_83" LABEL="18.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430218/DeutReunP_856399094_19430218.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_84" LABEL="1943-02-19" ORDERLABEL="1943-02-19" TYPE="day">
+            <mets:div ID="LOG_85" LABEL="19.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430219/DeutReunP_856399094_19430219.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_86" LABEL="1943-02-20" ORDERLABEL="1943-02-20" TYPE="day">
+            <mets:div ID="LOG_87" LABEL="20.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430220/DeutReunP_856399094_19430220.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_88" LABEL="1943-02-22" ORDERLABEL="1943-02-22" TYPE="day">
+            <mets:div ID="LOG_89" LABEL="22.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430222/DeutReunP_856399094_19430222.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_90" LABEL="1943-02-23" ORDERLABEL="1943-02-23" TYPE="day">
+            <mets:div ID="LOG_91" LABEL="23.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430223/DeutReunP_856399094_19430223.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_92" LABEL="1943-02-24" ORDERLABEL="1943-02-24" TYPE="day">
+            <mets:div ID="LOG_93" LABEL="24.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430224/DeutReunP_856399094_19430224.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_94" LABEL="1943-02-25" ORDERLABEL="1943-02-25" TYPE="day">
+            <mets:div ID="LOG_95" LABEL="25.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430225/DeutReunP_856399094_19430225.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_96" LABEL="1943-02-26" ORDERLABEL="1943-02-26" TYPE="day">
+            <mets:div ID="LOG_97" LABEL="26.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430226/DeutReunP_856399094_19430226.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_98" LABEL="1943-02-27" ORDERLABEL="1943-02-27" TYPE="day">
+            <mets:div ID="LOG_99" LABEL="27.02.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430227/DeutReunP_856399094_19430227.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_100" LABEL="03" ORDERLABEL="1943-03" TYPE="month">
+          <mets:div ID="LOG_101" LABEL="1943-03-01" ORDERLABEL="1943-03-01" TYPE="day">
+            <mets:div ID="LOG_102" LABEL="01.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430301/DeutReunP_856399094_19430301.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_103" LABEL="1943-03-02" ORDERLABEL="1943-03-02" TYPE="day">
+            <mets:div ID="LOG_104" LABEL="02.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430302/DeutReunP_856399094_19430302.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_105" LABEL="1943-03-03" ORDERLABEL="1943-03-03" TYPE="day">
+            <mets:div ID="LOG_106" LABEL="03.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430303/DeutReunP_856399094_19430303.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_107" LABEL="1943-03-04" ORDERLABEL="1943-03-04" TYPE="day">
+            <mets:div ID="LOG_108" LABEL="04.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430304/DeutReunP_856399094_19430304.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_109" LABEL="1943-03-05" ORDERLABEL="1943-03-05" TYPE="day">
+            <mets:div ID="LOG_110" LABEL="05.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430305/DeutReunP_856399094_19430305.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_111" LABEL="1943-03-06" ORDERLABEL="1943-03-06" TYPE="day">
+            <mets:div ID="LOG_112" LABEL="06.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430306/DeutReunP_856399094_19430306.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_113" LABEL="1943-03-08" ORDERLABEL="1943-03-08" TYPE="day">
+            <mets:div ID="LOG_114" LABEL="08.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430308/DeutReunP_856399094_19430308.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_115" LABEL="1943-03-09" ORDERLABEL="1943-03-09" TYPE="day">
+            <mets:div ID="LOG_116" LABEL="09.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430309/DeutReunP_856399094_19430309.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_117" LABEL="1943-03-10" ORDERLABEL="1943-03-10" TYPE="day">
+            <mets:div ID="LOG_118" LABEL="10.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430310/DeutReunP_856399094_19430310.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_119" LABEL="1943-03-11" ORDERLABEL="1943-03-11" TYPE="day">
+            <mets:div ID="LOG_120" LABEL="11.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430311/DeutReunP_856399094_19430311.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_121" LABEL="1943-03-12" ORDERLABEL="1943-03-12" TYPE="day">
+            <mets:div ID="LOG_122" LABEL="12.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430312/DeutReunP_856399094_19430312.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_123" LABEL="1943-03-13" ORDERLABEL="1943-03-13" TYPE="day">
+            <mets:div ID="LOG_124" LABEL="13.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430313/DeutReunP_856399094_19430313.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_125" LABEL="1943-03-15" ORDERLABEL="1943-03-15" TYPE="day">
+            <mets:div ID="LOG_126" LABEL="15.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430315/DeutReunP_856399094_19430315.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_127" LABEL="1943-03-16" ORDERLABEL="1943-03-16" TYPE="day">
+            <mets:div ID="LOG_128" LABEL="16.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430316/DeutReunP_856399094_19430316.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_129" LABEL="1943-03-17" ORDERLABEL="1943-03-17" TYPE="day">
+            <mets:div ID="LOG_130" LABEL="17.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430317/DeutReunP_856399094_19430317.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_131" LABEL="1943-03-18" ORDERLABEL="1943-03-18" TYPE="day">
+            <mets:div ID="LOG_132" LABEL="18.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430318/DeutReunP_856399094_19430318.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_133" LABEL="1943-03-19" ORDERLABEL="1943-03-19" TYPE="day">
+            <mets:div ID="LOG_134" LABEL="19.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430319/DeutReunP_856399094_19430319.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_135" LABEL="1943-03-20" ORDERLABEL="1943-03-20" TYPE="day">
+            <mets:div ID="LOG_136" LABEL="20.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430320/DeutReunP_856399094_19430320.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_137" LABEL="1943-03-22" ORDERLABEL="1943-03-22" TYPE="day">
+            <mets:div ID="LOG_138" LABEL="22.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430322/DeutReunP_856399094_19430322.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_139" LABEL="1943-03-23" ORDERLABEL="1943-03-23" TYPE="day">
+            <mets:div ID="LOG_140" LABEL="23.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430323/DeutReunP_856399094_19430323.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_141" LABEL="1943-03-24" ORDERLABEL="1943-03-24" TYPE="day">
+            <mets:div ID="LOG_142" LABEL="24.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430324/DeutReunP_856399094_19430324.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_143" LABEL="1943-03-25" ORDERLABEL="1943-03-25" TYPE="day">
+            <mets:div ID="LOG_144" LABEL="25.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430325/DeutReunP_856399094_19430325.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_145" LABEL="1943-03-26" ORDERLABEL="1943-03-26" TYPE="day">
+            <mets:div ID="LOG_146" LABEL="26.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430326/DeutReunP_856399094_19430326.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_147" LABEL="1943-03-27" ORDERLABEL="1943-03-27" TYPE="day">
+            <mets:div ID="LOG_148" LABEL="27.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430327/DeutReunP_856399094_19430327.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_149" LABEL="1943-03-29" ORDERLABEL="1943-03-29" TYPE="day">
+            <mets:div ID="LOG_150" LABEL="29.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430329/DeutReunP_856399094_19430329.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_151" LABEL="1943-03-30" ORDERLABEL="1943-03-30" TYPE="day">
+            <mets:div ID="LOG_152" LABEL="30.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430330/DeutReunP_856399094_19430330.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_153" LABEL="1943-03-31" ORDERLABEL="1943-03-31" TYPE="day">
+            <mets:div ID="LOG_154" LABEL="31.03.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430331/DeutReunP_856399094_19430331.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_155" LABEL="04" ORDERLABEL="1943-04" TYPE="month">
+          <mets:div ID="LOG_156" LABEL="1943-04-01" ORDERLABEL="1943-04-01" TYPE="day">
+            <mets:div ID="LOG_157" LABEL="01.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430401/DeutReunP_856399094_19430401.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_158" LABEL="1943-04-02" ORDERLABEL="1943-04-02" TYPE="day">
+            <mets:div ID="LOG_159" LABEL="02.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430402/DeutReunP_856399094_19430402.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_160" LABEL="1943-04-03" ORDERLABEL="1943-04-03" TYPE="day">
+            <mets:div ID="LOG_161" LABEL="03.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430403/DeutReunP_856399094_19430403.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_162" LABEL="1943-04-05" ORDERLABEL="1943-04-05" TYPE="day">
+            <mets:div ID="LOG_163" LABEL="05.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430405/DeutReunP_856399094_19430405.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_164" LABEL="1943-04-06" ORDERLABEL="1943-04-06" TYPE="day">
+            <mets:div ID="LOG_165" LABEL="06.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430406/DeutReunP_856399094_19430406.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_166" LABEL="1943-04-07" ORDERLABEL="1943-04-07" TYPE="day">
+            <mets:div ID="LOG_167" LABEL="07.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430407/DeutReunP_856399094_19430407.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_168" LABEL="1943-04-08" ORDERLABEL="1943-04-08" TYPE="day">
+            <mets:div ID="LOG_169" LABEL="08.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430408/DeutReunP_856399094_19430408.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_170" LABEL="1943-04-09" ORDERLABEL="1943-04-09" TYPE="day">
+            <mets:div ID="LOG_171" LABEL="09.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430409/DeutReunP_856399094_19430409.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_172" LABEL="1943-04-10" ORDERLABEL="1943-04-10" TYPE="day">
+            <mets:div ID="LOG_173" LABEL="10.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430410/DeutReunP_856399094_19430410.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_174" LABEL="1943-04-12" ORDERLABEL="1943-04-12" TYPE="day">
+            <mets:div ID="LOG_175" LABEL="12.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430412/DeutReunP_856399094_19430412.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_176" LABEL="1943-04-13" ORDERLABEL="1943-04-13" TYPE="day">
+            <mets:div ID="LOG_177" LABEL="13.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430413/DeutReunP_856399094_19430413.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_178" LABEL="1943-04-14" ORDERLABEL="1943-04-14" TYPE="day">
+            <mets:div ID="LOG_179" LABEL="14.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430414/DeutReunP_856399094_19430414.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_180" LABEL="1943-04-15" ORDERLABEL="1943-04-15" TYPE="day">
+            <mets:div ID="LOG_181" LABEL="15.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430415/DeutReunP_856399094_19430415.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_182" LABEL="1943-04-16" ORDERLABEL="1943-04-16" TYPE="day">
+            <mets:div ID="LOG_183" LABEL="16.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430416/DeutReunP_856399094_19430416.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_184" LABEL="1943-04-17" ORDERLABEL="1943-04-17" TYPE="day">
+            <mets:div ID="LOG_185" LABEL="17.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430417/DeutReunP_856399094_19430417.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_186" LABEL="1943-04-19" ORDERLABEL="1943-04-19" TYPE="day">
+            <mets:div ID="LOG_187" LABEL="19.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430419/DeutReunP_856399094_19430419.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_188" LABEL="1943-04-20" ORDERLABEL="1943-04-20" TYPE="day">
+            <mets:div ID="LOG_189" LABEL="20.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430420/DeutReunP_856399094_19430420.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_190" LABEL="1943-04-21" ORDERLABEL="1943-04-21" TYPE="day">
+            <mets:div ID="LOG_191" LABEL="21.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430421/DeutReunP_856399094_19430421.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_192" LABEL="1943-04-22" ORDERLABEL="1943-04-22" TYPE="day">
+            <mets:div ID="LOG_193" LABEL="22.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430422/DeutReunP_856399094_19430422.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_194" LABEL="1943-04-24" ORDERLABEL="1943-04-24" TYPE="day">
+            <mets:div ID="LOG_195" LABEL="24.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430424/DeutReunP_856399094_19430424.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_196" LABEL="1943-04-27" ORDERLABEL="1943-04-27" TYPE="day">
+            <mets:div ID="LOG_197" LABEL="27.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430427/DeutReunP_856399094_19430427.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_198" LABEL="1943-04-28" ORDERLABEL="1943-04-28" TYPE="day">
+            <mets:div ID="LOG_199" LABEL="28.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430428/DeutReunP_856399094_19430428.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_200" LABEL="1943-04-29" ORDERLABEL="1943-04-29" TYPE="day">
+            <mets:div ID="LOG_201" LABEL="29.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430429/DeutReunP_856399094_19430429.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_202" LABEL="1943-04-30" ORDERLABEL="1943-04-30" TYPE="day">
+            <mets:div ID="LOG_203" LABEL="30.04.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430430/DeutReunP_856399094_19430430.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_204" LABEL="05" ORDERLABEL="1943-05" TYPE="month">
+          <mets:div ID="LOG_205" LABEL="1943-05-03" ORDERLABEL="1943-05-03" TYPE="day">
+            <mets:div ID="LOG_206" LABEL="03.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430503/DeutReunP_856399094_19430503.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_207" LABEL="1943-05-04" ORDERLABEL="1943-05-04" TYPE="day">
+            <mets:div ID="LOG_208" LABEL="04.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430504/DeutReunP_856399094_19430504.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_209" LABEL="1943-05-05" ORDERLABEL="1943-05-05" TYPE="day">
+            <mets:div ID="LOG_210" LABEL="05.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430505/DeutReunP_856399094_19430505.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_211" LABEL="1943-05-06" ORDERLABEL="1943-05-06" TYPE="day">
+            <mets:div ID="LOG_212" LABEL="06.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430506/DeutReunP_856399094_19430506.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_213" LABEL="1943-05-07" ORDERLABEL="1943-05-07" TYPE="day">
+            <mets:div ID="LOG_214" LABEL="07.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430507/DeutReunP_856399094_19430507.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_215" LABEL="1943-05-08" ORDERLABEL="1943-05-08" TYPE="day">
+            <mets:div ID="LOG_216" LABEL="08.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430508/DeutReunP_856399094_19430508.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_217" LABEL="1943-05-10" ORDERLABEL="1943-05-10" TYPE="day">
+            <mets:div ID="LOG_218" LABEL="10.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430510/DeutReunP_856399094_19430510.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_219" LABEL="1943-05-11" ORDERLABEL="1943-05-11" TYPE="day">
+            <mets:div ID="LOG_220" LABEL="11.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430511/DeutReunP_856399094_19430511.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_221" LABEL="1943-05-12" ORDERLABEL="1943-05-12" TYPE="day">
+            <mets:div ID="LOG_222" LABEL="12.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430512/DeutReunP_856399094_19430512.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_223" LABEL="1943-05-13" ORDERLABEL="1943-05-13" TYPE="day">
+            <mets:div ID="LOG_224" LABEL="13.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430513/DeutReunP_856399094_19430513.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_225" LABEL="1943-05-14" ORDERLABEL="1943-05-14" TYPE="day">
+            <mets:div ID="LOG_226" LABEL="14.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430514/DeutReunP_856399094_19430514.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_227" LABEL="1943-05-15" ORDERLABEL="1943-05-15" TYPE="day">
+            <mets:div ID="LOG_228" LABEL="15.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430515/DeutReunP_856399094_19430515.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_229" LABEL="1943-05-17" ORDERLABEL="1943-05-17" TYPE="day">
+            <mets:div ID="LOG_230" LABEL="17.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430517/DeutReunP_856399094_19430517.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_231" LABEL="1943-05-18" ORDERLABEL="1943-05-18" TYPE="day">
+            <mets:div ID="LOG_232" LABEL="18.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430518/DeutReunP_856399094_19430518.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_233" LABEL="1943-05-19" ORDERLABEL="1943-05-19" TYPE="day">
+            <mets:div ID="LOG_234" LABEL="19.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430519/DeutReunP_856399094_19430519.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_235" LABEL="1943-05-20" ORDERLABEL="1943-05-20" TYPE="day">
+            <mets:div ID="LOG_236" LABEL="20.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430520/DeutReunP_856399094_19430520.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_237" LABEL="1943-05-21" ORDERLABEL="1943-05-21" TYPE="day">
+            <mets:div ID="LOG_238" LABEL="21.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430521/DeutReunP_856399094_19430521.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_239" LABEL="1943-05-22" ORDERLABEL="1943-05-22" TYPE="day">
+            <mets:div ID="LOG_240" LABEL="22.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430522/DeutReunP_856399094_19430522.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_241" LABEL="1943-05-24" ORDERLABEL="1943-05-24" TYPE="day">
+            <mets:div ID="LOG_242" LABEL="24.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430524/DeutReunP_856399094_19430524.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_243" LABEL="1943-05-25" ORDERLABEL="1943-05-25" TYPE="day">
+            <mets:div ID="LOG_244" LABEL="25.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430525/DeutReunP_856399094_19430525.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_245" LABEL="1943-05-26" ORDERLABEL="1943-05-26" TYPE="day">
+            <mets:div ID="LOG_246" LABEL="26.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430526/DeutReunP_856399094_19430526.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_247" LABEL="1943-05-27" ORDERLABEL="1943-05-27" TYPE="day">
+            <mets:div ID="LOG_248" LABEL="27.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430527/DeutReunP_856399094_19430527.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_249" LABEL="1943-05-28" ORDERLABEL="1943-05-28" TYPE="day">
+            <mets:div ID="LOG_250" LABEL="28.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430528/DeutReunP_856399094_19430528.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_251" LABEL="1943-05-29" ORDERLABEL="1943-05-29" TYPE="day">
+            <mets:div ID="LOG_252" LABEL="29.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430529/DeutReunP_856399094_19430529.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_253" LABEL="1943-05-31" ORDERLABEL="1943-05-31" TYPE="day">
+            <mets:div ID="LOG_254" LABEL="31.05.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430531/DeutReunP_856399094_19430531.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_255" LABEL="06" ORDERLABEL="1943-06" TYPE="month">
+          <mets:div ID="LOG_256" LABEL="1943-06-01" ORDERLABEL="1943-06-01" TYPE="day">
+            <mets:div ID="LOG_257" LABEL="01.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430601/DeutReunP_856399094_19430601.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_258" LABEL="1943-06-02" ORDERLABEL="1943-06-02" TYPE="day">
+            <mets:div ID="LOG_259" LABEL="02.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430602/DeutReunP_856399094_19430602.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_260" LABEL="1943-06-03" ORDERLABEL="1943-06-03" TYPE="day">
+            <mets:div ID="LOG_261" LABEL="03.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430603/DeutReunP_856399094_19430603.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_262" LABEL="1943-06-04" ORDERLABEL="1943-06-04" TYPE="day">
+            <mets:div ID="LOG_263" LABEL="04.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430604/DeutReunP_856399094_19430604.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_264" LABEL="1943-06-05" ORDERLABEL="1943-06-05" TYPE="day">
+            <mets:div ID="LOG_265" LABEL="05.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430605/DeutReunP_856399094_19430605.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_266" LABEL="1943-06-07" ORDERLABEL="1943-06-07" TYPE="day">
+            <mets:div ID="LOG_267" LABEL="07.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430607/DeutReunP_856399094_19430607.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_268" LABEL="1943-06-08" ORDERLABEL="1943-06-08" TYPE="day">
+            <mets:div ID="LOG_269" LABEL="08.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430608/DeutReunP_856399094_19430608.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_270" LABEL="1943-06-09" ORDERLABEL="1943-06-09" TYPE="day">
+            <mets:div ID="LOG_271" LABEL="09.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430609/DeutReunP_856399094_19430609.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_272" LABEL="1943-06-10" ORDERLABEL="1943-06-10" TYPE="day">
+            <mets:div ID="LOG_273" LABEL="10.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430610/DeutReunP_856399094_19430610.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_274" LABEL="1943-06-11" ORDERLABEL="1943-06-11" TYPE="day">
+            <mets:div ID="LOG_275" LABEL="11.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430611/DeutReunP_856399094_19430611.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_276" LABEL="1943-06-12" ORDERLABEL="1943-06-12" TYPE="day">
+            <mets:div ID="LOG_277" LABEL="12.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430612/DeutReunP_856399094_19430612.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_278" LABEL="1943-06-15" ORDERLABEL="1943-06-15" TYPE="day">
+            <mets:div ID="LOG_279" LABEL="15.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430615/DeutReunP_856399094_19430615.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_280" LABEL="1943-06-16" ORDERLABEL="1943-06-16" TYPE="day">
+            <mets:div ID="LOG_281" LABEL="16.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430616/DeutReunP_856399094_19430616.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_282" LABEL="1943-06-17" ORDERLABEL="1943-06-17" TYPE="day">
+            <mets:div ID="LOG_283" LABEL="17.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430617/DeutReunP_856399094_19430617.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_284" LABEL="1943-06-18" ORDERLABEL="1943-06-18" TYPE="day">
+            <mets:div ID="LOG_285" LABEL="18.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430618/DeutReunP_856399094_19430618.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_286" LABEL="1943-06-19" ORDERLABEL="1943-06-19" TYPE="day">
+            <mets:div ID="LOG_287" LABEL="19.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430619/DeutReunP_856399094_19430619.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_288" LABEL="1943-06-21" ORDERLABEL="1943-06-21" TYPE="day">
+            <mets:div ID="LOG_289" LABEL="21.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430621/DeutReunP_856399094_19430621.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_290" LABEL="1943-06-22" ORDERLABEL="1943-06-22" TYPE="day">
+            <mets:div ID="LOG_291" LABEL="22.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430622/DeutReunP_856399094_19430622.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_292" LABEL="1943-06-23" ORDERLABEL="1943-06-23" TYPE="day">
+            <mets:div ID="LOG_293" LABEL="23.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430623/DeutReunP_856399094_19430623.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_294" LABEL="1943-06-24" ORDERLABEL="1943-06-24" TYPE="day">
+            <mets:div ID="LOG_295" LABEL="24.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430624/DeutReunP_856399094_19430624.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_296" LABEL="1943-06-25" ORDERLABEL="1943-06-25" TYPE="day">
+            <mets:div ID="LOG_297" LABEL="25.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430625/DeutReunP_856399094_19430625.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_298" LABEL="1943-06-26" ORDERLABEL="1943-06-26" TYPE="day">
+            <mets:div ID="LOG_299" LABEL="26.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430626/DeutReunP_856399094_19430626.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_300" LABEL="1943-06-28" ORDERLABEL="1943-06-28" TYPE="day">
+            <mets:div ID="LOG_301" LABEL="28.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430628/DeutReunP_856399094_19430628.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_302" LABEL="1943-06-29" ORDERLABEL="1943-06-29" TYPE="day">
+            <mets:div ID="LOG_303" LABEL="29.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430629/DeutReunP_856399094_19430629.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_304" LABEL="1943-06-30" ORDERLABEL="1943-06-30" TYPE="day">
+            <mets:div ID="LOG_305" LABEL="30.06.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430630/DeutReunP_856399094_19430630.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_306" LABEL="07" ORDERLABEL="1943-07" TYPE="month">
+          <mets:div ID="LOG_307" LABEL="1943-07-01" ORDERLABEL="1943-07-01" TYPE="day">
+            <mets:div ID="LOG_308" LABEL="01.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430701/DeutReunP_856399094_19430701.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_309" LABEL="1943-07-02" ORDERLABEL="1943-07-02" TYPE="day">
+            <mets:div ID="LOG_310" LABEL="02.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430702/DeutReunP_856399094_19430702.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_311" LABEL="1943-07-03" ORDERLABEL="1943-07-03" TYPE="day">
+            <mets:div ID="LOG_312" LABEL="03.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430703/DeutReunP_856399094_19430703.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_313" LABEL="1943-07-05" ORDERLABEL="1943-07-05" TYPE="day">
+            <mets:div ID="LOG_314" LABEL="05.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430705/DeutReunP_856399094_19430705.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_315" LABEL="1943-07-06" ORDERLABEL="1943-07-06" TYPE="day">
+            <mets:div ID="LOG_316" LABEL="06.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430706/DeutReunP_856399094_19430706.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_317" LABEL="1943-07-07" ORDERLABEL="1943-07-07" TYPE="day">
+            <mets:div ID="LOG_318" LABEL="07.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430707/DeutReunP_856399094_19430707.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_319" LABEL="1943-07-08" ORDERLABEL="1943-07-08" TYPE="day">
+            <mets:div ID="LOG_320" LABEL="08.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430708/DeutReunP_856399094_19430708.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_321" LABEL="1943-07-09" ORDERLABEL="1943-07-09" TYPE="day">
+            <mets:div ID="LOG_322" LABEL="09.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430709/DeutReunP_856399094_19430709.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_323" LABEL="1943-07-10" ORDERLABEL="1943-07-10" TYPE="day">
+            <mets:div ID="LOG_324" LABEL="10.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430710/DeutReunP_856399094_19430710.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_325" LABEL="1943-07-12" ORDERLABEL="1943-07-12" TYPE="day">
+            <mets:div ID="LOG_326" LABEL="12.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430712/DeutReunP_856399094_19430712.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_327" LABEL="1943-07-13" ORDERLABEL="1943-07-13" TYPE="day">
+            <mets:div ID="LOG_328" LABEL="13.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430713/DeutReunP_856399094_19430713.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_329" LABEL="1943-07-14" ORDERLABEL="1943-07-14" TYPE="day">
+            <mets:div ID="LOG_330" LABEL="14.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430714/DeutReunP_856399094_19430714.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_331" LABEL="1943-07-15" ORDERLABEL="1943-07-15" TYPE="day">
+            <mets:div ID="LOG_332" LABEL="15.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430715/DeutReunP_856399094_19430715.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_333" LABEL="1943-07-16" ORDERLABEL="1943-07-16" TYPE="day">
+            <mets:div ID="LOG_334" LABEL="16.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430716/DeutReunP_856399094_19430716.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_335" LABEL="1943-07-17" ORDERLABEL="1943-07-17" TYPE="day">
+            <mets:div ID="LOG_336" LABEL="17.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430717/DeutReunP_856399094_19430717.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_337" LABEL="1943-07-19" ORDERLABEL="1943-07-19" TYPE="day">
+            <mets:div ID="LOG_338" LABEL="19.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430719/DeutReunP_856399094_19430719.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_339" LABEL="1943-07-20" ORDERLABEL="1943-07-20" TYPE="day">
+            <mets:div ID="LOG_340" LABEL="20.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430720/DeutReunP_856399094_19430720.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_341" LABEL="1943-07-21" ORDERLABEL="1943-07-21" TYPE="day">
+            <mets:div ID="LOG_342" LABEL="21.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430721/DeutReunP_856399094_19430721.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_343" LABEL="1943-07-22" ORDERLABEL="1943-07-22" TYPE="day">
+            <mets:div ID="LOG_344" LABEL="22.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430722/DeutReunP_856399094_19430722.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_345" LABEL="1943-07-23" ORDERLABEL="1943-07-23" TYPE="day">
+            <mets:div ID="LOG_346" LABEL="23.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430723/DeutReunP_856399094_19430723.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_347" LABEL="1943-07-24" ORDERLABEL="1943-07-24" TYPE="day">
+            <mets:div ID="LOG_348" LABEL="24.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430724/DeutReunP_856399094_19430724.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_349" LABEL="1943-07-26" ORDERLABEL="1943-07-26" TYPE="day">
+            <mets:div ID="LOG_350" LABEL="26.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430726/DeutReunP_856399094_19430726.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_351" LABEL="1943-07-27" ORDERLABEL="1943-07-27" TYPE="day">
+            <mets:div ID="LOG_352" LABEL="27.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430727/DeutReunP_856399094_19430727.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_353" LABEL="1943-07-28" ORDERLABEL="1943-07-28" TYPE="day">
+            <mets:div ID="LOG_354" LABEL="28.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430728/DeutReunP_856399094_19430728.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_355" LABEL="1943-07-29" ORDERLABEL="1943-07-29" TYPE="day">
+            <mets:div ID="LOG_356" LABEL="29.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430729/DeutReunP_856399094_19430729.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_357" LABEL="1943-07-30" ORDERLABEL="1943-07-30" TYPE="day">
+            <mets:div ID="LOG_358" LABEL="30.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430730/DeutReunP_856399094_19430730.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_359" LABEL="1943-07-31" ORDERLABEL="1943-07-31" TYPE="day">
+            <mets:div ID="LOG_360" LABEL="31.07.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430731/DeutReunP_856399094_19430731.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_361" LABEL="08" ORDERLABEL="1943-08" TYPE="month">
+          <mets:div ID="LOG_362" LABEL="1943-08-02" ORDERLABEL="1943-08-02" TYPE="day">
+            <mets:div ID="LOG_363" LABEL="02.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430802/DeutReunP_856399094_19430802.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_364" LABEL="1943-08-03" ORDERLABEL="1943-08-03" TYPE="day">
+            <mets:div ID="LOG_365" LABEL="03.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430803/DeutReunP_856399094_19430803.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_366" LABEL="1943-08-04" ORDERLABEL="1943-08-04" TYPE="day">
+            <mets:div ID="LOG_367" LABEL="04.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430804/DeutReunP_856399094_19430804.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_368" LABEL="1943-08-05" ORDERLABEL="1943-08-05" TYPE="day">
+            <mets:div ID="LOG_369" LABEL="05.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430805/DeutReunP_856399094_19430805.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_370" LABEL="1943-08-06" ORDERLABEL="1943-08-06" TYPE="day">
+            <mets:div ID="LOG_371" LABEL="06.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430806/DeutReunP_856399094_19430806.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_372" LABEL="1943-08-07" ORDERLABEL="1943-08-07" TYPE="day">
+            <mets:div ID="LOG_373" LABEL="07.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430807/DeutReunP_856399094_19430807.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_374" LABEL="1943-08-09" ORDERLABEL="1943-08-09" TYPE="day">
+            <mets:div ID="LOG_375" LABEL="09.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430809/DeutReunP_856399094_19430809.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_376" LABEL="1943-08-10" ORDERLABEL="1943-08-10" TYPE="day">
+            <mets:div ID="LOG_377" LABEL="10.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430810/DeutReunP_856399094_19430810.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_378" LABEL="1943-08-11" ORDERLABEL="1943-08-11" TYPE="day">
+            <mets:div ID="LOG_379" LABEL="11.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430811/DeutReunP_856399094_19430811.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_380" LABEL="1943-08-12" ORDERLABEL="1943-08-12" TYPE="day">
+            <mets:div ID="LOG_381" LABEL="12.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430812/DeutReunP_856399094_19430812.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_382" LABEL="1943-08-13" ORDERLABEL="1943-08-13" TYPE="day">
+            <mets:div ID="LOG_383" LABEL="13.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430813/DeutReunP_856399094_19430813.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_384" LABEL="1943-08-14" ORDERLABEL="1943-08-14" TYPE="day">
+            <mets:div ID="LOG_385" LABEL="14.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430814/DeutReunP_856399094_19430814.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_386" LABEL="1943-08-16" ORDERLABEL="1943-08-16" TYPE="day">
+            <mets:div ID="LOG_387" LABEL="16.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430816/DeutReunP_856399094_19430816.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_388" LABEL="1943-08-17" ORDERLABEL="1943-08-17" TYPE="day">
+            <mets:div ID="LOG_389" LABEL="17.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430817/DeutReunP_856399094_19430817.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_390" LABEL="1943-08-18" ORDERLABEL="1943-08-18" TYPE="day">
+            <mets:div ID="LOG_391" LABEL="18.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430818/DeutReunP_856399094_19430818.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_392" LABEL="1943-08-19" ORDERLABEL="1943-08-19" TYPE="day">
+            <mets:div ID="LOG_393" LABEL="19.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430819/DeutReunP_856399094_19430819.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_394" LABEL="1943-08-20" ORDERLABEL="1943-08-20" TYPE="day">
+            <mets:div ID="LOG_395" LABEL="20.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430820/DeutReunP_856399094_19430820.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_396" LABEL="1943-08-21" ORDERLABEL="1943-08-21" TYPE="day">
+            <mets:div ID="LOG_397" LABEL="21.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430821/DeutReunP_856399094_19430821.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_398" LABEL="1943-08-23" ORDERLABEL="1943-08-23" TYPE="day">
+            <mets:div ID="LOG_399" LABEL="23.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430823/DeutReunP_856399094_19430823.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_400" LABEL="1943-08-24" ORDERLABEL="1943-08-24" TYPE="day">
+            <mets:div ID="LOG_401" LABEL="24.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430824/DeutReunP_856399094_19430824.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_402" LABEL="1943-08-25" ORDERLABEL="1943-08-25" TYPE="day">
+            <mets:div ID="LOG_403" LABEL="25.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430825/DeutReunP_856399094_19430825.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_404" LABEL="1943-08-26" ORDERLABEL="1943-08-26" TYPE="day">
+            <mets:div ID="LOG_405" LABEL="26.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430826/DeutReunP_856399094_19430826.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_406" LABEL="1943-08-27" ORDERLABEL="1943-08-27" TYPE="day">
+            <mets:div ID="LOG_407" LABEL="27.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430827/DeutReunP_856399094_19430827.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_408" LABEL="1943-08-28" ORDERLABEL="1943-08-28" TYPE="day">
+            <mets:div ID="LOG_409" LABEL="28.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430828/DeutReunP_856399094_19430828.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_410" LABEL="1943-08-30" ORDERLABEL="1943-08-30" TYPE="day">
+            <mets:div ID="LOG_411" LABEL="30.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430830/DeutReunP_856399094_19430830.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_412" LABEL="1943-08-31" ORDERLABEL="1943-08-31" TYPE="day">
+            <mets:div ID="LOG_413" LABEL="31.08.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430831/DeutReunP_856399094_19430831.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_414" LABEL="09" ORDERLABEL="1943-09" TYPE="month">
+          <mets:div ID="LOG_415" LABEL="1943-09-01" ORDERLABEL="1943-09-01" TYPE="day">
+            <mets:div ID="LOG_416" LABEL="01.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430901/DeutReunP_856399094_19430901.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_417" LABEL="1943-09-02" ORDERLABEL="1943-09-02" TYPE="day">
+            <mets:div ID="LOG_418" LABEL="02.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430902/DeutReunP_856399094_19430902.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_419" LABEL="1943-09-03" ORDERLABEL="1943-09-03" TYPE="day">
+            <mets:div ID="LOG_420" LABEL="03.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430903/DeutReunP_856399094_19430903.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_421" LABEL="1943-09-04" ORDERLABEL="1943-09-04" TYPE="day">
+            <mets:div ID="LOG_422" LABEL="04.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430904/DeutReunP_856399094_19430904.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_423" LABEL="1943-09-06" ORDERLABEL="1943-09-06" TYPE="day">
+            <mets:div ID="LOG_424" LABEL="06.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430906/DeutReunP_856399094_19430906.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_425" LABEL="1943-09-07" ORDERLABEL="1943-09-07" TYPE="day">
+            <mets:div ID="LOG_426" LABEL="07.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430907/DeutReunP_856399094_19430907.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_427" LABEL="1943-09-08" ORDERLABEL="1943-09-08" TYPE="day">
+            <mets:div ID="LOG_428" LABEL="08.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430908/DeutReunP_856399094_19430908.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_429" LABEL="1943-09-09" ORDERLABEL="1943-09-09" TYPE="day">
+            <mets:div ID="LOG_430" LABEL="09.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430909/DeutReunP_856399094_19430909.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_431" LABEL="1943-09-10" ORDERLABEL="1943-09-10" TYPE="day">
+            <mets:div ID="LOG_432" LABEL="10.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430910/DeutReunP_856399094_19430910.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_433" LABEL="1943-09-11" ORDERLABEL="1943-09-11" TYPE="day">
+            <mets:div ID="LOG_434" LABEL="11.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430911/DeutReunP_856399094_19430911.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_435" LABEL="1943-09-13" ORDERLABEL="1943-09-13" TYPE="day">
+            <mets:div ID="LOG_436" LABEL="13.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430913/DeutReunP_856399094_19430913.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_437" LABEL="1943-09-14" ORDERLABEL="1943-09-14" TYPE="day">
+            <mets:div ID="LOG_438" LABEL="14.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430914/DeutReunP_856399094_19430914.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_439" LABEL="1943-09-15" ORDERLABEL="1943-09-15" TYPE="day">
+            <mets:div ID="LOG_440" LABEL="15.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430915/DeutReunP_856399094_19430915.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_441" LABEL="1943-09-16" ORDERLABEL="1943-09-16" TYPE="day">
+            <mets:div ID="LOG_442" LABEL="16.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430916/DeutReunP_856399094_19430916.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_443" LABEL="1943-09-17" ORDERLABEL="1943-09-17" TYPE="day">
+            <mets:div ID="LOG_444" LABEL="17.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430917/DeutReunP_856399094_19430917.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_445" LABEL="1943-09-18" ORDERLABEL="1943-09-18" TYPE="day">
+            <mets:div ID="LOG_446" LABEL="18.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430918/DeutReunP_856399094_19430918.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_447" LABEL="1943-09-20" ORDERLABEL="1943-09-20" TYPE="day">
+            <mets:div ID="LOG_448" LABEL="20.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430920/DeutReunP_856399094_19430920.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_449" LABEL="1943-09-21" ORDERLABEL="1943-09-21" TYPE="day">
+            <mets:div ID="LOG_450" LABEL="21.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430921/DeutReunP_856399094_19430921.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_451" LABEL="1943-09-22" ORDERLABEL="1943-09-22" TYPE="day">
+            <mets:div ID="LOG_452" LABEL="22.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430922/DeutReunP_856399094_19430922.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_453" LABEL="1943-09-23" ORDERLABEL="1943-09-23" TYPE="day">
+            <mets:div ID="LOG_454" LABEL="23.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430923/DeutReunP_856399094_19430923.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_455" LABEL="1943-09-24" ORDERLABEL="1943-09-24" TYPE="day">
+            <mets:div ID="LOG_456" LABEL="24.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430924/DeutReunP_856399094_19430924.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_457" LABEL="1943-09-25" ORDERLABEL="1943-09-25" TYPE="day">
+            <mets:div ID="LOG_458" LABEL="25.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430925/DeutReunP_856399094_19430925.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_459" LABEL="1943-09-27" ORDERLABEL="1943-09-27" TYPE="day">
+            <mets:div ID="LOG_460" LABEL="27.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430927/DeutReunP_856399094_19430927.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_461" LABEL="1943-09-28" ORDERLABEL="1943-09-28" TYPE="day">
+            <mets:div ID="LOG_462" LABEL="28.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430928/DeutReunP_856399094_19430928.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_463" LABEL="1943-09-29" ORDERLABEL="1943-09-29" TYPE="day">
+            <mets:div ID="LOG_464" LABEL="29.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430929/DeutReunP_856399094_19430929.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_465" LABEL="1943-09-30" ORDERLABEL="1943-09-30" TYPE="day">
+            <mets:div ID="LOG_466" LABEL="30.09.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19430930/DeutReunP_856399094_19430930.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_467" LABEL="10" ORDERLABEL="1943-10" TYPE="month">
+          <mets:div ID="LOG_468" LABEL="1943-10-01" ORDERLABEL="1943-10-01" TYPE="day">
+            <mets:div ID="LOG_469" LABEL="01.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431001/DeutReunP_856399094_19431001.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_470" LABEL="1943-10-02" ORDERLABEL="1943-10-02" TYPE="day">
+            <mets:div ID="LOG_471" LABEL="02.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431002/DeutReunP_856399094_19431002.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_472" LABEL="1943-10-04" ORDERLABEL="1943-10-04" TYPE="day">
+            <mets:div ID="LOG_473" LABEL="04.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431004/DeutReunP_856399094_19431004.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_474" LABEL="1943-10-05" ORDERLABEL="1943-10-05" TYPE="day">
+            <mets:div ID="LOG_475" LABEL="05.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431005/DeutReunP_856399094_19431005.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_476" LABEL="1943-10-06" ORDERLABEL="1943-10-06" TYPE="day">
+            <mets:div ID="LOG_477" LABEL="06.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431006/DeutReunP_856399094_19431006.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_478" LABEL="1943-10-07" ORDERLABEL="1943-10-07" TYPE="day">
+            <mets:div ID="LOG_479" LABEL="07.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431007/DeutReunP_856399094_19431007.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_480" LABEL="1943-10-08" ORDERLABEL="1943-10-08" TYPE="day">
+            <mets:div ID="LOG_481" LABEL="08.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431008/DeutReunP_856399094_19431008.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_482" LABEL="1943-10-09" ORDERLABEL="1943-10-09" TYPE="day">
+            <mets:div ID="LOG_483" LABEL="09.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431009/DeutReunP_856399094_19431009.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_484" LABEL="1943-10-11" ORDERLABEL="1943-10-11" TYPE="day">
+            <mets:div ID="LOG_485" LABEL="11.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431011/DeutReunP_856399094_19431011.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_486" LABEL="1943-10-12" ORDERLABEL="1943-10-12" TYPE="day">
+            <mets:div ID="LOG_487" LABEL="12.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431012/DeutReunP_856399094_19431012.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_488" LABEL="1943-10-13" ORDERLABEL="1943-10-13" TYPE="day">
+            <mets:div ID="LOG_489" LABEL="13.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431013/DeutReunP_856399094_19431013.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_490" LABEL="1943-10-14" ORDERLABEL="1943-10-14" TYPE="day">
+            <mets:div ID="LOG_491" LABEL="14.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431014/DeutReunP_856399094_19431014.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_492" LABEL="1943-10-15" ORDERLABEL="1943-10-15" TYPE="day">
+            <mets:div ID="LOG_493" LABEL="15.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431015/DeutReunP_856399094_19431015.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_494" LABEL="1943-10-16" ORDERLABEL="1943-10-16" TYPE="day">
+            <mets:div ID="LOG_495" LABEL="16.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431016/DeutReunP_856399094_19431016.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_496" LABEL="1943-10-18" ORDERLABEL="1943-10-18" TYPE="day">
+            <mets:div ID="LOG_497" LABEL="18.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431018/DeutReunP_856399094_19431018.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_498" LABEL="1943-10-19" ORDERLABEL="1943-10-19" TYPE="day">
+            <mets:div ID="LOG_499" LABEL="19.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431019/DeutReunP_856399094_19431019.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_500" LABEL="1943-10-20" ORDERLABEL="1943-10-20" TYPE="day">
+            <mets:div ID="LOG_501" LABEL="20.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431020/DeutReunP_856399094_19431020.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_502" LABEL="1943-10-21" ORDERLABEL="1943-10-21" TYPE="day">
+            <mets:div ID="LOG_503" LABEL="21.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431021/DeutReunP_856399094_19431021.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_504" LABEL="1943-10-22" ORDERLABEL="1943-10-22" TYPE="day">
+            <mets:div ID="LOG_505" LABEL="22.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431022/DeutReunP_856399094_19431022.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_506" LABEL="1943-10-23" ORDERLABEL="1943-10-23" TYPE="day">
+            <mets:div ID="LOG_507" LABEL="23.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431023/DeutReunP_856399094_19431023.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_508" LABEL="1943-10-25" ORDERLABEL="1943-10-25" TYPE="day">
+            <mets:div ID="LOG_509" LABEL="25.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431025/DeutReunP_856399094_19431025.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_510" LABEL="1943-10-26" ORDERLABEL="1943-10-26" TYPE="day">
+            <mets:div ID="LOG_511" LABEL="26.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431026/DeutReunP_856399094_19431026.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_512" LABEL="1943-10-27" ORDERLABEL="1943-10-27" TYPE="day">
+            <mets:div ID="LOG_513" LABEL="27.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431027/DeutReunP_856399094_19431027.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_514" LABEL="1943-10-28" ORDERLABEL="1943-10-28" TYPE="day">
+            <mets:div ID="LOG_515" LABEL="28.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431028/DeutReunP_856399094_19431028.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_516" LABEL="1943-10-29" ORDERLABEL="1943-10-29" TYPE="day">
+            <mets:div ID="LOG_517" LABEL="29.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431029/DeutReunP_856399094_19431029.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_518" LABEL="1943-10-30" ORDERLABEL="1943-10-30" TYPE="day">
+            <mets:div ID="LOG_519" LABEL="30.10.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431030/DeutReunP_856399094_19431030.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_520" LABEL="11" ORDERLABEL="1943-11" TYPE="month">
+          <mets:div ID="LOG_521" LABEL="1943-11-01" ORDERLABEL="1943-11-01" TYPE="day">
+            <mets:div ID="LOG_522" LABEL="01.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431101/DeutReunP_856399094_19431101.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_523" LABEL="1943-11-02" ORDERLABEL="1943-11-02" TYPE="day">
+            <mets:div ID="LOG_524" LABEL="02.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431102/DeutReunP_856399094_19431102.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_525" LABEL="1943-11-03" ORDERLABEL="1943-11-03" TYPE="day">
+            <mets:div ID="LOG_526" LABEL="03.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431103/DeutReunP_856399094_19431103.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_527" LABEL="1943-11-04" ORDERLABEL="1943-11-04" TYPE="day">
+            <mets:div ID="LOG_528" LABEL="04.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431104/DeutReunP_856399094_19431104.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_529" LABEL="1943-11-05" ORDERLABEL="1943-11-05" TYPE="day">
+            <mets:div ID="LOG_530" LABEL="05.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431105/DeutReunP_856399094_19431105.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_531" LABEL="1943-11-06" ORDERLABEL="1943-11-06" TYPE="day">
+            <mets:div ID="LOG_532" LABEL="06.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431106/DeutReunP_856399094_19431106.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_533" LABEL="1943-11-08" ORDERLABEL="1943-11-08" TYPE="day">
+            <mets:div ID="LOG_534" LABEL="08.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431108/DeutReunP_856399094_19431108.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_535" LABEL="1943-11-09" ORDERLABEL="1943-11-09" TYPE="day">
+            <mets:div ID="LOG_536" LABEL="09.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431109/DeutReunP_856399094_19431109.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_537" LABEL="1943-11-10" ORDERLABEL="1943-11-10" TYPE="day">
+            <mets:div ID="LOG_538" LABEL="10.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431110/DeutReunP_856399094_19431110.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_539" LABEL="1943-11-11" ORDERLABEL="1943-11-11" TYPE="day">
+            <mets:div ID="LOG_540" LABEL="11.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431111/DeutReunP_856399094_19431111.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_541" LABEL="1943-11-12" ORDERLABEL="1943-11-12" TYPE="day">
+            <mets:div ID="LOG_542" LABEL="12.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431112/DeutReunP_856399094_19431112.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_543" LABEL="1943-11-13" ORDERLABEL="1943-11-13" TYPE="day">
+            <mets:div ID="LOG_544" LABEL="13.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431113/DeutReunP_856399094_19431113.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_545" LABEL="1943-11-15" ORDERLABEL="1943-11-15" TYPE="day">
+            <mets:div ID="LOG_546" LABEL="15.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431115/DeutReunP_856399094_19431115.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_547" LABEL="1943-11-16" ORDERLABEL="1943-11-16" TYPE="day">
+            <mets:div ID="LOG_548" LABEL="16.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431116/DeutReunP_856399094_19431116.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_549" LABEL="1943-11-17" ORDERLABEL="1943-11-17" TYPE="day">
+            <mets:div ID="LOG_550" LABEL="17.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431117/DeutReunP_856399094_19431117.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_551" LABEL="1943-11-18" ORDERLABEL="1943-11-18" TYPE="day">
+            <mets:div ID="LOG_552" LABEL="18.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431118/DeutReunP_856399094_19431118.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_553" LABEL="1943-11-19" ORDERLABEL="1943-11-19" TYPE="day">
+            <mets:div ID="LOG_554" LABEL="19.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431119/DeutReunP_856399094_19431119.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_555" LABEL="1943-11-20" ORDERLABEL="1943-11-20" TYPE="day">
+            <mets:div ID="LOG_556" LABEL="20.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431120/DeutReunP_856399094_19431120.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_557" LABEL="1943-11-22" ORDERLABEL="1943-11-22" TYPE="day">
+            <mets:div ID="LOG_558" LABEL="22.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431122/DeutReunP_856399094_19431122.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_559" LABEL="1943-11-23" ORDERLABEL="1943-11-23" TYPE="day">
+            <mets:div ID="LOG_560" LABEL="23.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431123/DeutReunP_856399094_19431123.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_561" LABEL="1943-11-24" ORDERLABEL="1943-11-24" TYPE="day">
+            <mets:div ID="LOG_562" LABEL="24.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431124/DeutReunP_856399094_19431124.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_563" LABEL="1943-11-25" ORDERLABEL="1943-11-25" TYPE="day">
+            <mets:div ID="LOG_564" LABEL="25.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431125/DeutReunP_856399094_19431125.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_565" LABEL="1943-11-26" ORDERLABEL="1943-11-26" TYPE="day">
+            <mets:div ID="LOG_566" LABEL="26.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431126/DeutReunP_856399094_19431126.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_567" LABEL="1943-11-27" ORDERLABEL="1943-11-27" TYPE="day">
+            <mets:div ID="LOG_568" LABEL="27.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431127/DeutReunP_856399094_19431127.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_569" LABEL="1943-11-29" ORDERLABEL="1943-11-29" TYPE="day">
+            <mets:div ID="LOG_570" LABEL="29.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431129/DeutReunP_856399094_19431129.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_571" LABEL="1943-11-30" ORDERLABEL="1943-11-30" TYPE="day">
+            <mets:div ID="LOG_572" LABEL="30.11.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431130/DeutReunP_856399094_19431130.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_573" LABEL="12" ORDERLABEL="1943-12" TYPE="month">
+          <mets:div ID="LOG_574" LABEL="1943-12-01" ORDERLABEL="1943-12-01" TYPE="day">
+            <mets:div ID="LOG_575" LABEL="01.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431201/DeutReunP_856399094_19431201.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_576" LABEL="1943-12-02" ORDERLABEL="1943-12-02" TYPE="day">
+            <mets:div ID="LOG_577" LABEL="02.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431202/DeutReunP_856399094_19431202.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_578" LABEL="1943-12-03" ORDERLABEL="1943-12-03" TYPE="day">
+            <mets:div ID="LOG_579" LABEL="03.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431203/DeutReunP_856399094_19431203.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_580" LABEL="1943-12-04" ORDERLABEL="1943-12-04" TYPE="day">
+            <mets:div ID="LOG_581" LABEL="04.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431204/DeutReunP_856399094_19431204.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_582" LABEL="1943-12-06" ORDERLABEL="1943-12-06" TYPE="day">
+            <mets:div ID="LOG_583" LABEL="06.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431206/DeutReunP_856399094_19431206.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_584" LABEL="1943-12-07" ORDERLABEL="1943-12-07" TYPE="day">
+            <mets:div ID="LOG_585" LABEL="07.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431207/DeutReunP_856399094_19431207.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_586" LABEL="1943-12-08" ORDERLABEL="1943-12-08" TYPE="day">
+            <mets:div ID="LOG_587" LABEL="08.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431208/DeutReunP_856399094_19431208.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_588" LABEL="1943-12-09" ORDERLABEL="1943-12-09" TYPE="day">
+            <mets:div ID="LOG_589" LABEL="09.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431209/DeutReunP_856399094_19431209.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_590" LABEL="1943-12-10" ORDERLABEL="1943-12-10" TYPE="day">
+            <mets:div ID="LOG_591" LABEL="10.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431210/DeutReunP_856399094_19431210.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_592" LABEL="1943-12-11" ORDERLABEL="1943-12-11" TYPE="day">
+            <mets:div ID="LOG_593" LABEL="11.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431211/DeutReunP_856399094_19431211.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_594" LABEL="1943-12-13" ORDERLABEL="1943-12-13" TYPE="day">
+            <mets:div ID="LOG_595" LABEL="13.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431213/DeutReunP_856399094_19431213.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_596" LABEL="1943-12-14" ORDERLABEL="1943-12-14" TYPE="day">
+            <mets:div ID="LOG_597" LABEL="14.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431214/DeutReunP_856399094_19431214.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_598" LABEL="1943-12-15" ORDERLABEL="1943-12-15" TYPE="day">
+            <mets:div ID="LOG_599" LABEL="15.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431215/DeutReunP_856399094_19431215.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_600" LABEL="1943-12-16" ORDERLABEL="1943-12-16" TYPE="day">
+            <mets:div ID="LOG_601" LABEL="16.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431216/DeutReunP_856399094_19431216.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_602" LABEL="1943-12-17" ORDERLABEL="1943-12-17" TYPE="day">
+            <mets:div ID="LOG_603" LABEL="17.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431217/DeutReunP_856399094_19431217.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_604" LABEL="1943-12-18" ORDERLABEL="1943-12-18" TYPE="day">
+            <mets:div ID="LOG_605" LABEL="18.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431218/DeutReunP_856399094_19431218.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_606" LABEL="1943-12-20" ORDERLABEL="1943-12-20" TYPE="day">
+            <mets:div ID="LOG_607" LABEL="20.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431220/DeutReunP_856399094_19431220.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_608" LABEL="1943-12-21" ORDERLABEL="1943-12-21" TYPE="day">
+            <mets:div ID="LOG_609" LABEL="21.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431221/DeutReunP_856399094_19431221.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_610" LABEL="1943-12-22" ORDERLABEL="1943-12-22" TYPE="day">
+            <mets:div ID="LOG_611" LABEL="22.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431222/DeutReunP_856399094_19431222.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_612" LABEL="1943-12-23" ORDERLABEL="1943-12-23" TYPE="day">
+            <mets:div ID="LOG_613" LABEL="23.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431223/DeutReunP_856399094_19431223.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_614" LABEL="1943-12-24" ORDERLABEL="1943-12-24" TYPE="day">
+            <mets:div ID="LOG_615" LABEL="24.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431224/DeutReunP_856399094_19431224.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_616" LABEL="1943-12-28" ORDERLABEL="1943-12-28" TYPE="day">
+            <mets:div ID="LOG_617" LABEL="28.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431228/DeutReunP_856399094_19431228.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_618" LABEL="1943-12-29" ORDERLABEL="1943-12-29" TYPE="day">
+            <mets:div ID="LOG_619" LABEL="29.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431229/DeutReunP_856399094_19431229.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_620" LABEL="1943-12-30" ORDERLABEL="1943-12-30" TYPE="day">
+            <mets:div ID="LOG_621" LABEL="30.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431230/DeutReunP_856399094_19431230.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_622" LABEL="1943-12-31" ORDERLABEL="1943-12-31" TYPE="day">
+            <mets:div ID="LOG_623" LABEL="31.12.1943" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19431231/DeutReunP_856399094_19431231.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+      </mets:div>
+    </mets:div>
+  </mets:structMap>
+</mets:mets>
