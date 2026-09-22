@@ -291,19 +291,30 @@ if [ "$MAKE_SAMPLE" = "1" ]; then
         AV3D_SOURCES+=("$name")
         AV3D_SAMPLES+=("${DATA_URL}/${name}/sample_mets.xml")
     done
+    # The newspaper sample is the ideal single anchor METS (whole newspaper,
+    # all years) plus one year METS per year; each year file covers all issues
+    # of that year and links them to the live digi issue documents.
+    NEWS_DIR="$SCRIPT_DIR/examples/newspaper"
+    cp "$NEWS_DIR/DeutReunP_856399094_anchor.xml" "$NEWS_DIR/"DeutReunP_856399094_*_year.xml "$DEMO_DIR/kitodo-demo/"
+    for f in DeutReunP_856399094_anchor.xml DeutReunP_856399094_*_year.xml; do
+        sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/$f" && rm -f "$DEMO_DIR/kitodo-demo/$f.bak"
+    done
+    NEWS_ANCHOR_URL="${DATA_URL}/DeutReunP_856399094_anchor.xml"
 else
     SAMPLE_URL=""
     AV3D_SOURCES=()
     AV3D_SAMPLES=()
+    NEWS_ANCHOR_URL=""
 fi
 
 # Build the <option> list for the on-page "Examples" <select>. The digi
-# samples are always present; the local sample (when generated) is added as
-# the preselected entry, since the URL form is pre-filled with it too.
-EXAMPLE_OPTIONS="<option value=\"https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_18710504/DeutReunP_856399094_18710504.xml\">Reichsanzeiger, 04.05.1871</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/stefan/DeutReunP_856399094_18920102.xml\">Reichsanzeiger, 02.01.1892</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1885328680/1885328680.xml\">Mannheimer Privilegien, 1652</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1799303241/1799303241.xml\">Gemeinde-Registratur-Ordnung, 1843</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1840280522/1840280522.xml\">Knabenhorten (Vortrag), 1887</option>"
+# samples are always present; the local samples (when generated) are added
+# after them. Nothing is preselected: a hidden blank placeholder option keeps
+# the select from implying a document is already open, and the inline script
+# (below) syncs the selection with the URL form in both directions.
+EXAMPLE_OPTIONS="<option value=\"https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_18710504/DeutReunP_856399094_18710504.xml\">Reichsanzeiger, 04.05.1871</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1885328680/1885328680.xml\">Mannheimer Privilegien, 1652</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1799303241/1799303241.xml\">Gemeinde-Registratur-Ordnung, 1843</option><option value=\"https://digi.bib.uni-mannheim.de/fileadmin/digi/1840280522/1840280522.xml\">Knabenhorten (Vortrag), 1887</option>"
 if [ "$MAKE_SAMPLE" = "1" ]; then
-    # The local sample is the default (selected) entry and is listed first.
-    EXAMPLE_OPTIONS="<option value=\"${SAMPLE_URL}\" selected>Local sample (offline)</option>${EXAMPLE_OPTIONS}"
+    EXAMPLE_OPTIONS="${EXAMPLE_OPTIONS}<option value=\"${SAMPLE_URL}\">Local sample (offline)</option>"
     # The audio / video / 3D samples follow the image sample, so the on-page
     # selector offers a non page-image example for each media type. Friendly
     # labels are looked up by directory name; unknown ones fall back to the
@@ -319,7 +330,16 @@ if [ "$MAKE_SAMPLE" = "1" ]; then
     for i in "${!AV3D_SOURCES[@]}"; do
         EXAMPLE_OPTIONS="${EXAMPLE_OPTIONS}<option value=\"${AV3D_SAMPLES[$i]}\">$(av3d_label "${AV3D_SOURCES[$i]}")</option>"
     done
+    # The newspaper anchor (toplevel type "newspaper") drives the calendar's
+    # years view and the table of contents' full hierarchy, so it is the
+    # offline example of the periodical navigation.
+    EXAMPLE_OPTIONS="${EXAMPLE_OPTIONS}<option value=\"${NEWS_ANCHOR_URL}\">Reichsanzeiger (newspaper anchor, offline)</option>"
 fi
+# The hidden placeholder is listed first so the select renders blank until
+# the user picks an example (a plain disabled placeholder is still "selected"
+# by default, so the browser would show it; `hidden` keeps it out of the
+# display while keeping it a valid reset target).
+EXAMPLE_OPTIONS="<option value=\"\" hidden></option>${EXAMPLE_OPTIONS}"
 
 # --- write the frontend TypoScript (stored in a sys_template record) ------
 log "Writing frontend TypoScript (demo.typoscript)"
@@ -418,6 +438,19 @@ plugin.tx_dlf_tableofcontents {
     }
 }
 
+# The calendar. It is the newspaper overview: opened with the anchor document
+# (toplevel type "newspaper") it lists all years (dlf_calendar years view);
+# opened with a year document (toplevel type "year") it shows the day calendar
+# of that year's issues. Neither view needs Solr — when the documents are not
+# indexed they fall back to the mptr links in the METS table of contents.
+plugin.tx_dlf_calendar {
+    settings {
+        storagePid = 100
+        # Do not pad the year list with empty decades.
+        showEmptyYears = 0
+    }
+}
+
 # The audio / video media player. It renders nothing for documents that have
 # no audio or video file in a configured use group, so it only appears for the
 # AV sample documents.
@@ -450,7 +483,7 @@ page {
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var c=document.getElementById('dlf-demo-dark');if(!c){return;}var K='kitodo-demo-dark';var off='';try{off=localStorage.getItem(K);}catch(e){}c.checked=off==='1';document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');c.addEventListener('change',function(){document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');try{localStorage.setItem(K,c.checked?'1':'0');}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;var p=new URLSearchParams(window.location.search).get('tx_dlf[id]');if(p){f.value=p;}s.addEventListener('change',function(){f.value=s.value;form.submit();});})();</script>
+    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var c=document.getElementById('dlf-demo-dark');if(!c){return;}var K='kitodo-demo-dark';var off='';try{off=localStorage.getItem(K);}catch(e){}c.checked=off==='1';document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');c.addEventListener('change',function(){document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');try{localStorage.setItem(K,c.checked?'1':'0');}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;var p=new URLSearchParams(window.location.search).get('tx_dlf[id]');if(p){f.value=p;}s.addEventListener('change',function(){if(s.value){f.value=s.value;form.submit();}});f.addEventListener('input',function(){var v=f.value;var found=false;for(var i=0;i<s.options.length;i++){if(s.options[i].value===v){s.selectedIndex=i;found=true;break;}}if(!found){s.selectedIndex=0;}});})();</script><script>(function(){function init(){var c=document.querySelector('.tx-dlf-calendar-list-selection');var w=document.querySelector('.tx-dlf-calendar');if(!c||!w){return;}var cal=c.querySelector('.tx-dlf-calendar-select-calendar-view');var list=c.querySelector('.tx-dlf-calendar-select-list-view');if(!cal||!list){return;}function apply(v){w.setAttribute('data-view',v);cal.classList.toggle('active',v==='calendar');list.classList.toggle('active',v==='list');}var act=c.querySelector('a.active');var v;if(act){v=act.classList.contains('tx-dlf-calendar-select-calendar-view')?'calendar':'list';}else{v=document.querySelectorAll('.tx-dlf-calendar-month').length>5?'calendar':'list';}apply(v);cal.addEventListener('click',function(){apply('calendar');});list.addEventListener('click',function(){apply('list');});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();</script>
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
@@ -609,7 +642,7 @@ $templates->insert('sys_template', [
 //    page. All read the global tx_dlf[id] / tx_dlf[page] params, so none of
 //    them need Solr.
 $contents = $pool->getConnectionForTable('tt_content');
-$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_tableofcontents', 'dlf_metadata', 'dlf_toolbox', 'dlf_mediaplayer', 'dlf_embedded3dviewer'];
+$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_tableofcontents', 'dlf_calendar', 'dlf_metadata', 'dlf_toolbox', 'dlf_mediaplayer', 'dlf_embedded3dviewer'];
 foreach ($plugins as $i => $plugin) {
     $uid = 20 + $i;
     $contents->delete('tt_content', ['uid' => $uid]);
@@ -619,7 +652,7 @@ foreach ($plugins as $i => $plugin) {
     ]);
 }
 
-echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-27)\n";
+echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-28)\n";
 PHP
 
 # --- favicon (cosmetic; needs ImageMagick, skipped if absent) -------------

@@ -1,0 +1,1621 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-0.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/mix/v10 http://www.loc.gov/standards/mix/mix10/mix10.xsd">
+  <mets:metsHdr CREATEDATE="2024-08-23T07:47:45" LASTMODDATE="2026-09-22T00:00:00">
+    <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+      <mets:name>Kitodo - kitodo-ugh-2.1.3-kitodo-ugh-2.1.1-11-g4b06eaa - 30−July−2019</mets:name>
+      <mets:note>Kitodo</mets:note>
+    </mets:agent>
+  </mets:metsHdr>
+  <mets:dmdSec ID="DMDLOG_0000">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:titleInfo>
+            <mods:title>Deutscher Reichsanzeiger und Preußischer Staatsanzeiger</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:dmdSec ID="DMDLOG_0001">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:location>
+            <mods:physicalLocation valueURI="https://ld.zdb-services.de/resource/organisations/DE-180">Universitätsbibliothek, Mannheim, Germany</mods:physicalLocation>
+            <mods:shelfLocator>Z 9043</mods:shelfLocator>
+          </mods:location>
+          <mods:titleInfo>
+            <mods:title>1921</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:amdSec ID="AMD">
+    <mets:rightsMD ID="RIGHTS">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Mannheim</dv:owner>
+            <dv:ownerLogo>https://digi.bib.uni-mannheim.de/ubma-logo.png</dv:ownerLogo>
+            <dv:ownerSiteURL>https://www.bib.uni-mannheim.de/</dv:ownerSiteURL>
+            <dv:ownerContact>mailto:info.ub@uni-mannheim.de</dv:ownerContact>
+            <dv:license>https://creativecommons.org/publicdomain/mark/1.0/</dv:license>
+          </dv:rights>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:rightsMD>
+    <mets:digiprovMD ID="DIGIPROV">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>https://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=856399094&amp;INDEXSET=21</dv:reference>
+          </dv:links>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+  </mets:amdSec>
+
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div ADMID="AMD" CONTENTIDS="https://digi.bib.uni-mannheim.de/resolve?id=DeutReunP_856399094_19210103" DMDID="DMDLOG_0000" ID="LOG_0000" LABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" ORDERLABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" TYPE="newspaper">
+      <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_anchor.xml"/>
+      <mets:div ADMID="AMD" DMDID="DMDLOG_0001" ID="LOG_0001" LABEL="1921" ORDERLABEL="1921" TYPE="year">
+        <mets:div ID="LOG_2" LABEL="01" ORDERLABEL="1921-01" TYPE="month">
+          <mets:div ID="LOG_3" LABEL="1921-01-03" ORDERLABEL="1921-01-03" TYPE="day">
+            <mets:div ID="LOG_4" LABEL="03.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210103/DeutReunP_856399094_19210103.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_5" LABEL="1921-01-04" ORDERLABEL="1921-01-04" TYPE="day">
+            <mets:div ID="LOG_6" LABEL="04.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210104/DeutReunP_856399094_19210104.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_7" LABEL="1921-01-05" ORDERLABEL="1921-01-05" TYPE="day">
+            <mets:div ID="LOG_8" LABEL="05.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210105/DeutReunP_856399094_19210105.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_9" LABEL="1921-01-06" ORDERLABEL="1921-01-06" TYPE="day">
+            <mets:div ID="LOG_10" LABEL="06.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210106/DeutReunP_856399094_19210106.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_11" LABEL="1921-01-07" ORDERLABEL="1921-01-07" TYPE="day">
+            <mets:div ID="LOG_12" LABEL="07.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210107/DeutReunP_856399094_19210107.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_13" LABEL="1921-01-08" ORDERLABEL="1921-01-08" TYPE="day">
+            <mets:div ID="LOG_14" LABEL="08.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210108/DeutReunP_856399094_19210108.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_15" LABEL="1921-01-10" ORDERLABEL="1921-01-10" TYPE="day">
+            <mets:div ID="LOG_16" LABEL="10.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210110/DeutReunP_856399094_19210110.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_17" LABEL="1921-01-11" ORDERLABEL="1921-01-11" TYPE="day">
+            <mets:div ID="LOG_18" LABEL="11.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210111/DeutReunP_856399094_19210111.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_19" LABEL="1921-01-12" ORDERLABEL="1921-01-12" TYPE="day">
+            <mets:div ID="LOG_20" LABEL="12.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210112/DeutReunP_856399094_19210112.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_21" LABEL="1921-01-13" ORDERLABEL="1921-01-13" TYPE="day">
+            <mets:div ID="LOG_22" LABEL="13.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210113/DeutReunP_856399094_19210113.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_23" LABEL="1921-01-14" ORDERLABEL="1921-01-14" TYPE="day">
+            <mets:div ID="LOG_24" LABEL="14.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210114/DeutReunP_856399094_19210114.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_25" LABEL="1921-01-15" ORDERLABEL="1921-01-15" TYPE="day">
+            <mets:div ID="LOG_26" LABEL="15.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210115/DeutReunP_856399094_19210115.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_27" LABEL="1921-01-17" ORDERLABEL="1921-01-17" TYPE="day">
+            <mets:div ID="LOG_28" LABEL="17.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210117/DeutReunP_856399094_19210117.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_29" LABEL="1921-01-18" ORDERLABEL="1921-01-18" TYPE="day">
+            <mets:div ID="LOG_30" LABEL="18.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210118/DeutReunP_856399094_19210118.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_31" LABEL="1921-01-19" ORDERLABEL="1921-01-19" TYPE="day">
+            <mets:div ID="LOG_32" LABEL="19.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210119/DeutReunP_856399094_19210119.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_33" LABEL="1921-01-20" ORDERLABEL="1921-01-20" TYPE="day">
+            <mets:div ID="LOG_34" LABEL="20.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210120/DeutReunP_856399094_19210120.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_35" LABEL="1921-01-21" ORDERLABEL="1921-01-21" TYPE="day">
+            <mets:div ID="LOG_36" LABEL="21.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210121/DeutReunP_856399094_19210121.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_37" LABEL="1921-01-22" ORDERLABEL="1921-01-22" TYPE="day">
+            <mets:div ID="LOG_38" LABEL="22.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210122/DeutReunP_856399094_19210122.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_39" LABEL="1921-01-24" ORDERLABEL="1921-01-24" TYPE="day">
+            <mets:div ID="LOG_40" LABEL="24.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210124/DeutReunP_856399094_19210124.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_41" LABEL="1921-01-25" ORDERLABEL="1921-01-25" TYPE="day">
+            <mets:div ID="LOG_42" LABEL="25.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210125/DeutReunP_856399094_19210125.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_43" LABEL="1921-01-26" ORDERLABEL="1921-01-26" TYPE="day">
+            <mets:div ID="LOG_44" LABEL="26.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210126/DeutReunP_856399094_19210126.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_45" LABEL="1921-01-27" ORDERLABEL="1921-01-27" TYPE="day">
+            <mets:div ID="LOG_46" LABEL="27.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210127/DeutReunP_856399094_19210127.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_47" LABEL="1921-01-28" ORDERLABEL="1921-01-28" TYPE="day">
+            <mets:div ID="LOG_48" LABEL="28.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210128/DeutReunP_856399094_19210128.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_49" LABEL="1921-01-29" ORDERLABEL="1921-01-29" TYPE="day">
+            <mets:div ID="LOG_50" LABEL="29.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210129/DeutReunP_856399094_19210129.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_51" LABEL="1921-01-31" ORDERLABEL="1921-01-31" TYPE="day">
+            <mets:div ID="LOG_52" LABEL="31.01.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210131/DeutReunP_856399094_19210131.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_53" LABEL="02" ORDERLABEL="1921-02" TYPE="month">
+          <mets:div ID="LOG_54" LABEL="1921-02-01" ORDERLABEL="1921-02-01" TYPE="day">
+            <mets:div ID="LOG_55" LABEL="01.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210201/DeutReunP_856399094_19210201.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_56" LABEL="1921-02-02" ORDERLABEL="1921-02-02" TYPE="day">
+            <mets:div ID="LOG_57" LABEL="02.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210202/DeutReunP_856399094_19210202.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_58" LABEL="1921-02-03" ORDERLABEL="1921-02-03" TYPE="day">
+            <mets:div ID="LOG_59" LABEL="03.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210203/DeutReunP_856399094_19210203.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_60" LABEL="1921-02-04" ORDERLABEL="1921-02-04" TYPE="day">
+            <mets:div ID="LOG_61" LABEL="04.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210204/DeutReunP_856399094_19210204.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_62" LABEL="1921-02-05" ORDERLABEL="1921-02-05" TYPE="day">
+            <mets:div ID="LOG_63" LABEL="05.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210205/DeutReunP_856399094_19210205.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_64" LABEL="1921-02-07" ORDERLABEL="1921-02-07" TYPE="day">
+            <mets:div ID="LOG_65" LABEL="07.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210207/DeutReunP_856399094_19210207.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_66" LABEL="1921-02-08" ORDERLABEL="1921-02-08" TYPE="day">
+            <mets:div ID="LOG_67" LABEL="08.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210208/DeutReunP_856399094_19210208.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_68" LABEL="1921-02-09" ORDERLABEL="1921-02-09" TYPE="day">
+            <mets:div ID="LOG_69" LABEL="09.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210209/DeutReunP_856399094_19210209.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_70" LABEL="1921-02-10" ORDERLABEL="1921-02-10" TYPE="day">
+            <mets:div ID="LOG_71" LABEL="10.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210210/DeutReunP_856399094_19210210.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_72" LABEL="1921-02-11" ORDERLABEL="1921-02-11" TYPE="day">
+            <mets:div ID="LOG_73" LABEL="11.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210211/DeutReunP_856399094_19210211.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_74" LABEL="1921-02-12" ORDERLABEL="1921-02-12" TYPE="day">
+            <mets:div ID="LOG_75" LABEL="12.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210212/DeutReunP_856399094_19210212.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_76" LABEL="1921-02-14" ORDERLABEL="1921-02-14" TYPE="day">
+            <mets:div ID="LOG_77" LABEL="14.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210214/DeutReunP_856399094_19210214.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_78" LABEL="1921-02-15" ORDERLABEL="1921-02-15" TYPE="day">
+            <mets:div ID="LOG_79" LABEL="15.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210215/DeutReunP_856399094_19210215.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_80" LABEL="1921-02-16" ORDERLABEL="1921-02-16" TYPE="day">
+            <mets:div ID="LOG_81" LABEL="16.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210216/DeutReunP_856399094_19210216.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_82" LABEL="1921-02-17" ORDERLABEL="1921-02-17" TYPE="day">
+            <mets:div ID="LOG_83" LABEL="17.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210217/DeutReunP_856399094_19210217.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_84" LABEL="1921-02-18" ORDERLABEL="1921-02-18" TYPE="day">
+            <mets:div ID="LOG_85" LABEL="18.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210218/DeutReunP_856399094_19210218.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_86" LABEL="1921-02-19" ORDERLABEL="1921-02-19" TYPE="day">
+            <mets:div ID="LOG_87" LABEL="19.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210219/DeutReunP_856399094_19210219.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_88" LABEL="1921-02-21" ORDERLABEL="1921-02-21" TYPE="day">
+            <mets:div ID="LOG_89" LABEL="21.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210221/DeutReunP_856399094_19210221.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_90" LABEL="1921-02-22" ORDERLABEL="1921-02-22" TYPE="day">
+            <mets:div ID="LOG_91" LABEL="22.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210222/DeutReunP_856399094_19210222.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_92" LABEL="1921-02-23" ORDERLABEL="1921-02-23" TYPE="day">
+            <mets:div ID="LOG_93" LABEL="23.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210223/DeutReunP_856399094_19210223.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_94" LABEL="1921-02-24" ORDERLABEL="1921-02-24" TYPE="day">
+            <mets:div ID="LOG_95" LABEL="24.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210224/DeutReunP_856399094_19210224.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_96" LABEL="1921-02-25" ORDERLABEL="1921-02-25" TYPE="day">
+            <mets:div ID="LOG_97" LABEL="25.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210225/DeutReunP_856399094_19210225.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_98" LABEL="1921-02-26" ORDERLABEL="1921-02-26" TYPE="day">
+            <mets:div ID="LOG_99" LABEL="26.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210226/DeutReunP_856399094_19210226.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_100" LABEL="1921-02-28" ORDERLABEL="1921-02-28" TYPE="day">
+            <mets:div ID="LOG_101" LABEL="28.02.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210228/DeutReunP_856399094_19210228.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_102" LABEL="03" ORDERLABEL="1921-03" TYPE="month">
+          <mets:div ID="LOG_103" LABEL="1921-03-01" ORDERLABEL="1921-03-01" TYPE="day">
+            <mets:div ID="LOG_104" LABEL="01.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210301/DeutReunP_856399094_19210301.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_105" LABEL="1921-03-02" ORDERLABEL="1921-03-02" TYPE="day">
+            <mets:div ID="LOG_106" LABEL="02.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210302/DeutReunP_856399094_19210302.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_107" LABEL="1921-03-03" ORDERLABEL="1921-03-03" TYPE="day">
+            <mets:div ID="LOG_108" LABEL="03.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210303/DeutReunP_856399094_19210303.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_109" LABEL="1921-03-04" ORDERLABEL="1921-03-04" TYPE="day">
+            <mets:div ID="LOG_110" LABEL="04.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210304/DeutReunP_856399094_19210304.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_111" LABEL="1921-03-05" ORDERLABEL="1921-03-05" TYPE="day">
+            <mets:div ID="LOG_112" LABEL="05.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210305/DeutReunP_856399094_19210305.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_113" LABEL="1921-03-07" ORDERLABEL="1921-03-07" TYPE="day">
+            <mets:div ID="LOG_114" LABEL="07.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210307/DeutReunP_856399094_19210307.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_115" LABEL="1921-03-08" ORDERLABEL="1921-03-08" TYPE="day">
+            <mets:div ID="LOG_116" LABEL="08.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210308/DeutReunP_856399094_19210308.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_117" LABEL="1921-03-09" ORDERLABEL="1921-03-09" TYPE="day">
+            <mets:div ID="LOG_118" LABEL="09.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210309/DeutReunP_856399094_19210309.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_119" LABEL="1921-03-10" ORDERLABEL="1921-03-10" TYPE="day">
+            <mets:div ID="LOG_120" LABEL="10.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210310/DeutReunP_856399094_19210310.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_121" LABEL="1921-03-11" ORDERLABEL="1921-03-11" TYPE="day">
+            <mets:div ID="LOG_122" LABEL="11.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210311/DeutReunP_856399094_19210311.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_123" LABEL="1921-03-12" ORDERLABEL="1921-03-12" TYPE="day">
+            <mets:div ID="LOG_124" LABEL="12.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210312/DeutReunP_856399094_19210312.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_125" LABEL="1921-03-14" ORDERLABEL="1921-03-14" TYPE="day">
+            <mets:div ID="LOG_126" LABEL="14.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210314/DeutReunP_856399094_19210314.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_127" LABEL="1921-03-15" ORDERLABEL="1921-03-15" TYPE="day">
+            <mets:div ID="LOG_128" LABEL="15.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210315/DeutReunP_856399094_19210315.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_129" LABEL="1921-03-16" ORDERLABEL="1921-03-16" TYPE="day">
+            <mets:div ID="LOG_130" LABEL="16.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210316/DeutReunP_856399094_19210316.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_131" LABEL="1921-03-17" ORDERLABEL="1921-03-17" TYPE="day">
+            <mets:div ID="LOG_132" LABEL="17.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210317/DeutReunP_856399094_19210317.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_133" LABEL="1921-03-18" ORDERLABEL="1921-03-18" TYPE="day">
+            <mets:div ID="LOG_134" LABEL="18.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210318/DeutReunP_856399094_19210318.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_135" LABEL="1921-03-19" ORDERLABEL="1921-03-19" TYPE="day">
+            <mets:div ID="LOG_136" LABEL="19.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210319/DeutReunP_856399094_19210319.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_137" LABEL="1921-03-21" ORDERLABEL="1921-03-21" TYPE="day">
+            <mets:div ID="LOG_138" LABEL="21.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210321/DeutReunP_856399094_19210321.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_139" LABEL="1921-03-22" ORDERLABEL="1921-03-22" TYPE="day">
+            <mets:div ID="LOG_140" LABEL="22.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210322/DeutReunP_856399094_19210322.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_141" LABEL="1921-03-23" ORDERLABEL="1921-03-23" TYPE="day">
+            <mets:div ID="LOG_142" LABEL="23.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210323/DeutReunP_856399094_19210323.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_143" LABEL="1921-03-24" ORDERLABEL="1921-03-24" TYPE="day">
+            <mets:div ID="LOG_144" LABEL="24.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210324/DeutReunP_856399094_19210324.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_145" LABEL="1921-03-26" ORDERLABEL="1921-03-26" TYPE="day">
+            <mets:div ID="LOG_146" LABEL="26.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210326/DeutReunP_856399094_19210326.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_147" LABEL="1921-03-29" ORDERLABEL="1921-03-29" TYPE="day">
+            <mets:div ID="LOG_148" LABEL="29.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210329/DeutReunP_856399094_19210329.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_149" LABEL="1921-03-30" ORDERLABEL="1921-03-30" TYPE="day">
+            <mets:div ID="LOG_150" LABEL="30.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210330/DeutReunP_856399094_19210330.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_151" LABEL="1921-03-31" ORDERLABEL="1921-03-31" TYPE="day">
+            <mets:div ID="LOG_152" LABEL="31.03.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210331/DeutReunP_856399094_19210331.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_153" LABEL="04" ORDERLABEL="1921-04" TYPE="month">
+          <mets:div ID="LOG_154" LABEL="1921-04-01" ORDERLABEL="1921-04-01" TYPE="day">
+            <mets:div ID="LOG_155" LABEL="01.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210401/DeutReunP_856399094_19210401.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_156" LABEL="1921-04-02" ORDERLABEL="1921-04-02" TYPE="day">
+            <mets:div ID="LOG_157" LABEL="02.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210402/DeutReunP_856399094_19210402.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_158" LABEL="1921-04-04" ORDERLABEL="1921-04-04" TYPE="day">
+            <mets:div ID="LOG_159" LABEL="04.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210404/DeutReunP_856399094_19210404.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_160" LABEL="1921-04-05" ORDERLABEL="1921-04-05" TYPE="day">
+            <mets:div ID="LOG_161" LABEL="05.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210405/DeutReunP_856399094_19210405.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_162" LABEL="1921-04-06" ORDERLABEL="1921-04-06" TYPE="day">
+            <mets:div ID="LOG_163" LABEL="06.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210406/DeutReunP_856399094_19210406.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_164" LABEL="1921-04-07" ORDERLABEL="1921-04-07" TYPE="day">
+            <mets:div ID="LOG_165" LABEL="07.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210407/DeutReunP_856399094_19210407.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_166" LABEL="1921-04-08" ORDERLABEL="1921-04-08" TYPE="day">
+            <mets:div ID="LOG_167" LABEL="08.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210408/DeutReunP_856399094_19210408.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_168" LABEL="1921-04-09" ORDERLABEL="1921-04-09" TYPE="day">
+            <mets:div ID="LOG_169" LABEL="09.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210409/DeutReunP_856399094_19210409.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_170" LABEL="1921-04-11" ORDERLABEL="1921-04-11" TYPE="day">
+            <mets:div ID="LOG_171" LABEL="11.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210411/DeutReunP_856399094_19210411.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_172" LABEL="1921-04-12" ORDERLABEL="1921-04-12" TYPE="day">
+            <mets:div ID="LOG_173" LABEL="12.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210412/DeutReunP_856399094_19210412.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_174" LABEL="1921-04-13" ORDERLABEL="1921-04-13" TYPE="day">
+            <mets:div ID="LOG_175" LABEL="13.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210413/DeutReunP_856399094_19210413.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_176" LABEL="1921-04-14" ORDERLABEL="1921-04-14" TYPE="day">
+            <mets:div ID="LOG_177" LABEL="14.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210414/DeutReunP_856399094_19210414.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_178" LABEL="1921-04-15" ORDERLABEL="1921-04-15" TYPE="day">
+            <mets:div ID="LOG_179" LABEL="15.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210415/DeutReunP_856399094_19210415.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_180" LABEL="1921-04-16" ORDERLABEL="1921-04-16" TYPE="day">
+            <mets:div ID="LOG_181" LABEL="16.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210416/DeutReunP_856399094_19210416.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_182" LABEL="1921-04-18" ORDERLABEL="1921-04-18" TYPE="day">
+            <mets:div ID="LOG_183" LABEL="18.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210418/DeutReunP_856399094_19210418.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_184" LABEL="1921-04-19" ORDERLABEL="1921-04-19" TYPE="day">
+            <mets:div ID="LOG_185" LABEL="19.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210419/DeutReunP_856399094_19210419.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_186" LABEL="1921-04-20" ORDERLABEL="1921-04-20" TYPE="day">
+            <mets:div ID="LOG_187" LABEL="20.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210420/DeutReunP_856399094_19210420.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_188" LABEL="1921-04-21" ORDERLABEL="1921-04-21" TYPE="day">
+            <mets:div ID="LOG_189" LABEL="21.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210421/DeutReunP_856399094_19210421.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_190" LABEL="1921-04-22" ORDERLABEL="1921-04-22" TYPE="day">
+            <mets:div ID="LOG_191" LABEL="22.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210422/DeutReunP_856399094_19210422.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_192" LABEL="1921-04-23" ORDERLABEL="1921-04-23" TYPE="day">
+            <mets:div ID="LOG_193" LABEL="23.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210423/DeutReunP_856399094_19210423.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_194" LABEL="1921-04-25" ORDERLABEL="1921-04-25" TYPE="day">
+            <mets:div ID="LOG_195" LABEL="25.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210425/DeutReunP_856399094_19210425.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_196" LABEL="1921-04-26" ORDERLABEL="1921-04-26" TYPE="day">
+            <mets:div ID="LOG_197" LABEL="26.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210426/DeutReunP_856399094_19210426.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_198" LABEL="1921-04-27" ORDERLABEL="1921-04-27" TYPE="day">
+            <mets:div ID="LOG_199" LABEL="27.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210427/DeutReunP_856399094_19210427.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_200" LABEL="1921-04-28" ORDERLABEL="1921-04-28" TYPE="day">
+            <mets:div ID="LOG_201" LABEL="28.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210428/DeutReunP_856399094_19210428.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_202" LABEL="1921-04-29" ORDERLABEL="1921-04-29" TYPE="day">
+            <mets:div ID="LOG_203" LABEL="29.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210429/DeutReunP_856399094_19210429.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_204" LABEL="1921-04-30" ORDERLABEL="1921-04-30" TYPE="day">
+            <mets:div ID="LOG_205" LABEL="30.04.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210430/DeutReunP_856399094_19210430.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_206" LABEL="05" ORDERLABEL="1921-05" TYPE="month">
+          <mets:div ID="LOG_207" LABEL="1921-05-02" ORDERLABEL="1921-05-02" TYPE="day">
+            <mets:div ID="LOG_208" LABEL="02.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210502/DeutReunP_856399094_19210502.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_209" LABEL="1921-05-03" ORDERLABEL="1921-05-03" TYPE="day">
+            <mets:div ID="LOG_210" LABEL="03.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210503/DeutReunP_856399094_19210503.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_211" LABEL="1921-05-04" ORDERLABEL="1921-05-04" TYPE="day">
+            <mets:div ID="LOG_212" LABEL="04.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210504/DeutReunP_856399094_19210504.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_213" LABEL="1921-05-06" ORDERLABEL="1921-05-06" TYPE="day">
+            <mets:div ID="LOG_214" LABEL="06.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210506/DeutReunP_856399094_19210506.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_215" LABEL="1921-05-07" ORDERLABEL="1921-05-07" TYPE="day">
+            <mets:div ID="LOG_216" LABEL="07.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210507/DeutReunP_856399094_19210507.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_217" LABEL="1921-05-09" ORDERLABEL="1921-05-09" TYPE="day">
+            <mets:div ID="LOG_218" LABEL="09.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210509/DeutReunP_856399094_19210509.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_219" LABEL="1921-05-10" ORDERLABEL="1921-05-10" TYPE="day">
+            <mets:div ID="LOG_220" LABEL="10.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210510/DeutReunP_856399094_19210510.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_221" LABEL="1921-05-11" ORDERLABEL="1921-05-11" TYPE="day">
+            <mets:div ID="LOG_222" LABEL="11.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210511/DeutReunP_856399094_19210511.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_223" LABEL="1921-05-12" ORDERLABEL="1921-05-12" TYPE="day">
+            <mets:div ID="LOG_224" LABEL="12.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210512/DeutReunP_856399094_19210512.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_225" LABEL="1921-05-13" ORDERLABEL="1921-05-13" TYPE="day">
+            <mets:div ID="LOG_226" LABEL="13.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210513/DeutReunP_856399094_19210513.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_227" LABEL="1921-05-14" ORDERLABEL="1921-05-14" TYPE="day">
+            <mets:div ID="LOG_228" LABEL="14.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210514/DeutReunP_856399094_19210514.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_229" LABEL="1921-05-17" ORDERLABEL="1921-05-17" TYPE="day">
+            <mets:div ID="LOG_230" LABEL="17.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210517/DeutReunP_856399094_19210517.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_231" LABEL="1921-05-18" ORDERLABEL="1921-05-18" TYPE="day">
+            <mets:div ID="LOG_232" LABEL="18.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210518/DeutReunP_856399094_19210518.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_233" LABEL="1921-05-19" ORDERLABEL="1921-05-19" TYPE="day">
+            <mets:div ID="LOG_234" LABEL="19.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210519/DeutReunP_856399094_19210519.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_235" LABEL="1921-05-20" ORDERLABEL="1921-05-20" TYPE="day">
+            <mets:div ID="LOG_236" LABEL="20.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210520/DeutReunP_856399094_19210520.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_237" LABEL="1921-05-21" ORDERLABEL="1921-05-21" TYPE="day">
+            <mets:div ID="LOG_238" LABEL="21.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210521/DeutReunP_856399094_19210521.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_239" LABEL="1921-05-23" ORDERLABEL="1921-05-23" TYPE="day">
+            <mets:div ID="LOG_240" LABEL="23.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210523/DeutReunP_856399094_19210523.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_241" LABEL="1921-05-24" ORDERLABEL="1921-05-24" TYPE="day">
+            <mets:div ID="LOG_242" LABEL="24.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210524/DeutReunP_856399094_19210524.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_243" LABEL="1921-05-25" ORDERLABEL="1921-05-25" TYPE="day">
+            <mets:div ID="LOG_244" LABEL="25.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210525/DeutReunP_856399094_19210525.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_245" LABEL="1921-05-26" ORDERLABEL="1921-05-26" TYPE="day">
+            <mets:div ID="LOG_246" LABEL="26.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210526/DeutReunP_856399094_19210526.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_247" LABEL="1921-05-27" ORDERLABEL="1921-05-27" TYPE="day">
+            <mets:div ID="LOG_248" LABEL="27.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210527/DeutReunP_856399094_19210527.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_249" LABEL="1921-05-28" ORDERLABEL="1921-05-28" TYPE="day">
+            <mets:div ID="LOG_250" LABEL="28.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210528/DeutReunP_856399094_19210528.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_251" LABEL="1921-05-30" ORDERLABEL="1921-05-30" TYPE="day">
+            <mets:div ID="LOG_252" LABEL="30.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210530/DeutReunP_856399094_19210530.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_253" LABEL="1921-05-31" ORDERLABEL="1921-05-31" TYPE="day">
+            <mets:div ID="LOG_254" LABEL="31.05.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210531/DeutReunP_856399094_19210531.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_255" LABEL="06" ORDERLABEL="1921-06" TYPE="month">
+          <mets:div ID="LOG_256" LABEL="1921-06-01" ORDERLABEL="1921-06-01" TYPE="day">
+            <mets:div ID="LOG_257" LABEL="01.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210601/DeutReunP_856399094_19210601.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_258" LABEL="1921-06-02" ORDERLABEL="1921-06-02" TYPE="day">
+            <mets:div ID="LOG_259" LABEL="02.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210602/DeutReunP_856399094_19210602.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_260" LABEL="1921-06-03" ORDERLABEL="1921-06-03" TYPE="day">
+            <mets:div ID="LOG_261" LABEL="03.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210603/DeutReunP_856399094_19210603.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_262" LABEL="1921-06-04" ORDERLABEL="1921-06-04" TYPE="day">
+            <mets:div ID="LOG_263" LABEL="04.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210604/DeutReunP_856399094_19210604.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_264" LABEL="1921-06-06" ORDERLABEL="1921-06-06" TYPE="day">
+            <mets:div ID="LOG_265" LABEL="06.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210606/DeutReunP_856399094_19210606.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_266" LABEL="1921-06-07" ORDERLABEL="1921-06-07" TYPE="day">
+            <mets:div ID="LOG_267" LABEL="07.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210607/DeutReunP_856399094_19210607.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_268" LABEL="1921-06-08" ORDERLABEL="1921-06-08" TYPE="day">
+            <mets:div ID="LOG_269" LABEL="08.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210608/DeutReunP_856399094_19210608.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_270" LABEL="1921-06-09" ORDERLABEL="1921-06-09" TYPE="day">
+            <mets:div ID="LOG_271" LABEL="09.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210609/DeutReunP_856399094_19210609.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_272" LABEL="1921-06-10" ORDERLABEL="1921-06-10" TYPE="day">
+            <mets:div ID="LOG_273" LABEL="10.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210610/DeutReunP_856399094_19210610.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_274" LABEL="1921-06-11" ORDERLABEL="1921-06-11" TYPE="day">
+            <mets:div ID="LOG_275" LABEL="11.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210611/DeutReunP_856399094_19210611.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_276" LABEL="1921-06-13" ORDERLABEL="1921-06-13" TYPE="day">
+            <mets:div ID="LOG_277" LABEL="13.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210613/DeutReunP_856399094_19210613.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_278" LABEL="1921-06-14" ORDERLABEL="1921-06-14" TYPE="day">
+            <mets:div ID="LOG_279" LABEL="14.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210614/DeutReunP_856399094_19210614.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_280" LABEL="1921-06-15" ORDERLABEL="1921-06-15" TYPE="day">
+            <mets:div ID="LOG_281" LABEL="15.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210615/DeutReunP_856399094_19210615.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_282" LABEL="1921-06-16" ORDERLABEL="1921-06-16" TYPE="day">
+            <mets:div ID="LOG_283" LABEL="16.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210616/DeutReunP_856399094_19210616.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_284" LABEL="1921-06-17" ORDERLABEL="1921-06-17" TYPE="day">
+            <mets:div ID="LOG_285" LABEL="17.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210617/DeutReunP_856399094_19210617.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_286" LABEL="1921-06-18" ORDERLABEL="1921-06-18" TYPE="day">
+            <mets:div ID="LOG_287" LABEL="18.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210618/DeutReunP_856399094_19210618.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_288" LABEL="1921-06-20" ORDERLABEL="1921-06-20" TYPE="day">
+            <mets:div ID="LOG_289" LABEL="20.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210620/DeutReunP_856399094_19210620.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_290" LABEL="1921-06-21" ORDERLABEL="1921-06-21" TYPE="day">
+            <mets:div ID="LOG_291" LABEL="21.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210621/DeutReunP_856399094_19210621.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_292" LABEL="1921-06-22" ORDERLABEL="1921-06-22" TYPE="day">
+            <mets:div ID="LOG_293" LABEL="22.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210622/DeutReunP_856399094_19210622.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_294" LABEL="1921-06-23" ORDERLABEL="1921-06-23" TYPE="day">
+            <mets:div ID="LOG_295" LABEL="23.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210623/DeutReunP_856399094_19210623.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_296" LABEL="1921-06-24" ORDERLABEL="1921-06-24" TYPE="day">
+            <mets:div ID="LOG_297" LABEL="24.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210624/DeutReunP_856399094_19210624.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_298" LABEL="1921-06-25" ORDERLABEL="1921-06-25" TYPE="day">
+            <mets:div ID="LOG_299" LABEL="25.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210625/DeutReunP_856399094_19210625.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_300" LABEL="1921-06-27" ORDERLABEL="1921-06-27" TYPE="day">
+            <mets:div ID="LOG_301" LABEL="27.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210627/DeutReunP_856399094_19210627.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_302" LABEL="1921-06-28" ORDERLABEL="1921-06-28" TYPE="day">
+            <mets:div ID="LOG_303" LABEL="28.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210628/DeutReunP_856399094_19210628.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_304" LABEL="1921-06-29" ORDERLABEL="1921-06-29" TYPE="day">
+            <mets:div ID="LOG_305" LABEL="29.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210629/DeutReunP_856399094_19210629.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_306" LABEL="1921-06-30" ORDERLABEL="1921-06-30" TYPE="day">
+            <mets:div ID="LOG_307" LABEL="30.06.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210630/DeutReunP_856399094_19210630.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_308" LABEL="07" ORDERLABEL="1921-07" TYPE="month">
+          <mets:div ID="LOG_309" LABEL="1921-07-01" ORDERLABEL="1921-07-01" TYPE="day">
+            <mets:div ID="LOG_310" LABEL="01.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210701/DeutReunP_856399094_19210701.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_311" LABEL="1921-07-02" ORDERLABEL="1921-07-02" TYPE="day">
+            <mets:div ID="LOG_312" LABEL="02.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210702/DeutReunP_856399094_19210702.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_313" LABEL="1921-07-04" ORDERLABEL="1921-07-04" TYPE="day">
+            <mets:div ID="LOG_314" LABEL="04.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210704/DeutReunP_856399094_19210704.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_315" LABEL="1921-07-05" ORDERLABEL="1921-07-05" TYPE="day">
+            <mets:div ID="LOG_316" LABEL="05.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210705/DeutReunP_856399094_19210705.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_317" LABEL="1921-07-06" ORDERLABEL="1921-07-06" TYPE="day">
+            <mets:div ID="LOG_318" LABEL="06.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210706/DeutReunP_856399094_19210706.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_319" LABEL="1921-07-07" ORDERLABEL="1921-07-07" TYPE="day">
+            <mets:div ID="LOG_320" LABEL="07.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210707/DeutReunP_856399094_19210707.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_321" LABEL="1921-07-08" ORDERLABEL="1921-07-08" TYPE="day">
+            <mets:div ID="LOG_322" LABEL="08.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210708/DeutReunP_856399094_19210708.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_323" LABEL="1921-07-09" ORDERLABEL="1921-07-09" TYPE="day">
+            <mets:div ID="LOG_324" LABEL="09.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210709/DeutReunP_856399094_19210709.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_325" LABEL="1921-07-11" ORDERLABEL="1921-07-11" TYPE="day">
+            <mets:div ID="LOG_326" LABEL="11.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210711/DeutReunP_856399094_19210711.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_327" LABEL="1921-07-12" ORDERLABEL="1921-07-12" TYPE="day">
+            <mets:div ID="LOG_328" LABEL="12.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210712/DeutReunP_856399094_19210712.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_329" LABEL="1921-07-13" ORDERLABEL="1921-07-13" TYPE="day">
+            <mets:div ID="LOG_330" LABEL="13.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210713/DeutReunP_856399094_19210713.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_331" LABEL="1921-07-14" ORDERLABEL="1921-07-14" TYPE="day">
+            <mets:div ID="LOG_332" LABEL="14.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210714/DeutReunP_856399094_19210714.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_333" LABEL="1921-07-15" ORDERLABEL="1921-07-15" TYPE="day">
+            <mets:div ID="LOG_334" LABEL="15.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210715/DeutReunP_856399094_19210715.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_335" LABEL="1921-07-16" ORDERLABEL="1921-07-16" TYPE="day">
+            <mets:div ID="LOG_336" LABEL="16.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210716/DeutReunP_856399094_19210716.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_337" LABEL="1921-07-18" ORDERLABEL="1921-07-18" TYPE="day">
+            <mets:div ID="LOG_338" LABEL="18.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210718/DeutReunP_856399094_19210718.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_339" LABEL="1921-07-19" ORDERLABEL="1921-07-19" TYPE="day">
+            <mets:div ID="LOG_340" LABEL="19.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210719/DeutReunP_856399094_19210719.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_341" LABEL="1921-07-20" ORDERLABEL="1921-07-20" TYPE="day">
+            <mets:div ID="LOG_342" LABEL="20.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210720/DeutReunP_856399094_19210720.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_343" LABEL="1921-07-21" ORDERLABEL="1921-07-21" TYPE="day">
+            <mets:div ID="LOG_344" LABEL="21.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210721/DeutReunP_856399094_19210721.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_345" LABEL="1921-07-22" ORDERLABEL="1921-07-22" TYPE="day">
+            <mets:div ID="LOG_346" LABEL="22.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210722/DeutReunP_856399094_19210722.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_347" LABEL="1921-07-23" ORDERLABEL="1921-07-23" TYPE="day">
+            <mets:div ID="LOG_348" LABEL="23.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210723/DeutReunP_856399094_19210723.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_349" LABEL="1921-07-25" ORDERLABEL="1921-07-25" TYPE="day">
+            <mets:div ID="LOG_350" LABEL="25.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210725/DeutReunP_856399094_19210725.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_351" LABEL="1921-07-26" ORDERLABEL="1921-07-26" TYPE="day">
+            <mets:div ID="LOG_352" LABEL="26.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210726/DeutReunP_856399094_19210726.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_353" LABEL="1921-07-27" ORDERLABEL="1921-07-27" TYPE="day">
+            <mets:div ID="LOG_354" LABEL="27.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210727/DeutReunP_856399094_19210727.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_355" LABEL="1921-07-28" ORDERLABEL="1921-07-28" TYPE="day">
+            <mets:div ID="LOG_356" LABEL="28.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210728/DeutReunP_856399094_19210728.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_357" LABEL="1921-07-29" ORDERLABEL="1921-07-29" TYPE="day">
+            <mets:div ID="LOG_358" LABEL="29.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210729/DeutReunP_856399094_19210729.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_359" LABEL="1921-07-30" ORDERLABEL="1921-07-30" TYPE="day">
+            <mets:div ID="LOG_360" LABEL="30.07.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210730/DeutReunP_856399094_19210730.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_361" LABEL="08" ORDERLABEL="1921-08" TYPE="month">
+          <mets:div ID="LOG_362" LABEL="1921-08-01" ORDERLABEL="1921-08-01" TYPE="day">
+            <mets:div ID="LOG_363" LABEL="01.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210801/DeutReunP_856399094_19210801.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_364" LABEL="1921-08-02" ORDERLABEL="1921-08-02" TYPE="day">
+            <mets:div ID="LOG_365" LABEL="02.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210802/DeutReunP_856399094_19210802.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_366" LABEL="1921-08-03" ORDERLABEL="1921-08-03" TYPE="day">
+            <mets:div ID="LOG_367" LABEL="03.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210803/DeutReunP_856399094_19210803.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_368" LABEL="1921-08-04" ORDERLABEL="1921-08-04" TYPE="day">
+            <mets:div ID="LOG_369" LABEL="04.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210804/DeutReunP_856399094_19210804.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_370" LABEL="1921-08-05" ORDERLABEL="1921-08-05" TYPE="day">
+            <mets:div ID="LOG_371" LABEL="05.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210805/DeutReunP_856399094_19210805.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_372" LABEL="1921-08-06" ORDERLABEL="1921-08-06" TYPE="day">
+            <mets:div ID="LOG_373" LABEL="06.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210806/DeutReunP_856399094_19210806.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_374" LABEL="1921-08-08" ORDERLABEL="1921-08-08" TYPE="day">
+            <mets:div ID="LOG_375" LABEL="08.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210808/DeutReunP_856399094_19210808.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_376" LABEL="1921-08-09" ORDERLABEL="1921-08-09" TYPE="day">
+            <mets:div ID="LOG_377" LABEL="09.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210809/DeutReunP_856399094_19210809.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_378" LABEL="1921-08-10" ORDERLABEL="1921-08-10" TYPE="day">
+            <mets:div ID="LOG_379" LABEL="10.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210810/DeutReunP_856399094_19210810.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_380" LABEL="1921-08-11" ORDERLABEL="1921-08-11" TYPE="day">
+            <mets:div ID="LOG_381" LABEL="11.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210811/DeutReunP_856399094_19210811.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_382" LABEL="1921-08-12" ORDERLABEL="1921-08-12" TYPE="day">
+            <mets:div ID="LOG_383" LABEL="12.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210812/DeutReunP_856399094_19210812.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_384" LABEL="1921-08-13" ORDERLABEL="1921-08-13" TYPE="day">
+            <mets:div ID="LOG_385" LABEL="13.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210813/DeutReunP_856399094_19210813.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_386" LABEL="1921-08-15" ORDERLABEL="1921-08-15" TYPE="day">
+            <mets:div ID="LOG_387" LABEL="15.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210815/DeutReunP_856399094_19210815.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_388" LABEL="1921-08-16" ORDERLABEL="1921-08-16" TYPE="day">
+            <mets:div ID="LOG_389" LABEL="16.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210816/DeutReunP_856399094_19210816.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_390" LABEL="1921-08-17" ORDERLABEL="1921-08-17" TYPE="day">
+            <mets:div ID="LOG_391" LABEL="17.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210817/DeutReunP_856399094_19210817.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_392" LABEL="1921-08-18" ORDERLABEL="1921-08-18" TYPE="day">
+            <mets:div ID="LOG_393" LABEL="18.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210818/DeutReunP_856399094_19210818.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_394" LABEL="1921-08-19" ORDERLABEL="1921-08-19" TYPE="day">
+            <mets:div ID="LOG_395" LABEL="19.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210819/DeutReunP_856399094_19210819.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_396" LABEL="1921-08-20" ORDERLABEL="1921-08-20" TYPE="day">
+            <mets:div ID="LOG_397" LABEL="20.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210820/DeutReunP_856399094_19210820.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_398" LABEL="1921-08-22" ORDERLABEL="1921-08-22" TYPE="day">
+            <mets:div ID="LOG_399" LABEL="22.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210822/DeutReunP_856399094_19210822.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_400" LABEL="1921-08-23" ORDERLABEL="1921-08-23" TYPE="day">
+            <mets:div ID="LOG_401" LABEL="23.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210823/DeutReunP_856399094_19210823.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_402" LABEL="1921-08-24" ORDERLABEL="1921-08-24" TYPE="day">
+            <mets:div ID="LOG_403" LABEL="24.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210824/DeutReunP_856399094_19210824.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_404" LABEL="1921-08-25" ORDERLABEL="1921-08-25" TYPE="day">
+            <mets:div ID="LOG_405" LABEL="25.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210825/DeutReunP_856399094_19210825.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_406" LABEL="1921-08-26" ORDERLABEL="1921-08-26" TYPE="day">
+            <mets:div ID="LOG_407" LABEL="26.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210826/DeutReunP_856399094_19210826.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_408" LABEL="1921-08-27" ORDERLABEL="1921-08-27" TYPE="day">
+            <mets:div ID="LOG_409" LABEL="27.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210827/DeutReunP_856399094_19210827.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_410" LABEL="1921-08-29" ORDERLABEL="1921-08-29" TYPE="day">
+            <mets:div ID="LOG_411" LABEL="29.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210829/DeutReunP_856399094_19210829.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_412" LABEL="1921-08-30" ORDERLABEL="1921-08-30" TYPE="day">
+            <mets:div ID="LOG_413" LABEL="30.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210830/DeutReunP_856399094_19210830.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_414" LABEL="1921-08-31" ORDERLABEL="1921-08-31" TYPE="day">
+            <mets:div ID="LOG_415" LABEL="31.08.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210831/DeutReunP_856399094_19210831.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_416" LABEL="09" ORDERLABEL="1921-09" TYPE="month">
+          <mets:div ID="LOG_417" LABEL="1921-09-01" ORDERLABEL="1921-09-01" TYPE="day">
+            <mets:div ID="LOG_418" LABEL="01.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210901/DeutReunP_856399094_19210901.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_419" LABEL="1921-09-02" ORDERLABEL="1921-09-02" TYPE="day">
+            <mets:div ID="LOG_420" LABEL="02.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210902/DeutReunP_856399094_19210902.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_421" LABEL="1921-09-03" ORDERLABEL="1921-09-03" TYPE="day">
+            <mets:div ID="LOG_422" LABEL="03.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210903/DeutReunP_856399094_19210903.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_423" LABEL="1921-09-05" ORDERLABEL="1921-09-05" TYPE="day">
+            <mets:div ID="LOG_424" LABEL="05.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210905/DeutReunP_856399094_19210905.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_425" LABEL="1921-09-06" ORDERLABEL="1921-09-06" TYPE="day">
+            <mets:div ID="LOG_426" LABEL="06.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210906/DeutReunP_856399094_19210906.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_427" LABEL="1921-09-07" ORDERLABEL="1921-09-07" TYPE="day">
+            <mets:div ID="LOG_428" LABEL="07.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210907/DeutReunP_856399094_19210907.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_429" LABEL="1921-09-08" ORDERLABEL="1921-09-08" TYPE="day">
+            <mets:div ID="LOG_430" LABEL="08.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210908/DeutReunP_856399094_19210908.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_431" LABEL="1921-09-09" ORDERLABEL="1921-09-09" TYPE="day">
+            <mets:div ID="LOG_432" LABEL="09.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210909/DeutReunP_856399094_19210909.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_433" LABEL="1921-09-10" ORDERLABEL="1921-09-10" TYPE="day">
+            <mets:div ID="LOG_434" LABEL="10.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210910/DeutReunP_856399094_19210910.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_435" LABEL="1921-09-12" ORDERLABEL="1921-09-12" TYPE="day">
+            <mets:div ID="LOG_436" LABEL="12.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210912/DeutReunP_856399094_19210912.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_437" LABEL="1921-09-13" ORDERLABEL="1921-09-13" TYPE="day">
+            <mets:div ID="LOG_438" LABEL="13.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210913/DeutReunP_856399094_19210913.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_439" LABEL="1921-09-14" ORDERLABEL="1921-09-14" TYPE="day">
+            <mets:div ID="LOG_440" LABEL="14.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210914/DeutReunP_856399094_19210914.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_441" LABEL="1921-09-15" ORDERLABEL="1921-09-15" TYPE="day">
+            <mets:div ID="LOG_442" LABEL="15.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210915/DeutReunP_856399094_19210915.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_443" LABEL="1921-09-16" ORDERLABEL="1921-09-16" TYPE="day">
+            <mets:div ID="LOG_444" LABEL="16.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210916/DeutReunP_856399094_19210916.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_445" LABEL="1921-09-17" ORDERLABEL="1921-09-17" TYPE="day">
+            <mets:div ID="LOG_446" LABEL="17.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210917/DeutReunP_856399094_19210917.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_447" LABEL="1921-09-19" ORDERLABEL="1921-09-19" TYPE="day">
+            <mets:div ID="LOG_448" LABEL="19.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210919/DeutReunP_856399094_19210919.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_449" LABEL="1921-09-20" ORDERLABEL="1921-09-20" TYPE="day">
+            <mets:div ID="LOG_450" LABEL="20.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210920/DeutReunP_856399094_19210920.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_451" LABEL="1921-09-21" ORDERLABEL="1921-09-21" TYPE="day">
+            <mets:div ID="LOG_452" LABEL="21.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210921/DeutReunP_856399094_19210921.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_453" LABEL="1921-09-22" ORDERLABEL="1921-09-22" TYPE="day">
+            <mets:div ID="LOG_454" LABEL="22.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210922/DeutReunP_856399094_19210922.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_455" LABEL="1921-09-23" ORDERLABEL="1921-09-23" TYPE="day">
+            <mets:div ID="LOG_456" LABEL="23.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210923/DeutReunP_856399094_19210923.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_457" LABEL="1921-09-24" ORDERLABEL="1921-09-24" TYPE="day">
+            <mets:div ID="LOG_458" LABEL="24.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210924/DeutReunP_856399094_19210924.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_459" LABEL="1921-09-26" ORDERLABEL="1921-09-26" TYPE="day">
+            <mets:div ID="LOG_460" LABEL="26.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210926/DeutReunP_856399094_19210926.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_461" LABEL="1921-09-27" ORDERLABEL="1921-09-27" TYPE="day">
+            <mets:div ID="LOG_462" LABEL="27.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210927/DeutReunP_856399094_19210927.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_463" LABEL="1921-09-28" ORDERLABEL="1921-09-28" TYPE="day">
+            <mets:div ID="LOG_464" LABEL="28.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210928/DeutReunP_856399094_19210928.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_465" LABEL="1921-09-29" ORDERLABEL="1921-09-29" TYPE="day">
+            <mets:div ID="LOG_466" LABEL="29.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210929/DeutReunP_856399094_19210929.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_467" LABEL="1921-09-30" ORDERLABEL="1921-09-30" TYPE="day">
+            <mets:div ID="LOG_468" LABEL="30.09.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19210930/DeutReunP_856399094_19210930.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_469" LABEL="10" ORDERLABEL="1921-10" TYPE="month">
+          <mets:div ID="LOG_470" LABEL="1921-10-01" ORDERLABEL="1921-10-01" TYPE="day">
+            <mets:div ID="LOG_471" LABEL="01.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211001/DeutReunP_856399094_19211001.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_472" LABEL="1921-10-03" ORDERLABEL="1921-10-03" TYPE="day">
+            <mets:div ID="LOG_473" LABEL="03.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211003/DeutReunP_856399094_19211003.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_474" LABEL="1921-10-04" ORDERLABEL="1921-10-04" TYPE="day">
+            <mets:div ID="LOG_475" LABEL="04.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211004/DeutReunP_856399094_19211004.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_476" LABEL="1921-10-05" ORDERLABEL="1921-10-05" TYPE="day">
+            <mets:div ID="LOG_477" LABEL="05.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211005/DeutReunP_856399094_19211005.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_478" LABEL="1921-10-06" ORDERLABEL="1921-10-06" TYPE="day">
+            <mets:div ID="LOG_479" LABEL="06.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211006/DeutReunP_856399094_19211006.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_480" LABEL="1921-10-07" ORDERLABEL="1921-10-07" TYPE="day">
+            <mets:div ID="LOG_481" LABEL="07.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211007/DeutReunP_856399094_19211007.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_482" LABEL="1921-10-08" ORDERLABEL="1921-10-08" TYPE="day">
+            <mets:div ID="LOG_483" LABEL="08.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211008/DeutReunP_856399094_19211008.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_484" LABEL="1921-10-10" ORDERLABEL="1921-10-10" TYPE="day">
+            <mets:div ID="LOG_485" LABEL="10.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211010/DeutReunP_856399094_19211010.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_486" LABEL="1921-10-11" ORDERLABEL="1921-10-11" TYPE="day">
+            <mets:div ID="LOG_487" LABEL="11.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211011/DeutReunP_856399094_19211011.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_488" LABEL="1921-10-12" ORDERLABEL="1921-10-12" TYPE="day">
+            <mets:div ID="LOG_489" LABEL="12.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211012/DeutReunP_856399094_19211012.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_490" LABEL="1921-10-13" ORDERLABEL="1921-10-13" TYPE="day">
+            <mets:div ID="LOG_491" LABEL="13.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211013/DeutReunP_856399094_19211013.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_492" LABEL="1921-10-14" ORDERLABEL="1921-10-14" TYPE="day">
+            <mets:div ID="LOG_493" LABEL="14.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211014/DeutReunP_856399094_19211014.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_494" LABEL="1921-10-15" ORDERLABEL="1921-10-15" TYPE="day">
+            <mets:div ID="LOG_495" LABEL="15.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211015/DeutReunP_856399094_19211015.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_496" LABEL="1921-10-17" ORDERLABEL="1921-10-17" TYPE="day">
+            <mets:div ID="LOG_497" LABEL="17.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211017/DeutReunP_856399094_19211017.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_498" LABEL="1921-10-18" ORDERLABEL="1921-10-18" TYPE="day">
+            <mets:div ID="LOG_499" LABEL="18.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211018/DeutReunP_856399094_19211018.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_500" LABEL="1921-10-19" ORDERLABEL="1921-10-19" TYPE="day">
+            <mets:div ID="LOG_501" LABEL="19.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211019/DeutReunP_856399094_19211019.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_502" LABEL="1921-10-20" ORDERLABEL="1921-10-20" TYPE="day">
+            <mets:div ID="LOG_503" LABEL="20.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211020/DeutReunP_856399094_19211020.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_504" LABEL="1921-10-21" ORDERLABEL="1921-10-21" TYPE="day">
+            <mets:div ID="LOG_505" LABEL="21.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211021/DeutReunP_856399094_19211021.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_506" LABEL="1921-10-22" ORDERLABEL="1921-10-22" TYPE="day">
+            <mets:div ID="LOG_507" LABEL="22.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211022/DeutReunP_856399094_19211022.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_508" LABEL="1921-10-24" ORDERLABEL="1921-10-24" TYPE="day">
+            <mets:div ID="LOG_509" LABEL="24.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211024/DeutReunP_856399094_19211024.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_510" LABEL="1921-10-25" ORDERLABEL="1921-10-25" TYPE="day">
+            <mets:div ID="LOG_511" LABEL="25.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211025/DeutReunP_856399094_19211025.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_512" LABEL="1921-10-26" ORDERLABEL="1921-10-26" TYPE="day">
+            <mets:div ID="LOG_513" LABEL="26.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211026/DeutReunP_856399094_19211026.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_514" LABEL="1921-10-27" ORDERLABEL="1921-10-27" TYPE="day">
+            <mets:div ID="LOG_515" LABEL="27.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211027/DeutReunP_856399094_19211027.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_516" LABEL="1921-10-28" ORDERLABEL="1921-10-28" TYPE="day">
+            <mets:div ID="LOG_517" LABEL="28.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211028/DeutReunP_856399094_19211028.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_518" LABEL="1921-10-29" ORDERLABEL="1921-10-29" TYPE="day">
+            <mets:div ID="LOG_519" LABEL="29.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211029/DeutReunP_856399094_19211029.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_520" LABEL="1921-10-31" ORDERLABEL="1921-10-31" TYPE="day">
+            <mets:div ID="LOG_521" LABEL="31.10.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211031/DeutReunP_856399094_19211031.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_522" LABEL="11" ORDERLABEL="1921-11" TYPE="month">
+          <mets:div ID="LOG_523" LABEL="1921-11-01" ORDERLABEL="1921-11-01" TYPE="day">
+            <mets:div ID="LOG_524" LABEL="01.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211101/DeutReunP_856399094_19211101.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_525" LABEL="1921-11-02" ORDERLABEL="1921-11-02" TYPE="day">
+            <mets:div ID="LOG_526" LABEL="02.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211102/DeutReunP_856399094_19211102.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_527" LABEL="1921-11-03" ORDERLABEL="1921-11-03" TYPE="day">
+            <mets:div ID="LOG_528" LABEL="03.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211103/DeutReunP_856399094_19211103.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_529" LABEL="1921-11-04" ORDERLABEL="1921-11-04" TYPE="day">
+            <mets:div ID="LOG_530" LABEL="04.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211104/DeutReunP_856399094_19211104.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_531" LABEL="1921-11-05" ORDERLABEL="1921-11-05" TYPE="day">
+            <mets:div ID="LOG_532" LABEL="05.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211105/DeutReunP_856399094_19211105.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_533" LABEL="1921-11-07" ORDERLABEL="1921-11-07" TYPE="day">
+            <mets:div ID="LOG_534" LABEL="07.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211107/DeutReunP_856399094_19211107.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_535" LABEL="1921-11-08" ORDERLABEL="1921-11-08" TYPE="day">
+            <mets:div ID="LOG_536" LABEL="08.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211108/DeutReunP_856399094_19211108.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_537" LABEL="1921-11-09" ORDERLABEL="1921-11-09" TYPE="day">
+            <mets:div ID="LOG_538" LABEL="09.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211109/DeutReunP_856399094_19211109.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_539" LABEL="1921-11-10" ORDERLABEL="1921-11-10" TYPE="day">
+            <mets:div ID="LOG_540" LABEL="10.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211110/DeutReunP_856399094_19211110.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_541" LABEL="1921-11-11" ORDERLABEL="1921-11-11" TYPE="day">
+            <mets:div ID="LOG_542" LABEL="11.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211111/DeutReunP_856399094_19211111.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_543" LABEL="1921-11-12" ORDERLABEL="1921-11-12" TYPE="day">
+            <mets:div ID="LOG_544" LABEL="12.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211112/DeutReunP_856399094_19211112.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_545" LABEL="1921-11-14" ORDERLABEL="1921-11-14" TYPE="day">
+            <mets:div ID="LOG_546" LABEL="14.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211114/DeutReunP_856399094_19211114.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_547" LABEL="1921-11-15" ORDERLABEL="1921-11-15" TYPE="day">
+            <mets:div ID="LOG_548" LABEL="15.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211115/DeutReunP_856399094_19211115.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_549" LABEL="1921-11-17" ORDERLABEL="1921-11-17" TYPE="day">
+            <mets:div ID="LOG_550" LABEL="17.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211117/DeutReunP_856399094_19211117.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_551" LABEL="1921-11-18" ORDERLABEL="1921-11-18" TYPE="day">
+            <mets:div ID="LOG_552" LABEL="18.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211118/DeutReunP_856399094_19211118.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_553" LABEL="1921-11-19" ORDERLABEL="1921-11-19" TYPE="day">
+            <mets:div ID="LOG_554" LABEL="19.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211119/DeutReunP_856399094_19211119.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_555" LABEL="1921-11-21" ORDERLABEL="1921-11-21" TYPE="day">
+            <mets:div ID="LOG_556" LABEL="21.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211121/DeutReunP_856399094_19211121.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_557" LABEL="1921-11-22" ORDERLABEL="1921-11-22" TYPE="day">
+            <mets:div ID="LOG_558" LABEL="22.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211122/DeutReunP_856399094_19211122.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_559" LABEL="1921-11-23" ORDERLABEL="1921-11-23" TYPE="day">
+            <mets:div ID="LOG_560" LABEL="23.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211123/DeutReunP_856399094_19211123.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_561" LABEL="1921-11-24" ORDERLABEL="1921-11-24" TYPE="day">
+            <mets:div ID="LOG_562" LABEL="24.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211124/DeutReunP_856399094_19211124.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_563" LABEL="1921-11-25" ORDERLABEL="1921-11-25" TYPE="day">
+            <mets:div ID="LOG_564" LABEL="25.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211125/DeutReunP_856399094_19211125.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_565" LABEL="1921-11-26" ORDERLABEL="1921-11-26" TYPE="day">
+            <mets:div ID="LOG_566" LABEL="26.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211126/DeutReunP_856399094_19211126.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_567" LABEL="1921-11-28" ORDERLABEL="1921-11-28" TYPE="day">
+            <mets:div ID="LOG_568" LABEL="28.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211128/DeutReunP_856399094_19211128.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_569" LABEL="1921-11-29" ORDERLABEL="1921-11-29" TYPE="day">
+            <mets:div ID="LOG_570" LABEL="29.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211129/DeutReunP_856399094_19211129.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_571" LABEL="1921-11-30" ORDERLABEL="1921-11-30" TYPE="day">
+            <mets:div ID="LOG_572" LABEL="30.11.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211130/DeutReunP_856399094_19211130.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_573" LABEL="12" ORDERLABEL="1921-12" TYPE="month">
+          <mets:div ID="LOG_574" LABEL="1921-12-01" ORDERLABEL="1921-12-01" TYPE="day">
+            <mets:div ID="LOG_575" LABEL="01.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211201/DeutReunP_856399094_19211201.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_576" LABEL="1921-12-02" ORDERLABEL="1921-12-02" TYPE="day">
+            <mets:div ID="LOG_577" LABEL="02.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211202/DeutReunP_856399094_19211202.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_578" LABEL="1921-12-03" ORDERLABEL="1921-12-03" TYPE="day">
+            <mets:div ID="LOG_579" LABEL="03.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211203/DeutReunP_856399094_19211203.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_580" LABEL="1921-12-05" ORDERLABEL="1921-12-05" TYPE="day">
+            <mets:div ID="LOG_581" LABEL="05.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211205/DeutReunP_856399094_19211205.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_582" LABEL="1921-12-06" ORDERLABEL="1921-12-06" TYPE="day">
+            <mets:div ID="LOG_583" LABEL="06.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211206/DeutReunP_856399094_19211206.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_584" LABEL="1921-12-07" ORDERLABEL="1921-12-07" TYPE="day">
+            <mets:div ID="LOG_585" LABEL="07.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211207/DeutReunP_856399094_19211207.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_586" LABEL="1921-12-08" ORDERLABEL="1921-12-08" TYPE="day">
+            <mets:div ID="LOG_587" LABEL="08.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211208/DeutReunP_856399094_19211208.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_588" LABEL="1921-12-09" ORDERLABEL="1921-12-09" TYPE="day">
+            <mets:div ID="LOG_589" LABEL="09.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211209/DeutReunP_856399094_19211209.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_590" LABEL="1921-12-10" ORDERLABEL="1921-12-10" TYPE="day">
+            <mets:div ID="LOG_591" LABEL="10.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211210/DeutReunP_856399094_19211210.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_592" LABEL="1921-12-12" ORDERLABEL="1921-12-12" TYPE="day">
+            <mets:div ID="LOG_593" LABEL="12.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211212/DeutReunP_856399094_19211212.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_594" LABEL="1921-12-13" ORDERLABEL="1921-12-13" TYPE="day">
+            <mets:div ID="LOG_595" LABEL="13.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211213/DeutReunP_856399094_19211213.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_596" LABEL="1921-12-14" ORDERLABEL="1921-12-14" TYPE="day">
+            <mets:div ID="LOG_597" LABEL="14.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211214/DeutReunP_856399094_19211214.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_598" LABEL="1921-12-15" ORDERLABEL="1921-12-15" TYPE="day">
+            <mets:div ID="LOG_599" LABEL="15.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211215/DeutReunP_856399094_19211215.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_600" LABEL="1921-12-16" ORDERLABEL="1921-12-16" TYPE="day">
+            <mets:div ID="LOG_601" LABEL="16.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211216/DeutReunP_856399094_19211216.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_602" LABEL="1921-12-17" ORDERLABEL="1921-12-17" TYPE="day">
+            <mets:div ID="LOG_603" LABEL="17.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211217/DeutReunP_856399094_19211217.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_604" LABEL="1921-12-19" ORDERLABEL="1921-12-19" TYPE="day">
+            <mets:div ID="LOG_605" LABEL="19.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211219/DeutReunP_856399094_19211219.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_606" LABEL="1921-12-20" ORDERLABEL="1921-12-20" TYPE="day">
+            <mets:div ID="LOG_607" LABEL="20.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211220/DeutReunP_856399094_19211220.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_608" LABEL="1921-12-21" ORDERLABEL="1921-12-21" TYPE="day">
+            <mets:div ID="LOG_609" LABEL="21.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211221/DeutReunP_856399094_19211221.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_610" LABEL="1921-12-22" ORDERLABEL="1921-12-22" TYPE="day">
+            <mets:div ID="LOG_611" LABEL="22.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211222/DeutReunP_856399094_19211222.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_612" LABEL="1921-12-23" ORDERLABEL="1921-12-23" TYPE="day">
+            <mets:div ID="LOG_613" LABEL="23.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211223/DeutReunP_856399094_19211223.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_614" LABEL="1921-12-24" ORDERLABEL="1921-12-24" TYPE="day">
+            <mets:div ID="LOG_615" LABEL="24.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211224/DeutReunP_856399094_19211224.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_616" LABEL="1921-12-27" ORDERLABEL="1921-12-27" TYPE="day">
+            <mets:div ID="LOG_617" LABEL="27.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211227/DeutReunP_856399094_19211227.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_618" LABEL="1921-12-28" ORDERLABEL="1921-12-28" TYPE="day">
+            <mets:div ID="LOG_619" LABEL="28.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211228/DeutReunP_856399094_19211228.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_620" LABEL="1921-12-29" ORDERLABEL="1921-12-29" TYPE="day">
+            <mets:div ID="LOG_621" LABEL="29.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211229/DeutReunP_856399094_19211229.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_622" LABEL="1921-12-30" ORDERLABEL="1921-12-30" TYPE="day">
+            <mets:div ID="LOG_623" LABEL="30.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211230/DeutReunP_856399094_19211230.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_624" LABEL="1921-12-31" ORDERLABEL="1921-12-31" TYPE="day">
+            <mets:div ID="LOG_625" LABEL="31.12.1921" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19211231/DeutReunP_856399094_19211231.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+      </mets:div>
+    </mets:div>
+  </mets:structMap>
+</mets:mets>
