@@ -173,6 +173,19 @@ div[class^="tx-dlf-navigation-"] > span[title] {
     display: none;
 }
 
+/* The navigation bar and the page grid are page-document widgets: they only
+ * make sense for a document with page images. An overview document (the
+ * newspaper anchor / year files) has no pages, so its navigation frame renders
+ * no features (the DoublePage partial requires numPages > 0 and the page
+ * links need a current page) and its page grid renders an empty thumbnail
+ * list. Both wrappers are emitted server-side regardless, so the general rule
+ * above does not hide them. Hide them when the calendar has content, using the
+ * same reliable, load-independent signal as the pageview rule above. */
+#main:has([class^="tx-dlf-calendar"]) .frame:has(.tx-dlf-navigation-first),
+#main:has([class^="tx-dlf-calendar"]) .frame:has(.tx-dlf-pagegrid) {
+    display: none;
+}
+
 /* The media player and the 3D viewer are also mutually exclusive with the
  * pageview: an audio / video / 3D document has no page images, so its pageview
  * map is empty and the real content is the player (slub-media) or the model.
