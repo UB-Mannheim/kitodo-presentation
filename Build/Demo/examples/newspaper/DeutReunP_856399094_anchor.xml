@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-0.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/mix/v10 http://www.loc.gov/standards/mix/mix10/mix10.xsd">
+  <mets:metsHdr CREATEDATE="2024-08-23T07:47:45" LASTMODDATE="2026-09-22T00:00:00">
+    <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+      <mets:name>Kitodo - kitodo-ugh-2.1.3-kitodo-ugh-2.1.1-11-g4b06eaa - 30−July−2019</mets:name>
+      <mets:note>Kitodo</mets:note>
+    </mets:agent>
+  </mets:metsHdr>
+  <mets:dmdSec ID="DMDLOG_0000">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:typeOfResource>text</mods:typeOfResource>
+          <mods:identifier type="kitodo">24352</mods:identifier>
+          <mods:location>
+            <mods:physicalLocation valueURI="https://ld.zdb-services.de/resource/organisations/DE-180">Universitätsbibliothek, Mannheim, Germany</mods:physicalLocation>
+            <mods:shelfLocator>Z 9043</mods:shelfLocator>
+          </mods:location>
+          <mods:classification authority="de-180">ubmaprztgh</mods:classification>
+          <mods:classification authority="de-180">reichsanzeiger</mods:classification>
+          <mods:identifier type="swb-ppn">856399094</mods:identifier>
+          <mods:recordInfo>
+            <mods:recordIdentifier source="swb-ppn">856399094</mods:recordIdentifier>
+          </mods:recordInfo>
+          <mods:physicalDescription>
+            <mods:digitalOrigin>reformatted digital</mods:digitalOrigin>
+          </mods:physicalDescription>
+          <mods:identifier type="PPNdigital">856399094</mods:identifier>
+          <mods:titleInfo>
+            <mods:title>Deutscher Reichsanzeiger und Preußischer Staatsanzeiger</mods:title>
+          </mods:titleInfo>
+          <mods:language>
+            <mods:languageTerm authority="iso639-2b" type="code">ger</mods:languageTerm>
+          </mods:language>
+          <mods:originInfo eventType="publication">
+            <mods:place>
+              <mods:placeTerm type="text">Berlin</mods:placeTerm>
+            </mods:place>
+            <mods:publisher>Kessel</mods:publisher>
+            <mods:dateIssued encoding="iso8601" point="start">1871</mods:dateIssued>
+            <mods:dateIssued encoding="iso8601" point="end">1945</mods:dateIssued>
+            <mods:dateOther type="run">Die Gesamtausgabe erschien vom 4. Mai 1871 bis zum 31. Dezember 1945 regelmäßig an allen Montagen, Dienstagen, Mittwochen, Donnerstagen, Freitagen und Samstagen.</mods:dateOther>
+          </mods:originInfo>
+          <mods:identifier type="zdb">2851723-4</mods:identifier>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:amdSec ID="AMD">
+    <mets:rightsMD ID="RIGHTS">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Mannheim</dv:owner>
+            <dv:ownerLogo>https://digi.bib.uni-mannheim.de/ubma-logo.png</dv:ownerLogo>
+            <dv:ownerSiteURL>https://www.bib.uni-mannheim.de/</dv:ownerSiteURL>
+            <dv:ownerContact>mailto:info.ub@uni-mannheim.de</dv:ownerContact>
+            <dv:license>https://creativecommons.org/publicdomain/mark/1.0/</dv:license>
+          </dv:rights>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:rightsMD>
+    <mets:digiprovMD ID="DIGIPROV">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>https://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=856399094&amp;INDEXSET=21</dv:reference>
+          </dv:links>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+  </mets:amdSec>
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div ADMID="AMD" DMDID="DMDLOG_0000" ID="LOG_0000" LABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" ORDERLABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" TYPE="newspaper">
+      <mets:div ID="LOG_0001" LABEL="1871" ORDERLABEL="1871" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1871_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0002" LABEL="1872" ORDERLABEL="1872" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1872_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0003" LABEL="1874" ORDERLABEL="1874" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1874_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0004" LABEL="1875" ORDERLABEL="1875" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1875_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0005" LABEL="1876" ORDERLABEL="1876" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1876_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0006" LABEL="1877" ORDERLABEL="1877" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1877_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0007" LABEL="1878" ORDERLABEL="1878" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1878_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0008" LABEL="1879" ORDERLABEL="1879" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1879_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0009" LABEL="1880" ORDERLABEL="1880" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1880_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0010" LABEL="1881" ORDERLABEL="1881" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1881_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0011" LABEL="1882" ORDERLABEL="1882" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1882_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0012" LABEL="1883" ORDERLABEL="1883" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1883_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0013" LABEL="1884" ORDERLABEL="1884" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1884_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0014" LABEL="1886" ORDERLABEL="1886" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1886_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0015" LABEL="1887" ORDERLABEL="1887" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1887_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0016" LABEL="1888" ORDERLABEL="1888" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1888_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0017" LABEL="1889" ORDERLABEL="1889" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1889_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0018" LABEL="1890" ORDERLABEL="1890" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1890_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0019" LABEL="1891" ORDERLABEL="1891" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1891_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0020" LABEL="1892" ORDERLABEL="1892" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1892_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0021" LABEL="1893" ORDERLABEL="1893" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1893_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0022" LABEL="1894" ORDERLABEL="1894" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1894_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0023" LABEL="1895" ORDERLABEL="1895" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1895_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0024" LABEL="1896" ORDERLABEL="1896" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1896_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0025" LABEL="1897" ORDERLABEL="1897" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1897_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0026" LABEL="1898" ORDERLABEL="1898" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1898_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0027" LABEL="1899" ORDERLABEL="1899" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1899_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0028" LABEL="1900" ORDERLABEL="1900" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1900_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0029" LABEL="1901" ORDERLABEL="1901" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1901_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0030" LABEL="1902" ORDERLABEL="1902" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1902_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0031" LABEL="1903" ORDERLABEL="1903" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1903_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0032" LABEL="1904" ORDERLABEL="1904" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1904_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0033" LABEL="1905" ORDERLABEL="1905" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1905_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0034" LABEL="1906" ORDERLABEL="1906" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1906_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0035" LABEL="1907" ORDERLABEL="1907" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1907_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0036" LABEL="1908" ORDERLABEL="1908" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1908_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0037" LABEL="1909" ORDERLABEL="1909" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1909_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0038" LABEL="1910" ORDERLABEL="1910" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1910_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0039" LABEL="1911" ORDERLABEL="1911" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1911_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0040" LABEL="1912" ORDERLABEL="1912" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1912_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0041" LABEL="1913" ORDERLABEL="1913" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1913_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0042" LABEL="1914" ORDERLABEL="1914" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1914_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0043" LABEL="1915" ORDERLABEL="1915" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1915_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0044" LABEL="1916" ORDERLABEL="1916" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1916_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0045" LABEL="1917" ORDERLABEL="1917" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1917_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0046" LABEL="1918" ORDERLABEL="1918" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1918_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0047" LABEL="1919" ORDERLABEL="1919" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1919_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0048" LABEL="1920" ORDERLABEL="1920" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1920_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0049" LABEL="1921" ORDERLABEL="1921" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1921_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0050" LABEL="1922" ORDERLABEL="1922" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1922_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0051" LABEL="1923" ORDERLABEL="1923" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1923_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0052" LABEL="1924" ORDERLABEL="1924" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1924_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0053" LABEL="1925" ORDERLABEL="1925" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1925_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0054" LABEL="1926" ORDERLABEL="1926" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1926_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0055" LABEL="1927" ORDERLABEL="1927" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1927_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0056" LABEL="1928" ORDERLABEL="1928" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1928_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0057" LABEL="1929" ORDERLABEL="1929" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1929_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0058" LABEL="1930" ORDERLABEL="1930" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1930_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0059" LABEL="1931" ORDERLABEL="1931" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1931_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0060" LABEL="1932" ORDERLABEL="1932" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1932_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0061" LABEL="1933" ORDERLABEL="1933" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1933_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0062" LABEL="1934" ORDERLABEL="1934" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1934_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0063" LABEL="1935" ORDERLABEL="1935" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1935_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0064" LABEL="1936" ORDERLABEL="1936" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1936_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0065" LABEL="1937" ORDERLABEL="1937" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1937_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0066" LABEL="1938" ORDERLABEL="1938" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1938_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0067" LABEL="1939" ORDERLABEL="1939" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1939_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0068" LABEL="1940" ORDERLABEL="1940" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1940_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0069" LABEL="1941" ORDERLABEL="1941" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1941_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0070" LABEL="1942" ORDERLABEL="1942" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1942_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0071" LABEL="1943" ORDERLABEL="1943" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1943_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0072" LABEL="1944" ORDERLABEL="1944" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1944_year.xml"/>
+      </mets:div>
+      <mets:div ID="LOG_0073" LABEL="1945" ORDERLABEL="1945" TYPE="year">
+        <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_1945_year.xml"/>
+      </mets:div>
+    </mets:div>
+  </mets:structMap>
+</mets:mets>

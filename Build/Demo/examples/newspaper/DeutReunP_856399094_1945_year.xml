@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:lc/xmlns/premis-v2 http://www.loc.gov/standards/premis/v2/premis-v2-0.xsd http://www.loc.gov/mods/v3 http://www.loc.gov/standards/mods/mods.xsd http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd http://www.loc.gov/mix/v10 http://www.loc.gov/standards/mix/mix10/mix10.xsd">
+  <mets:metsHdr CREATEDATE="2024-08-23T07:47:45" LASTMODDATE="2026-09-22T00:00:00">
+    <mets:agent OTHERTYPE="SOFTWARE" ROLE="CREATOR" TYPE="OTHER">
+      <mets:name>Kitodo - kitodo-ugh-2.1.3-kitodo-ugh-2.1.1-11-g4b06eaa - 30−July−2019</mets:name>
+      <mets:note>Kitodo</mets:note>
+    </mets:agent>
+  </mets:metsHdr>
+  <mets:dmdSec ID="DMDLOG_0000">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:titleInfo>
+            <mods:title>Deutscher Reichsanzeiger und Preußischer Staatsanzeiger</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:dmdSec ID="DMDLOG_0001">
+    <mets:mdWrap MDTYPE="MODS">
+      <mets:xmlData>
+        <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+          <mods:location>
+            <mods:physicalLocation valueURI="https://ld.zdb-services.de/resource/organisations/DE-180">Universitätsbibliothek, Mannheim, Germany</mods:physicalLocation>
+            <mods:shelfLocator>Z 9043</mods:shelfLocator>
+          </mods:location>
+          <mods:titleInfo>
+            <mods:title>1945</mods:title>
+          </mods:titleInfo>
+        </mods:mods>
+      </mets:xmlData>
+    </mets:mdWrap>
+  </mets:dmdSec>
+  <mets:amdSec ID="AMD">
+    <mets:rightsMD ID="RIGHTS">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVRIGHTS">
+        <mets:xmlData>
+          <dv:rights xmlns:dv="http://dfg-viewer.de/">
+            <dv:owner>Universitätsbibliothek Mannheim</dv:owner>
+            <dv:ownerLogo>https://digi.bib.uni-mannheim.de/ubma-logo.png</dv:ownerLogo>
+            <dv:ownerSiteURL>https://www.bib.uni-mannheim.de/</dv:ownerSiteURL>
+            <dv:ownerContact>mailto:info.ub@uni-mannheim.de</dv:ownerContact>
+            <dv:license>https://creativecommons.org/publicdomain/mark/1.0/</dv:license>
+          </dv:rights>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:rightsMD>
+    <mets:digiprovMD ID="DIGIPROV">
+      <mets:mdWrap MDTYPE="OTHER" MIMETYPE="text/xml" OTHERMDTYPE="DVLINKS">
+        <mets:xmlData>
+          <dv:links xmlns:dv="http://dfg-viewer.de/">
+            <dv:reference>https://swb.bsz-bw.de/DB=2.1/PPNSET?PPN=856399094&amp;INDEXSET=21</dv:reference>
+          </dv:links>
+        </mets:xmlData>
+      </mets:mdWrap>
+    </mets:digiprovMD>
+  </mets:amdSec>
+
+  <mets:structMap TYPE="LOGICAL">
+    <mets:div ADMID="AMD" CONTENTIDS="https://digi.bib.uni-mannheim.de/resolve?id=DeutReunP_856399094_19450102" DMDID="DMDLOG_0000" ID="LOG_0000" LABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" ORDERLABEL="Deutscher Reichsanzeiger und Preußischer Staatsanzeiger" TYPE="newspaper">
+      <mets:mptr LOCTYPE="URL" xlink:href="__DATA_BASE__/DeutReunP_856399094_anchor.xml"/>
+      <mets:div ADMID="AMD" DMDID="DMDLOG_0001" ID="LOG_0001" LABEL="1945" ORDERLABEL="1945" TYPE="year">
+        <mets:div ID="LOG_2" LABEL="01" ORDERLABEL="1945-01" TYPE="month">
+          <mets:div ID="LOG_3" LABEL="1945-01-02" ORDERLABEL="1945-01-02" TYPE="day">
+            <mets:div ID="LOG_4" LABEL="02.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450102/DeutReunP_856399094_19450102.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_5" LABEL="1945-01-03" ORDERLABEL="1945-01-03" TYPE="day">
+            <mets:div ID="LOG_6" LABEL="03.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450103/DeutReunP_856399094_19450103.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_7" LABEL="1945-01-04" ORDERLABEL="1945-01-04" TYPE="day">
+            <mets:div ID="LOG_8" LABEL="04.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450104/DeutReunP_856399094_19450104.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_9" LABEL="1945-01-05" ORDERLABEL="1945-01-05" TYPE="day">
+            <mets:div ID="LOG_10" LABEL="05.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450105/DeutReunP_856399094_19450105.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_11" LABEL="1945-01-08" ORDERLABEL="1945-01-08" TYPE="day">
+            <mets:div ID="LOG_12" LABEL="08.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450108/DeutReunP_856399094_19450108.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_13" LABEL="1945-01-09" ORDERLABEL="1945-01-09" TYPE="day">
+            <mets:div ID="LOG_14" LABEL="09.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450109/DeutReunP_856399094_19450109.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_15" LABEL="1945-01-10" ORDERLABEL="1945-01-10" TYPE="day">
+            <mets:div ID="LOG_16" LABEL="10.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450110/DeutReunP_856399094_19450110.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_17" LABEL="1945-01-12" ORDERLABEL="1945-01-12" TYPE="day">
+            <mets:div ID="LOG_18" LABEL="12.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450112/DeutReunP_856399094_19450112.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_19" LABEL="1945-01-15" ORDERLABEL="1945-01-15" TYPE="day">
+            <mets:div ID="LOG_20" LABEL="15.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450115/DeutReunP_856399094_19450115.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_21" LABEL="1945-01-16" ORDERLABEL="1945-01-16" TYPE="day">
+            <mets:div ID="LOG_22" LABEL="16.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450116/DeutReunP_856399094_19450116.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_23" LABEL="1945-01-18" ORDERLABEL="1945-01-18" TYPE="day">
+            <mets:div ID="LOG_24" LABEL="18.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450118/DeutReunP_856399094_19450118.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_25" LABEL="1945-01-19" ORDERLABEL="1945-01-19" TYPE="day">
+            <mets:div ID="LOG_26" LABEL="19.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450119/DeutReunP_856399094_19450119.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_27" LABEL="1945-01-22" ORDERLABEL="1945-01-22" TYPE="day">
+            <mets:div ID="LOG_28" LABEL="22.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450122/DeutReunP_856399094_19450122.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_29" LABEL="1945-01-23" ORDERLABEL="1945-01-23" TYPE="day">
+            <mets:div ID="LOG_30" LABEL="23.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450123/DeutReunP_856399094_19450123.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_31" LABEL="1945-01-24" ORDERLABEL="1945-01-24" TYPE="day">
+            <mets:div ID="LOG_32" LABEL="24.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450124/DeutReunP_856399094_19450124.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_33" LABEL="1945-01-25" ORDERLABEL="1945-01-25" TYPE="day">
+            <mets:div ID="LOG_34" LABEL="25.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450125/DeutReunP_856399094_19450125.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_35" LABEL="1945-01-26" ORDERLABEL="1945-01-26" TYPE="day">
+            <mets:div ID="LOG_36" LABEL="26.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450126/DeutReunP_856399094_19450126.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_37" LABEL="1945-01-29" ORDERLABEL="1945-01-29" TYPE="day">
+            <mets:div ID="LOG_38" LABEL="29.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450129/DeutReunP_856399094_19450129.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_39" LABEL="1945-01-30" ORDERLABEL="1945-01-30" TYPE="day">
+            <mets:div ID="LOG_40" LABEL="30.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450130/DeutReunP_856399094_19450130.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_41" LABEL="1945-01-31" ORDERLABEL="1945-01-31" TYPE="day">
+            <mets:div ID="LOG_42" LABEL="31.01.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450131/DeutReunP_856399094_19450131.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_43" LABEL="02" ORDERLABEL="1945-02" TYPE="month">
+          <mets:div ID="LOG_44" LABEL="1945-02-01" ORDERLABEL="1945-02-01" TYPE="day">
+            <mets:div ID="LOG_45" LABEL="01.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450201/DeutReunP_856399094_19450201.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_46" LABEL="1945-02-02" ORDERLABEL="1945-02-02" TYPE="day">
+            <mets:div ID="LOG_47" LABEL="02.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450202/DeutReunP_856399094_19450202.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_48" LABEL="1945-02-09" ORDERLABEL="1945-02-09" TYPE="day">
+            <mets:div ID="LOG_49" LABEL="09.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450209/DeutReunP_856399094_19450209.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_50" LABEL="1945-02-13" ORDERLABEL="1945-02-13" TYPE="day">
+            <mets:div ID="LOG_51" LABEL="13.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450213/DeutReunP_856399094_19450213.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_52" LABEL="1945-02-15" ORDERLABEL="1945-02-15" TYPE="day">
+            <mets:div ID="LOG_53" LABEL="15.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450215/DeutReunP_856399094_19450215.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_54" LABEL="1945-02-16" ORDERLABEL="1945-02-16" TYPE="day">
+            <mets:div ID="LOG_55" LABEL="16.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450216/DeutReunP_856399094_19450216.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_56" LABEL="1945-02-19" ORDERLABEL="1945-02-19" TYPE="day">
+            <mets:div ID="LOG_57" LABEL="19.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450219/DeutReunP_856399094_19450219.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_58" LABEL="1945-02-21" ORDERLABEL="1945-02-21" TYPE="day">
+            <mets:div ID="LOG_59" LABEL="21.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450221/DeutReunP_856399094_19450221.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_60" LABEL="1945-02-23" ORDERLABEL="1945-02-23" TYPE="day">
+            <mets:div ID="LOG_61" LABEL="23.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450223/DeutReunP_856399094_19450223.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_62" LABEL="1945-02-26" ORDERLABEL="1945-02-26" TYPE="day">
+            <mets:div ID="LOG_63" LABEL="26.02.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450226/DeutReunP_856399094_19450226.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_64" LABEL="03" ORDERLABEL="1945-03" TYPE="month">
+          <mets:div ID="LOG_65" LABEL="1945-03-01" ORDERLABEL="1945-03-01" TYPE="day">
+            <mets:div ID="LOG_66" LABEL="01.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450301/DeutReunP_856399094_19450301.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_67" LABEL="1945-03-03" ORDERLABEL="1945-03-03" TYPE="day">
+            <mets:div ID="LOG_68" LABEL="03.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450303/DeutReunP_856399094_19450303.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_69" LABEL="1945-03-06" ORDERLABEL="1945-03-06" TYPE="day">
+            <mets:div ID="LOG_70" LABEL="06.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450306/DeutReunP_856399094_19450306.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_71" LABEL="1945-03-08" ORDERLABEL="1945-03-08" TYPE="day">
+            <mets:div ID="LOG_72" LABEL="08.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450308/DeutReunP_856399094_19450308.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_73" LABEL="1945-03-10" ORDERLABEL="1945-03-10" TYPE="day">
+            <mets:div ID="LOG_74" LABEL="10.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450310/DeutReunP_856399094_19450310.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_75" LABEL="1945-03-13" ORDERLABEL="1945-03-13" TYPE="day">
+            <mets:div ID="LOG_76" LABEL="13.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450313/DeutReunP_856399094_19450313.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_77" LABEL="1945-03-15" ORDERLABEL="1945-03-15" TYPE="day">
+            <mets:div ID="LOG_78" LABEL="15.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450315/DeutReunP_856399094_19450315.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_79" LABEL="1945-03-17" ORDERLABEL="1945-03-17" TYPE="day">
+            <mets:div ID="LOG_80" LABEL="17.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450317/DeutReunP_856399094_19450317.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_81" LABEL="1945-03-20" ORDERLABEL="1945-03-20" TYPE="day">
+            <mets:div ID="LOG_82" LABEL="20.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450320/DeutReunP_856399094_19450320.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_83" LABEL="1945-03-22" ORDERLABEL="1945-03-22" TYPE="day">
+            <mets:div ID="LOG_84" LABEL="22.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450322/DeutReunP_856399094_19450322.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_85" LABEL="1945-03-24" ORDERLABEL="1945-03-24" TYPE="day">
+            <mets:div ID="LOG_86" LABEL="24.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450324/DeutReunP_856399094_19450324.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_87" LABEL="1945-03-27" ORDERLABEL="1945-03-27" TYPE="day">
+            <mets:div ID="LOG_88" LABEL="27.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450327/DeutReunP_856399094_19450327.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_89" LABEL="1945-03-29" ORDERLABEL="1945-03-29" TYPE="day">
+            <mets:div ID="LOG_90" LABEL="29.03.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450329/DeutReunP_856399094_19450329.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+        <mets:div ID="LOG_91" LABEL="04" ORDERLABEL="1945-04" TYPE="month">
+          <mets:div ID="LOG_92" LABEL="1945-04-04" ORDERLABEL="1945-04-04" TYPE="day">
+            <mets:div ID="LOG_93" LABEL="04.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450404/DeutReunP_856399094_19450404.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_94" LABEL="1945-04-05" ORDERLABEL="1945-04-05" TYPE="day">
+            <mets:div ID="LOG_95" LABEL="05.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450405/DeutReunP_856399094_19450405.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_96" LABEL="1945-04-07" ORDERLABEL="1945-04-07" TYPE="day">
+            <mets:div ID="LOG_97" LABEL="07.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450407/DeutReunP_856399094_19450407.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_98" LABEL="1945-04-10" ORDERLABEL="1945-04-10" TYPE="day">
+            <mets:div ID="LOG_99" LABEL="10.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450410/DeutReunP_856399094_19450410.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_100" LABEL="1945-04-12" ORDERLABEL="1945-04-12" TYPE="day">
+            <mets:div ID="LOG_101" LABEL="12.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450412/DeutReunP_856399094_19450412.xml"/>
+            </mets:div>
+          </mets:div>
+          <mets:div ID="LOG_102" LABEL="1945-04-14" ORDERLABEL="1945-04-14" TYPE="day">
+            <mets:div ID="LOG_103" LABEL="14.04.1945" TYPE="issue">
+              <mets:mptr LOCTYPE="URL" xlink:href="https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/DeutReunP_856399094_19450414/DeutReunP_856399094_19450414.xml"/>
+            </mets:div>
+          </mets:div>
+        </mets:div>
+      </mets:div>
+    </mets:div>
+  </mets:structMap>
+</mets:mets>

@@ -75,6 +75,13 @@
     background: #dfe6f7;
 }
 
+/* The hidden placeholder option (value "") is selected whenever no example is
+ * chosen, so the select renders blank. Grey the select in that state so it
+ * reads as "nothing picked" rather than a blank choice. */
+.dlf-demo-examples select:has(option[value=""]:checked) {
+    color: #8a8f9c;
+}
+
 :root[data-theme="dark"] .dlf-demo-examples select {
     color: #cdd4e4;
     background: #262b39;
