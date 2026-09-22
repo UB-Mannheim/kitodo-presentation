@@ -157,12 +157,16 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
 #main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
-/* The calendar (a newspaper overview's month grid) is too tall to share the
- * main viewer block: if it sat in "viewer" (which spans the meta / toc /
- * tools rows) the metadata and table of contents would be stranded beside a
- * near-empty left column. Give it its own full-width row below the three
- * right-column widgets so they stack compactly and the calendar is read
- * underneath. */
+/* The calendar (a newspaper overview's month grid) is the large element of an
+ * overview document. It cannot share the "viewer" area with the pageview: a
+ * spanning item's height is distributed across the rows it spans, so a tall
+ * calendar would inflate the meta / toc / tools rows and leave a large gap
+ * between the metadata and the table of contents. Give it its own full-width
+ * row below the right column: the right column (metadata, table of contents,
+ * toolbox) stacks compactly at the top and the calendar is read underneath,
+ * with the large element on the left and the smaller widgets stacked on the
+ * right. The pageview keeps "viewer" (a page document has no calendar, so the
+ * two never contend for the area). */
 #main .frame:has([class^="tx-dlf-calendar"]) { grid-area: cal; }
 #main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
 /* The media player and 3D viewer replace the pageview (like the calendar): an
