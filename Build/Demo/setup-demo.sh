@@ -406,6 +406,18 @@ plugin.tx_dlf_pagegrid {
     }
 }
 
+# The table of contents. For newspaper issues it renders the whole logical
+# hierarchy (newspaper -> year -> month -> day -> issue); entries whose METS
+# node carries an mptr (the toplevel newspaper node and the year node) link to
+# the external anchor / year overview documents.
+plugin.tx_dlf_tableofcontents {
+    settings {
+        storagePid = 100
+        # Expand the full hierarchy instead of only the active branch.
+        showFull = 1
+    }
+}
+
 # The audio / video media player. It renders nothing for documents that have
 # no audio or video file in a configured use group, so it only appears for the
 # AV sample documents.
@@ -554,6 +566,30 @@ foreach ($metadataFields as $n => [$uid, $label, $indexName, $wrap, $formatRows,
     }
 }
 
+// 4c. Logical structure types (tx_dlf_structures). The table of contents
+//     controller looks these up (by index_name + storage pid) to translate the
+//     raw METS @TYPE (newspaper/year/month/day/issue) into human labels and to
+//     order the newspaper branch. Without the rows it falls back to the raw
+//     type string and skips the year sort. "newspaper" is marked toplevel so
+//     the indexer would treat it as the document root.
+$structuresTable = $pool->getConnectionForTable('tx_dlf_structures');
+$structures = [
+    [6001, 'Newspaper', 'newspaper', 1],
+    [6002, 'Year', 'year', 0],
+    [6003, 'Month', 'month', 0],
+    [6004, 'Day', 'day', 0],
+    [6005, 'Issue', 'issue', 0],
+];
+foreach ($structures as [$uid, $label, $indexName, $toplevel]) {
+    $structuresTable->delete('tx_dlf_structures', ['uid' => $uid]);
+    $structuresTable->insert('tx_dlf_structures', [
+        'uid' => $uid, 'pid' => 100, 'deleted' => 0, 'hidden' => 0,
+        'sys_language_uid' => 0, 'l18n_diffsource' => '{}',
+        'toplevel' => $toplevel, 'label' => $label, 'index_name' => $indexName,
+        'status' => 0,
+    ]);
+}
+
 // 5. The frontend TypoScript. sys_template is matched by pid in the rootline,
 //    so it must be attached to the root page (uid 1), not uid 0.
 $templates = $pool->getConnectionForTable('sys_template');
@@ -573,7 +609,7 @@ $templates->insert('sys_template', [
 //    page. All read the global tx_dlf[id] / tx_dlf[page] params, so none of
 //    them need Solr.
 $contents = $pool->getConnectionForTable('tt_content');
-$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_metadata', 'dlf_toolbox', 'dlf_mediaplayer', 'dlf_embedded3dviewer'];
+$plugins = ['dlf_pageview', 'dlf_navigation', 'dlf_pagegrid', 'dlf_tableofcontents', 'dlf_metadata', 'dlf_toolbox', 'dlf_mediaplayer', 'dlf_embedded3dviewer'];
 foreach ($plugins as $i => $plugin) {
     $uid = 20 + $i;
     $contents->delete('tt_content', ['uid' => $uid]);
@@ -583,7 +619,7 @@ foreach ($plugins as $i => $plugin) {
     ]);
 }
 
-echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), sys_template (uid 1), viewer plugins (uid 20-24)\n";
+echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-27)\n";
 PHP
 
 # --- favicon (cosmetic; needs ImageMagick, skipped if absent) -------------

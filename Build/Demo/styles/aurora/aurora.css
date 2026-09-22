@@ -142,6 +142,7 @@ body > form button:focus-visible {
     grid-template-columns: minmax(0, 1fr) 350px;
     grid-template-areas:
         "viewer  meta"
+        "viewer  toc"
         "viewer  tools"
         "nav     nav"
         "thumbs  thumbs";
@@ -154,6 +155,7 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-navigation-first) { grid-area: nav; }
 #main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
+#main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
 #main .frame:has([id^="tx-dlf-tools-"]) { grid-area: tools; }
 /* The media player and 3D viewer are not part of the fixed two-column
  * template: they only appear for media / 3D documents, so let them auto-place
@@ -170,6 +172,7 @@ body > form button:focus-visible {
         grid-template-areas:
             "viewer"
             "meta"
+            "toc"
             "tools"
             "nav"
             "thumbs";
@@ -190,6 +193,7 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-navigation-first),
 #main .frame:has(.tx-dlf-pagegrid),
 #main .frame:has(.tx-dlf-metadata-titledata),
+#main .frame:has(.tx-dlf-tableofcontents),
 #main .frame:has([id^="tx-dlf-tools-"]),
 #main .frame:has(slub-media),
 #main .frame:has(.tx-dlf-embedded3dviewer) {
@@ -207,6 +211,7 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-navigation-first)::before { content: "Navigation (dlf_navigation)"; }
 #main .frame:has(.tx-dlf-pagegrid)::before { content: "Page grid (dlf_pagegrid)"; }
 #main .frame:has(.tx-dlf-metadata-titledata)::before { content: "Metadata (dlf_metadata)"; }
+#main .frame:has(.tx-dlf-tableofcontents)::before { content: "Contents (dlf_tableofcontents)"; }
 #main .frame:has([id^="tx-dlf-tools-"])::before { content: "Toolbox (dlf_toolbox)"; }
 #main .frame:has(slub-media)::before { content: "Media player (dlf_mediaplayer)"; }
 #main .frame:has(.tx-dlf-embedded3dviewer)::before { content: "3D viewer (dlf_embedded3dviewer)"; }
@@ -215,6 +220,7 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-navigation-first)::before,
 #main .frame:has(.tx-dlf-pagegrid)::before,
 #main .frame:has(.tx-dlf-metadata-titledata)::before,
+#main .frame:has(.tx-dlf-tableofcontents)::before,
 #main .frame:has([id^="tx-dlf-tools-"])::before,
 #main .frame:has(slub-media)::before,
 #main .frame:has(.tx-dlf-embedded3dviewer)::before {
@@ -480,6 +486,13 @@ body > form button:focus-visible {
 /* --- the metadata ---------------------------------------------------------------- */
 
 #main .frame:has(.tx-dlf-metadata-titledata) {
+    max-height: 24em;
+    overflow: auto;
+}
+
+/* The table of contents can grow very tall (a full year of issues), so cap
+ * it like the metadata box. */
+#main .frame:has(.tx-dlf-tableofcontents) {
     max-height: 24em;
     overflow: auto;
 }

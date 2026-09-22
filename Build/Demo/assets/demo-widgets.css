@@ -142,7 +142,7 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * known plugin content markers. (The 3D viewer frame always carries its
  * .tx-dlf-embedded3dviewer wrapper, so it is governed by the rule above, not
  * this one.) */
-#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
     display: none;
 }
 
