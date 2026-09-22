@@ -255,10 +255,12 @@ class TableOfContentsController extends AbstractController
     private function resolveMenuEntry(array $entry): array
     {
         // If the menu entry points to the parent document,
-        // resolve to the parent UID set on indexation.
+        // resolve to the parent UID set on indexation. Only do this if a
+        // parent was actually recorded (indexed case); otherwise keep the
+        // mptr URL so an unindexed document still links to its overview file.
         $doc = $this->document->getCurrentDocument();
         if ($doc instanceof MetsDocument && array_key_exists('points', $entry)) {
-            if ($entry['points'] === $doc->parentHref || $this->isMultiElement($entry['type']) && !empty($this->document->getPartof())) {
+            if (!empty($this->document->getPartof()) && ($entry['points'] === $doc->parentHref || $this->isMultiElement($entry['type']))) {
                 unset($entry['points']);
                 $entry['targetUid'] = $this->document->getPartof();
             } elseif (GeneralUtility::isValidUrl((string) $entry['points'])) {
