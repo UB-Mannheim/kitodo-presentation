@@ -20,10 +20,20 @@
     <div class="tx-dlf-calendar-meta-header">
         <div class="tx-dlf-calendar-year-anchor">
             <f:variable name="yearLinkText"><f:translate key="calendar.allYears" extensionName="dlf" /> {allYearDocTitle}</f:variable>
-            <kitodo:link requestData="{requestData}" pageUid="{settings.targetPid}" additionalParams="{'id': parentDocumentId}" excludedParams="{0: 'measure', 1: 'multiview'}" title="{yearLinkText}">{yearLinkText}</kitodo:link>
+            <f:if condition="{parentDocumentId}">
+                <f:then>
+                    <kitodo:link requestData="{requestData}" pageUid="{settings.targetPid}" additionalParams="{'id': parentDocumentId}" excludedParams="{0: 'measure', 1: 'multiview'}" title="{yearLinkText}">{yearLinkText}</kitodo:link>
+                </f:then>
+                <f:else>{yearLinkText}</f:else>
+            </f:if>
         </div>
         <div class="tx-dlf-calendar-year">
-            <kitodo:link requestData="{requestData}" pageUid="{settings.targetPid}" additionalParams="{'id': documentId}" excludedParams="{0: 'measure', 1: 'multiview'}" title="{yearLinkTitle}">{yearLinkTitle}</kitodo:link>
+            <f:if condition="{documentId}">
+                <f:then>
+                    <kitodo:link requestData="{requestData}" pageUid="{settings.targetPid}" additionalParams="{'id': documentId}" excludedParams="{0: 'measure', 1: 'multiview'}" title="{yearLinkTitle}">{yearLinkTitle}</kitodo:link>
+                </f:then>
+                <f:else>{yearLinkTitle}</f:else>
+            </f:if>
         </div>
         <div class="tx-dlf-calendar-list-selection">
             <a class="tx-dlf-calendar-select-calendar-view {f:if(condition:'calendarData->f:count() > 5', then : 'active')}">
