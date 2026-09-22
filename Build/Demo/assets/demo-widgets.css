@@ -119,13 +119,16 @@ div[class^="tx-dlf-navigation-"] > span[title] {
     line-height: 1.55;
 }
 
-#tx-dlf-toolbox-fulltext-selection .textline,
-#tx-dlf-toolbox-fulltext-selection .sp {
-    display: inline;
-}
-
 #tx-dlf-toolbox-fulltext-selection .sp {
     white-space: pre;
+}
+
+/* Each OCR line is its own <span class="textline">. Render it as a block so
+ * the panel keeps the original page's line breaks instead of flowing every
+ * line into one long paragraph. The <span class="sp"> word separators stay
+ * inline, so words within a line still wrap normally. */
+#tx-dlf-toolbox-fulltext-selection .textline {
+    display: block;
 }
 
 #tx-dlf-toolbox-fulltext-selection .textline.highlight {

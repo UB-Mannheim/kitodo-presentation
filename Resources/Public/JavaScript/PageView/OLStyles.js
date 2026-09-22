@@ -92,8 +92,11 @@ dlfViewerOLStyles.textlineStyle = function() {
 
     return new ol.style.Style({
         'stroke': new ol.style.Stroke({
-            'color': 'rgba(170,0,0,1)',
-            'width': 1
+            'color': 'rgba(238,153,0,1)',
+            'width': 3
+        }),
+        'fill': new ol.style.Fill({
+            'color': 'rgba(238,153,0,0.35)'
         })
     });
 
