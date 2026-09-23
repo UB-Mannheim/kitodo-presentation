@@ -295,8 +295,15 @@ if [ "$MAKE_SAMPLE" = "1" ]; then
     # all years) plus one year METS per year; each year file covers all issues
     # of that year and links them to the live digi issue documents.
     NEWS_DIR="$SCRIPT_DIR/examples/newspaper"
-    cp "$NEWS_DIR/DeutReunP_856399094_anchor.xml" "$NEWS_DIR/"DeutReunP_856399094_*_year.xml "$DEMO_DIR/kitodo-demo/"
-    for f in DeutReunP_856399094_anchor.xml DeutReunP_856399094_*_year.xml; do
+    cp "$NEWS_DIR/DeutReunP_856399094_anchor.xml" "$DEMO_DIR/kitodo-demo/"
+    # Year files are optional; guard the glob so a checkout without them (e.g. a
+    # pre-newspaper-sample revision) does not leave it as a literal path and
+    # break the copy / sed below.
+    shopt -s nullglob
+    NEWS_YEAR_FILES=("$NEWS_DIR"/DeutReunP_856399094_*_year.xml)
+    shopt -u nullglob
+    [ "${#NEWS_YEAR_FILES[@]}" -gt 0 ] && cp "${NEWS_YEAR_FILES[@]}" "$DEMO_DIR/kitodo-demo/"
+    for f in DeutReunP_856399094_anchor.xml "${NEWS_YEAR_FILES[@]##*/}"; do
         sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/$f" && rm -f "$DEMO_DIR/kitodo-demo/$f.bak"
     done
     NEWS_ANCHOR_URL="${DATA_URL}/DeutReunP_856399094_anchor.xml"
