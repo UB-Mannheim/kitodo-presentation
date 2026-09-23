@@ -870,6 +870,25 @@ php vendor/bin/typo3 setup -n --force \
     --project-name="Kitodo.Presentation demo" \
     --create-site="$BASE_URL"
 
+# --- clean-URL routing for a real web server -----------------------------
+# --server-type=other makes 'typo3 setup' skip public/.htaccess. The built-in
+# php -S dev server ignores .htaccess anyway (it routes every request to
+# index.php), so the localhost demo works without it. But a real web server
+# (Apache, used with --base-url) needs the rewrite rules for clean page URLs
+# like /demo/oai and /demo/validation to resolve: without them Apache treats
+# them as missing files and 404s before TYPO3 ever sees the request. Copy the
+# canonical template (which uses %{ENV:CWD} so it needs no RewriteBase) when
+# the site is being served by an external web server.
+if [ "$PUBLIC_BASE" = "1" ]; then
+    HTACCESS_TEMPLATE="vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess"
+    if [ -f "$HTACCESS_TEMPLATE" ]; then
+        cp "$HTACCESS_TEMPLATE" public/.htaccess
+        log "Wrote public/.htaccess (clean-URL rewrites for the web server)"
+    else
+        warn "Could not find the TYPO3 .htaccess template ($HTACCESS_TEMPLATE); clean URLs (/demo/oai, ...) will not resolve under the web server."
+    fi
+fi
+
 # --- seed -----------------------------------------------------------------
 log "Seeding the database (settings patch + pages)"
 php bootstrap.php
@@ -911,7 +930,19 @@ if [ "$PUBLIC_BASE" = "1" ]; then
         echo "      Alias /demo       $DEMO_DIR/public"
         echo "      Alias /demo-data  $DEMO_DIR/kitodo-demo"
         echo
-        echo "  ), then flush the caches if the URLs change:"
+        echo "  )."
+    fi
+    echo
+    echo "  public/.htaccess is generated for clean URLs (/oai, /validation)."
+    echo "  For it to take effect, the Apache config for ${BASE_URL} must allow"
+    echo "  overrides, e.g.:"
+    echo
+    echo "      <Directory $DEMO_DIR/public>"
+    echo "          AllowOverride All"
+    echo "      </Directory>"
+    echo
+    if [ "$MAKE_SAMPLE" = "1" ]; then
+        echo "  then flush the caches if the URLs change:"
         echo "      php vendor/bin/typo3 cache:flush"
         echo "      (in ${DEMO_DIR})."
     fi
