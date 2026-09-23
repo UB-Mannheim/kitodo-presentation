@@ -366,8 +366,8 @@ body > form button:focus-visible {
 #main .frame > div.tx-dlf-navigation-double a::before { content: "📖"; }
 #main .frame > div.tx-dlf-navigation-single a::before,
 #main .frame > div.tx-dlf-navigation-single span[title]::before { content: "▭"; }
-#main .frame > div.tx-dlf-navigation-double+ a::before,
-#main .frame > div.tx-dlf-navigation-double+ span[title]::before { content: "▤"; }
+#main .frame > div.tx-dlf-navigation-double\+ a::before,
+#main .frame > div.tx-dlf-navigation-double\+ span[title]::before { content: "▤"; }
 
 /* The page selector (label + <select>, rendered as an <li>). */
 #main .frame > li.tx-dlf-navigation-pages {
