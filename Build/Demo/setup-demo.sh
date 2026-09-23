@@ -476,6 +476,65 @@ plugin.tx_dlf_embedded3dviewer {
     }
 }
 
+# The OAI-PMH endpoint (a Solr-backed OAI provider; it serves raw OAI-PMH XML
+# from the /oai page, which gets a raw-XML TypoScript override further below).
+plugin.tx_dlf_oaipmh {
+    settings {
+        title = Kitodo.Presentation demo OAI-PMH
+        storagePid = 100
+        limit = 5
+        expired = 1800
+        solrLimit = 50000
+    }
+}
+
+# The validation form. It validates an arbitrary XML document URL against the
+# configured validators and lists the results. The demo wires up the pure-PHP
+# XmlSchemasValidator (no Java needed) with the METS / MODS / XLink schemas from
+# the committed test fixtures, referenced by file:// to this checkout (always
+# present, since dlf is symlinked in from here). The form is an ordinary HTML
+# page (unlike /oai), so it needs no raw-XML TypoScript override.
+#
+# The form submits the validation type as the GET param "type", which is also
+# TYPO3's reserved page-typeNum param: a non-numeric value makes
+# PrepareTypoScriptFrontendRendering 500 ("No page configured for type=...")
+# before the dlf middleware ever runs. The demo has no site routes, so the type
+# is named "0" -- a valid typeNum (the root page) and a valid config key -- so
+# the request resolves and the middleware can intercept it.
+plugin.tx_dlf_validationform {
+    settings {
+        # The validation type the form submits; it is looked up under
+        # plugin.tx_dlf.settings.domDocumentValidation (below). Must be numeric
+        # (see the note above) -- "0" doubles as the root page's typeNum.
+        type = 0
+    }
+}
+plugin.tx_dlf.settings {
+    domDocumentValidation {
+        0 {
+            10 {
+                title = METS / MODS / XLink (XSD)
+                description = Validates the document against the METS, MODS and XLink XML schemas.
+                className = Kitodo\Dlf\Validation\XmlSchemasValidator
+                configuration {
+                    mets {
+                        namespace = http://www.loc.gov/METS/
+                        schemaLocation = file://__REPO__/Tests/Fixtures/Schemas/mets.xsd
+                    }
+                    mods {
+                        namespace = http://www.loc.gov/mods/v3
+                        schemaLocation = file://__REPO__/Tests/Fixtures/Schemas/mods.xsd
+                    }
+                    xlink {
+                        namespace = http://www.w3.org/1999/xlink
+                        schemaLocation = file://__REPO__/Tests/Fixtures/Schemas/xlink.xsd
+                    }
+                }
+            }
+        }
+    }
+}
+
 page = PAGE
 page.shortcutIcon = kitodo-favicon.ico
 page {
@@ -491,10 +550,18 @@ page {
     # the curly braces of JS function bodies).
     includeJSFooter.dlfDemoWidgets = kitodo-demo/demo-widgets.js
 }
+# The page body differs per page, selected by the page uid: the root page (uid
+# 1) shows the viewer scaffold and widgets; /oai (uid 101) is a raw OAI-PMH XML
+# endpoint; /validation (uid 102) is a plain page with only the form.
+[page['uid'] == 1]
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1><a href="/">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="/oai">OAI-PMH</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+    10 {
+        value = <h1><a href="/">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="/oai">OAI-PMH</a> &middot; <a href="/validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        insertData = 1
+        htmlSanitize = 0
+    }
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
@@ -503,8 +570,50 @@ page.10 {
     40 = TEXT
     40.value = </div>
 }
+[end]
+
+# /oai: an OAI-PMH endpoint, not a normal HTML page. The controller forces the
+# response to XML; this block strips the HTML scaffolding (doctype, <html>,
+# head, content wrap) and sets the Content-Type so the page is pure OAI-PMH XML.
+[page['uid'] == 101]
+config {
+    disableAllHeaderCode = 1
+    xhtml_cleaning = none
+    admPanel = 0
+    debug = 0
+    metaCharset = utf-8
+    additionalHeaders.10.header = Content-Type:text/xml;charset=utf-8
+    disablePrefixComment = 1
+    linkVars >
+}
+page.10 < styles.content.get
+tt_content.stdWrap >
+tt_content.stdWrap.editPanel = 0
+lib.contentElement.templateRootPaths.5 = EXT:dlf/Resources/Private/fluid_styled_content/Templates
+[end]
+
+# /validation: a plain page (no viewer scaffold) showing only the form. The
+# form's URL field is pre-filled with the local sample METS by the widget JS,
+# which reads the URL from the data-sample attribute on this marker element
+# (the sample URL is baked at setup time, so it cannot live in the static JS).
+[page['uid'] == 102]
+page.10 = COA
+page.10 {
+    10 = TEXT
+    10 {
+        value = <h1>XML document validation</h1><p>Paste a METS / IIIF / any XML document URL below (the local sample is pre-filled) and click <strong>Validate</strong>. The result appears underneath the form.</p><div id="dlf-demo-validation" data-sample="__SAMPLE_URL__" hidden></div>
+        insertData = 1
+        htmlSanitize = 0
+    }
+    20 = TEXT
+    20.value = <div id="main">
+    30 < styles.content.get
+    40 = TEXT
+    40.value = </div>
+}
+[end]
 TS
-sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" demo.typoscript && rm -f demo.typoscript.bak
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" -e "s|__REPO__|${REPO}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
@@ -539,6 +648,18 @@ $pages->delete('pages', ['uid' => 100]);
 $pages->insert('pages', [
     'uid' => 100, 'pid' => 0, 'title' => 'DLF data storage',
     'slug' => '/dlf-data', 'doktype' => 1, 'hidden' => 1,
+]);
+// Subpages of the root page (uid 1). Each carries a special layout selected by
+// the [page['uid'] == ...] blocks in the TypoScript above.
+$pages->delete('pages', ['uid' => 101]);
+$pages->insert('pages', [
+    'uid' => 101, 'pid' => 1, 'title' => 'OAI-PMH',
+    'slug' => '/oai', 'doktype' => 1, 'hidden' => 0,
+]);
+$pages->delete('pages', ['uid' => 102]);
+$pages->insert('pages', [
+    'uid' => 102, 'pid' => 1, 'title' => 'XML validation',
+    'slug' => '/validation', 'doktype' => 1, 'hidden' => 0,
 ]);
 
 // 4. Register the metadata formats (pid = storage pid). The type must match
@@ -662,8 +783,20 @@ foreach ($plugins as $i => $plugin) {
         'header' => $plugin, 'sorting' => ($i + 1) * 100,
     ]);
 }
+// 6b. The OAI-PMH plugin on the /oai page and the validation form on the
+//     /validation page (each a single tt_content row on its subpage).
+$contents->delete('tt_content', ['uid' => 29]);
+$contents->insert('tt_content', [
+    'uid' => 29, 'pid' => 101, 'CType' => 'list', 'list_type' => 'dlf_oaipmh',
+    'header' => 'OAI-PMH', 'sorting' => 100,
+]);
+$contents->delete('tt_content', ['uid' => 30]);
+$contents->insert('tt_content', [
+    'uid' => 30, 'pid' => 102, 'CType' => 'list', 'list_type' => 'dlf_validationform',
+    'header' => 'XML validation', 'sorting' => 100,
+]);
 
-echo "seeded: storage page (uid 100), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-28)\n";
+echo "seeded: storage page (uid 100), subpages (uid 101 /oai, 102 /validation), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-28), oai (uid 29) + validation (uid 30) plugins\n";
 PHP
 
 # --- favicon (cosmetic; needs ImageMagick, skipped if absent) -------------

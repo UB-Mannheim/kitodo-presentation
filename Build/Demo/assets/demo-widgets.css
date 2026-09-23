@@ -158,7 +158,7 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * the page image has loaded, so keying on it would hide the pageview whenever
  * the image is slow or fails. Whether the pageview should be shown at all is
  * instead decided by the overview rule below. */
-#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)) {
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)):not(:has(.tx-dlf-validationform)) {
     display: none;
 }
 
@@ -378,4 +378,115 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * nothing (its container is height:100% of an auto-height parent). */
 #main .frame:has(slub-media) #combined-container .dlf-shaka[data-mode="video"] {
     height: 32em;
+}
+
+/* The validation form (the /validation page). The plugin ships no stylesheet,
+ * so give its input and button a simple neutral look so the page reads as an
+ * interactive tool rather than a bare text box. (The result area is a .validation
+ * div appended by ValidationForm.js; it is styled in the block below.) */
+.tx-dlf-validationform {
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.tx-dlf-validationform label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+}
+
+.tx-dlf-validationform input.url {
+    display: inline-block;
+    width: 60%;
+    max-width: 48em;
+    margin-left: 0.5em;
+    padding: 0.45em 0.6em;
+    font: inherit;
+    color: #1b2a6b;
+    background: #fffef5;
+    border: 1px solid #c8c4b0;
+    border-radius: 6px;
+}
+
+.tx-dlf-validationform .submit {
+    padding: 0.45em 1.2em;
+    font: inherit;
+    font-weight: 600;
+    color: #fffef5;
+    background: #1b2a6b;
+    border: 1px solid #1b2a6b;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tx-dlf-validationform .submit:hover {
+    background: #26348a;
+}
+
+/* The result area: ValidationForm.js appends a .validation div to the form's
+ * container after a validation, holding one .validation-entry per validator.
+ * Each entry is a success callout (no errors) or error/warning/notice callouts
+ * with message lists. The extension ships no styles for these, so give them a
+ * simple neutral look here (always loaded). */
+.tx-dlf-validationform .validation {
+    margin-top: 16px;
+}
+
+.tx-dlf-validationform .validation-entry {
+    margin-bottom: 14px;
+    padding: 10px 12px;
+    border: 1px solid #c8c4b0;
+    border-radius: 6px;
+}
+
+.tx-dlf-validationform .validation-entry h2 {
+    margin: 0 0 2px;
+    font-size: 1em;
+}
+
+.tx-dlf-validationform .validation-entry p {
+    margin: 0 0 8px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.tx-dlf-validationform .callout {
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.tx-dlf-validationform .callout h3 {
+    margin: 0 0 4px;
+    font-size: 0.95em;
+}
+
+.tx-dlf-validationform .callout ul {
+    margin: 0;
+    padding-left: 1.2em;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.tx-dlf-validationform .callout-success {
+    background: #e7f4e7;
+    border: 1px solid #9ed39e;
+    color: #1f6b1f;
+}
+
+.tx-dlf-validationform .callout-error {
+    background: #fbe9e7;
+    border: 1px solid #e6a196;
+    color: #a33327;
+}
+
+.tx-dlf-validationform .callout-warning {
+    background: #fff8e1;
+    border: 1px solid #e6cf8f;
+    color: #8a6d1a;
+}
+
+.tx-dlf-validationform .callout-notice {
+    background: #eef2fb;
+    border: 1px solid #b9c6e8;
+    color: #1b2a6b;
 }
