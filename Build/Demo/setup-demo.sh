@@ -214,7 +214,7 @@ mkdir -p public/kitodo-demo
 # references them by <style>/<style>.css. The --style option only decides
 # which one is preselected. (No trailing slash on the glob, so the style
 # *directories* are copied, not their contents.)
-cp -R "$STYLES_DIR"/* "$SCRIPT_DIR/assets/"*.css public/kitodo-demo/
+cp -R "$STYLES_DIR"/* "$SCRIPT_DIR/assets/"*.{css,js} public/kitodo-demo/
 
 log "Writing composer.json"
 cat > composer.json <<JSON
@@ -486,11 +486,15 @@ page {
     # pipeline concatenates includeCSS files into a single merged-*.css,
     # which a runtime link-href swap could not address.
     includeCSS.dlfDemoWidgets = kitodo-demo/demo-widgets.css
+    # The widget JS is an external file (not inline in the TEXT cObject below)
+    # because TYPO3's HTML sanitizer mangles inline <script> blocks (it strips
+    # the curly braces of JS function bodies).
+    includeJSFooter.dlfDemoWidgets = kitodo-demo/demo-widgets.js
 }
 page.10 = COA
 page.10 {
     10 = TEXT
-    10.value = <h1>Kitodo.Presentation viewer</h1><p>Open a document in the viewer. No search / Solr required.</p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div><script>(function(){var s=document.getElementById('dlf-demo-style');if(!s){return;}var K='kitodo-demo-style';var l=document.getElementById('dlf-demo-css');if(!l){l=document.createElement('link');l.id='dlf-demo-css';l.rel='stylesheet';document.head.appendChild(l);}var saved='';try{saved=localStorage.getItem(K);}catch(e){}for(var i=0;i<s.options.length;i++){if(s.options[i].value===saved){s.selectedIndex=i;saved=s.options[i].value;break;}}l.href=s.dataset.base+s.value;s.addEventListener('change',function(){l.href=s.dataset.base+s.value;try{localStorage.setItem(K,s.value);}catch(e){}});})();</script><script>(function(){var c=document.getElementById('dlf-demo-dark');if(!c){return;}var K='kitodo-demo-dark';var off='';try{off=localStorage.getItem(K);}catch(e){}c.checked=off==='1';document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');c.addEventListener('change',function(){document.documentElement.setAttribute('data-theme',c.checked?'dark':'light');try{localStorage.setItem(K,c.checked?'1':'0');}catch(e){}});})();</script><script>(function(){var s=document.getElementById('dlf-demo-example');var f=document.getElementById('dlf-demo-doc');if(!s||!f){return;}var form=f.form;var p=new URLSearchParams(window.location.search).get('tx_dlf[id]');if(p){f.value=p;}s.addEventListener('change',function(){if(s.value){f.value=s.value;form.submit();}});f.addEventListener('input',function(){var v=f.value;var found=false;for(var i=0;i<s.options.length;i++){if(s.options[i].value===v){s.selectedIndex=i;found=true;break;}}if(!found){s.selectedIndex=0;}});})();</script><script>(function(){function init(){var c=document.querySelector('.tx-dlf-calendar-list-selection');var w=document.querySelector('.tx-dlf-calendar');if(!c||!w){return;}var cal=c.querySelector('.tx-dlf-calendar-select-calendar-view');var list=c.querySelector('.tx-dlf-calendar-select-list-view');if(!cal||!list){return;}function apply(v){w.setAttribute('data-view',v);cal.classList.toggle('active',v==='calendar');list.classList.toggle('active',v==='list');}var act=c.querySelector('a.active');var v;if(act){v=act.classList.contains('tx-dlf-calendar-select-calendar-view')?'calendar':'list';}else{v=document.querySelectorAll('.tx-dlf-calendar-month').length>5?'calendar':'list';}apply(v);cal.addEventListener('click',function(){apply('calendar');});list.addEventListener('click',function(){apply('list');});}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}})();</script>
+    10.value = <h1><a href="/">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="/oai">OAI-PMH</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
     # Wrap the content in <div id="main"> so the demo stylesheets can
     # address the plugin frames (#main .frame:has(...)).
     20 = TEXT
