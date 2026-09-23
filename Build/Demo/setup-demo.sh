@@ -389,6 +389,13 @@ fi
 EXAMPLE_OPTIONS="<option value=\"\" hidden></option>${EXAMPLE_OPTIONS}"
 
 # --- write the frontend TypoScript (stored in a sys_template record) ------
+# The site may be served under a subpath (see --base-url, e.g.
+# https://host/demo/). The on-page links to the other demo pages must be
+# relative to that base, not to the web root, so compute the base path here
+# ("http://host/demo/" -> "/demo/"; "http://host/" -> "/") and substitute it.
+BASE_PATH="${BASE_URL#*://}"
+BASE_PATH="/${BASE_PATH#*/}"
+
 log "Writing frontend TypoScript (demo.typoscript)"
 cat > demo.typoscript <<'TS'
 @import 'EXT:fluid_styled_content/Configuration/TypoScript/setup.typoscript';
@@ -598,7 +605,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="/">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="/oai">OAI-PMH</a> &middot; <a href="/validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
@@ -641,7 +648,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1>XML document validation</h1><p>Paste a METS / IIIF / any XML document URL below (the local sample is pre-filled) and click <strong>Validate</strong>. The result appears underneath the form.</p><div id="dlf-demo-validation" data-sample="__SAMPLE_URL__" hidden></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Validate a METS / IIIF / any XML document against the configured schemas. Paste a URL below (the local sample is pre-filled) and click <strong>Validate</strong>. The result appears underneath the form.</p><div id="dlf-demo-validation" data-sample="__SAMPLE_URL__" hidden></div>
         insertData = 1
         htmlSanitize = 0
     }
@@ -653,7 +660,7 @@ page.10 {
 }
 [end]
 TS
-sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" -e "s|__REPO__|${REPO}|g" demo.typoscript && rm -f demo.typoscript.bak
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" -e "s|__REPO__|${REPO}|g" -e "s|__BASE_PATH__|${BASE_PATH}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
