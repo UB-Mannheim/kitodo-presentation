@@ -258,9 +258,17 @@ class Embedded3dViewer implements LoggerAwareInterface, MiddlewareInterface
     {
         /** @var ResourceFactory $resourceFactory */
         $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-        $html = $resourceFactory->retrieveFileOrFolderObject('EXT:dlf/Resources/Public/Html/Embedded3dViewerStandalone.html')->getContents(); // @phpstan-ignore-line
-        $file = $resourceFactory->retrieveFileOrFolderObject('EXT:dlf/Resources/Public/JavaScript/Embedded3dViewer/model-viewer-4.1.0.min.js');
-        $html = str_replace('{{modelViewerJS}}', $file->getPublicUrl(), $html);
+        try {
+            $html = $resourceFactory->retrieveFileOrFolderObject('EXT:dlf/Resources/Public/Html/Embedded3dViewerStandalone.html')->getContents(); // @phpstan-ignore-line
+            $file = $resourceFactory->retrieveFileOrFolderObject('EXT:dlf/Resources/Public/JavaScript/Embedded3dViewer/model-viewer-4.1.0.min.js');
+            $html = str_replace('{{modelViewerJS}}', $file->getPublicUrl(), $html);
+        } catch (ResourceDoesNotExistException $exception) {
+            // The standalone template or the vendored model-viewer script is
+            // missing from the deployed extension (e.g. an incomplete install).
+            // Degrade to a message instead of escaping as a bare 500.
+            $this->logger->error('Built-in 3D viewer resources are missing: ' . $exception->getMessage());
+            $html = '<!DOCTYPE html><html><body><p>The built-in 3D viewer is not available on this installation.</p></body></html>';
+        }
         $html = str_replace("{{modelUrl}}", $model, $html);
         return new HtmlResponse($html);
     }
