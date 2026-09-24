@@ -57,6 +57,7 @@
     "events": "^3.3.0",
     "intl-messageformat": "^10.5.14",
     "jquery": "^3.7.1",
+    "ol": "^10.10.0",
     "peaks.js": "^3.4.0",
     "piexifjs": "^1.0.6",
     "qrcode": "^1.5.3",
