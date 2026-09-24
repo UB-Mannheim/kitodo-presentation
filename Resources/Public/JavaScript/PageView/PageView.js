@@ -1142,8 +1142,15 @@ dlfViewer.prototype.toggleFullscreen = function() {
     var entering = !target.classList.contains('tx-dlf-fullscreen');
     target.classList.toggle('tx-dlf-fullscreen', entering);
     this.persistFullscreen(entering);
-    // Re-fit the page image to the new layout. updateSize alone resizes the
-    // canvas but leaves the view resolution (hence the image scale) unchanged.
+    // Re-fit the page image to the new layout. The class toggle above has
+    // changed the layout, but the map does not know that until it re-measures
+    // the container: getSize() still returns the pre-toggle size until a
+    // reflow, so calling refitView() now would fit the view for the stale size
+    // (e.g. the fullscreen size when leaving fullscreen) and leave the image
+    // mis-scaled relative to the already-resized canvas, invisible until a
+    // reload. updateSize() forces that re-measure first, so refitView() then
+    // fits for the correct, new container size.
+    this.map.updateSize();
     this.refitView();
 };
 
