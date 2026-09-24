@@ -11,7 +11,72 @@ module.exports = (env, argv) => {
   // Babel is only used for browser compatibility, which we don't need in development
   const useBabel = argv.mode === 'production';
 
-  return {
+  // Loaders shared by every build. The babel rule only applies in production.
+  const commonRules = [
+    useBabel ? (
+      {
+        test: /\.js$/,
+        exclude: [
+          /node_modules/,
+          /\.no-babel.js/,
+        ],
+        use: {
+          loader: "babel-loader",
+        },
+      }
+    ) : {},
+    {
+      test: /\.(css|less)$/i,
+      // Recall that the order is reverse (first loader is listed last)
+      use: [
+        {
+          // Use mini-css-extract to extract .css files instead of injecting <style> tags
+          loader: MiniCssExtractPlugin.loader,
+        },
+        {
+          loader: "css-loader",
+          options: {
+            // Don't attempt to resolve URLs in CSS
+            url: false,
+            sourceMap: true,
+          },
+        },
+        {
+          loader: "less-loader",
+          options: {
+            lessOptions: {
+              // Don't adjust relative URLs in Less
+              relativeUrls: false,
+              paths: [path.resolve(__dirname, "node_modules/shaka-player/ui")],
+            },
+            sourceMap: true,
+          },
+        },
+      ],
+    },
+    {
+      test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      type: 'asset/resource',
+    },
+  ];
+
+  // Module resolution shared by every build
+  const commonResolve = {
+    modules: [
+      path.resolve(__dirname, 'node_modules'),
+    ],
+    alias: {
+      // __dirname will stands for your root directory level
+      // path.resolve will concatenate your project folder location with
+      Assets: path.resolve(PRIVATE_PATH, `Assets/`),
+      lib: path.resolve(PRIVATE_PATH, `JavaScript/lib/`),
+      DlfMediaPlayer: path.resolve(PRIVATE_PATH, `JavaScript/DlfMediaPlayer/`),
+      SlubMediaPlayer: path.resolve(PRIVATE_PATH, `JavaScript/SlubMediaPlayer/`)
+    }
+  };
+
+  // The media player build (shaka/peaks/etc.) and its dev server.
+  const mediaPlayer = {
     devtool: "source-map",
     devServer: {
       static: [
@@ -46,53 +111,7 @@ module.exports = (env, argv) => {
       }),
     ],
     module: {
-      rules: [
-        useBabel ? (
-          {
-            test: /\.js$/,
-            exclude: [
-              /node_modules/,
-              /\.no-babel.js/,
-            ],
-            use: {
-              loader: "babel-loader",
-            },
-          }
-        ) : {},
-        {
-          test: /\.(css|less)$/i,
-          // Recall that the order is reverse (first loader is listed last)
-          use: [
-            {
-              // Use mini-css-extract to extract .css files instead of injecting <style> tags
-              loader: MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: "css-loader",
-              options: {
-                // Don't attempt to resolve URLs in CSS
-                url: false,
-                sourceMap: true,
-              },
-            },
-            {
-              loader: "less-loader",
-              options: {
-                lessOptions: {
-                  // Don't adjust relative URLs in Less
-                  relativeUrls: false,
-                  paths: [path.resolve(__dirname, "node_modules/shaka-player/ui")],
-                },
-                sourceMap: true,
-              },
-            },
-          ],
-        },
-        {
-          test: /\.(png|svg|jpg|jpeg|gif)$/i,
-          type: 'asset/resource',
-        },
-      ],
+      rules: commonRules,
     },
     externals: {
       jquery: 'jQuery',
@@ -118,18 +137,35 @@ module.exports = (env, argv) => {
         new CssMinimizerPlugin(),
       ],
     },
-    resolve: {
-      modules: [
-        path.resolve(__dirname, 'node_modules'),
-      ],
-      alias: {
-        // __dirname will stands for your root directory level
-        // path.resolve will concatenate your project folder location with
-        Assets: path.resolve(PRIVATE_PATH, `Assets/`),
-        lib: path.resolve(PRIVATE_PATH, `JavaScript/lib/`),
-        DlfMediaPlayer: path.resolve(PRIVATE_PATH, `JavaScript/DlfMediaPlayer/`),
-        SlubMediaPlayer: path.resolve(PRIVATE_PATH, `JavaScript/SlubMediaPlayer/`)
-      }
-    },
+    resolve: commonResolve,
   };
+
+  // The OpenLayers build used by the PageView. The npm `ol` package exposes
+  // ES modules, not the `window.ol` namespace the PageView was written against,
+  // so the entry re-assembles that namespace from the individual modules the
+  // PageView uses and lets webpack tree-shake the rest.
+  const openLayers = {
+    devtool: "source-map",
+    entry: {
+      // Output file names (openlayers.js / openlayers.css) must match the
+      // committed files and the TypoScript include paths, so keep lowercase.
+      'openlayers': path.resolve(PRIVATE_PATH, `JavaScript/OpenLayers`),
+    },
+    output: {
+      filename: 'JavaScript/OpenLayers/[name].js',
+      path: PUBLIC_PATH,
+    },
+    plugins: [
+      new RemoveEmptyScriptsPlugin(),
+      new MiniCssExtractPlugin({
+        filename: "JavaScript/OpenLayers/[name].css",
+      }),
+    ],
+    module: {
+      rules: commonRules,
+    },
+    resolve: commonResolve,
+  };
+
+  return [mediaPlayer, openLayers];
 };

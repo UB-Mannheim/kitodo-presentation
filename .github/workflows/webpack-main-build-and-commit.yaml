@@ -30,12 +30,15 @@ jobs:
       # needs to be adjusted after changes in the webpack.config output paths
       # filename: 'JavaScript/DlfMediaPlayer/[name].js'
       # filename: "Css/[name].css",
+      # filename: 'JavaScript/OpenLayers/[name].js'
+      # filename: "JavaScript/OpenLayers/[name].css"
       - name: Commit and Push Built Assets
         run: |
           git config --global user.name "webpack-builder[bot]"
           git config --global user.email "webpack-builder[bot]@users.noreply.github.com"
 
           git add Resources/Public/JavaScript/DlfMediaPlayer
+          git add Resources/Public/JavaScript/OpenLayers
           git add Resources/Public/Css
 
           if git diff --cached --quiet; then
