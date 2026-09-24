@@ -1,13 +1,23 @@
 #!/usr/bin/env node
-// Regression test for the aurora demo theme's kiosk-fullscreen navigation row.
+// Regression test for the aurora demo theme's kiosk-fullscreen layout.
 //
-// The nav (first / prev / page-select / next / last / double-page) lives in a
-// 16em sidebar and must stay on a single row. The page selector is a native
-// <select> that sizes itself to its WIDEST option, so a document whose page
-// labels are long (a periodical's "[22] - 18") can make the page pill wider
-// than the sidebar and push the trailing buttons onto a second row. This test
-// guards against that: it renders the real aurora.css + demo-widgets.css in a
-// headless browser for several label shapes and asserts the row does not wrap.
+// Two guards, both rendered against the real aurora.css + demo-widgets.css in
+// a headless browser:
+//
+//  1. The nav row (first / prev / page-select / next / last / double-page)
+//     lives in a 16em sidebar and must stay on a single row. The page selector
+//     is a native <select> that sizes itself to its WIDEST option, so a
+//     document whose page labels are long (a periodical's "[22] - 18") can
+//     make the page pill wider than the sidebar and push the trailing buttons
+//     onto a second row. This test renders several label shapes and asserts
+//     the row does not wrap.
+//
+//  2. The demo's fixed style-selector widget (.dlf-demo-styles, top-right)
+//     must not cover the fullscreen navigation or toolbox. It was once moved
+//     down to a gap between the two and ended up hiding parts of the toolbox;
+//     it now keeps its normal top position and the nav is pushed below it, so
+//     the widget only ever overlaps empty space. This test measures the
+//     widget against both frames and asserts they do not intersect.
 //
 // No framework: it drives the system Chrome (the same one used for viewer
 // debugging, see AGENTS.md) and reads the measured geometry back out of the
@@ -47,18 +57,34 @@ const CASES = [
 // lower. 20px sits comfortably between the two.
 const WRAP_TOLERANCE_PX = 20;
 
+// The demo's style-selector widget, with markup mirroring setup-demo.sh (a
+// label, the style <select> and the dark-mode toggle). It is position:fixed
+// top-right via demo-widgets.css.
+const STYLE_WIDGET = `<div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/"><option value="aurora/aurora.css">aurora</option><option value="bar/bar.css">bar</option></select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>`;
+
+// The fullscreen toolbox frame: a <ul> of the tools that fullscreen shows
+// (zoom, fullscreen, fulltext). The fulltext <li> carries an id^="tx-dlf-tools-",
+// which is what demo-widgets.css uses to identify the toolbox frame.
+const TOOLBOX_FRAME = `<div class="frame"><ul>
+    <li class="tx-dlf-tools-zoom-in"><a href="#" title="Zoom In">Zoom In</a></li>
+    <li class="tx-dlf-tools-fullscreen"><a href="#" title="Fullscreen Mode">Fullscreen Mode</a></li>
+    <li class="tx-dlf-tools-fulltext"><a href="#" id="tx-dlf-tools-fulltext" title="Fulltext">Fulltext</a></li>
+</ul></div>`;
+
 function fixtureFor(name, count, label) {
   const opts = Array.from({length: count}, (_, k) =>
     `<option value="${k + 1}">${label(k + 1)}</option>`).join('');
   // The real demo-widgets.css + aurora.css are loaded by absolute file:// path,
   // so the test exercises exactly the shipped CSS, not a copy. The demo-widgets
   // fullscreen grid (#main.tx-dlf-fullscreen) already carries the layout the
-  // kiosk mode uses, so no extra styling is needed here.
+  // kiosk mode uses, so no extra styling is needed here. The style widget sits
+  // outside #main, exactly as the demo page emits it (fixed, top-right).
   return `<!DOCTYPE html><html><head><meta charset="utf-8">
 <link rel="stylesheet" href="file://${widgets}">
 <link rel="stylesheet" href="file://${aurora}">
 <style>#main.tx-dlf-fullscreen{position:static;width:100vw;}</style>
 </head><body style="margin:0">
+${STYLE_WIDGET}
 <div id="main" class="tx-dlf-fullscreen">
   <div class="frame"><div id="tx-dlf-map">map</div></div>
   <div class="frame">
@@ -71,13 +97,26 @@ function fixtureFor(name, count, label) {
     <div class="tx-dlf-navigation-last"><a title="Last Page">Last Page</a></div>
     <div class="tx-dlf-navigation-double"><a title="Double Page View">Double Page View</a></div>
   </div>
-  <div class="frame" id="tools"></div>
+  ${TOOLBOX_FRAME}
 </div>
 <script>
 window.addEventListener('load', function () {
   setTimeout(function () {
     var nav = document.querySelector('.frame:has(.tx-dlf-navigation-first)');
+    var tools = document.querySelector('.frame:has([id^="tx-dlf-tools-"])');
+    var sel = document.querySelector('.dlf-demo-styles');
     var nfr = nav.getBoundingClientRect();
+    var tfr = tools.getBoundingClientRect();
+    var sfr = sel.getBoundingClientRect();
+    function box(r) {
+      return {top: Math.round(r.top), bottom: Math.round(r.bottom),
+              left: Math.round(r.left), right: Math.round(r.right),
+              width: Math.round(r.width), height: Math.round(r.height)};
+    }
+    function intersects(a, b) {
+      return a.left < b.right && a.right > b.left &&
+             a.top < b.bottom && a.bottom > b.top;
+    }
     var items = Array.prototype.map.call(nav.children, function (c) {
       var b = c.getBoundingClientRect();
       return {name: c.className.split(' ')[0].replace('tx-dlf-navigation-', ''),
@@ -85,13 +124,18 @@ window.addEventListener('load', function () {
     });
     var tops = items.map(function (i) { return i.top; });
     var pill = nav.querySelector('.tx-dlf-navigation-pages');
-    var sel = nav.querySelector('.tx-dlf-navigation-pages select');
+    var selSel = nav.querySelector('.tx-dlf-navigation-pages select');
     document.body.setAttribute('data-measure', JSON.stringify({
       name: ${JSON.stringify(name)},
       items: items,
       rowSpread: Math.max.apply(null, tops) - Math.min.apply(null, tops),
       pillWidth: Math.round(pill.getBoundingClientRect().width),
-      selectWidth: Math.round(sel.getBoundingClientRect().width)
+      selectWidth: Math.round(selSel.getBoundingClientRect().width),
+      selector: box(sfr),
+      navFrame: box(nfr),
+      toolsFrame: box(tfr),
+      selectorOverlapsNav: intersects(sfr, nfr),
+      selectorOverlapsTools: intersects(sfr, tfr)
     }));
   }, 300);
 });
@@ -161,19 +205,31 @@ async function main() {
         continue;
       }
       const wrapped = r.rowSpread > WRAP_TOLERANCE_PX;
+      const overlap = r.selectorOverlapsNav || r.selectorOverlapsTools;
       console.log(
-        `${wrapped ? 'FAIL' : 'ok'}  ${c.name.padEnd(22)} ` +
+        `${wrapped || overlap ? 'FAIL' : 'ok'}  ${c.name.padEnd(22)} ` +
         `rowSpread=${r.rowSpread}px  pill=${r.pillWidth}px  select=${r.selectWidth}px`
       );
       if (wrapped) {
         failed = true;
         console.log(`      the nav row wrapped: ${JSON.stringify(r.items)}`);
       }
+      if (overlap) {
+        failed = true;
+        console.log(`      style selector overlaps the layout:`);
+        console.log(`        selector: ${JSON.stringify(r.selector)}`);
+        if (r.selectorOverlapsNav) {
+          console.log(`        nav frame: ${JSON.stringify(r.navFrame)}`);
+        }
+        if (r.selectorOverlapsTools) {
+          console.log(`        toolbox frame: ${JSON.stringify(r.toolsFrame)}`);
+        }
+      }
     }
   } finally {
     rmSync(dir, {recursive: true, force: true});
   }
-  console.log(failed ? '\nnav layout: FAILED' : '\nnav layout: all rows fit on one line');
+  console.log(failed ? '\nnav layout: FAILED' : '\nnav layout: all rows fit and the style selector clears the frames');
   process.exit(failed ? 1 : 0);
 }
 
