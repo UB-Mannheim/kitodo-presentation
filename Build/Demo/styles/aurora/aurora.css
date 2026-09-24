@@ -369,6 +369,73 @@ body > form button:focus-visible {
 #main .frame > div.tx-dlf-navigation-double\+ a::before,
 #main .frame > div.tx-dlf-navigation-double\+ span[title]::before { content: "▤"; }
 
+/* Page-selection and view-control buttons are icon-only.
+ *
+ * They keep their glyph (the ::before icon) and the native title tooltip for
+ * the label, but the visible text label is hidden (font-size: 0). Each button
+ * is therefore roughly a square icon instead of a ~120px label chip, so a
+ * related group fits on a single line within the existing narrow toolbar
+ * column without the column — and with it the page view — having to get wider.
+ * This is what keeps, e.g., all the rotation buttons (and the page-first /
+ * back / next / last buttons) side by side on one line instead of wrapping.
+ */
+#main .frame > div[class^="tx-dlf-navigation-"] a,
+#main .frame > div[class^="tx-dlf-navigation-"] span[title],
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-in a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-out a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fullscreen a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-left a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-right a,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-reset a {
+    font-size: 0;
+    /* 40px per chip: the six view-control chips (zoom in/out, fullscreen,
+     * rotate left/right/reset) plus the five 8px gaps then fit within the
+     * 350px tools column (6×40 + 5×8 = 290px ≤ 310px content width), keeping
+     * all rotation buttons on the same line as zoom in/out and fullscreen. */
+    min-width: 40px;
+    justify-content: center;
+}
+
+/* In kiosk fullscreen the toolbox sits in a narrower 16em (256px) sidebar
+ * (see demo-widgets.css), where 40px chips (6×42 + 5×8 = 292px) no longer
+ * fit on one line and the last chip (reset rotation) would wrap below. Shrink
+ * the view-control chips here so all six stay on a single line. */
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-in a,
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-out a,
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fullscreen a,
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-left a,
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-right a,
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-reset a {
+    min-width: 34px;
+}
+
+/* The visible text label is hidden by font-size: 0 above, which would also
+ * shrink the ::before icon glyph to nothing. Restore a fixed icon size (and
+ * drop the trailing margin that normally separates the glyph from the now
+ * hidden label) so the button shows a centered icon with the label only in
+ * the native title tooltip. */
+#main .frame > div[class^="tx-dlf-navigation-"] a::before,
+#main .frame > div[class^="tx-dlf-navigation-"] span[title]::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-in a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-out a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fullscreen a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-left a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-right a::before,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-reset a::before {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* The view-control tool buttons keep their natural icon size (do not stretch). */
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-in,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-zoom-out,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-fullscreen,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-left,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-right,
+#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-rotate-reset {
+    flex: 0 0 auto;
+}
+
 /* The page selector (label + <select>, rendered as an <li>). */
 #main .frame > li.tx-dlf-navigation-pages {
     list-style: none;
@@ -399,6 +466,81 @@ body > form button:focus-visible {
     border: 1px solid var(--a-border);
     border-radius: 8px;
     background: var(--a-surface);
+}
+
+/* Kiosk fullscreen: the navigation sits in the narrow 16em (256px) sidebar
+ * (see demo-widgets.css), where the full-width page navigation (first /
+ * previous / page select / next / last) would otherwise wrap onto several
+ * rows. Tighten it so the page-navigation buttons stay on a single line
+ * (the double-page toggle may wrap below, as it is a view toggle rather than
+ * a page control):
+ *
+ *  * the arrow pills are already icon-only (font-size: 0, the tooltip coming
+ *    from the title attribute); drop their horizontal padding so five of them
+ *    plus the page selector fit within 256px.
+ *  * the page selector is compacted: the "Page" text label is hidden and the
+ *    "#" marker dropped (its space goes to the number field), so the pill is
+ *    just the page number (the pill carries a "Select page" tooltip, see
+ *    PageSelect.html). */
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-navigation-first) {
+    /* The toolbox frame below this one is a flex row that fills the 256px
+     * sidebar (its items run right up to the border); make the navigation a
+     * flex row too, so its page buttons spread across the full width with
+     * space-between instead of the row just ending where the last pill does. */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    /* A small column gap (the inline pills previously had ~4px between them)
+     * so the six items fit on one line; space-between then spreads the
+     * leftover to the right border. */
+    gap: 3px;
+}
+
+/* The section label is a flex item once the frame is a flex row; give it the
+ * full width so it sits on its own row above the buttons (as it already does
+ * in the toolbox) instead of stealing the first pill's slot. */
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-navigation-first)::before {
+    flex-basis: 100%;
+}
+
+#main.tx-dlf-fullscreen .frame > div[class^="tx-dlf-navigation-"] {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#main.tx-dlf-fullscreen .frame > div[class^="tx-dlf-navigation-"] a,
+#main.tx-dlf-fullscreen .frame > div[class^="tx-dlf-navigation-"] span {
+    min-width: 32px;
+}
+
+#main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages {
+    padding: 6px 10px 6px 8px;
+}
+
+/* The "#" page-number marker (a glyph like the other controls) earns its
+ * space in the normal layout, but in fullscreen the "Select page" tooltip on
+ * the pill names the control, so the marker is dropped and its space (the
+ * glyph plus its gap) is given to the number field instead (see the select's
+ * max-width below). */
+#main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages::before {
+    content: none;
+}
+
+#main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages label {
+    font-size: 0;
+}
+
+#main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages select {
+    /* Cap the width: a native <select> auto-sizes to its widest option, so a
+     * high page count (e.g. 300 pages) would otherwise balloon the pill wide
+     * enough to push the "last" button onto a second row. 5em is the old 4em
+     * cap plus the width of the "#" marker hidden in fullscreen (the gap
+     * included), so the pill is no wider than before while the number field
+     * is roomier — enough to show a three-digit page number closed. */
+    max-width: 5em;
+    min-width: 3.5em;
+    padding: 0.3em 0.2em;
 }
 
 /* --- the page grid ------------------------------------------------------------ */
@@ -698,13 +840,17 @@ body > form button:focus-visible {
 
 /* The individual tool icons, as ::before glyphs on each tool's control. The
  * view / content tools render as a bare glyph chip (their visible label is the
- * title attribute), so they target the <li>'s <a> directly. */
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-in a::before          { content: "🔍"; }
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-out a::before         { content: "➖"; }
+ * title attribute), so they target the <li>'s <a> directly. Zoom in / out use
+ * circled plus / minus: monochrome like the other view-control glyphs (⛶, ↺,
+ * ↻) instead of the inconsistent magnifier emoji + heavy minus pair. */
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-in a::before          { content: "⊕"; }
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-zoom-out a::before         { content: "⊖"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-fullscreen a::before       { content: "⛶"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-left a::before      { content: "↺"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-right a::before     { content: "↻"; }
-#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-reset a::before     { content: "⟲"; }
+/* Reset rotation: an upward arrow, read as "back to upright", distinct from
+ * the left / right rotation arrows. */
+#main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-rotate-reset a::before     { content: "↑"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-fulltext a::before         { content: "📝"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-annotation a::before       { content: "💬"; }
 #main .frame:has([id^="tx-dlf-tools-"]) .tx-dlf-tools-videomediaplayer a::before { content: "🎬"; }
