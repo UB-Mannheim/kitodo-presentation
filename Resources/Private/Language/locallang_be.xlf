@@ -401,6 +401,9 @@
             <trans-unit id="pageView.flexForm.features.zoomPanel">
                 <source><![CDATA[Zoom Panel]]></source>
             </trans-unit>
+            <trans-unit id="pageView.flexForm.fullscreenElementId">
+                <source><![CDATA[@ID value of the HTML element to toggle in fullscreen mode (defaults to the page view element)]]></source>
+            </trans-unit>
             <trans-unit id="pageView.flexForm.magnifier">
                 <source><![CDATA[Activate magnifier]]></source>
             </trans-unit>

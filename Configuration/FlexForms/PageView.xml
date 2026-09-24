@@ -57,6 +57,15 @@
                             <default>tx-dlf-map</default>
                         </config>
                     </settings.elementId>
+                    <settings.fullscreenElementId>
+                        <exclude>1</exclude>
+                        <label>LLL:EXT:dlf/Resources/Private/Language/locallang_be.xlf:pageView.flexForm.fullscreenElementId</label>
+                        <config>
+                            <type>input</type>
+                            <eval>alphanum_x,nospace</eval>
+                            <default></default>
+                        </config>
+                    </settings.fullscreenElementId>
                     <settings.progressElementId>
                         <exclude>1</exclude>
                         <label>LLL:EXT:dlf/Resources/Private/Language/locallang_be.xlf:pageView.flexForm.progressElementId</label>
