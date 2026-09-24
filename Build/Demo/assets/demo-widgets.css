@@ -552,6 +552,11 @@ body:has(#main.tx-dlf-fullscreen) {
     background: transparent;
     min-height: 0;
     position: relative;
+    /* Two-pane row: the page image and the fulltext sit side by side (see the
+     * fulltext container rule below), so the text never covers the image. The
+     * header and overview map are display:none, so the flex row is just the
+     * map (flex: 1) and, while fulltext is active, the fulltext pane. */
+    display: flex;
 }
 
 /* Strip the card chrome and the "PageView (dlf_pageview)" section labels. */
@@ -599,10 +604,13 @@ body:has(#main.tx-dlf-fullscreen) {
     margin-top: 12px;
 }
 
-/* The page image must fill its grid cell, not the fixed inline height the
- * viewer sets (the 57em fallback from PageView.js, applied because no theme
- * styles the map height); !important is required to override the inline value. */
+/* The page image fills its cell; !important overrides the 57em inline
+ * fallback height the viewer sets (see the comment above). In the fullscreen
+ * flex row the map is the growing pane (flex: 1) and needs min-width: 0 so it
+ * can shrink below its content size to make room for the fulltext pane. */
 #main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) #tx-dlf-map {
+    flex: 1 1 0;
+    min-width: 0;
     height: 100% !important;
     background: transparent;
 }
@@ -621,22 +629,19 @@ body:has(#main.tx-dlf-fullscreen) {
 }
 
 /* The fulltext panel is a child of the page view frame (the FulltextContainer
- * partial renders inside it). It overlays the right-hand side of the page
- * image and is shown only while fulltext is enabled (the fulltext tool link
- * carries the .active class); otherwise it is hidden so the page image is not
- * obscured by an empty / stale panel. */
+ * partial renders inside it). While fulltext is enabled (the fulltext tool
+ * link carries the .active class) it is a second pane of the fullscreen flex
+ * row, sitting to the right of the page image — so it never covers the image,
+ * which simply gets a bit narrower. When fulltext is off the pane is hidden
+ * and the image spans the full width again. */
 #main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) .tx-dlf-toolbox-fulltext-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 26em;
-    z-index: 10;
     display: none;
+    flex: 0 0 26em;
+    width: 26em;
     overflow: auto;
-    background: rgba(255, 255, 255, 0.94);
+    background: #fff;
     border-left: 1px solid #c8c4b0;
-    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.08);
     padding: 1em 1.2em;
     margin: 0;
 }

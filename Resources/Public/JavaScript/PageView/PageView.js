@@ -998,12 +998,16 @@ dlfViewer.prototype.init = function(controlNames) {
             // The fullscreen class was already applied in the constructor (before
             // the image loaded), so the layout is correct from the first paint.
             // Now that the map exists, fit the page image to the (possibly
-            // fullscreen) container and keep it fitted on resize. In normal
-            // (non-fullscreen) view the initial sizing and zoom are left to the
-            // viewer defaults, so nothing extra is done.
-            $(window).on("resize", $.proxy(function() {
+            // fullscreen) container and keep it fitted whenever the container
+            // is resized. A window "resize" event only covers the viewport
+            // changing; the fulltext pane (a flex sibling of the map, shown /
+            // hidden while fulltext is enabled) also changes the map container
+            // width without any window resize, so listen to the map's own
+            // change:size event instead, which fires for every container size
+            // change. In normal (non-fullscreen) view the initial sizing and
+            // zoom are left to the viewer defaults, so nothing extra is done.
+            this.map.on("change:size", $.proxy(function() {
                 if (this.isFullscreen()) {
-                    this.map.updateSize();
                     this.refitView();
                 }
             }, this));
