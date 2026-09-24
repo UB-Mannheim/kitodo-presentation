@@ -490,10 +490,11 @@ body > form button:focus-visible {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    /* A small column gap (the inline pills previously had ~4px between them)
-     * so the six items fit on one line; space-between then spreads the
-     * leftover to the right border. */
+    /* The page selector grows to absorb the row's free space (see
+     * .tx-dlf-navigation-pages below), so the five arrow pills keep a tight,
+     * even gap and the freed width goes to the page number instead of to the
+     * space between the pills. A small column gap (the inline pills previously
+     * had ~4px between them) so the six items fit on one line. */
     gap: 3px;
 }
 
@@ -511,18 +512,30 @@ body > form button:focus-visible {
 
 #main.tx-dlf-fullscreen .frame > div[class^="tx-dlf-navigation-"] a,
 #main.tx-dlf-fullscreen .frame > div[class^="tx-dlf-navigation-"] span {
-    min-width: 32px;
+    min-width: 30px;
 }
 
 #main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages {
+    /* Take exactly the row's free space: with justify-content: space-between
+     * removed the five arrow pills sit at a tight 3px gap, and the freed width
+     * goes to the page number instead of to the gaps. flex-basis 0 (not auto)
+     * keeps every button on one line even for documents whose page labels are
+     * long (a periodical's "[22] - 18") — an auto basis would be the select's
+     * intrinsic (widest-option) width and could exceed the 256px row.
+     * min-width: 0 does the same from the shrink side: the default
+     * min-width: auto would stop the pill shrinking below that intrinsic
+     * width and push the trailing buttons onto a second row. The <select>
+     * (below) then fills the pill. */
+    min-width: 0;
     padding: 6px 10px 6px 8px;
+    flex: 1 1 0;
 }
 
 /* The "#" page-number marker (a glyph like the other controls) earns its
  * space in the normal layout, but in fullscreen the "Select page" tooltip on
- * the pill names the control, so the marker is dropped and its space (the
- * glyph plus its gap) is given to the number field instead (see the select's
- * max-width below). */
+ * the pill names the control, so the marker is dropped and its space is given
+ * to the number field instead (the <select> stretches to fill the pill, see
+ * below). */
 #main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages::before {
     content: none;
 }
@@ -531,15 +544,31 @@ body > form button:focus-visible {
     font-size: 0;
 }
 
+/* The <select> lives inside the page-select <form>, not directly in the pill.
+ * Make the form fill the (growing) pill and lay its label + select out as a
+ * flex row so the select below can stretch to fill it. min-width: 0 lets the
+ * form (and select) shrink below the select's intrinsic width — a native
+ * <select> sizes itself to its widest option, so on a document with long page
+ * labels (a periodical's "[22] - 18") it would otherwise be wider than the
+ * row's free space and push the trailing buttons onto a second row. */
+#main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages form {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    gap: 0.5em;
+}
+
 #main.tx-dlf-fullscreen .frame > li.tx-dlf-navigation-pages select {
-    /* Cap the width: a native <select> auto-sizes to its widest option, so a
-     * high page count (e.g. 300 pages) would otherwise balloon the pill wide
-     * enough to push the "last" button onto a second row. 5em is the old 4em
-     * cap plus the width of the "#" marker hidden in fullscreen (the gap
-     * included), so the pill is no wider than before while the number field
-     * is roomier — enough to show a three-digit page number closed. */
-    max-width: 5em;
-    min-width: 3.5em;
+    /* The pill (see above) takes the row's free space, and the page-number
+     * field fills the pill in turn: a native <select> otherwise sizes itself
+     * to its widest option, so the field is roomier than the old fixed 5em
+     * cap — more of the page number stays visible. flex-basis 0 + min-width
+     * 0 make it exactly fill (and clamp to) the pill rather than drive the
+     * row wider. */
+    flex: 1 1 0;
+    min-width: 0;
     padding: 0.3em 0.2em;
 }
 
