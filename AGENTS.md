@@ -47,7 +47,7 @@ Gotchas hit during this:
 ## JavaScript / Webpack
 - The npm project is in `Build/` (Node version from `Build/.nvmrc`): `cd Build && npm ci && npm run build|watch|test|typecheck` (jest + tsc via root `jsconfig.json`)
 - JS source is `Resources/Private/JavaScript/`; the `DlfMediaPlayer` webpack entry is built from `Resources/Private/JavaScript/SlubMediaPlayer/` (name ≠ directory). Jest `moduleNameMapper` maps `lib/`, `DlfMediaPlayer/`, `SlubMediaPlayer/` to `Resources/Private/JavaScript/`
-- Build outputs (`Resources/Public/JavaScript/DlfMediaPlayer/`, `Resources/Public/Css/`) are **committed to the repo by a CI bot** on push to `main`. In PRs, run the build locally to verify, but do not commit the built assets yourself
+- Build outputs (`Resources/Public/JavaScript/DlfMediaPlayer/`, `Resources/Public/JavaScript/OpenLayers/`, `Resources/Public/Css/`) are **committed to the repo by a CI bot** on push to `main`. In PRs, run the build locally to verify, but do not commit the built assets yourself
 
 ## Layout
 
