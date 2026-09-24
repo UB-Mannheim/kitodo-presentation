@@ -65,7 +65,7 @@ class PageViewControllerTest extends AbstractControllerTestCase
                     image/jpeg
                 viewerConfiguration:$(document).ready(function() {
                     if (dlfUtils.exists(dlfViewer)) {
-                        tx_dlf_viewer = new dlfViewer({"controls":[""],"div":"tx-dlf-map","progressElementId":"tx-dlf-page-progress","images":[{"url":"http:\/\/example.com\/mets_audio\/jpegs\/00000002.tif.large.jpg","mimetype":"image\/jpeg"}],"fulltexts":[[]],"score":[],"annotationContainers":[[]],"measureCoords":[],"useInternalProxy":0,"verovioAnnotations":[],"currentMeasureId":"","measureIdToIndex":[]});
+                        tx_dlf_viewer = new dlfViewer({"controls":[""],"div":"tx-dlf-map","fullscreenElementId":"","progressElementId":"tx-dlf-page-progress","images":[{"url":"http:\/\/example.com\/mets_audio\/jpegs\/00000002.tif.large.jpg","mimetype":"image\/jpeg"}],"fulltexts":[[]],"score":[],"annotationContainers":[[]],"measureCoords":[],"useInternalProxy":0,"verovioAnnotations":[],"currentMeasureId":"","measureIdToIndex":[]});
                     }
                 });
             </html>';

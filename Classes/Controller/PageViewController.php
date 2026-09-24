@@ -322,6 +322,7 @@ class PageViewController extends AbstractController
         $viewer = [
             'controls' => $this->controls,
             'div' => $this->settings['elementId'] ?? 'tx-dlf-map',
+            'fullscreenElementId' => $this->settings['fullscreenElementId'] ?? '',
             'progressElementId' => $this->settings['progressElementId'] ?? 'tx-dlf-page-progress',
             'images' => $this->images,
             'fulltexts' => $this->fulltexts,

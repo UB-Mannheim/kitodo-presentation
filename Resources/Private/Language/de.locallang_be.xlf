@@ -530,6 +530,10 @@
                 <source><![CDATA[Zoom Panel]]></source>
                 <target><![CDATA[Zoom-Knöpfe]]></target>
             </trans-unit>
+            <trans-unit id="pageView.flexForm.fullscreenElementId" approved="yes">
+                <source><![CDATA[@ID value of the HTML element to toggle in fullscreen mode (defaults to the page view element)]]></source>
+                <target><![CDATA[@ID-Wert des HTML-Elements, das im Vollbildmodus umgeschaltet wird (Standard: Element der Seitenansicht)]]></target>
+            </trans-unit>
             <trans-unit id="pageView.flexForm.magnifier" approved="yes">
                 <source><![CDATA[Activate magnifier]]></source>
                 <target><![CDATA[Lupenfunktion aktivieren]]></target>
