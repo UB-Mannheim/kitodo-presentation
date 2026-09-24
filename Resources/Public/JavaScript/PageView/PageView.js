@@ -40,6 +40,7 @@
  *  controls?: ('OverviewMap' | 'ZoomPanel')[];
  *  measureCoords?: MeasureDesc[] | [];
  *  measureIdToIndex?: MeasureDesc[] | [];
+ *  fullscreenElementId?: string;
  * }} DlfViewerConfig
  */
 
@@ -47,8 +48,6 @@
  * @class
  *
  * @param {DlfViewerConfig} settings
- *
- * @todo Trigger resize map event after fullscreen is toggled
  */
 var dlfViewer = function (settings) {
 
@@ -60,6 +59,36 @@ var dlfViewer = function (settings) {
      * @private
      */
     this.div = dlfUtils.exists(settings.div) ? settings.div : "tx-dlf-map";
+
+    /**
+     * The element id of the element to toggle in browser fullscreen mode (the
+     * toolbox "Fullscreen Mode" button). Defaults to the map container. A theme
+     * that lays the map out alongside other widgets (e.g. the navigation and
+     * toolbar) can point this at a common ancestor of those widgets instead, so
+     * they stay visible while in fullscreen.
+     *
+     * @type {string}
+     *
+     * @private
+     */
+    this.fullscreenElementId = dlfUtils.exists(settings.fullscreenElementId) ? settings.fullscreenElementId : this.div;
+
+    // Re-apply a kiosk fullscreen state (see toggleFullscreen) as early as
+    // possible — at DOM-ready, before the page image is loaded — so the viewer
+    // is rendered in fullscreen from the first paint and the normal layout does
+    // not flash for a moment on each page change. Only the map re-fit is left to
+    // the init callback, which needs the loaded image.
+    this.applyFullscreenState();
+
+    // In kiosk fullscreen the fulltext panel is shown only while fulltext is
+    // enabled (the button's .active class). That state is normally re-applied
+    // by the fulltext control once the fulltext has loaded, but on a page change
+    // (especially a slow remote document) that is late, so the panel would
+    // appear empty / hidden for a moment and then pop back in — reading as the
+    // fulltext being "lost". Re-apply the enabled state early so the panel is
+    // present from the first paint; the fulltext control takes over once the
+    // text has loaded.
+    this.applyFulltextState();
 
     /**
      * @type {Record<'overview-map', string>}
@@ -966,6 +995,24 @@ dlfViewer.prototype.init = function(controlNames) {
             // trigger event after all has been initialize
             $(window).trigger("map-loadend", window);
 
+            // The fullscreen class was already applied in the constructor (before
+            // the image loaded), so the layout is correct from the first paint.
+            // Now that the map exists, fit the page image to the (possibly
+            // fullscreen) container and keep it fitted on resize. In normal
+            // (non-fullscreen) view the initial sizing and zoom are left to the
+            // viewer defaults, so nothing extra is done.
+            $(window).on("resize", $.proxy(function() {
+                if (this.isFullscreen()) {
+                    this.map.updateSize();
+                    this.refitView();
+                }
+            }, this));
+
+            if (this.isFullscreen()) {
+                this.map.updateSize();
+                this.refitView();
+            }
+
             // append listener for saving view params in case of flipping pages
             $(window).on("unload", $.proxy(function() {
                 // check if image manipulation control exists and if yes deactivate it first for proper recognition of
@@ -1070,6 +1117,135 @@ dlfViewer.prototype.showNoImagePlaceholder = function() {
 
 dlfViewer.prototype.updateLayerSize = function() {
   this.map.updateSize();
+};
+
+/**
+ * Toggle kiosk fullscreen mode as triggered by the toolbox "Fullscreen Mode"
+ * button. This is a CSS-based (class) toggle, not the native browser Fullscreen
+ * API: a class is set on `fullscreenElementId` (defaults to the map container)
+ * and the choice is stored in sessionStorage, so it is re-applied on the next
+ * page load. That is deliberate — page navigation is a full page reload, which
+ * the native Fullscreen API does not survive — and it is what keeps the viewer
+ * in fullscreen while the page is changed. A theme styles the `.tx-dlf-fullscreen`
+ * class to lay out the element (e.g. the map alongside the navigation and
+ * toolbar). When the document has no page image there is nothing to show, so
+ * nothing happens.
+ */
+dlfViewer.prototype.toggleFullscreen = function() {
+    if (!this.map) {
+        return;
+    }
+    var target = document.getElementById(this.fullscreenElementId);
+    if (!target) {
+        return;
+    }
+    var entering = !target.classList.contains('tx-dlf-fullscreen');
+    target.classList.toggle('tx-dlf-fullscreen', entering);
+    this.persistFullscreen(entering);
+    // Re-fit the page image to the new layout. updateSize alone resizes the
+    // canvas but leaves the view resolution (hence the image scale) unchanged.
+    this.refitView();
+};
+
+/**
+ * Store the kiosk fullscreen state in sessionStorage, keyed to the fullscreen
+ * element, so it can be re-applied after a page change.
+ *
+ * @param {boolean} on
+ *
+ * @private
+ */
+dlfViewer.prototype.persistFullscreen = function(on) {
+    try {
+        if (on) {
+            window.sessionStorage.setItem('dlf-fullscreen', this.fullscreenElementId);
+        } else {
+            window.sessionStorage.removeItem('dlf-fullscreen');
+        }
+    } catch (e) {
+        // sessionStorage unavailable (e.g. third-party cookies blocked); the
+        // toggle still works for this page, it just does not persist.
+    }
+};
+
+/**
+ * Re-apply a kiosk fullscreen state stored by toggleFullscreen (e.g. after a
+ * page change). Called once the map has been created.
+ *
+ * @returns {boolean} true if fullscreen was re-applied
+ *
+ * @private
+ */
+dlfViewer.prototype.applyFullscreenState = function() {
+    var stored;
+    try {
+        stored = window.sessionStorage.getItem('dlf-fullscreen');
+    } catch (e) {
+        return false;
+    }
+    if (stored && stored === this.fullscreenElementId) {
+        var target = document.getElementById(this.fullscreenElementId);
+        if (target) {
+            target.classList.add('tx-dlf-fullscreen');
+        }
+        return true;
+    }
+    return false;
+};
+
+/**
+ * Whether the kiosk fullscreen element currently carries the fullscreen class.
+ *
+ * @returns {boolean}
+ */
+dlfViewer.prototype.isFullscreen = function() {
+    var target = document.getElementById(this.fullscreenElementId);
+    return !!(target && target.classList.contains('tx-dlf-fullscreen'));
+};
+
+/**
+ * Re-apply the "fulltext enabled" state to the fulltext tool button as early as
+ * possible. In kiosk fullscreen the fulltext panel is shown only while that
+ * button carries the .active class, but the fulltext control only sets it once
+ * the fulltext has loaded — which, on a page change (especially for a slow
+ * remote document), is late, so the panel would appear empty / hidden for a
+ * moment and then pop back in, reading as the fulltext being "lost". Marking it
+ * active from the stored state (the fulltext select cookie) makes the panel
+ * present from the first paint; the fulltext control takes over once the text
+ * has loaded.
+ *
+ * @private
+ */
+dlfViewer.prototype.applyFulltextState = function() {
+    if (!this.isFullscreen()) {
+        return;
+    }
+    if (dlfUtils.getCookie('tx-dlf-pageview-fulltext-select') === 'enabled') {
+        var button = document.getElementById('tx-dlf-tools-fulltext');
+        if (button) {
+            button.classList.add('active');
+        }
+    }
+};
+
+/**
+ * Fit the view so the page image fills the current container size. Used when
+ * entering / leaving kiosk fullscreen and when the window is resized.
+ *
+ * @private
+ */
+dlfViewer.prototype.refitView = function() {
+    if (!this.map || !dlfUtils.hasContent(this.images)) {
+        return;
+    }
+    var extent = ol.extent.createEmpty();
+    for (var i = 0; i < this.images.length; i++) {
+        ol.extent.extend(extent, [0, -this.images[i].height, this.images[i].width, 0]);
+    }
+    this.map.getView().fit(extent, {
+        size: this.map.getSize(),
+        duration: 200
+    });
 };
 
 /**
