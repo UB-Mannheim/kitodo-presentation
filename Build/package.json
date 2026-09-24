@@ -7,6 +7,7 @@
     "build": "webpack --mode=production",
     "serve": "webpack-dev-server --mode=development",
     "test": "jest",
+    "test:layout": "node Demo/test-nav-layout.mjs",
     "tsc": "tsc --project ../jsconfig.json",
     "tsc-watch": "npm run tsc -- --watch",
     "typecheck": "npm run tsc && echo 'Alright.'",
