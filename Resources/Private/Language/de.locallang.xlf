@@ -281,6 +281,10 @@
                 <source><![CDATA[Page]]></source>
                 <target><![CDATA[Seite]]></target>
             </trans-unit>
+            <trans-unit id="navigation.page.selectPageTooltip">
+                <source><![CDATA[Select page]]></source>
+                <target><![CDATA[Seite auswählen]]></target>
+            </trans-unit>
             <trans-unit id="newTenant.module" approved="yes">
                 <source><![CDATA[New Tenant Module]]></source>
                 <target><![CDATA[Modul Neuer Mandant]]></target>

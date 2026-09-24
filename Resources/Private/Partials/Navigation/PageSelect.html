@@ -11,7 +11,7 @@
     LICENSE.txt file that was distributed with this source code.
 </f:comment>
 
-<li class="tx-dlf-navigation-pages">
+<li class="tx-dlf-navigation-pages" title="{f:translate(key: 'navigation.page.selectPageTooltip')}">
     <f:form method="post" action="pageSelect" controller="Navigation" name="pageSelectForm" object="{pageSelectForm}" addQueryString="untrusted">
         <f:if condition="{requestData.id}">
             <f:form.hidden property="id" value="{requestData.id}"/>
