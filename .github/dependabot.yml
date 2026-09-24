@@ -10,6 +10,14 @@ updates:
     cooldown:
       default-days: 7
 
+  # Keep JavaScript dependencies (Build/) up to date.
+  - package-ecosystem: "npm"
+    directory: "/Build"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+
   # Keep GitHub Actions up to date.
   - package-ecosystem: "github-actions"
     directory: "/"
