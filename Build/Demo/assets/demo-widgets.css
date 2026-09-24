@@ -490,3 +490,168 @@ div[class^="tx-dlf-navigation-"] > span[title] {
     border: 1px solid #b9c6e8;
     color: #1b2a6b;
 }
+
+/* Fullscreen / kiosk mode (toolbox "Fullscreen Mode" button).
+ *
+ * The viewer applies a .tx-dlf-fullscreen class to its fullscreen element
+ * (#main here, via settings.fullscreenElementId — see setup-demo.sh) and
+ * persists that choice in sessionStorage, so it is re-applied on the next
+ * page load. A CSS class is used instead of the native browser Fullscreen API
+ * because a page change is a full page reload, which the native API does not
+ * survive; this approach keeps the viewer in fullscreen while the page is
+ * changed.
+ *
+ * Layout: the page image fills the left side (typical book pages are tall, and
+ * typical screens are wide), while the navigation and toolbox sit in a
+ * right-hand column. The fulltext panel (a child of the page view frame) is
+ * shown in that column only while fulltext is enabled. The other frames
+ * (page grid, metadata, contents, calendar, media, 3D) are hidden. */
+
+/* Prevent the surrounding page from scrolling while in fullscreen. */
+body:has(#main.tx-dlf-fullscreen) {
+    overflow: hidden;
+}
+
+#main.tx-dlf-fullscreen {
+    --dlf-fs-sidebar: 16em;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--dlf-fs-sidebar);
+    /* Row 1 is the navigation (auto height); row 2 is the toolbox and
+     * stretches to fill the remaining height (1fr), which is what makes the
+     * page image (spanning both rows) reach the full height. The toolbox
+     * itself stays compact and top-aligned within that tall cell. */
+    grid-template-rows: auto 1fr;
+    /* The normal layout sets align-items: start on #main; stretch is needed
+     * here so the page view (spanning both rows) fills the full height. */
+    align-items: stretch;
+    gap: 12px;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    height: 100vh;
+    overflow: hidden;
+    padding: 12px 16px;
+    background: #f7f8fd;
+}
+
+:root[data-theme="dark"] #main.tx-dlf-fullscreen {
+    background: #12151d;
+}
+
+/* Only the page view and the (right-column) navigation and toolbox are kept.
+ * The page image spans the full height on the left; the navigation (row 1) and
+ * the toolbox (row 2) stack in the right-hand column. */
+#main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    min-height: 0;
+    position: relative;
+}
+
+/* Strip the card chrome and the "PageView (dlf_pageview)" section labels. */
+#main.tx-dlf-fullscreen .frame::before,
+#main.tx-dlf-fullscreen .frame > header {
+    display: none;
+}
+
+/* Hide the frames that are not part of the fullscreen layout (page grid,
+ * metadata, contents, calendar, media player, 3D viewer). The page view,
+ * navigation and toolbox frames are laid out below. */
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-pagegrid),
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-metadata-titledata),
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-tableofcontents),
+#main.tx-dlf-fullscreen .frame:has([class^="tx-dlf-calendar"]),
+#main.tx-dlf-fullscreen .frame:has(slub-media),
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-embedded3dviewer) {
+    display: none;
+}
+
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-navigation-first),
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) {
+    display: block;
+    grid-column: 2;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+/* The navigation and the toolbox stack into a single right-hand column. */
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-navigation-first) {
+    grid-row: 1;
+    align-self: start;
+}
+
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) {
+    grid-row: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+/* The page image must fill its grid cell, not the fixed inline height the
+ * viewer sets (the 57em fallback from PageView.js, applied because no theme
+ * styles the map height); !important is required to override the inline value. */
+#main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) #tx-dlf-map {
+    height: 100% !important;
+    background: transparent;
+}
+
+/* The overview map (inside the page view frame) would spill out of the cell. */
+#main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) #ov_map {
+    display: none;
+}
+
+/* The toolbox normally renders every available tool; in fullscreen only the
+ * ones relevant to the page image are shown (zoom, rotation, fullscreen,
+ * fulltext, image manipulation). The downloads, annotations, search-in-document
+ * and any media tools are hidden. */
+#main.tx-dlf-fullscreen .frame:has([id^="tx-dlf-tools-"]) li:not(.tx-dlf-tools-zoom-in):not(.tx-dlf-tools-zoom-out):not(.tx-dlf-tools-fullscreen):not(.tx-dlf-tools-rotate-left):not(.tx-dlf-tools-rotate-right):not(.tx-dlf-tools-rotate-reset):not(.tx-dlf-tools-fulltext):not(.tx-dlf-tools-imagemanipulation) {
+    display: none;
+}
+
+/* The fulltext panel is a child of the page view frame (the FulltextContainer
+ * partial renders inside it). It overlays the right-hand side of the page
+ * image and is shown only while fulltext is enabled (the fulltext tool link
+ * carries the .active class); otherwise it is hidden so the page image is not
+ * obscured by an empty / stale panel. */
+#main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) .tx-dlf-toolbox-fulltext-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 26em;
+    z-index: 10;
+    display: none;
+    overflow: auto;
+    background: rgba(255, 255, 255, 0.94);
+    border-left: 1px solid #c8c4b0;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    padding: 1em 1.2em;
+    margin: 0;
+}
+
+#main.tx-dlf-fullscreen:has(#tx-dlf-tools-fulltext.active) .frame:has(#tx-dlf-map) .tx-dlf-toolbox-fulltext-container {
+    display: block;
+}
+
+#main.tx-dlf-fullscreen .tx-dlf-toolbox-fulltext-container #tx-dlf-toolbox-fulltext-selection {
+    max-height: none;
+    overflow: visible;
+}
+
+:root[data-theme="dark"] #main.tx-dlf-fullscreen .frame:has(#tx-dlf-map) .tx-dlf-toolbox-fulltext-container {
+    background: rgba(20, 24, 33, 0.94);
+    border-left-color: #3a4152;
+    color: #cdd4e4;
+}

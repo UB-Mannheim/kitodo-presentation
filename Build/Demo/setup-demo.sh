@@ -434,6 +434,13 @@ plugin.tx_dlf_pageview {
         # no CORS headers, which would otherwise make the browser block the
         # cross-origin canvas render and show a blank viewer.
         useInternalProxy = 1
+        # The "Fullscreen Mode" button toggles browser fullscreen on this
+        # element. #main is the common ancestor of the page view, the
+        # navigation and the toolbox, so fullscreening it keeps them visible
+        # (the demo fullscreen layout in demo-widgets.css hides the other
+        # frames and lays these three out). Without it, only the map
+        # container goes fullscreen and the fulltext / nav / toolbox vanish.
+        fullscreenElementId = main
     }
 }
 
