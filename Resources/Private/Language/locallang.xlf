@@ -209,6 +209,9 @@
             <trans-unit id="navigation.page.selectPage">
                 <source><![CDATA[Page]]></source>
             </trans-unit>
+            <trans-unit id="navigation.page.selectPageTooltip">
+                <source><![CDATA[Select page]]></source>
+            </trans-unit>
             <trans-unit id="newTenant.module">
                 <source><![CDATA[New Tenant Module]]></source>
             </trans-unit>
