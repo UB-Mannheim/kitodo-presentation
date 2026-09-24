@@ -945,10 +945,7 @@ dlfViewer.prototype.init = function(controlNames) {
             // The map container normally gets its height from the theme CSS.
             // Without one (e.g. a fresh installation), it is 0 pixels tall
             // and OpenLayers renders nothing, so apply a fallback height.
-            var mapContainer = document.getElementById(this.div);
-            if (mapContainer && getComputedStyle(mapContainer).height === '0px') {
-                mapContainer.style.height = '57em';
-            }
+            this.ensureMapContainerHeight();
             // create map
             this.map = new ol.Map({
                 layers: layers,
@@ -1124,6 +1121,31 @@ dlfViewer.prototype.updateLayerSize = function() {
 };
 
 /**
+ * Give the map container a fallback height when nothing else provides one.
+ *
+ * The map container normally gets its height from the theme CSS. Without one
+ * (e.g. a fresh installation), it is 0 pixels tall and OpenLayers renders
+ * nothing. This applies a fallback height in that case, and is safe to call at
+ * any time: it is a no-op whenever the container already has a non-zero
+ * computed height (theme CSS or fullscreen layout).
+ *
+ * Re-running it when *leaving* fullscreen matters: in fullscreen the layout
+ * CSS gives the map its height (overriding any inline value), so on a page
+ * that loads already in fullscreen the init-time check finds a non-zero
+ * height and never sets the inline fallback. Removing the fullscreen class
+ * then strips the CSS height with no inline height behind it, collapsing the
+ * map to 0 pixels. Re-applying the fallback on exit restores it.
+ *
+ * @private
+ */
+dlfViewer.prototype.ensureMapContainerHeight = function() {
+    var mapContainer = document.getElementById(this.div);
+    if (mapContainer && getComputedStyle(mapContainer).height === '0px') {
+        mapContainer.style.height = '57em';
+    }
+};
+
+/**
  * Toggle kiosk fullscreen mode as triggered by the toolbox "Fullscreen Mode"
  * button. This is a CSS-based (class) toggle, not the native browser Fullscreen
  * API: a class is set on `fullscreenElementId` (defaults to the map container)
@@ -1146,6 +1168,14 @@ dlfViewer.prototype.toggleFullscreen = function() {
     var entering = !target.classList.contains('tx-dlf-fullscreen');
     target.classList.toggle('tx-dlf-fullscreen', entering);
     this.persistFullscreen(entering);
+    // Leaving fullscreen removes the layout CSS that gave the map its height.
+    // On a page that loaded already in fullscreen, no theme CSS or inline
+    // fallback height exists, so without this the map would collapse to 0
+    // pixels and the page image would disappear. (See
+    // ensureMapContainerHeight for the full rationale.)
+    if (!entering) {
+        this.ensureMapContainerHeight();
+    }
     // Re-fit the page image to the new layout. The class toggle above has
     // changed the layout, but the map does not know that until it re-measures
     // the container: getSize() still returns the pre-toggle size until a
