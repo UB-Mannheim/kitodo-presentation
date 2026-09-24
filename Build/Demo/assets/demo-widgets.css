@@ -43,6 +43,18 @@
     background: #262b39;
 }
 
+/* In kiosk fullscreen the navigation box sits at the top of the right-hand
+ * column, so the fixed selector (top-right) would cover its top. Seat the
+ * selector in the 12px gap between the navigation (row 1) and the toolbox
+ * (row 2): below the navigation and inside the right column. The :has() is what
+ * lifts this over the base .dlf-demo-styles rule above (a :has argument
+ * contributes the specificity of its most specific selector, so
+ * body:has(#main.tx-dlf-fullscreen) beats the plain .dlf-demo-styles). */
+body:has(#main.tx-dlf-fullscreen) .dlf-demo-styles {
+    top: 104px;
+    right: 16px;
+}
+
 /* The "Examples" control on the start page: a compact <select> of sample
  * documents. Picking one fills the URL form and submits it (see the inline
  * script in setup-demo.sh), so it behaves exactly like pasting a URL by hand.
@@ -559,8 +571,14 @@ body:has(#main.tx-dlf-fullscreen) {
     display: flex;
 }
 
-/* Strip the card chrome and the "PageView (dlf_pageview)" section labels. */
+/* Strip the card chrome and the "PageView (dlf_pageview)" section labels.
+ * The map frame is a flex row (see above), so its ::before section label would
+ * become a flex item and eat ~195px off the row's width on the left. Hide it.
+ * The :has(#tx-dlf-map) variant is required to out-specificity the theme's own
+ * `#main .frame:has(#tx-dlf-map)::before` label rule — that selector carries an
+ * ID-level from its :has argument, which a plain `.frame::before` rule loses to. */
 #main.tx-dlf-fullscreen .frame::before,
+#main.tx-dlf-fullscreen .frame:has(#tx-dlf-map)::before,
 #main.tx-dlf-fullscreen .frame > header {
     display: none;
 }
