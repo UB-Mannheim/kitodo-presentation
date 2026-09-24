@@ -8,6 +8,8 @@
     "serve": "webpack-dev-server --mode=development",
     "test": "jest",
     "test:layout": "node Demo/test-nav-layout.mjs",
+    "test:fullscreen": "node Demo/test-fullscreen-map-height.mjs",
+    "test:demo": "npm run test:layout && npm run test:fullscreen",
     "tsc": "tsc --project ../jsconfig.json",
     "tsc-watch": "npm run tsc -- --watch",
     "typecheck": "npm run tsc && echo 'Alright.'",
