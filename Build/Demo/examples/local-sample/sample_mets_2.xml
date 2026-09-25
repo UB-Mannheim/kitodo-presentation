@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <mets:dmdSec ID="DMD_0001">
+        <mets:mdWrap MDTYPE="MODS">
+            <mets:xmlData>
+                <mods:mods xmlns:mods="http://www.loc.gov/mods/v3">
+                    <mods:titleInfo><mods:title>Kitodo.Presentation demo document (second copy)</mods:title></mods:titleInfo>
+                    <mods:name><mods:namePart>Kitodo. Key to digital objects e.V.</mods:namePart></mods:name>
+                    <mods:typeOfResource>manuscript</mods:typeOfResource>
+                    <mods:originInfo><mods:place><mods:placeTerm>Mannheim</mods:placeTerm></mods:place><mods:dateIssued>2026</mods:dateIssued></mods:originInfo>
+                    <mods:abstract>A second locally generated sample document, so the multi-view can compare two documents side by side.</mods:abstract>
+                </mods:mods>
+            </mets:xmlData>
+        </mets:mdWrap>
+    </mets:dmdSec>
+    <mets:fileSec>
+        <mets:fileGrp USE="DEFAULT">
+            <mets:file ID="PAGE_0001" MIMETYPE="image/jpeg">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/page1.jpg"/>
+            </mets:file>
+            <mets:file ID="PAGE_0002" MIMETYPE="image/jpeg">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/page2.jpg"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="THUMBS">
+            <mets:file ID="PAGE_0001_THUMBS" MIMETYPE="image/jpeg">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/thumb1.jpg"/>
+            </mets:file>
+            <mets:file ID="PAGE_0002_THUMBS" MIMETYPE="image/jpeg">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/thumb2.jpg"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="FULLTEXT">
+            <mets:file ID="PAGE_0001_FULLTEXT" MIMETYPE="text/xml">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/fulltext_1.xml"/>
+            </mets:file>
+            <mets:file ID="PAGE_0002_FULLTEXT" MIMETYPE="text/xml">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/fulltext_2.xml"/>
+            </mets:file>
+        </mets:fileGrp>
+        <mets:fileGrp USE="DOWNLOAD">
+            <mets:file ID="PAGE_0001_DOWNLOAD" MIMETYPE="application/pdf">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/page1.pdf"/>
+            </mets:file>
+            <mets:file ID="PAGE_0002_DOWNLOAD" MIMETYPE="application/pdf">
+                <mets:FLocat LOCTYPE="URL" xlink:href="__DATA_BASE__/page2.pdf"/>
+            </mets:file>
+        </mets:fileGrp>
+    </mets:fileSec>
+    <mets:structMap TYPE="LOGICAL">
+        <mets:div ID="LOG_0000" DMDID="DMD_0001" LABEL="Kitodo.Presentation demo document (second copy)" TYPE="monograph">
+            <mets:fptr FILEID="PAGE_0001_DOWNLOAD"/>
+            <mets:div ID="LOG_0001" LABEL="Page 1" TYPE="page"/>
+            <mets:div ID="LOG_0002" LABEL="Page 2" TYPE="page"/>
+        </mets:div>
+    </mets:structMap>
+    <mets:structMap TYPE="PHYSICAL">
+        <mets:div ID="PHYS_0000" TYPE="physSequence">
+                <mets:div ID="PHYS_0001" ORDER="1" TYPE="page">
+                    <mets:fptr FILEID="PAGE_0001"/>
+                    <mets:fptr FILEID="PAGE_0001_THUMBS"/>
+                    <mets:fptr FILEID="PAGE_0001_FULLTEXT"/>
+                    <mets:fptr FILEID="PAGE_0001_DOWNLOAD"/>
+                </mets:div>
+                <mets:div ID="PHYS_0002" ORDER="2" TYPE="page">
+                    <mets:fptr FILEID="PAGE_0002"/>
+                    <mets:fptr FILEID="PAGE_0002_THUMBS"/>
+                    <mets:fptr FILEID="PAGE_0002_FULLTEXT"/>
+                    <mets:fptr FILEID="PAGE_0002_DOWNLOAD"/>
+                </mets:div>
+        </mets:div>
+    </mets:structMap>
+    <mets:structLink>
+        <mets:smLink xlink:from="LOG_0001" xlink:to="PHYS_0001"/>
+        <mets:smLink xlink:from="LOG_0002" xlink:to="PHYS_0002"/>
+    </mets:structLink>
+</mets:mets>
