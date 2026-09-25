@@ -644,36 +644,26 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                             $children = $childrenOf[$doc['uid']] ?? [];
 
                             if (!empty($children)) {
-                                $batchSize = 100;
-                                $totalChildren = count($children);
+                                $childUids = array_map(
+                                    static fn (array $docChild): int => (int) $docChild['uid'],
+                                    $children
+                                );
+                                $metadataOf = $this->fetchChildMetadataFromSolr($childUids);
 
-                                for ($start = 0; $start < $totalChildren; $start += $batchSize) {
-                                    $batch = array_slice($children, $start, $batchSize, true);
-
-                                    // Fetch metadata for the current batch
-                                    $metadataOf = $this->fetchToplevelMetadataFromSolr(
-                                        [
-                                            'query' => 'partof:' . $doc['uid'],
-                                            'start' => $start,
-                                            'rows' => min($batchSize, $totalChildren - $start),
-                                        ]
-                                    );
-
-                                    foreach ($batch as $docChild) {
-                                        // We need only a few fields from the children, but we need them as an array.
-                                        if (array_key_exists($docChild['uid'], $metadataOf)) {
-                                            $childDocument = [
-                                                'thumbnail' => $docChild['thumbnail'],
-                                                'title' => $docChild['title'],
-                                                'structure' => $docChild['structure'],
-                                                'metsOrderlabel' => $docChild['metsOrderlabel'],
-                                                'uid' => $docChild['uid'],
-                                                'metadata' => $metadataOf[$docChild['uid']],
-                                            ];
-                                            $documents[$doc['uid']]['children'][$docChild['uid']] = $childDocument;
-                                        } else {
-                                            $this->logger->warning("Child with UID " . $docChild['uid'] . " could not be fetched from Solr");
-                                        }
+                                foreach ($children as $docChild) {
+                                    // We need only a few fields from the children, but we need them as an array.
+                                    if (array_key_exists($docChild['uid'], $metadataOf)) {
+                                        $childDocument = [
+                                            'thumbnail' => $docChild['thumbnail'],
+                                            'title' => $docChild['title'],
+                                            'structure' => $docChild['structure'],
+                                            'metsOrderlabel' => $docChild['metsOrderlabel'],
+                                            'uid' => $docChild['uid'],
+                                            'metadata' => $metadataOf[$docChild['uid']],
+                                        ];
+                                        $documents[$doc['uid']]['children'][$docChild['uid']] = $childDocument;
+                                    } else {
+                                        $this->logger->warning("Child with UID " . $docChild['uid'] . " could not be fetched from Solr");
                                     }
                                 }
                             }
@@ -723,6 +713,67 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         // Perform search.
         $result = $this->searchSolr($params);
 
+        foreach ($result['documents'] as $doc) {
+            $this->translateLanguageCode($doc);
+            $metadataArray[$doc['uid']] = $doc['metadata'] ?? null;
+        }
+
+        return $metadataArray;
+    }
+
+    /**
+     * Fetch the metadata of given child documents from Solr.
+     *
+     * Children are looked up by their explicit (and authoritative) database uids
+     * instead of a `partof:<parent>` query. That query used to be paginated in
+     * windows sized from the *database* child count; whenever the Solr index
+     * contained additional top-level documents for the same `partof` (e.g. stale
+     * duplicates left over from a re-index) the `rows`/`start` window no longer
+     * covered every database child and the out-of-window ones were silently
+     * dropped. Selecting the children by their exact `uid:` list is independent
+     * of both the index contents of other documents and of their order, so no
+     * child can be lost.
+     *
+     * @access protected
+     *
+     * @param int[] $uids of the child documents
+     *
+     * @return array<int, mixed[]> The metadata keyed by child uid
+     */
+    protected function fetchChildMetadataFromSolr(array $uids): array
+    {
+        if (empty($uids)) {
+            return [];
+        }
+
+        $fields = 'uid,toplevel';
+        $listMetadataRecords = [];
+        if ($this->listedMetadata) {
+            foreach ($this->listedMetadata as $metadata) {
+                /** @var Metadata $metadata */
+                if ($metadata->getIndexStored() || $metadata->getIndexIndexed()) {
+                    $listMetadataRecord = $metadata->getIndexName() . '_' . ($metadata->getIndexTokenized() ? 't' : 'u') . ($metadata->getIndexStored() ? 's' : 'u') . ($metadata->getIndexIndexed() ? 'i' : 'u');
+                    $fields .= ',' . $listMetadataRecord;
+                    $listMetadataRecords[$metadata->getIndexName()] = $listMetadataRecord;
+                }
+            }
+        }
+
+        $uidsQuery = 'uid:(' . implode(' OR ', array_map(
+            static fn (int $uid): string => (string) $uid,
+            $uids
+        )) . ')';
+
+        $result = $this->searchSolr([
+            'query' => $uidsQuery,
+            'filterquery' => [['query' => 'toplevel:true']],
+            'fields' => $fields,
+            'listMetadataRecords' => $listMetadataRecords,
+            'start' => 0,
+            'rows' => count($uids),
+        ]);
+
+        $metadataArray = [];
         foreach ($result['documents'] as $doc) {
             $this->translateLanguageCode($doc);
             $metadataArray[$doc['uid']] = $doc['metadata'] ?? null;
