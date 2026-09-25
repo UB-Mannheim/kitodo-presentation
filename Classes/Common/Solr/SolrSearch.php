@@ -641,6 +641,19 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                 $batchSize = 100;
                                 $totalChildren = count($children);
 
+                                // The default 100-row windows rely on Solr's group
+                                // order (docid order) matching the database child order
+                                // (volumeSorting). When the two diverge - as for
+                                // "ubmahop" - children that fall outside their window
+                                // are silently dropped ("Child with UID ... could not
+                                // be fetched from Solr"). For the listed collections
+                                // all children are loaded in a single request, making
+                                // the child lookup order independent. Extend the list
+                                // if other collections exhibit the same problem.
+                                if (in_array('ubmahop', $this->collectionIndexNames(), true)) {
+                                    $batchSize = $totalChildren;
+                                }
+
                                 for ($start = 0; $start < $totalChildren; $start += $batchSize) {
                                     $batch = array_slice($children, $start, $batchSize, true);
 
@@ -920,6 +933,31 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         if (is_array($this->collections)) {
             $this->collections = array_filter($this->collections, fn ($value) => $value !== null);
         }
+    }
+
+    /**
+     * Gets index names of the collections this search is restricted to.
+     *
+     * @access private
+     *
+     * @return array<int|string, string> The index names
+     */
+    private function collectionIndexNames(): array
+    {
+        $names = [];
+        $collections = $this->collections;
+        if ($collections instanceof QueryResultInterface) {
+            $collections = $collections->toArray();
+        }
+        if (!is_array($collections)) {
+            return $names;
+        }
+        foreach ($collections as $collection) {
+            if ($collection instanceof Collection) {
+                $names[] = $collection->getIndexName();
+            }
+        }
+        return $names;
     }
 
     /**
