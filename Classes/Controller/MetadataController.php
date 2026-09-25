@@ -338,13 +338,17 @@ class MetadataController extends AbstractController
     }
 
     /**
-     * Checks and marks metadata with external URLs array for given metadata array.
+     * Checks and marks metadata entries with external URLs for given metadata array.
+     *
+     * The flag is set per entry (aligned by the entry's array key) so that a
+     * field can hold a mix of linked and plain entries: only the entries that
+     * actually carry an external URL get marked, not the whole field.
      *
      * @access private
      *
      * @param mixed[] $metadata The metadata array
      *
-     * @return array<int,array<string,mixed>> of true values for metadata sections with external URLs
+     * @return array<int,array<string,array<int,bool>>> of true values per entry index for metadata sections with external URLs
      */
     private function hasExternalUrlForMetadata(array $metadata): array
     {
@@ -353,13 +357,17 @@ class MetadataController extends AbstractController
         foreach ($metadata as $i => $section) {
             foreach ($section as $name => $value) {
                 if (($name == 'author' || $name == 'holder') && !empty($value)) {
-                    foreach ($value as $entry) {
-                        if (!empty($entry['url'])) {
-                            $hasExternalUrl[$i][$name][] = true;
-                        }
+                    foreach ($value as $key => $entry) {
+                        $hasExternalUrl[$i][$name][$key] = is_array($entry) && !empty($entry['url']);
                     }
                 } elseif (($name == 'geonames' || $name == 'wikidata' || $name == 'wikipedia') && !empty($value)) {
-                    $hasExternalUrl[$i][$name][] = true;
+                    if (is_array($value)) {
+                        foreach (array_keys($value) as $key) {
+                            $hasExternalUrl[$i][$name][$key] = true;
+                        }
+                    } else {
+                        $hasExternalUrl[$i][$name][] = true;
+                    }
                 }
             }
         }

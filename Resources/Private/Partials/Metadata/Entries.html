@@ -23,7 +23,7 @@
                     <f:then>
                         <f:render partial="Metadata/LinkEntry" arguments="{_all}"/>
                     </f:then>
-                    <f:else if="{externalUrlExists.{configObject.indexName}}">
+                    <f:else if="{externalUrlExists.{configObject.indexName}.{iterator.key}}">
                         <f:render partial="Metadata/ExternalLinkEntry" arguments="{_all}"/>
                     </f:else>
                     <f:else>
