@@ -314,6 +314,18 @@ if [ "$MAKE_SAMPLE" = "1" ]; then
     cp "$SCRIPT_DIR/examples/local-sample/"* "$DEMO_DIR/kitodo-demo/"
     sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/sample_mets.xml" && rm -f "$DEMO_DIR/kitodo-demo/sample_mets.xml.bak"
     SAMPLE_URL="${DATA_URL}/sample_mets.xml"
+    # The second local sample reuses the same physical page / thumbnail /
+    # fulltext files, but is a distinct logical document (own title, two
+    # pages), so the multi-view can compare two documents side by side.
+    sed -i.bak "s|__DATA_BASE__|${DATA_URL}|g" "$DEMO_DIR/kitodo-demo/sample_mets_2.xml" && rm -f "$DEMO_DIR/kitodo-demo/sample_mets_2.xml.bak"
+    SAMPLE2_URL="${DATA_URL}/sample_mets_2.xml"
+    # Intro link into a pre-populated two-document multi-view (both local
+    # samples). The demo has no Solr / search, so this is the only way a
+    # multi-view can start with more than the one document of the root page.
+    # SAMPLE_URL / SAMPLE2_URL are baked in here (known at this point); only
+    # __BASE_PATH__ stays a placeholder, resolved by the sed below (which
+    # expands __MULTIVIEW_TEXT__ before __BASE_PATH__).
+    MULTIVIEW_TEXT=" The <a href=\"__BASE_PATH__?tx_dlf%5Bid%5D=${SAMPLE_URL}&amp;tx_dlf%5Bmultiview%5D=1&amp;tx_dlf%5BmultiViewSource%5D%5B0%5D=${SAMPLE2_URL}\">multi-view</a> compares the two local sample documents side by side."
     # The audio / video / 3D samples each live in their own subdirectory (so
     # they can share file names like sample.mp4 / poster.jpg) and their METS
     # files use the same __DATA_BASE__ placeholder, resolved to the sample's
@@ -349,6 +361,8 @@ if [ "$MAKE_SAMPLE" = "1" ]; then
     NEWS_ANCHOR_URL="${DATA_URL}/DeutReunP_856399094_anchor.xml"
 else
     SAMPLE_URL=""
+    SAMPLE2_URL=""
+    MULTIVIEW_TEXT=""
     AV3D_SOURCES=()
     AV3D_SAMPLES=()
     NEWS_ANCHOR_URL=""
@@ -563,6 +577,19 @@ plugin.tx_dlf_validationform {
         type = 0
     }
 }
+# The multi-view plugin: a draggable grid of <iframe>s, each embedding the page
+# viewer for one document. It shares the root page with the single-document
+# viewer plugins; the two layouts are switched by the tx_dlf[multiview] URL
+# param (handled by the CSS/JS in demo-widgets). Merely defining this block is
+# what makes the toolbox's "Add document" (multiViewAddSourceTool) tool appear.
+# multiDocumentTypes is left empty on purpose: the demo compares independent
+# documents side by side, so a single document must never be expanded into its
+# child documents.
+plugin.tx_dlf_multiview {
+    settings {
+        multiDocumentTypes =
+    }
+}
 plugin.tx_dlf.settings {
     domDocumentValidation {
         0 {
@@ -604,6 +631,29 @@ page {
     # the curly braces of JS function bodies).
     includeJSFooter.dlfDemoWidgets = kitodo-demo/demo-widgets.js
 }
+# The viewer and the multi-view are two mutually exclusive views of the root
+# page. PageViewController 308-redirects unconditionally whenever
+# tx_dlf[multiViewSource] is present, so dlf_pageview must NOT be rendered on
+# the grid request -- otherwise the grid (whose iframes load this same page)
+# would 308-redirect into an infinite loop. Render exactly one set of content
+# elements per request, selected by tx_dlf[multiview]: the grid plugin when
+# multiview=1, the single-document viewer otherwise (this includes the
+# page-viewer embedded in the grid's iframes, which carry
+# tx_dlf[multiviewembedded] instead of multiview and no multiViewSource, so no
+# redirect fires there).
+#
+# The request condition lives at the top level of the TypoScript (a request
+# condition nested inside the "page { }" COA drops all following content); the
+# content selection is a top-level cObject referenced by the root page.
+# {#...} is the DBAL field-quoting syntax the frontend CONTENT object uses for
+# column references in a where clause.
+lib.demoContent < styles.content.get
+[request && like(traverse(request.getQueryParams(), 'tx_dlf/multiview'), '1')]
+lib.demoContent.select.where = {#colPos}=0 AND {#list_type}='dlf_multiview'
+[else]
+lib.demoContent.select.where = {#colPos}=0 AND {#list_type}!='dlf_multiview'
+[end]
+
 # The page body differs per page, selected by the page uid: the root page (uid
 # 1) shows the viewer scaffold and widgets; /oai (uid 101) is a raw OAI-PMH XML
 # endpoint; /validation (uid 102) is a plain page with only the form.
@@ -612,15 +662,17 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
     # Wrap the content in <div id="main"> so the demo stylesheets can
-    # address the plugin frames (#main .frame:has(...)).
+    # address the plugin frames (#main .frame:has(...)). The content elements
+    # are rendered by lib.demoContent (defined above), which selects the
+    # multi-view grid or the single-document viewer based on tx_dlf[multiview].
     20 = TEXT
     20.value = <div id="main">
-    30 < styles.content.get
+    30 < lib.demoContent
     40 = TEXT
     40.value = </div>
 }
@@ -667,7 +719,10 @@ page.10 {
 }
 [end]
 TS
-sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" -e "s|__REPO__|${REPO}|g" -e "s|__BASE_PATH__|${BASE_PATH}|g" demo.typoscript && rm -f demo.typoscript.bak
+# Escape the "&" characters of __MULTIVIEW_TEXT__ (the HTML link's &amp;) for
+# sed, where an unescaped & in the replacement means "the whole match".
+MULTIVIEW_TEXT_SED=${MULTIVIEW_TEXT//&/\\&}
+sed -i.bak -e "s|__SAMPLE_URL__|${SAMPLE_URL}|g" -e "s|__EXAMPLE_OPTIONS__|${EXAMPLE_OPTIONS}|g" -e "s|__STYLE_OPTIONS__|${STYLE_OPTIONS}|g" -e "s|__MULTIVIEW_TEXT__|${MULTIVIEW_TEXT_SED}|g" -e "s|__REPO__|${REPO}|g" -e "s|__BASE_PATH__|${BASE_PATH}|g" demo.typoscript && rm -f demo.typoscript.bak
 
 # --- write the bootstrap/seed script -------------------------------------
 # Patches the FE cache-hash settings and seeds the database (storage page,
@@ -848,6 +903,14 @@ $contents->delete('tt_content', ['uid' => 30]);
 $contents->insert('tt_content', [
     'uid' => 30, 'pid' => 102, 'CType' => 'list', 'list_type' => 'dlf_validationform',
     'header' => 'XML validation', 'sorting' => 100,
+]);
+// 6c. The multi-view on the root page. It renders the grid of page-viewer
+//     iframes next to the other viewer plugins; the CSS/JS in demo-widgets
+//     hides one layout while the other is active.
+$contents->delete('tt_content', ['uid' => 31]);
+$contents->insert('tt_content', [
+    'uid' => 31, 'pid' => 1, 'CType' => 'list', 'list_type' => 'dlf_multiview',
+    'header' => 'Multi view', 'sorting' => 1100,
 ]);
 
 echo "seeded: storage page (uid 100), subpages (uid 101 /oai, 102 /validation), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-28), oai (uid 29) + validation (uid 30) plugins\n";

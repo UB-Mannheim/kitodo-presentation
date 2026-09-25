@@ -166,7 +166,7 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * the page image has loaded, so keying on it would hide the pageview whenever
  * the image is slow or fails. Whether the pageview should be shown at all is
  * instead decided by the overview rule below. */
-#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)):not(:has(.tx-dlf-validationform)) {
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)):not(:has(.tx-dlf-validationform)):not(:has(.grid-stack-wrapper)) {
     display: none;
 }
 
@@ -681,4 +681,95 @@ body:has(#main.tx-dlf-fullscreen) {
     background: rgba(20, 24, 33, 0.94);
     border-left-color: #3a4152;
     color: #cdd4e4;
+}
+/* ===== Multi-view (dlf_multiview) ======================================== */
+/* The demo shows one of two views of the root page, selected by the URL
+ * (tx_dlf[multiview]=1) and rendered accordingly by the TypoScript (see
+ * setup-demo.sh): the single-document viewer, or the multi-view grid. The
+ * extension ships no CSS for the multi-view (themes do), so the demo styles
+ * it here. The active view is detected structurally: the grid frame is the
+ * only frame containing .grid-stack-wrapper, the viewer frame is the only
+ * frame containing #tx-dlf-map. */
+
+/* The document-sync buttons (".page-control > div") are only enabled by
+ * MultiView.js when the selected control exists in one of the embedded
+ * viewers; hide them by default (the plugin's inline display overrides). */
+.page-control > div {
+    display: none;
+}
+
+/* Multi-view active: drop the theme's two-column grid, full width. */
+#main:has(.grid-stack-wrapper) {
+    display: block;
+}
+#main:has(.grid-stack-wrapper) .frame:has(#tx-dlf-map) {
+    display: none;
+}
+#main:has(.grid-stack-wrapper) .frame:has(.grid-stack-wrapper) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    background: none;
+}
+
+/* The grid items and the embedded page viewers. GridStack sizes the items
+ * (absolute positioning or CSS grid, depending on version); the iframes must
+ * simply fill their cell. */
+.grid-stack-wrapper {
+    width: 100%;
+}
+#main .grid-stack-item-content iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+/* The per-cell remove-document button, positioned in the corner of the item. */
+#main .grid-stack-item .removeDocument {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 5;
+}
+
+/* ===== Multi-view embedded viewers ======================================= */
+/* Each grid cell embeds a full page-viewer in an <iframe> (the same root
+ * page, with tx_dlf[multiviewembedded]=1). Inside that iframe the demo
+ * chrome (header, links, style widget) is hidden by the script in
+ * demo-widgets.js, which also adds the class "dlf-demo-embedded" to <html>.
+ * Hide everything but the page image itself so each cell is a clean viewer. */
+html.dlf-demo-embedded,
+html.dlf-demo-embedded body {
+    margin: 0;
+    height: 100%;
+}
+html.dlf-demo-embedded #main {
+    display: block;
+    padding: 0;
+    height: 100%;
+}
+html.dlf-demo-embedded #main .frame:not(:has(#tx-dlf-map)) {
+    display: none !important;
+}
+html.dlf-demo-embedded #main .frame:has(#tx-dlf-map) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+    height: 100%;
+}
+html.dlf-demo-embedded #main .frame:has(#tx-dlf-map)::before {
+    content: none;
+    display: none;
+}
+html.dlf-demo-embedded #tx-dlf-map {
+    border-radius: 0;
+    /* The map must fill the iframe with a definite height so OpenLayers can
+     * size its viewport. (min-height alone is not enough: with no definite
+     * height the viewport computes to 0 and the page image is clipped away.) */
+    height: 100%;
+    min-height: 0;
 }
