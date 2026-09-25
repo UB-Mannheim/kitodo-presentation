@@ -1047,6 +1047,88 @@ body > form button:focus-visible {
     height: 30em;
 }
 
+/* --- the multi-view controls ---------------------------------------------- */
+/* The document-sync buttons are hidden by demo-widgets.css until MultiView.js
+ * enables them (it sets an inline display: block on the ones whose target
+ * exists in one of the embedded viewers). Match that inline state so only the
+ * enabled buttons get the Aurora pill treatment. */
+
+#main .page-control {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+#main .page-control:has([style*="display: block"]) {
+    margin-bottom: 12px;
+}
+
+#main .page-control > div[style*="display: block"] {
+    display: inline-flex !important;
+    align-items: center;
+}
+
+#main .page-control > div[style*="display: block"] a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.4em;
+    padding: 0.45em 1em;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--a-accent-strong);
+    background: var(--a-accent-soft);
+    border-radius: 999px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#main .page-control > div[style*="display: block"] a:hover {
+    background: #e0e5fa;
+}
+
+#main .page-control > div[style*="display: block"] a::before {
+    margin-right: 0.4em;
+}
+
+#main .page-control > .backs a::before {
+    content: "◀";
+}
+
+#main .page-control > .measureBacks a::before {
+    content: "«";
+}
+
+#main .page-control > .fwds a::before {
+    content: "▶";
+}
+
+#main .page-control > .measureFwds a::before {
+    content: "»";
+}
+
+#main .grid-stack-item .removeDocument a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35em 0.8em;
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--a-text);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--a-border);
+    border-radius: 999px;
+    box-shadow: var(--a-shadow);
+    text-decoration: none;
+}
+
+#main .grid-stack-item .removeDocument a:hover {
+    color: var(--a-accent-strong);
+    border-color: var(--a-accent);
+}
+
 /* --- dark mode: hard-coded colors ---------------------------------------- */
 /* Everything else resolves through the design tokens, which are re-declared
  * for :root[data-theme="dark"] at the top of the sheet; only the colors that
@@ -1145,6 +1227,16 @@ body > form button:focus-visible {
 
 :root[data-theme="dark"] .dlf-shaka[data-mode="audio"] .dlf-media-flat-seek-bar .seek-marker {
     background-color: #fff;
+}
+
+:root[data-theme="dark"] #main .page-control > div[style*="display: block"] a:hover {
+    background: #312f5b;
+}
+
+:root[data-theme="dark"] #main .grid-stack-item .removeDocument a {
+    color: var(--a-text);
+    background: #262b39;
+    border-color: #312f5b;
 }
 
 /* --- reduced motion ------------------------------------------------------------ */
