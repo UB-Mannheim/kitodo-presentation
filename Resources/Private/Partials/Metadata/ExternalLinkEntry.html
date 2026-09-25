@@ -14,10 +14,35 @@
 
 <f:if condition="{configObject.indexName} == 'author' || {configObject.indexName} == 'holder'">
     <f:then>
-        <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionConfigObject}"><f:link.external class="external" title="{value.name}" uri="{value.url}">{value.name}</f:link.external></kitodo:stdWrap>
+        <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionConfigObject}">
+            <f:if condition="{kitodo:isArray(subject: '{value}')}">
+                <f:then>
+                    <f:if condition="{value.url}">
+                        <f:then><f:link.external class="external" title="{value.name}" uri="{value.url}">{value.name}</f:link.external></f:then>
+                        <f:else>{value.name}</f:else>
+                    </f:if>
+                </f:then>
+                <f:else>{value}</f:else>
+            </f:if>
+        </kitodo:stdWrap>
     </f:then>
     <f:else>
-        <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionConfigObject}"><f:link.external class="external" title="{value}" uri="{value}">{value}</f:link.external></kitodo:stdWrap>
+        <kitodo:stdWrap wrap="{metadataWrap.value}" data="{metaSectionConfigObject}">
+            <f:if condition="{kitodo:isArray(subject: '{value}')}">
+                <f:then>
+                    <f:if condition="{value.url}">
+                        <f:then><f:link.external class="external" title="{value.name}" uri="{value.url}">{value.name}</f:link.external></f:then>
+                        <f:else>{value.name}</f:else>
+                    </f:if>
+                </f:then>
+                <f:else>
+                    <f:if condition="{value}">
+                        <f:then><f:link.external class="external" title="{value}" uri="{value}">{value}</f:link.external></f:then>
+                        <f:else>{value}</f:else>
+                    </f:if>
+                </f:else>
+            </f:if>
+        </kitodo:stdWrap>
     </f:else>
 </f:if>
 
