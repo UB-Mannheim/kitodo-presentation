@@ -377,6 +377,23 @@ function dlf_solr_field_matches(array $doc, string $field, string $value): bool
 // ---------------------------------------------------------------------------
 
 /**
+ * Shape a stored catalog doc for a select response. The real indexer stores
+ * "structure_path" as a JSON *string* (Indexer::add does
+ * json_encode($processedStructurePath)), but Solr returns a stored multi-valued
+ * field as an array and Kitodo's ResultDocument expects one
+ * (ResultDocument::$structurePath is typed array). Decode it back to an array
+ * so search results render instead of fataling on the type mismatch.
+ */
+function dlf_solr_shape_doc(array $doc): array
+{
+    if (isset($doc['structure_path']) && is_string($doc['structure_path'])) {
+        $decoded = json_decode($doc['structure_path'], true);
+        $doc['structure_path'] = is_array($decoded) ? $decoded : [];
+    }
+    return $doc;
+}
+
+/**
  * Evaluate a select request against the catalog and build the Solr JSON
  * response (grouped and/or flat, with facets and an always-present empty
  * ocrHighlighting so fulltext searches do not fatal on a missing key).
@@ -404,7 +421,7 @@ function dlf_solr_select(array $params, array $docs): array
         if (!dlf_solr_matches_filters($filterQueries, $doc)) {
             continue;
         }
-        $matched[] = $doc;
+        $matched[] = dlf_solr_shape_doc($doc);
     }
 
     // 2. Sort.
@@ -937,6 +954,11 @@ function dlf_solr_eval_field(array $node, array $doc): bool
  */
 function dlf_solr_field_query(string $field, $value, array $doc): bool
 {
+    // The Solr match-all wildcard "*:*" is a query on the pseudo-field "*"
+    // with value "*". It must match every document.
+    if ($field === '*') {
+        return true;
+    }
     if (!array_key_exists($field, $doc)) {
         return false;
     }
