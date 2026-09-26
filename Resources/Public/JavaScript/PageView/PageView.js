@@ -1154,13 +1154,13 @@ dlfViewer.prototype.ensureMapContainerHeight = function() {
  * the native Fullscreen API does not survive — and it is what keeps the viewer
  * in fullscreen while the page is changed. A theme styles the `.tx-dlf-fullscreen`
  * class to lay out the element (e.g. the map alongside the navigation and
- * toolbar). When the document has no page image there is nothing to show, so
- * nothing happens.
+ * toolbar).
+ *
+ * The class toggle itself does not require a map, so it also works for documents
+ * without a page image (audio / video / 3D), where only the map re-fit at the
+ * end is skipped.
  */
 dlfViewer.prototype.toggleFullscreen = function() {
-    if (!this.map) {
-        return;
-    }
     var target = document.getElementById(this.fullscreenElementId);
     if (!target) {
         return;
@@ -1168,24 +1168,26 @@ dlfViewer.prototype.toggleFullscreen = function() {
     var entering = !target.classList.contains('tx-dlf-fullscreen');
     target.classList.toggle('tx-dlf-fullscreen', entering);
     this.persistFullscreen(entering);
-    // Leaving fullscreen removes the layout CSS that gave the map its height.
-    // On a page that loaded already in fullscreen, no theme CSS or inline
-    // fallback height exists, so without this the map would collapse to 0
-    // pixels and the page image would disappear. (See
-    // ensureMapContainerHeight for the full rationale.)
-    if (!entering) {
-        this.ensureMapContainerHeight();
+    if (this.map) {
+        // Leaving fullscreen removes the layout CSS that gave the map its height.
+        // On a page that loaded already in fullscreen, no theme CSS or inline
+        // fallback height exists, so without this the map would collapse to 0
+        // pixels and the page image would disappear. (See
+        // ensureMapContainerHeight for the full rationale.)
+        if (!entering) {
+            this.ensureMapContainerHeight();
+        }
+        // Re-fit the page image to the new layout. The class toggle above has
+        // changed the layout, but the map does not know that until it re-measures
+        // the container: getSize() still returns the pre-toggle size until a
+        // reflow, so calling refitView() now would fit the view for the stale size
+        // (e.g. the fullscreen size when leaving fullscreen) and leave the image
+        // mis-scaled relative to the already-resized canvas, invisible until a
+        // reload. updateSize() forces that re-measure first, so refitView() then
+        // fits for the correct, new container size.
+        this.map.updateSize();
+        this.refitView();
     }
-    // Re-fit the page image to the new layout. The class toggle above has
-    // changed the layout, but the map does not know that until it re-measures
-    // the container: getSize() still returns the pre-toggle size until a
-    // reflow, so calling refitView() now would fit the view for the stale size
-    // (e.g. the fullscreen size when leaving fullscreen) and leave the image
-    // mis-scaled relative to the already-resized canvas, invisible until a
-    // reload. updateSize() forces that re-measure first, so refitView() then
-    // fits for the correct, new container size.
-    this.map.updateSize();
-    this.refitView();
 };
 
 /**
