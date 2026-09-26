@@ -21,6 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     return true;
 }
 
+// The demo's Solr emulation: the dlf search / list view / collection /
+// statistics plugins are pointed at this server (solr.path = solr), so any
+// request under /solr/ is answered by a minimal Solr JSON API instead of a
+// real Apache Solr. The module emits the JSON response and returns true when
+// it handled the request; anything else falls through to the static file
+// serving below.
+require_once __DIR__ . '/solr-emulator.php';
+if (dlf_solr_handle_request()) {
+    return true;
+}
+
 $root = realpath($_SERVER['DOCUMENT_ROOT'] ?? __DIR__);
 $path = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/');
 $file = realpath($root . $path);
