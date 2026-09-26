@@ -171,6 +171,20 @@ body > form button:focus-visible {
 #main .frame:has(.tx-dlf-pagegrid) { grid-area: thumbs; }
 #main .frame:has(.tx-dlf-metadata-titledata) { grid-area: meta; }
 #main .frame:has(.tx-dlf-tableofcontents) { grid-area: toc; }
+/* When the navigation is hidden (single-page document: none of the four page
+ * controls is an <a>, see demo-widgets.css), drop the nav row from the grid so
+ * the toolbox takes the top position of the right column and starts at the
+ * same height as the viewer / player. Without this the (empty) nav row still
+ * contributes its grid gap, leaving the toolbox one gap (~20px) too low.
+ * (The test is written flat rather than as a nested :has(), which this Chrome
+ * version rejects.) */
+#main:not(:has(.tx-dlf-navigation-first a, .tx-dlf-navigation-prev a, .tx-dlf-navigation-next a, .tx-dlf-navigation-last a)) {
+    grid-template-areas:
+        "viewer  tools"
+        "viewer  toc"
+        "viewer  meta"
+        "thumbs  thumbs";
+}
 /* The calendar (a newspaper overview's month grid) shares the main viewer
  * block with the pageview: they are mutually exclusive (a page document shows
  * the pageview, an overview document shows the calendar, see demo-widgets.css),
