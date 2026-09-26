@@ -506,19 +506,23 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * rule above keeps visible (it whitelists .tx-dlf-search-form). */
 .tx-dlf-search-form {
     font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .tx-dlf-search-form label {
-    display: block;
+    flex-basis: 100%;
     margin-bottom: 8px;
     font-size: 0.95em;
 }
 
 .tx-dlf-search-form input[type="text"] {
-    display: inline-block;
-    width: 60%;
-    max-width: 48em;
-    margin-left: 0.5em;
+    display: block;
+    flex: 1 1 auto;
+    min-width: 8em;
+    margin-left: 0;
     padding: 0.45em 0.6em;
     font: inherit;
     color: #1b2a6b;
@@ -528,6 +532,7 @@ div[class^="tx-dlf-navigation-"] > span[title] {
 }
 
 .tx-dlf-search-form input[type="submit"] {
+    flex: 0 0 auto;
     padding: 0.45em 1.2em;
     font: inherit;
     font-weight: 600;
