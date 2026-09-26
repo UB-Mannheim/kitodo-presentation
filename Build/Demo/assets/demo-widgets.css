@@ -52,31 +52,46 @@
  * the fixed widget only ever overlaps empty space above the right column. */
 
 /* The "Examples" control on the start page: a compact <select> of sample
- * documents. Picking one fills the URL form and submits it (see the inline
- * script in setup-demo.sh), so it behaves exactly like pasting a URL by hand.
- * Kept here (always loaded) so it looks consistent under any viewer style. */
+ * documents, sitting on the same line as the URL input right behind the
+ * Open button. Picking one fills the URL form and submits it (see the
+ * inline script in demo-widgets.js), so it behaves exactly like pasting a
+ * URL by hand. Kept here (always loaded) so it looks consistent under any
+ * viewer style. */
 .dlf-demo-examples {
-    margin-bottom: 1em;
-    /* Left/right margins are deliberately NOT set here, so each theme's own
-     * header alignment applies: aurora insets its whole header block
-     * (body > h1/p/form { margin: 0 24px … }) and the other themes keep the
-     * browser defaults. Overriding it (the old `margin: 0 0 1em`) stripped
-     * that inset and left the label misaligned with the form above it. */
+    margin-left: 1em;
+    /* The start page form is a flex row: URL input, Open button and this
+     * Examples control all share one line. The select shrinks (and ellipsis-
+     * clips its label) before the row is allowed to wrap. */
+    display: inline-flex;
+    align-items: center;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 .dlf-demo-examples label {
+    margin-right: 0.5em;
+    flex: none;
     font-weight: 600;
 }
 
 .dlf-demo-examples select {
-    margin-left: 0.5em;
-    padding: 0.3em 0.5em;
+    /* Match the URL input's padding so the select, the input and the Open
+     * button line up on one row. */
+    padding: 0.5em 0.75em;
     font: inherit;
     color: #1b2a6b;
     background: #eef2fb;
     border: 1px solid #c8c4b0;
     border-radius: 6px;
     cursor: pointer;
+    /* Never push the row to a second line: shrink below intrinsic width. */
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.dlf-demo-examples select:focus-visible {
+    outline: var(--a-focus, 2px solid #4050e0);
+    outline-offset: 2px;
 }
 
 .dlf-demo-examples select:hover {
@@ -207,6 +222,17 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * general rule above already hides the (empty) media / 3D frame for page
  * documents. */
 #main:has(slub-media, .tx-dlf-embedded3dviewer iframe[src]:not([src=""])) .frame:has(#tx-dlf-map) {
+    display: none;
+}
+
+/* A single-page document has nothing to navigate between: the navigation's
+ * page controls (first / prev / next / last and the page selector) are all
+ * rendered deactivated (a <span title>, never a <a>) because there is no other
+ * page, so the bar would be a row of grey, non-functional buttons. The double-
+ * page toggle is a <a> only in multi-page documents. So when none of the four
+ * page controls is an <a>, the document is single-page and the whole navigation
+ * frame is hidden (leaving the viewer at the top of the column). */
+.frame:has(.tx-dlf-navigation-first):not(:has(.tx-dlf-navigation-first a, .tx-dlf-navigation-prev a, .tx-dlf-navigation-next a, .tx-dlf-navigation-last a)) {
     display: none;
 }
 
