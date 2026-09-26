@@ -675,7 +675,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. You can also search the local samples.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a> &middot; <a href="__BASE_PATH__search">search (emulated Solr)</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. You can also search the local samples.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a> &middot; <a href="__BASE_PATH__search">search (emulated Solr)</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="__BASE_PATH__kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
@@ -720,7 +720,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Validate a METS / IIIF / any XML document against the configured schemas. Paste a URL below (the local sample is pre-filled) and click <strong>Validate</strong>. The result appears underneath the form.</p><div id="dlf-demo-validation" data-sample="__SAMPLE_URL__" hidden></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Validate a METS / IIIF / any XML document against the configured schemas. Paste a URL below (the local sample is pre-filled) and click <strong>Validate</strong>. The result appears underneath the form.</p><div id="dlf-demo-validation" data-sample="__SAMPLE_URL__" hidden></div><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="__BASE_PATH__kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
@@ -741,7 +741,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Search the local sample documents. The results are served by the emulated Apache Solr; clicking a result opens the document in the viewer.</p>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Search the local sample documents. The results are served by the emulated Apache Solr; clicking a result opens the document in the viewer.</p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="__BASE_PATH__kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
