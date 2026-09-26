@@ -590,6 +590,19 @@ plugin.tx_dlf_multiview {
         multiDocumentTypes =
     }
 }
+plugin.tx_dlf_search {
+    settings {
+        # The emulated Solr core record (tx_dlf_solrcores uid, seeded by
+        # bootstrap.php). The Solr *server* connection (host/port) comes from
+        # the dlf extension config, which the bootstrap patches to point at the
+        # data server running the Solr emulator (see assets/solr-emulator.php).
+        solrcore = 9001
+        storagePid = 100
+        # Search results link to the single-document viewer on the root page
+        # (uid 1) with tx_dlf[id] = the result's document uid.
+        targetPidPageView = 1
+    }
+}
 plugin.tx_dlf.settings {
     domDocumentValidation {
         0 {
@@ -662,7 +675,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. No search / Solr required.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. You can also search the local samples.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a> &middot; <a href="__BASE_PATH__search">search (emulated Solr)</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
@@ -718,6 +731,27 @@ page.10 {
     40.value = </div>
 }
 [end]
+# /search: the dlf_search plugin, backed by the emulated Apache Solr (see
+# assets/solr-emulator.php). The form and the results are rendered by the
+# plugin; a result links to the single-document viewer on the root page with
+# tx_dlf[id] = the result's document uid. Content is wrapped in <div id="main">
+# so the demo stylesheets can address the frames like the other pages.
+[page['uid'] == 103]
+page.10 = COA
+page.10 {
+    10 = TEXT
+    10 {
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Search the local sample documents. The results are served by the emulated Apache Solr; clicking a result opens the document in the viewer.</p>
+        insertData = 1
+        htmlSanitize = 0
+    }
+    20 = TEXT
+    20.value = <div id="main">
+    30 < styles.content.get
+    40 = TEXT
+    40.value = </div>
+}
+[end]
 TS
 # Escape the "&" characters of __MULTIVIEW_TEXT__ (the HTML link's &amp;) for
 # sed, where an unescaped & in the replacement means "the whole match".
@@ -739,8 +773,34 @@ if (is_file($settingsFile)) {
     $cfg = require $settingsFile;
     $cfg['FE']['cacheHash']['requireCacheHashPresenceParameters']['tx_dlf[id]'] = true;
     $cfg['FE']['pageNotFoundOnCHashError'] = '0';
+    // Point the dlf extension's Solr connection at the local data server, which
+    // serves the emulated Apache Solr under /solr/ (see assets/solr-emulator.php,
+    // included by data-router.php). This is what lets the search plugin and the
+    // indexer talk to "Solr" without a real Solr server.
+    //   * solr.host/port -> the data server. DATA_PORT reaches bootstrap.php as
+    //     the DLF_DEMO_DATA_PORT environment variable (the heredoc is quoted, so
+    //     the shell value cannot be inlined directly).
+    //   * solr.path -> "/" (the extension default). Solarium always prepends its
+    //     own context "solr", so the base URL is <host>:<port>/solr/... -- the
+    //     path must NOT repeat it, or the request hits /solr/solr/... and the
+    //     emulator answers 404.
+    //   * requiredMetadataFields -> "document_format" only. The default also
+    //     requires "record_id", but the local samples have none, so indexing
+    //     them would be rejected by the mandatory-field validation.
+    if (isset($cfg['EXTENSIONS']['dlf']['solr'])) {
+        $cfg['EXTENSIONS']['dlf']['solr']['host'] = '127.0.0.1';
+        // DATA_PORT is passed in by the shell as an environment variable (the
+        // bootstrap.php heredoc is quoted, so it cannot interpolate the shell
+        // value directly); it is the port of the data server running the
+        // Solr emulator.
+        $cfg['EXTENSIONS']['dlf']['solr']['port'] = (int) getenv('DLF_DEMO_DATA_PORT');
+        $cfg['EXTENSIONS']['dlf']['solr']['path'] = '/';
+    }
+    if (isset($cfg['EXTENSIONS']['dlf']['general'])) {
+        $cfg['EXTENSIONS']['dlf']['general']['requiredMetadataFields'] = 'document_format';
+    }
     file_put_contents($settingsFile, "<?php return " . var_export($cfg, true) . ";\n");
-    echo "settings.php: FE cache-hash patched\n";
+    echo "settings.php: FE cache-hash + Solr (emulated) patched\n";
 }
 
 // 2. Bootstrap TYPO3 for database access.
@@ -748,6 +808,25 @@ $classLoader = require __DIR__ . '/vendor/autoload.php';
 \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::run(1, \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_CLI);
 \TYPO3\CMS\Core\Core\Bootstrap::init($classLoader, true);
 $pool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
+
+// 2b. Clear any previously-indexed copies of the local sample documents.
+//     The indexing step at the end of setup-demo.sh re-indexes them into the
+//     emulated Solr; the real indexer (kitodo:index) refuses to touch a
+//     location already present in tx_dlf_documents, so stale rows from an
+//     earlier run must be removed first or re-runs would skip (re)indexing.
+//     The sample URLs are passed in via the DLF_DEMO_SAMPLE_URLS env var (a
+//     newline-separated list; empty when --no-sample is used, in which case
+//     nothing is cleared and the indexing step is skipped).
+if (($sampleUrls = getenv('DLF_DEMO_SAMPLE_URLS')) !== false && trim($sampleUrls) !== '') {
+    $docTable = $pool->getConnectionForTable('tx_dlf_documents');
+    foreach (explode("\n", $sampleUrls) as $loc) {
+        $loc = trim($loc);
+        if ($loc !== '') {
+            $docTable->delete('tx_dlf_documents', ['location' => $loc, 'pid' => 100]);
+        }
+    }
+    echo "settings.php: cleared previously-indexed sample documents\n";
+}
 
 $typoScript = file_get_contents(__DIR__ . '/demo.typoscript');
 
@@ -769,6 +848,11 @@ $pages->delete('pages', ['uid' => 102]);
 $pages->insert('pages', [
     'uid' => 102, 'pid' => 1, 'title' => 'XML validation',
     'slug' => '/validation', 'doktype' => 1, 'hidden' => 0,
+]);
+$pages->delete('pages', ['uid' => 103]);
+$pages->insert('pages', [
+    'uid' => 103, 'pid' => 1, 'title' => 'Search',
+    'slug' => '/search', 'doktype' => 1, 'hidden' => 0,
 ]);
 
 // 4. Register the metadata formats (pid = storage pid). The type must match
@@ -864,6 +948,19 @@ foreach ($structures as [$uid, $label, $indexName, $toplevel]) {
     ]);
 }
 
+// 4d. The Solr core record (tx_dlf_solrcores). The dlf_search plugin and the
+//     indexer both address the emulated core by this record: the plugin sets
+//     solrcore = 9001 (its uid) and the indexer's -s option uses the
+//     index_name. The record is purely a pointer -- the Solr core itself is
+//     "created" by the emulator (which reports a positive uptime for any
+//     index_name in the core-admin status), so no real Solr core exists.
+$solrCoresTable = $pool->getConnectionForTable('tx_dlf_solrcores');
+$solrCoresTable->delete('tx_dlf_solrcores', ['uid' => 9001]);
+$solrCoresTable->insert('tx_dlf_solrcores', [
+    'uid' => 9001, 'pid' => 100, 'deleted' => 0,
+    'label' => 'Demo Solr Core', 'index_name' => 'dlfDemo',
+]);
+
 // 5. The frontend TypoScript. sys_template is matched by pid in the rootline,
 //    so it must be attached to the root page (uid 1), not uid 0.
 $templates = $pool->getConnectionForTable('sys_template');
@@ -912,8 +1009,17 @@ $contents->insert('tt_content', [
     'uid' => 31, 'pid' => 1, 'CType' => 'list', 'list_type' => 'dlf_multiview',
     'header' => 'Multi view', 'sorting' => 1100,
 ]);
+// 6d. The dlf_search plugin on the /search page (uid 103). Its Solr core,
+//     storagePid and targetPidPageView come from the plugin.tx_dlf_search
+//     settings in the TypoScript above; the sample documents are indexed into
+//     the emulated core by the indexing step at the end of this script.
+$contents->delete('tt_content', ['uid' => 32]);
+$contents->insert('tt_content', [
+    'uid' => 32, 'pid' => 103, 'CType' => 'list', 'list_type' => 'dlf_search',
+    'header' => 'Search', 'sorting' => 100,
+]);
 
-echo "seeded: storage page (uid 100), subpages (uid 101 /oai, 102 /validation), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), sys_template (uid 1), viewer plugins (uid 20-28), oai (uid 29) + validation (uid 30) plugins\n";
+echo "seeded: storage page (uid 100), subpages (uid 101 /oai, 102 /validation, 103 /search), formats + metadata definitions (uid 5001-5155), structures (uid 6001-6005), solr core (uid 9001), sys_template (uid 1), viewer plugins (uid 20-28), oai (uid 29) + validation (uid 30) + search (uid 32) plugins\n";
 PHP
 
 # --- favicon (cosmetic; needs ImageMagick, skipped if absent) -------------
@@ -960,11 +1066,59 @@ if [ "$PUBLIC_BASE" = "1" ]; then
 fi
 
 # --- seed -----------------------------------------------------------------
+# The local samples to index into the emulated Solr for the /search plugin.
+# Only the two core image samples are indexed: they are always present (unless
+# --no-sample), they are the documents the multi-view already uses, and they
+# index quickly and deterministically. The optional AV3D / newspaper samples
+# have richer METS that are not needed to demonstrate search.
+INDEX_URLS=()
+[ -n "$SAMPLE_URL" ] && INDEX_URLS+=("$SAMPLE_URL")
+[ -n "$SAMPLE2_URL" ] && INDEX_URLS+=("$SAMPLE2_URL")
+# Newline-separated, for the bootstrap (which clears the previous run's copies
+# of exactly these documents so re-indexing below is idempotent).
+INDEX_URLS_JOINED="$(printf '%s\n' "${INDEX_URLS[@]}")"
+
 log "Seeding the database (settings patch + pages)"
-php bootstrap.php
+DLF_DEMO_DATA_PORT="$DATA_PORT" DLF_DEMO_SAMPLE_URLS="$INDEX_URLS_JOINED" php bootstrap.php
 
 log "Flushing caches"
 php vendor/bin/typo3 cache:flush
+
+# --- index the local samples into the emulated Solr ------------------------
+# Search (the dlf_search plugin) needs the samples indexed. The real indexer
+# (kitodo:index) creates the tx_dlf_documents rows AND pushes the Solr docs to
+# the emulator, which persists them to .solr-catalog.json. It needs the data
+# server running (it fetches the METS by URL, and the Solr connection IS the
+# data server's /solr/ endpoint), so start it temporarily unless --serve will
+# keep it up (in which case it starts later, on the same port).
+if [ "${#INDEX_URLS[@]}" -gt 0 ]; then
+    log "Indexing the local sample documents into the emulated Solr"
+    # The indexer fetches the METS by URL and talks to the emulator over HTTP,
+    # so the data server must be running. It is not up yet here (the --serve
+    # servers start at the very end), so start a temporary one on the data
+    # port unless something already answers there; stop it again afterwards.
+    INDEX_DATA_PID=""
+    if [ "$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:${DATA_PORT}/" 2>/dev/null)" = "000" ]; then
+        php -S "127.0.0.1:$DATA_PORT" -t "$DEMO_DIR/kitodo-demo" "$SCRIPT_DIR/assets/data-router.php" >/dev/null 2>&1 &
+        INDEX_DATA_PID=$!
+        for _ in $(seq 1 50); do
+            [ "$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:${DATA_PORT}/" 2>/dev/null)" != "000" ] && break
+            sleep 0.2
+        done
+    fi
+    for url in "${INDEX_URLS[@]}"; do
+        if php vendor/bin/typo3 kitodo:index -d "$url" -p 100 -s dlfDemo >/dev/null 2>&1; then
+            log "  indexed $(basename "$url")"
+        else
+            warn "  could not index $url (search will show fewer results)"
+        fi
+    done
+    if [ -n "$INDEX_DATA_PID" ]; then
+        kill "$INDEX_DATA_PID" 2>/dev/null || true
+        wait "$INDEX_DATA_PID" 2>/dev/null || true
+    fi
+    php vendor/bin/typo3 cache:flush >/dev/null 2>&1
+fi
 
 log "Demo site ready."
 echo
