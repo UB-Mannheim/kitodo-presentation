@@ -87,6 +87,13 @@ body > p {
 
 body > form {
     margin: 0 24px 8px;
+    /* URL input, Open button and the Examples control share one line; the
+     * input and the Examples select shrink (min-width: 0) before the row
+     * may break. */
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.5em;
 }
 
 body > form label {
@@ -95,6 +102,8 @@ body > form label {
 }
 
 body > form input[type="text"] {
+    flex: 1 1 auto;
+    min-width: 0;
     padding: 0.5em 0.75em;
     font: inherit;
     color: var(--a-text);
@@ -110,7 +119,7 @@ body > form input[type="text"]:focus-visible {
 }
 
 body > form button {
-    margin-left: 0.5em;
+    flex: none;
     padding: 0.5em 1.2em;
     font: inherit;
     font-weight: 600;
@@ -133,18 +142,24 @@ body > form button:focus-visible {
 
 /* --- the layout --------------------------------------------------------- */
 
-/* Wide screens: viewer left, metadata + toolbox in a right column, a full-
- * width navigation bar, and the page grid full-width at the bottom. The nav
- * spans both columns so all its controls (including the double-page toggle)
- * fit on one line. */
+/* Wide screens: the viewer fills the left column; the right column holds the
+ * navigation, toolbox, table of contents and metadata, top to bottom. The
+ * navigation sits at the top of the right column, above the toolbox (the same
+ * arrangement as kiosk fullscreen mode), so the page controls are immediately
+ * in view instead of a full-width bar above the viewer. The viewer spans the
+ * whole right column, so on a single-page document (navigation hidden, see
+ * demo-widgets.css) it simply starts at the top with no leftover gap. The
+ * navigation's controls are icon-only and fit the 350px column — the same set
+ * that the fullscreen test verifies fits the 16em sidebar. The page grid spans
+ * the full width at the bottom. */
 #main {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 350px;
     grid-template-areas:
-        "viewer  meta"
-        "viewer  toc"
+        "viewer  nav"
         "viewer  tools"
-        "nav     nav"
+        "viewer  toc"
+        "viewer  meta"
         "thumbs  thumbs";
     gap: 20px;
     align-items: start;
@@ -178,16 +193,17 @@ body > form button:focus-visible {
 #main .frame:has(slub-media) { grid-area: viewer; }
 #main .frame:has(.tx-dlf-embedded3dviewer) { grid-area: viewer; }
 
-/* Small screens: everything stacks. */
+/* Small screens: everything stacks (navigation first, then the viewer, then the
+ * right-column items in the same order, and the page grid last). */
 @media (max-width: 980px) {
     #main {
         grid-template-columns: minmax(0, 1fr);
         grid-template-areas:
-            "viewer"
-            "meta"
-            "toc"
-            "tools"
             "nav"
+            "viewer"
+            "tools"
+            "toc"
+            "meta"
             "thumbs";
         gap: 16px;
         padding: 8px 12px 32px;
@@ -457,6 +473,68 @@ body > form button:focus-visible {
 #main .frame > li.tx-dlf-navigation-pages label {
     font-size: 0.95em;
     color: var(--a-muted);
+}
+
+/* The navigation now lives in the 350px right column on wide screens (see the
+ * grid above) instead of a full-width bar. That is the same narrow context as
+ * kiosk fullscreen, so it gets the same compaction (mirroring the
+ * #main.tx-dlf-fullscreen rules below) so the page controls fit the column:
+ * the frame becomes a flex row, the arrow pills drop their horizontal padding,
+ * and the page selector is compacted — the "#" marker and the "Page" label are
+ * hidden (the pill keeps a "Select page" tooltip) and it grows to absorb the
+ * row's free space. The double-page toggle may wrap below, as in fullscreen
+ * (it is a view toggle, not a page control). Scoped to wide screens: on a
+ * phone the nav is full-width again and keeps its normal, roomier look. */
+@media (min-width: 981px) {
+    #main .frame:has(.tx-dlf-navigation-first) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 3px;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first)::before {
+        flex-basis: 100%;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > div[class^="tx-dlf-navigation-"] {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > div[class^="tx-dlf-navigation-"] a,
+    #main .frame:has(.tx-dlf-navigation-first) > div[class^="tx-dlf-navigation-"] span {
+        min-width: 30px;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > li.tx-dlf-navigation-pages {
+        min-width: 0;
+        padding: 6px 10px 6px 8px;
+        flex: 1 1 0;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > li.tx-dlf-navigation-pages::before {
+        content: none;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > li.tx-dlf-navigation-pages label {
+        font-size: 0;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > li.tx-dlf-navigation-pages form {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+        gap: 0.5em;
+    }
+
+    #main .frame:has(.tx-dlf-navigation-first) > li.tx-dlf-navigation-pages select {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0.3em 0.2em;
+    }
 }
 
 #main .frame > li.tx-dlf-navigation-pages select {
@@ -751,7 +829,15 @@ body > form button:focus-visible {
 
 #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-toolbox-searchindocument { order: 31; }
 #main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-viewerselection    { order: 32; }
-#main .frame:has([id^="tx-dlf-tools-"]) li.tx-dlf-tools-multiviewaddsource { order: 33; }
+/* The multi-view add-source tool is the only tool that renders its controls as
+ * direct children of the frame (a bare <a> label link and a <form>, no <li>
+ * wrapper like the other tools). Without an order it would default to 0 and
+ * float to the very top of the toolbox, above the zoom / rotation cluster; pin
+ * both of its elements to the bottom instead. */
+#main .frame:has([id^="tx-dlf-tools-"]) > a,
+#main .frame:has([id^="tx-dlf-tools-"]) > form.tx-dlf-tools-multiviewaddsource {
+    order: 33;
+}
 
 /* A subtle divider before the first tool of each cluster (except the first),
  * so the related groups read as separate sets. */

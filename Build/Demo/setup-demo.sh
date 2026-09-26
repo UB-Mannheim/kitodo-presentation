@@ -476,11 +476,16 @@ plugin.tx_dlf_metadata {
 
 plugin.tx_dlf_toolbox {
     settings {
+        # The order of this list is the DOM order of the toolbox tools. It
+        # starts with the view controls (zoom, rotation, fullscreen) because
+        # those are the most important and should sit on top; the aurora theme
+        # additionally groups the remaining tools into clusters via CSS order.
         # rotationTool / zoomTool always work (plain map view controls); the
         # remaining tools only render buttons when the current document has
         # the matching content (annotation lists, audio/video files, fulltext,
-        # 3D model, score file, ...).
-        tools = fulltextTool,imageDownloadTool,imageManipulationTool,fulltextDownloadTool,pdfDownloadTool,rotationTool,zoomTool,annotationTool,audioVideoTool,modelDownloadTool,multiViewAddSourceTool,scoreTool,searchInDocumentTool,viewerSelectionTool
+        # 3D model, score file, ...). multiViewAddSourceTool is last (a
+        # convenience action, not a primary view control).
+        tools = zoomTool,rotationTool,fulltextTool,imageManipulationTool,annotationTool,audioVideoTool,modelDownloadTool,imageDownloadTool,fulltextDownloadTool,pdfDownloadTool,scoreTool,searchInDocumentTool,viewerSelectionTool,multiViewAddSourceTool
         # The fulltext control appends the OCR text to the element named here.
         # It has no default, so without it getElementById("") is null and the
         # text is silently skipped (the region overlay still works, since that
@@ -675,7 +680,7 @@ page.10 = COA
 page.10 {
     10 = TEXT
     10 {
-        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. You can also search the local samples.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a> &middot; <a href="__BASE_PATH__search">search (emulated Solr)</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button></form><p class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></p><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="__BASE_PATH__kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
+        value = <h1><a href="__BASE_PATH__">Kitodo.Presentation viewer</a></h1><p>Open a document in the viewer. You can also search the local samples.__MULTIVIEW_TEXT__</p><p class="dlf-demo-links"><a href="__BASE_PATH__oai">OAI-PMH</a> &middot; <a href="__BASE_PATH__validation">XML validation</a> &middot; <a href="__BASE_PATH__search">search (emulated Solr)</a></p><form method="get" action=""><label for="dlf-demo-doc">METS / IIIF URL: </label><input type="text" id="dlf-demo-doc" name="tx_dlf[id]" value="__SAMPLE_URL__" size="70"><button type="submit">Open</button><span class="dlf-demo-examples"><label for="dlf-demo-example">Examples:</label><select id="dlf-demo-example">__EXAMPLE_OPTIONS__</select></span></form><div class="dlf-demo-styles"><label for="dlf-demo-style">Style</label><select id="dlf-demo-style" data-base="__BASE_PATH__kitodo-demo/">__STYLE_OPTIONS__</select><label for="dlf-demo-dark"><input type="checkbox" id="dlf-demo-dark">Dark</label></div>
         insertData = 1
         htmlSanitize = 0
     }
