@@ -547,9 +547,10 @@ div[class^="tx-dlf-navigation-"] > span[title] {
     background: #26348a;
 }
 
-/* The hit count ("N hits found in M documents"). */
+/* The hit count ("N hits found in M documents"). Sits directly under the
+ * search form, so give it a top margin to separate it from the query field. */
 .tx-dlf-listview .tx-dlf-search-numHits {
-    margin: 0 0 12px;
+    margin: 20px 0 12px;
     font-size: 0.9em;
     color: #6b675a;
 }
