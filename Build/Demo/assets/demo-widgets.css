@@ -694,15 +694,63 @@ body:has(#main.tx-dlf-fullscreen) {
 }
 
 /* Hide the frames that are not part of the fullscreen layout (page grid,
- * metadata, contents, calendar, media player, 3D viewer). The page view,
- * navigation and toolbox frames are laid out below. */
+ * metadata, contents, calendar). The media player and 3D viewer are laid out
+ * below, like the page view, so they are not in this list. */
 #main.tx-dlf-fullscreen .frame:has(.tx-dlf-pagegrid),
 #main.tx-dlf-fullscreen .frame:has(.tx-dlf-metadata-titledata),
 #main.tx-dlf-fullscreen .frame:has(.tx-dlf-tableofcontents),
-#main.tx-dlf-fullscreen .frame:has([class^="tx-dlf-calendar"]),
+#main.tx-dlf-fullscreen .frame:has([class^="tx-dlf-calendar"]) {
+    display: none;
+}
+
+/* The media player and the 3D viewer are the "main content" for audio / video
+ * / 3D documents (which have no page image, so the page view map is empty and
+ * hidden, see the rule above). In fullscreen they take the left cell exactly
+ * like the page view, so the navigation and toolbox stay in the right-hand
+ * column. The frames fill the cell's full height and drop their card chrome,
+ * matching the page view frame above. */
 #main.tx-dlf-fullscreen .frame:has(slub-media),
 #main.tx-dlf-fullscreen .frame:has(.tx-dlf-embedded3dviewer) {
-    display: none;
+    grid-column: 1;
+    grid-row: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* The media player fills the cell: #combined-container is normally static /
+ * auto-height (see the normal-mode rule above), so in fullscreen it stretches
+ * to the cell height and the player (video, or the audio controls) fills it. */
+#main.tx-dlf-fullscreen .frame:has(slub-media) slub-media {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+#main.tx-dlf-fullscreen .frame:has(slub-media) #combined-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
+
+/* The 3D viewer's iframe fills the cell; height 100% keeps the (otherwise
+ * content-sized) model viewer spanning the full cell. */
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-embedded3dviewer) .tx-dlf-embedded3dviewer {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+}
+
+#main.tx-dlf-fullscreen .frame:has(.tx-dlf-embedded3dviewer) iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 #main.tx-dlf-fullscreen .frame:has(.tx-dlf-navigation-first),
