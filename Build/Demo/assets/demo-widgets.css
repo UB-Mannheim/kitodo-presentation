@@ -166,7 +166,7 @@ div[class^="tx-dlf-navigation-"] > span[title] {
  * the page image has loaded, so keying on it would hide the pageview whenever
  * the image is slow or fails. Whether the pageview should be shown at all is
  * instead decided by the overview rule below. */
-#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)):not(:has(.tx-dlf-validationform)):not(:has(.grid-stack-wrapper)) {
+#main .frame:not(:has(#tx-dlf-map)):not(:has(.tx-dlf-navigation-first)):not(:has(.tx-dlf-pagegrid)):not(:has(.tx-dlf-tableofcontents)):not(:has([class^="tx-dlf-calendar"])):not(:has(.tx-dlf-metadata-titledata)):not(:has([id^="tx-dlf-tools-"])):not(:has(slub-media)):not(:has(.tx-dlf-embedded3dviewer)):not(:has(.tx-dlf-validationform)):not(:has(.grid-stack-wrapper)):not(:has(.tx-dlf-search-form)) {
     display: none;
 }
 
@@ -497,6 +497,88 @@ div[class^="tx-dlf-navigation-"] > span[title] {
     background: #eef2fb;
     border: 1px solid #b9c6e8;
     color: #1b2a6b;
+}
+
+/* The search form + results (the /search page, dlf_search plugin). Like the
+ * validation form, the plugin ships no stylesheet, so give the form input and
+ * submit a neutral look and tidy up the result list. The form and the results
+ * both live inside the plugin's frame, which the general "hide empty frames"
+ * rule above keeps visible (it whitelists .tx-dlf-search-form). */
+.tx-dlf-search-form {
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.tx-dlf-search-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+}
+
+.tx-dlf-search-form input[type="text"] {
+    display: inline-block;
+    width: 60%;
+    max-width: 48em;
+    margin-left: 0.5em;
+    padding: 0.45em 0.6em;
+    font: inherit;
+    color: #1b2a6b;
+    background: #fffef5;
+    border: 1px solid #c8c4b0;
+    border-radius: 6px;
+}
+
+.tx-dlf-search-form input[type="submit"] {
+    padding: 0.45em 1.2em;
+    font: inherit;
+    font-weight: 600;
+    color: #fffef5;
+    background: #1b2a6b;
+    border: 1px solid #1b2a6b;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tx-dlf-search-form input[type="submit"]:hover {
+    background: #26348a;
+}
+
+/* The hit count ("N hits found in M documents"). */
+.tx-dlf-listview .tx-dlf-search-numHits {
+    margin: 0 0 12px;
+    font-size: 0.9em;
+    color: #6b675a;
+}
+
+/* The results list. */
+.tx-dlf-listview ol.tx-dlf-abstracts {
+    margin: 0;
+    padding-left: 1.4em;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts > li {
+    margin-bottom: 14px;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts > li > a {
+    color: #1b2a6b;
+    text-decoration: none;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts > li > a:hover {
+    text-decoration: underline;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts dl {
+    margin: 4px 0 0;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts dt {
+    font-weight: 600;
+}
+
+.tx-dlf-listview ol.tx-dlf-abstracts dd {
+    margin: 0 0 4px 0;
+    color: #6b675a;
 }
 
 /* Fullscreen / kiosk mode (toolbox "Fullscreen Mode" button).
