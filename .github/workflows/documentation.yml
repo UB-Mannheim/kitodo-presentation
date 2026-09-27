@@ -1,9 +1,16 @@
 name: Documentation
-# Build and test documentation on pull_request and push event
-# If the git reference is the main branch, additionally build the documentation artifact and deploy it to GitHub Pages
+# Build and test documentation on the demo branch and on pull requests.
+# If the git reference is the demo branch (of the UB-Mannheim fork) or the
+# workflow is started manually, additionally build the documentation artifact
+# and deploy it to GitHub Pages (ub-mannheim.github.io/kitodo-presentation).
+#
+# NOTE: For the deployment to work, the repository Settings > Pages must use
+# "Build and deployment via GitHub Actions" as the source (not a branch), so
+# that actions/deploy-pages below is allowed to publish.
 
 on:
   push:
+    branches: [demo]
     paths:
       - 'Documentation/**'
   pull_request:
@@ -18,18 +25,20 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v7
+            - name: Check field-list table alignment
+              run: python3 Build/Documentation/normalize-field-list-tables.py --check
             - name: Test if the documentation will render without warnings
               run: |
                   mkdir -p Documentation-GENERATED-temp \
-                  && docker run --rm --pull always -v $(pwd):/project ghcr.io/typo3-documentation/render-guides:latest configure --project-version="dev-main" ./Documentation \
+                  && docker run --rm --pull always -v $(pwd):/project ghcr.io/typo3-documentation/render-guides:latest configure --project-version="dev-demo" ./Documentation \
                   && docker run -v $(pwd):/project ghcr.io/typo3-documentation/render-guides:latest --config=Documentation --no-progress --fail-on-log
 
             - name: Rename root page
-              if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/demo' || github.event_name == 'workflow_dispatch'
               run: mv ./Documentation-GENERATED-temp/Index.html ./Documentation-GENERATED-temp/index.html
 
             - name: Upload artifact
-              if: github.ref == 'refs/heads/main'
+              if: github.ref == 'refs/heads/demo' || github.event_name == 'workflow_dispatch'
               uses: actions/upload-pages-artifact@v5
               with:
                   path: ./Documentation-GENERATED-temp/
@@ -40,7 +49,7 @@ jobs:
       # Add a dependency to the build job
       needs: build
 
-      if: github.repository_owner == 'kitodo' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+      if: github.repository == 'UB-Mannheim/kitodo-presentation' && (github.ref == 'refs/heads/demo' || github.event_name == 'workflow_dispatch')
 
       # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
       permissions:

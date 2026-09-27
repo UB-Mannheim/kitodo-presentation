@@ -66,3 +66,4 @@ Table of Contents
     Features/Index
     Community/Index
     Developers/Index
+    Demo/Index
