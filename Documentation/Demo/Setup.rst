@@ -27,12 +27,12 @@ Requirements
 ============
 
 * PHP 8.2 or newer (a Homebrew PHP is fine) with the extensions used by
-  TYPO3.
+  TYPO3. PHP 8.5 works as well.
 * Composer.
 * A checkout of this repository on the :code:`demo` branch.
 
-The script pins the Composer PHP platform to 8.4.99 for you, so it also works
-on machines whose Homebrew PHP is newer than the dependencies support.
+The script pins the Composer PHP platform to 8.4.99 for you, so the dependency
+resolution does not depend on the installed PHP version.
 
 Running the script
 ==================
