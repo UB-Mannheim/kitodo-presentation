@@ -23,8 +23,9 @@ Installation
 
 .. note::
 
-   Kitodo.Presentation requires **TYPO3 v12.4 or v13.4**, **PHP 8.2 - 8.4**,
-   and **Apache Solr 8.11 or 9.x** (8.11 - 9.7) with the
+   Kitodo.Presentation requires **TYPO3 v12.4 or v13.4**, **PHP 8.2 - 8.4**
+   (PHP 8.5 works, see below), and **Apache Solr 8.11 or 9.x** (8.11 - 9.7)
+   with the
    `solr-ocrhighlighting <https://github.com/dbmdz/solr-ocrhighlighting/releases>`_
    module (version 0.9.1 or newer). See :ref:`configuration-solr` for the Solr
    setup and :ref:`Requirements <requirements>` for details.
@@ -55,6 +56,16 @@ Please run the following commands in your webroot where the TYPO3 :file:`compose
 
       composer require kitodo/presentation
 
+   .. note::
+
+      When your site runs on **PHP 8.5**, pin the platform version first so
+      that Composer resolves the dependencies as if it ran on PHP 8.4 (the
+      extension's :file:`composer.json` allows PHP 8.2 to 8.4 only):
+
+      .. code-block:: shell
+
+          composer config platform.php 8.4.99
+
 #. Install and Activate the Extension
 
    .. code-block:: shell
@@ -75,7 +86,7 @@ Requirements
    * - Component
      - Required Version
    * - PHP
-     - 8.2 - 8.4
+     - 8.2 - 8.4 (8.5 via composer platform pin)
    * - TYPO3
      - v12.4 or v13.4
    * - Apache Solr
