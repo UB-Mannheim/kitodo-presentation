@@ -698,7 +698,8 @@ remembered in a cookie, so it is preserved for the current user.
 
     When :code:`tx_dlf[multiview]` is set, the gridstack and Multi View
     JavaScript are loaded and the Page View plugin is expected to be embedded
-    in a frame rather than rendered directly on the page.
+    in a frame rather than rendered directly on the page. The demo site
+    (see :ref:`demo-site`) combines the two plugins this way.
 
 TypoScript Configuration
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -876,7 +877,7 @@ TypoScript Configuration
    :Data Type:
       :ref:`t3tsref:data-type-integer`
    :Default:
-      24
+      10
 
  - :Property:
       placeholder
