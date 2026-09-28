@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd71bafd83a53e8294fd25dcd7360878",
+    "content-hash": "41e0fe8c9508ccdcedf36bbb7db82210",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6606,7 +6606,7 @@
             "version": "0.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/kitodo/php-iiif-prezi-reader.git",
+                "url": "https://github.com/stweil/php-iiif-prezi-reader.git",
                 "reference": "57d3471cd1210cf78388e1d2b3e4c0ba1ef2688f"
             },
             "require": {
@@ -10743,7 +10743,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "8.2 - 8.4",
+        "php": "8.2 - 8.5",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-json": "*",
