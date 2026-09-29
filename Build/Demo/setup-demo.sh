@@ -171,6 +171,16 @@ log "Viewer style: $STYLE"
 # reachable at --data-url (e.g. via an Apache Alias) and the dev servers are
 # not started.
 PUBLIC_BASE=0
+find_free_port() {
+    local start="$1" p
+    for ((p = start; p < start + 100; p++)); do
+        if ! lsof -iTCP:"$p" -sTCP:LISTEN >/dev/null 2>&1; then
+            printf '%s' "$p"
+            return 0
+        fi
+    done
+    return 1
+}
 if [ -n "$BASE_URL" ]; then
     PUBLIC_BASE=1
     # A web installation must not ship with the well-known demo password.
@@ -217,6 +227,13 @@ if [ -n "$BASE_URL" ]; then
            BASE_URL="${BASE_URL}/" ;;
     esac
     [ "$SERVE" = "1" ] && die "--serve cannot be used with --base-url (the external web server serves the site)."
+    # A local port for the Solr emulator's data server. The bootstrap seeds
+    # the solr.host/port setting from it (and the indexing step below runs a
+    # short-lived server on it to index the samples). The data *files* are
+    # served by the web server at $DATA_URL; only the emulator / indexing use
+    # this local port. It must be set in web mode too, because the seed step
+    # always references it (even with --no-sample).
+    DATA_PORT="$(find_free_port "$DEMO_PORT")" || die "Could not find a free data port."
     if [ "$MAKE_SAMPLE" = "1" ]; then
         [ -n "$DATA_URL" ] || die "--data-url is required with --base-url (unless --no-sample is given)."
         case "$DATA_URL" in
@@ -227,16 +244,6 @@ if [ -n "$BASE_URL" ]; then
 elif [ -n "$DATA_URL" ]; then
     die "--data-url is only meaningful with --base-url."
 else
-    find_free_port() {
-        local start="$1" p
-        for ((p = start; p < start + 100; p++)); do
-            if ! lsof -iTCP:"$p" -sTCP:LISTEN >/dev/null 2>&1; then
-                printf '%s' "$p"
-                return 0
-            fi
-        done
-        return 1
-    }
     PORT="$(find_free_port "$DEMO_PORT")" || die "Could not find a free port at/after $DEMO_PORT."
     [ "$PORT" != "$DEMO_PORT" ] && warn "Port $DEMO_PORT is busy, using $PORT."
     DATA_PORT="$(find_free_port "$((PORT + 1))")" || die "Could not find a free data port."
