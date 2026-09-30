@@ -132,8 +132,12 @@ class CalendarController extends AbstractController
         $this->view->assign('calendarData', $calendarData);
         $this->view->assign('documentId', $this->document->getUid());
         $this->view->assign('yearLinkTitle', $yearLinkTitle);
-        $this->view->assign('parentDocumentId', $this->document->getPartof() ?: $this->document->getCurrentDocument()->tableOfContents[0]['points']);
-        $this->view->assign('allYearDocTitle', $this->document->getCurrentDocument()->getTitle($this->document->getPartof()) ?: $this->document->getCurrentDocument()->tableOfContents[0]['label']);
+        $partof = $this->document->getPartof();
+        $this->view->assign('parentDocumentId', $partof ?: $this->document->getCurrentDocument()->tableOfContents[0]['points']);
+        $allYearDocTitle = $partof > 0
+            ? $this->document->getCurrentDocument()->getTitle($partof)
+            : '';
+        $this->view->assign('allYearDocTitle', $allYearDocTitle ?: $this->document->getCurrentDocument()->tableOfContents[0]['label']);
 
         $this->view->assign('requestData', $this->requestData);
 
