@@ -553,8 +553,7 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
             empty($firstPageLink)
             && empty($secondPageLink)
         ) {
-            // perhaps not warning notice
-            $this->logger->warning('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Page Download)');
+            $this->logger->notice('File not found in fileGrps "' . $this->extConf['files']['useGroupsDownload'] . '" (Page Download)');
         }
 
         if (!empty($firstPageLink)) {

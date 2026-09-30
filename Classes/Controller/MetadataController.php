@@ -184,7 +184,11 @@ class MetadataController extends AbstractController
             $this->view->assign('metaConfigObjectData', $this->buildMetaConfigObjectData($metadata));
 
             // to show main title
-            $this->view->assign('allYearDocTitle', $this->document->getCurrentDocument()->getTitle($this->document->getPartof()) ?: $this->document->getCurrentDocument()->tableOfContents[0]['label']);
+            $partof = $this->document->getPartof();
+            $allYearDocTitle = $partof > 0
+                ? $this->document->getCurrentDocument()->getTitle($partof)
+                : '';
+            $this->view->assign('allYearDocTitle', $allYearDocTitle ?: $this->document->getCurrentDocument()->tableOfContents[0]['label']);
             $this->view->assign('documentMainTitle', $this->document->getCurrentDocument()->tableOfContents[0]['label']);
 
         }

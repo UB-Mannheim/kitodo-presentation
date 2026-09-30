@@ -127,7 +127,7 @@ class SearchController extends AbstractController
         $listRequestData = $this->request->getQueryParams()['tx_dlf_listview'] ?? null;
         // Quit without doing anything if no search parameters.
         if (empty($this->search) && empty($listRequestData)) {
-            $this->logger->warning('Missing search parameters');
+            $this->logger->notice('Missing search parameters');
             return $this->htmlResponse();
         }
 
