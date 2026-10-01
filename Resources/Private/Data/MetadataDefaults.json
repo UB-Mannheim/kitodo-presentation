@@ -609,6 +609,26 @@
         "index_autocomplete": 0,
         "sorting": 26
     },
+    "licenseText": {
+        "format": [
+            {
+                "format_root": "mods",
+                "xpath": "./mods:accessCondition[@type=\"use and reproduction\"]",
+                "xpath_sorting": ""
+            }
+        ],
+        "default_value": "",
+        "wrap": "",
+        "index_tokenized": 0,
+        "index_stored": 1,
+        "index_indexed": 1,
+        "index_boost": 1.0,
+        "is_sortable": 0,
+        "is_facet": 0,
+        "is_listed": 0,
+        "index_autocomplete": 0,
+        "sorting": 26
+    },
     "notes": {
         "format": [
             {
