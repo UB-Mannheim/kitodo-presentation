@@ -473,7 +473,7 @@
             }
         ],
         "default_value": "",
-        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-oai\">|</dt>\nvalue.requred = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.wrap = <dd id=\n"tx-dlf-metadata-oai-value\n" class=\"tx-dlf-metadata-oai-value\">|</dd>",
+        "wrap": "key.wrap = <dt class=\"tx-dlf-metadata-oai\">|</dt>\nvalue.requred = 1\nvalue.setContentToCurrent = 1\nvalue.typolink.parameter.current = 1\nvalue.typolink.parameter.prepend = TEXT\nvalue.typolink.parameter.prepend.value = https%3a%2f%2fdigi.bib.uni-mannheim.de%2foai%2f%3fverb%3dGetRecord%26metadataPrefix%3dmets%26identifier%3d\nvalue.wrap = <dd id=\"tx-dlf-metadata-oai-value\" class=\"tx-dlf-metadata-oai-value\">|</dd>",
         "index_tokenized": 0,
         "index_stored": 0,
         "index_indexed": 1,
