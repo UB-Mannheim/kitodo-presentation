@@ -315,6 +315,45 @@
                                 <!-- 308 keine Ausgabe bei collection_new -->
                             </f:case>
 
+                            <f:case value="license">
+                                <f:comment>Lizenz: Link mit Name und URL aus dem METS-Element accessCondition.
+Der Anker-Name und das Link-Title stammen aus dem Feld licenseText (Text des
+accessCondition); fehlt dieser, wird die URL als Fallback ausgegeben.</f:comment>
+                                <dt class="tx-dlf-metadata-lizenz">{configObject.label}</dt>
+                                <dd class="tx-dlf-metadata-lizenz">
+                                    <f:if condition="{kitodo:isArray(subject: '{documentMetadataSection.license}')}">
+                                        <f:then>
+                                            <f:for each="{documentMetadataSection.license}" as="lUrl" iteration="lIter">
+                                                <f:if condition="{metaSectionConfigObject.licenseText}">
+                                                    <f:then>
+                                                        <a target="_blank" title="Link zu {metaSectionConfigObject.licenseText}" href="{lUrl}">{metaSectionConfigObject.licenseText}</a>
+                                                    </f:then>
+                                                    <f:else>
+                                                        <a target="_blank" title="{lUrl}" href="{lUrl}">{lUrl}</a>
+                                                    </f:else>
+                                                </f:if>
+                                                <f:if condition="{lIter.isLast} == false">/</f:if>
+                                            </f:for>
+                                        </f:then>
+                                        <f:else>
+                                            <f:variable name="lUrl" value="{documentMetadataSection.license}" />
+                                            <f:if condition="{metaSectionConfigObject.licenseText}">
+                                                <f:then>
+                                                    <a target="_blank" title="Link zu {metaSectionConfigObject.licenseText}" href="{lUrl}">{metaSectionConfigObject.licenseText}</a>
+                                                </f:then>
+                                                <f:else>
+                                                    <a target="_blank" title="{lUrl}" href="{lUrl}">{lUrl}</a>
+                                                </f:else>
+                                            </f:if>
+                                        </f:else>
+                                    </f:if>
+                                </dd>
+                            </f:case>
+
+                            <f:case value="licenseText">
+                                <f:comment>nur Hilfsfeld für den license-Link, keine eigene Ausgabe</f:comment>
+                            </f:case>
+
                             <f:defaultCase>
                                 <kitodo:stdWrap wrap="{metadataWrap.all}" data="{metaSectionConfigObject}">
                                     <kitodo:stdWrap wrap="{metadataWrap.key}" data="{metaSectionConfigObject}">{configObject.label}</kitodo:stdWrap>
