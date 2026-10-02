@@ -732,6 +732,17 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
     }
 
     /**
+     * Above this number of matching Solr documents, OCR highlighting is
+     * disabled for the search. Computing OCR highlight coordinates for a very
+     * large number of matched pages (and serializing them) is the dominant
+     * cost of fulltext queries and yields no benefit for the user, because
+     * the result list itself cannot display all of them.
+     *
+     * @access protected
+     */
+    protected const OCR_HIGHLIGHTING_MATCHES_LIMIT = 20000;
+
+    /**
      * Processes a search request
      *
      * @access protected
@@ -784,15 +795,26 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             $grouping->setNumberOfGroups(true);
 
             $fulltextExists = $parameters['fulltext'] ?? false;
-            if ($fulltextExists === true) {
-                // get highlighting component and apply settings
+            // OCR highlighting computes highlight coordinates for every matching
+            // page, which is prohibitively expensive for huge result sets (a
+            // common single word can return more than a million page matches).
+            // Count the matches cheaply first and only enable OCR highlighting
+            // while the result set is small enough to be useful.
+            $useOcrHighlighting = $fulltextExists === true
+                && $this->shouldUseOcrHighlighting($solr, $parameters);
+
+            if ($useOcrHighlighting) {
+                // The highlighting component is required for OCR highlighting
                 $selectQuery->getHighlighting();
             }
 
             $solrRequest = $solr->service->createRequest($selectQuery);
 
-            if ($fulltextExists === true) {
-                // If it is a fulltext search, enable highlighting.
+            if ($useOcrHighlighting) {
+                // Cap the total amount of highlighted text returned (default: unlimited)
+                $solrRequest->addParam('hl.maxTotalChars', (string) 5000);
+                // Stop analyzing terms past this offset (default: unlimited)
+                $solrRequest->addParam('hl.maxAnalyzedOffset', (string) 1000);
                 // field for which highlighting is going to be performed,
                 // is required if you want to have OCR highlighting
                 $solrRequest->addParam('hl.ocr.fl', 'fulltext');
@@ -818,9 +840,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
             $resultSet['numFound'] = $uidGroup->getMatches();
             $highlighting = [];
-            if ($fulltextExists === true) {
+            if ($useOcrHighlighting) {
                 $data = $result->getData();
-                $highlighting = $data['ocrHighlighting'];
+                $highlighting = $data['ocrHighlighting'] ?? [];
             }
             $fields = Solr::getFields();
 
@@ -839,6 +861,71 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             $resultSet = $cache->get($cacheIdentifier);
         }
         return $resultSet;
+    }
+
+    /**
+     * Decide whether OCR highlighting is affordable for this query.
+     *
+     * A cheap `rows=0` Solr query counts the matching documents. If the result
+     * set is larger than {@see self::OCR_HIGHLIGHTING_MATCHES_LIMIT} the
+     * expensive OCR highlighting is skipped; the search result is then rendered
+     * without snippet/highlight data. On any error the count falls back to
+     * highlighting as before.
+     *
+     * @access private
+     *
+     * @param Solr $solr The Solr service
+     * @param mixed[] $parameters The Solr search parameters (query, filterquery, ...)
+     *
+     * @return bool Whether OCR highlighting should be enabled
+     */
+    private function shouldUseOcrHighlighting(Solr $solr, array $parameters): bool
+    {
+        $query = $parameters['query'] ?? '*';
+        $matches = $this->matchDocumentsCount($solr, $parameters);
+        if ($matches === false) {
+            return true;
+        }
+        if ($matches > self::OCR_HIGHLIGHTING_MATCHES_LIMIT) {
+            $this->logger->notice(
+                'Skipping OCR highlighting for fulltext query "' . $query . '": '
+                . $matches . ' matching documents exceed the limit of '
+                . self::OCR_HIGHLIGHTING_MATCHES_LIMIT
+            );
+        }
+        return $matches <= self::OCR_HIGHLIGHTING_MATCHES_LIMIT;
+    }
+
+    /**
+     * Count matching documents with a cheap `rows=0` Solr query.
+     *
+     * The query is built the same way as the regular search
+     * ({@see self::searchSolr()}) but returns no documents and no grouping or
+     * highlighting, so it stays fast for very large result sets (typically
+     * well under one second).
+     *
+     * @access private
+     *
+     * @param Solr $solr The Solr service
+     * @param mixed[] $parameters The Solr search parameters (query, filterquery, ...)
+     *
+     * @return int|false The number of matching documents, or false on error
+     */
+    private function matchDocumentsCount(Solr $solr, array $parameters): int|false
+    {
+        try {
+            $selectQuery = $solr->service->createSelect($parameters);
+            $selectQuery->getEDisMax()->setQueryFields($this->getQueryFields());
+            $selectQuery->setRows(0);
+            $result = $solr->service->select($selectQuery);
+            return $result->getNumFound() ?? 0;
+        } catch (\Throwable $exception) {
+            $this->logger->warning(
+                'Could not determine match count for OCR highlighting decision, '
+                . 'using OCR highlighting: ' . $exception->getMessage()
+            );
+            return false;
+        }
     }
 
     /**
