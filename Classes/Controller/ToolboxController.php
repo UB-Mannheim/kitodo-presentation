@@ -389,18 +389,21 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
             }
 
             $physicalStructureInfo = $this->currentDocument->physicalStructureInfo[$this->currentDocument->physicalStructure[$page]] ?? null;
+            $fileGrpsJoined = implode(',', $fileGrps);
+            $found = false;
             while ($fileGrp = @array_pop($fileGrps)) {
                 if (isset($physicalStructureInfo['files'][$fileGrp])) {
                     $fileId = $physicalStructureInfo['files'][$fileGrp];
                     if (!empty($fileId)) {
                         $file['url'] = $this->currentDocument->getDownloadLocation($fileId);
                         $file['mimetype'] = $this->currentDocument->getFileMimeType($fileId);
-                    } else {
-                        $this->logger->warning('File not found in fileGrp "' . $fileGrp . '" (getImage) page: "' . $page . '" in Document (' . $this->document->getLocation() . ')');
+                        $found = true;
+                        break;
                     }
-                } else {
-                    $this->logger->warning('fileGrp "' . $fileGrp . '" not found in Document (' . $this->document->getLocation() . ') mets:fileSec (getImage) page: "' . $page . '"');
                 }
+            }
+            if (!$found) {
+                $this->logger->warning('No file found in fileGrps "' . $fileGrpsJoined . '" (getImage) page: "' . $page . '" in Document (' . $this->document->getLocation() . ')');
             }
         }
         return $file;
