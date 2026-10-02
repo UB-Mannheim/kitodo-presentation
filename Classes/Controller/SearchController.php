@@ -396,7 +396,12 @@ class SearchController extends AbstractController
         if (array_key_exists('collection', $this->search)) {
             foreach (explode(',', $this->search['collection']) as $collectionEntry) {
                 if (!empty($collectionEntry)) {
-                    $collections[] = $this->collectionRepository->findByUid((int) $collectionEntry);
+                    $collection = $this->collectionRepository->findByUid((int) $collectionEntry);
+                    // skip deleted/invisible collections to avoid "Call to a
+                    // member function ... on null" further down
+                    if ($collection !== null) {
+                        $collections[] = $collection;
+                    }
                 }
             }
         }
