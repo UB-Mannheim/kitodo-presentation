@@ -382,12 +382,8 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
     private function getFile(int $page, array $fileGrps): array
     {
         $file = [];
-        if (!empty($this->currentDocument->physicalStructure)) {
-            if (!array_key_exists($page, $this->currentDocument->physicalStructure)) {
-                $this->logger->warning('Page number "' . $page . '" not found in Document (' . $this->document->getLocation() . ') mets:structMap');
-                return $file;
-            }
-
+        if (!empty($this->currentDocument->physicalStructure)
+            && isset($this->currentDocument->physicalStructure[$page])) {
             $physicalStructureInfo = $this->currentDocument->physicalStructureInfo[$this->currentDocument->physicalStructure[$page]] ?? null;
             $fileGrpsJoined = implode(',', $fileGrps);
             $found = false;
