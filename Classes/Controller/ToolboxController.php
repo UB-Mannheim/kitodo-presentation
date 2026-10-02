@@ -355,13 +355,13 @@ $tools = array_map('trim', explode(',', $this->settings['tools']));
         $imageArray = [];
         // Get left or single page download.
         $image = $this->getImage($page);
-        if (Helper::filterFilesByMimeType($image, ['image'], true)) {
+        if (!empty($image) && Helper::filterFilesByMimeType($image, ['image'], true)) {
             $imageArray[0] = $image;
         }
 
         if ($this->requestData['double'] == 1) {
             $image = $this->getImage($page + 1);
-            if (Helper::filterFilesByMimeType($image, ['image'], true)) {
+            if (!empty($image) && Helper::filterFilesByMimeType($image, ['image'], true)) {
                 $imageArray[1] = $image;
             }
         }
