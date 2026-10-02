@@ -27,6 +27,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  *
  * @method array<Collection>|QueryResultInterface<int,Collection> findAll() Returns all objects of this repository.
  * @method Collection|null findOneBy(array<string,int|string> $criteria) Get a collection by criteria
+ * @method Collection|null findByUid(int $uid) Get a collection by its UID or null if it does not exist / is deleted
  *
  * @extends AbstractRepository<Collection>
  */
