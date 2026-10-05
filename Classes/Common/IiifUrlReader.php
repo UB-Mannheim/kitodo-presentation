@@ -38,7 +38,7 @@ class IiifUrlReader implements UrlReaderInterface
      */
     public function getContent($url)
     {
-        $fileContents = GeneralUtility::getUrl($url);
+        $fileContents = Helper::getUrl($url);
         if ($fileContents !== false) {
             return $fileContents;
         } else {

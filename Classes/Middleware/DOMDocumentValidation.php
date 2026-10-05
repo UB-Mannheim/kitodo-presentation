@@ -89,7 +89,7 @@ class DOMDocumentValidation implements MiddlewareInterface
             return $this->getJsonResponse('Parameter "' . $urlParam . '" is not a valid URL.', self::NOT_FOUND);
         }
 
-        $content = GeneralUtility::getUrl($urlParam);
+        $content = Helper::getUrl($urlParam);
         if ($content === false) {
             return $this->getJsonResponse('Unable to load content from the URL.', self::NOT_FOUND);
         }

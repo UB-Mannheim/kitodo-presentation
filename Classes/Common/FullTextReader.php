@@ -64,7 +64,7 @@ class FullTextReader
             while ($useGroupFulltext = array_shift($useGroupsFulltext)) {
                 if (!empty($physicalStructureNode['files'][$useGroupFulltext])) {
                     // Get full text file.
-                    $fileContent = GeneralUtility::getUrl($fileLocations[$useGroupFulltext]);
+                    $fileContent = Helper::getUrl($fileLocations[$useGroupFulltext]);
                     if ($fileContent !== false) {
                         $textFormat = $this->getTextFormat($fileContent);
                     } else {
