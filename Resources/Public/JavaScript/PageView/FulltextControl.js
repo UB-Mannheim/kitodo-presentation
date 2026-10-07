@@ -609,9 +609,7 @@ dlfViewerFullTextControl.prototype.scrollToText = function(element, fullTextScro
         if (target === undefined) {
             return;
         }
-        $(fullTextScrollElement).animate({
-            scrollTop: target
-        }, 500);
+        $(fullTextScrollElement).scrollTo(element, 500);
     }
 };
 
