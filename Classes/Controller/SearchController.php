@@ -408,10 +408,35 @@ class SearchController extends AbstractController
         if ($collections) {
             $collectionsQueryString = '';
             $virtualCollectionsQueryString = '';
+            // A virtual collection string using a Solr local parameter such as a
+            // {!join} block is kept aside and emitted verbatim (see below).
+            $joinedCollectionQueryString = '';
             foreach ($collections as $collectionEntry) {
                 // check for virtual collections query string
                 /** @var Collection $collectionEntry */
                 if ($collectionEntry->getIndexSearch()) {
+                    if (str_contains($collectionEntry->getIndexSearch(), '{!join')) {
+                        // A Solr local parameter such as a {!join} block may only appear as the
+                        // leading, unparenthesised token of a clause: wrapping it in
+                        // parentheses, OR-combining it behind another query or combining it
+                        // with a second join makes the whole clause unparseable. A trailing
+                        // "AND toplevel:true AND partof:0" (as used for plain browsing) is
+                        // silently ignored by the join. A join-based collection therefore
+                        // bypasses the generic handling below, unless plain browsing lists
+                        // the root documents which the reference part alone already reaches.
+                        // Only the first join-based collection is honoured.
+                        if (!empty($query)) {
+                            if (empty($joinedCollectionQueryString)) {
+                                $joinedCollectionQueryString = $collectionEntry->getIndexSearch();
+                                continue;
+                            }
+                            continue;
+                        }
+                        $virtualCollectionsQueryString .= empty($virtualCollectionsQueryString)
+                            ? '(' . $this->stripJoinLocalParameters($collectionEntry->getIndexSearch()) . ')'
+                            : ' OR (' . $this->stripJoinLocalParameters($collectionEntry->getIndexSearch()) . ')';
+                        continue;
+                    }
                     $virtualCollectionsQueryString .= empty($virtualCollectionsQueryString) ? '(' . $collectionEntry->getIndexSearch() . ')' : ' OR (' . $collectionEntry->getIndexSearch() . ')';
                 } else {
                     $collectionsQueryString .= empty($collectionsQueryString) ? '"' . $collectionEntry->getIndexName() . '"' : ' OR "' . $collectionEntry->getIndexName() . '"';
@@ -432,10 +457,35 @@ class SearchController extends AbstractController
                 $virtualCollectionsQueryString = '(' . $virtualCollectionsQueryString . ')';
             }
 
-            // combine both querystrings into a single filterquery via OR if both are given, otherwise pass either of those
-            return implode(" OR ", array_filter([$collectionsQueryString, $virtualCollectionsQueryString]));
+            if (empty($joinedCollectionQueryString)) {
+                // combine both query strings into a single filterquery via OR if both are given, otherwise pass either of those
+                return implode(" OR ", array_filter([$collectionsQueryString, $virtualCollectionsQueryString]));
+            }
+
+            // A join-based virtual collection must lead the clause, so it is passed
+            // through unchanged; any regular/virtual collection query is OR-combined
+            // behind it (already parenthesised above, the join cannot be parenthesised).
+            $remainder = implode(" OR ", array_filter([$collectionsQueryString, $virtualCollectionsQueryString]));
+
+            return empty($remainder) ? $joinedCollectionQueryString : $joinedCollectionQueryString . ' OR ' . $remainder;
         }
         return "";
+    }
+
+    /**
+     * Strip leading Solr local parameter blocks (e.g. {!join ...}) including any
+     * leading whitespace, so that only the reference query of a join-based
+     * virtual collection query string remains.
+     *
+     * @access private
+     *
+     * @param string $query the virtual collection query string
+     *
+     * @return string the query string without leading local parameter blocks
+     */
+    private function stripJoinLocalParameters(string $query): string
+    {
+        return trim(preg_replace('/^(\s*\{\![^}]*\})+/', '', $query));
     }
 
     /**
