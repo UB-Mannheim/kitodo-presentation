@@ -124,9 +124,18 @@ class ResultDocument
         $this->type = $record[$fields['type']];
         $this->structurePath = $record[$fields['structure_path']] ?? [];
 
-        if (!empty($highlighting[$this->id])) {
+        if (!empty($highlighting[$this->id][$fields['fulltext']])) {
             $highlightingForRecord = $highlighting[$this->id][$fields['fulltext']];
-            $this->snippetsForRecord = is_array($highlightingForRecord['snippets']) ? $highlightingForRecord['snippets'] : [];
+            if (isset($highlightingForRecord['snippets']) && is_array($highlightingForRecord['snippets'])) {
+                // OCR highlighting format: array of snippet objects with 'text'
+                $this->snippetsForRecord = $highlightingForRecord['snippets'];
+            } else {
+                // Plain Solr highlighting format: flat array of fragments
+                $this->snippetsForRecord = array_map(
+                    static fn (string $fragment): array => ['text' => $fragment],
+                    array_values($highlightingForRecord)
+                );
+            }
         }
 
         $this->parseSnippets();

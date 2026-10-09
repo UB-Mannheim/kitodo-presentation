@@ -853,9 +853,13 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             // while the result set is small enough to be useful.
             $useOcrHighlighting = $fulltextExists === true
                 && $this->shouldUseOcrHighlighting($solr, $parameters);
+            // Even when computing OCR highlight coordinates is too expensive, a
+            // plain highlight (no coordinates) is cheap and keeps a result
+            // snippet available for the list view.
+            $usePlainHighlighting = $fulltextExists === true && !$useOcrHighlighting;
 
-            if ($useOcrHighlighting) {
-                // The highlighting component is required for OCR highlighting
+            if ($useOcrHighlighting || $usePlainHighlighting) {
+                // The highlighting component is required for snippet generation
                 $selectQuery->getHighlighting();
             }
 
@@ -875,6 +879,14 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                 $solrRequest->addParam('hl.snippets', '20');
                 // we store the fulltext on page level and can disable this option
                 $solrRequest->addParam('hl.ocr.trackPages', 'off');
+            } elseif ($usePlainHighlighting) {
+                $solrRequest->addParam('hl', 'on');
+                $solrRequest->addParam('hl.fl', 'fulltext');
+                $solrRequest->addParam('hl.snippets', '1');
+                $solrRequest->addParam('hl.fragsize', '150');
+                // Stop analyzing terms past this offset (default: unlimited)
+                $solrRequest->addParam('hl.maxAnalyzedOffset', '20000');
+                $solrRequest->addParam('hl.maxTotalChars', (string) 5000);
             }
 
             // Perform search for all documents with the same uid that either fit to the search or marked as toplevel.
@@ -891,9 +903,11 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             $resultSet['numberOfToplevels'] = $uidGroup->getNumberOfGroups();
             $resultSet['numFound'] = $uidGroup->getMatches();
             $highlighting = [];
-            if ($useOcrHighlighting) {
+            if ($useOcrHighlighting || $usePlainHighlighting) {
                 $data = $result->getData();
-                $highlighting = $data['ocrHighlighting'] ?? [];
+                $highlighting = $useOcrHighlighting
+                    ? ($data['ocrHighlighting'] ?? [])
+                    : ($data['highlighting'] ?? []);
             }
             $fields = Solr::getFields();
 
