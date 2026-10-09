@@ -504,7 +504,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         $params['listMetadataRecords'] = [];
 
         // Restrict the fields to the required ones.
-        $params['fields'] = 'uid,id,page,title,thumbnail,partof,toplevel,type,structure_path';
+        // collection (plain stored field) is requested additionally so the hit document
+        // can display the collection without the listed-metadata mechanism / reindexing.
+        $params['fields'] = 'uid,id,page,title,thumbnail,partof,toplevel,type,structure_path,collection';
 
         if ($this->listedMetadata) {
             foreach ($this->listedMetadata as $metadata) {
@@ -572,6 +574,17 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                     }
 
                     $this->translateLanguageCode($doc);
+
+                    // Carry over the collection(s) of the row to the hit document.
+                    // In a fulltext search each group only contains page rows
+                    // (toplevel false), so this cannot rely on the toplevel branch.
+                    if (
+                        empty($documents[$doc['uid']]['collection'])
+                        && !empty($doc['collection'])
+                    ) {
+                        $documents[$doc['uid']]['collection'] = $doc['collection'];
+                    }
+
                     if ($doc['toplevel'] === false) {
                         // this maybe a chapter, article, ..., year
                         if ($doc['type'] === 'year') {
@@ -1186,6 +1199,12 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
             'uid' => !empty($resultDocument->getUid()) ? $resultDocument->getUid() : $parameters['uid'],
             'highlight' => $resultDocument->getHighlightsIds(),
         ];
+
+        // Carry over the plain stored collection(s) of the row (requested in
+        // prepare()) so the hit document can display them without reindexing.
+        if (!empty($record['collection'])) {
+            $document['collection'] = $record['collection'];
+        }
 
         foreach ($parameters['listMetadataRecords'] as $indexName => $solrField) {
             if (!empty($record->$solrField)) {
