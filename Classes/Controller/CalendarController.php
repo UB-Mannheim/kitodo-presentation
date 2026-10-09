@@ -333,10 +333,15 @@ class CalendarController extends AbstractController
     {
         $dayLinksText = [];
         foreach ($day as $issue) {
-            if ($this->getLocale()?->getLanguageCode() === 'de') {
-                $dayLinkLabel = empty($issue['title']) ? $this->getLocalizedDateString('%d.%m.%Y', $currentDayTime) : $issue['title'];
+            $rawTitle = (string) $issue['title'];
+            if ($rawTitle === '') {
+                if ($this->getLocale()?->getLanguageCode() === 'de') {
+                    $dayLinkLabel = $this->getLocalizedDateString('%d.%m.%Y', $currentDayTime);
+                } else {
+                    $dayLinkLabel = $this->getLocalizedDateString('%Y-%m-%d', $currentDayTime);
+                }
             } else {
-                $dayLinkLabel = empty($issue['title']) ? $this->getLocalizedDateString('%Y-%m-%d', $currentDayTime) : $issue['title'];
+                $dayLinkLabel = $this->formatCalendarTitle($rawTitle);
             }
 
             $dayLinksText[] = [
@@ -541,10 +546,40 @@ class CalendarController extends AbstractController
             }
             yield [
                 'uid' => $document->getUid(),
-                'title' => $title,
+                'title' => $this->withCalendarSuffix($title, $document),
                 'year' => $document->getYear()
             ];
         }
+    }
+
+    /**
+     * Append a distinguishing suffix to a bare date title.
+     *
+     * When a day has more than one issue (e.g. a regular issue and a
+     * Sonderblatt), both usually carry the plain date as their title, so
+     * the calendar would show the identical date twice. Kitodo encodes such
+     * an extra issue as a trailing token in the record identifier
+     * (e.g. "..._19390921" and "..._19390921_sond"). That token is used to
+     * make the calendar entries distinguishable.
+     *
+     * @access public
+     *
+     * @param string $title raw date title (e.g. "21.09.1939")
+     * @param Document $document issue document, used to read the record identifier
+     *
+     * @return string
+     */
+    public function withCalendarSuffix(string $title, Document $document): string
+    {
+        $suffix = '';
+        if (preg_match('/_([A-Za-z]+)$/', (string) $document->getRecordId(), $matches) === 1) {
+            $suffix = $matches[1];
+        }
+        // Only append when the title is a plain date without its own suffix.
+        if ($suffix !== '' && strpos($title, '_') === false && strtotime($title) !== false) {
+            return $title . '_' . $suffix;
+        }
+        return $title;
     }
 
     /**
@@ -566,6 +601,43 @@ class CalendarController extends AbstractController
         $normalized = preg_replace('/[\p{P}\p{S}]\s*$/u', '', $localized);
 
         return $normalized !== null ? $normalized : $localized;
+    }
+
+    /**
+     * Human readable labels for the trailing tokens used to mark special
+     * issues of a day (usually a "Sonderblatt") in the record identifier.
+     *
+     * @var array<string, string>
+     */
+    private const CALENDAR_SUFFIX_LABELS = [
+        'sond' => 'Sonderblatt',
+    ];
+
+    /**
+     * Format an issue label/orderlabel for the calendar view.
+     *
+     * A bare date (e.g. "21.09.1939") is rendered in the localized date
+     * format. When a suffix is attached to the date (e.g. "21.09.1939_sond")
+     * it is rendered after the date, so that several issues of the same day
+     * stay distinguishable in the calendar.
+     *
+     * @access public
+     *
+     * @param string $title raw label or orderlabel of the issue
+     *
+     * @return string
+     */
+    public function formatCalendarTitle(string $title): string
+    {
+        if (preg_match('/^(\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\.\d{1,2}\.\d{4})[ \t_-]+(.+)$/', $title, $matches) === 1) {
+            $date = strtotime($matches[1]);
+            if ($date !== false) {
+                $suffix = trim($matches[2], " \t_-");
+                return $this->getLocalizedDateString('%x', $date) . ' ' . (self::CALENDAR_SUFFIX_LABELS[strtolower($suffix)] ?? $suffix);
+            }
+        }
+        $date = strtotime($title);
+        return $date !== false ? $this->getLocalizedDateString('%x', $date) : $title;
     }
 
     /**
