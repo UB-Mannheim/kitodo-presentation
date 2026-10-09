@@ -607,7 +607,11 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                 }
                                 $structurePathStrings[] = implode(' → ', $structurePathLabels);
                             }
-                            $searchResult['structure_path'] = $structurePathStrings;
+                            $structurePathStrings = array_unique(array_filter(
+                                array_map('trim', $structurePathStrings),
+                                static fn (string $path): bool => $path !== ''
+                            ));
+                            $searchResult['structure_path'] = array_values($structurePathStrings);
                             $searchResult['title'] = $doc['title'];
                             foreach ($params['listMetadataRecords'] as $indexName => $solrField) {
                                 if (isset($doc['metadata'][$indexName])) {
