@@ -883,10 +883,10 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                 $solrRequest->addParam('hl', 'on');
                 $solrRequest->addParam('hl.fl', 'fulltext');
                 $solrRequest->addParam('hl.snippets', '1');
-                $solrRequest->addParam('hl.fragsize', '150');
+                $solrRequest->addParam('hl.fragsize', '350');
                 // Stop analyzing terms past this offset (default: unlimited)
                 $solrRequest->addParam('hl.maxAnalyzedOffset', '20000');
-                $solrRequest->addParam('hl.maxTotalChars', (string) 5000);
+                $solrRequest->addParam('hl.maxTotalChars', (string) 8000);
             }
 
             // Perform search for all documents with the same uid that either fit to the search or marked as toplevel.

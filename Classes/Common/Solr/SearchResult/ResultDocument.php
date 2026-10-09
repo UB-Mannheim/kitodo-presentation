@@ -316,7 +316,34 @@ class ResultDocument
     {
         $snippetArray = $this->getArrayByIndex('text');
 
+        foreach ($snippetArray as $key => $snippet) {
+            $snippetArray[$key] = self::cleanSnippet((string) $snippet);
+        }
+
         $this->snippets = !empty($snippetArray) ? implode(' [...] ', $snippetArray) : '';
+    }
+
+    /**
+     * Reduce a raw OCR highlight fragment to displayable text.
+     * Solr's OCR highlighter returns fragments full of `<l>`/`<w x="..">` markup;
+     * everything except the `<em>` search-term marker is stripped.
+     *
+     * @access private
+     *
+     * @param string $snippet Raw OCR highlight fragment
+     *
+     * @return string Clean snippet with the search term in <em>…</em>
+     */
+    private static function cleanSnippet(string $snippet): string
+    {
+        // Drop any markup other than the <em> search-term marker (OCR word/line boxes, spans, ...).
+        $snippet = preg_replace('/<\/?(?!em\b|\/em\b)[a-zA-Z][^>]*\/?>/i', '', $snippet) ?? '';
+        // Decode numeric / named entities that Solr escaped (e.g. &#xFC;, &#x17F;, &shy;).
+        $snippet = html_entity_decode($snippet, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        // Unify soft hyphens / nbsp and normalise whitespace / newlines.
+        $snippet = str_replace(["\xC2\xA0", "\u{ADC}"], ' ', $snippet);
+        $snippet = preg_replace('/\s+/', ' ', $snippet) ?? '';
+        return trim($snippet);
     }
 
     /**
