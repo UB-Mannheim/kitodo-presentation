@@ -504,7 +504,9 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
         $params['listMetadataRecords'] = [];
 
         // Restrict the fields to the required ones.
-        $params['fields'] = 'uid,id,page,title,thumbnail,partof,toplevel,type,structure_path';
+        // collection (plain stored field) is requested additionally so the hit document
+        // can display the collection without the listed-metadata mechanism / reindexing.
+        $params['fields'] = 'uid,id,page,title,thumbnail,partof,toplevel,type,structure_path,collection';
 
         if ($this->listedMetadata) {
             foreach ($this->listedMetadata as $metadata) {
@@ -642,6 +644,12 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                             if (isset($doc['metadata'][$indexName])) {
                                 $documents[$doc['uid']]['metadata'][$indexName] = $doc['metadata'][$indexName];
                             }
+                        }
+                        // Provide the collection(s) of the hit document itself (plain stored
+                        // Solr field) so the template can show them on the document, not on
+                        // the individual search result pages.
+                        if (!empty($doc['collection'])) {
+                            $documents[$doc['uid']]['collection'] = $doc['collection'];
                         }
                         if (!array_key_exists('fulltext', $this->searchParams) || $this->searchParams['fulltext'] != '1') {
                             $documents[$doc['uid']]['page'] = 1;
