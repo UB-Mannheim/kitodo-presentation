@@ -55,7 +55,7 @@
   "dependencies": {
     "abortcontroller-polyfill": "^1.7.5",
     "events": "^3.3.0",
-    "intl-messageformat": "^10.5.14",
+    "intl-messageformat": "^12.1.2",
     "jquery": "^3.7.1",
     "peaks.js": "^3.4.0",
     "piexifjs": "^1.0.6",
