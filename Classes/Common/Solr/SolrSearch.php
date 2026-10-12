@@ -567,6 +567,12 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                     $documents[$doc['uid']] = $allDocuments[$doc['uid']];
                 }
                 if (isset($documents[$doc['uid']])) {
+                    // Remember the own title of this row (usually empty for "page" rows).
+                    // It is used for the search results below, because the block below
+                    // may replace $doc['title'] with the inherited parent title, which
+                    // must only be displayed on the hit document, not on every page row.
+                    $rowTitle = $doc['title'] ?? '';
+
                     // get title of parent/grandparent/... if empty
                     if (empty($documents[$doc['uid']]['title']) && $documents[$doc['uid']]['partOf'] > 0) {
                         $doc['title'] = $this->getTitleFromPartOf($documents[$doc['uid']]['partOf']);
@@ -625,7 +631,7 @@ class SolrSearch implements \Countable, \Iterator, \ArrayAccess, QueryResultInte
                                 static fn (string $path): bool => $path !== ''
                             ));
                             $searchResult['structure_path'] = array_values($structurePathStrings);
-                            $searchResult['title'] = $doc['title'];
+                            $searchResult['title'] = $rowTitle;
                             foreach ($params['listMetadataRecords'] as $indexName => $solrField) {
                                 if (isset($doc['metadata'][$indexName])) {
                                     $searchResult['metadata'][$indexName] = $doc['metadata'][$indexName];
