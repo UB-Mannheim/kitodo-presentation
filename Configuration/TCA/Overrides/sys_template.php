@@ -31,3 +31,9 @@ if (!defined('TYPO3')) {
     'Configuration/TypoScript/Plugins/OaiPmh/',
     'OAI-PMH Plugin Configuration'
 );
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+    'dlf',
+    'Configuration/TypoScript/Plugins/Sru/',
+    'SRU Plugin Configuration'
+);

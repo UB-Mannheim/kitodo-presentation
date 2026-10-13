@@ -494,6 +494,18 @@
                 <source><![CDATA[Kitodo: OAI-PMH Interface]]></source>
                 <target><![CDATA[Kitodo: OAI-PMH-Schnittstelle]]></target>
             </trans-unit>
+            <trans-unit id="sru.flexForm.maximumRecords" approved="yes">
+                <source><![CDATA[Maximum records per response]]></source>
+                <target><![CDATA[Maximale Anzahl Datensätze pro Antwort]]></target>
+            </trans-unit>
+            <trans-unit id="sru.plugin.description" approved="yes">
+                <source><![CDATA[SRU Interface Plugin for Kitodo.Presentation]]></source>
+                <target><![CDATA[SRU-Schnittstelle Plugin für Kitodo.Presentation]]></target>
+            </trans-unit>
+            <trans-unit id="sru.plugin.title" approved="yes">
+                <source><![CDATA[Kitodo: SRU Interface]]></source>
+                <target><![CDATA[Kitodo: SRU-Schnittstelle]]></target>
+            </trans-unit>
             <trans-unit id="pageGrid.flexForm.limit" approved="yes">
                 <source><![CDATA[Thumbnails per page]]></source>
                 <target><![CDATA[Vorschaubilder pro Seite]]></target>

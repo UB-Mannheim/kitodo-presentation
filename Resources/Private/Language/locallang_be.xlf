@@ -374,6 +374,15 @@
             <trans-unit id="oaiPmh.plugin.title">
                 <source><![CDATA[Kitodo: OAI-PMH Interface]]></source>
             </trans-unit>
+            <trans-unit id="sru.flexForm.maximumRecords">
+                <source><![CDATA[Maximum records per response]]></source>
+            </trans-unit>
+            <trans-unit id="sru.plugin.description">
+                <source><![CDATA[SRU Interface Plugin for Kitodo.Presentation]]></source>
+            </trans-unit>
+            <trans-unit id="sru.plugin.title">
+                <source><![CDATA[Kitodo: SRU Interface]]></source>
+            </trans-unit>
             <trans-unit id="pageGrid.flexForm.limit">
                 <source><![CDATA[Thumbnails per page]]></source>
             </trans-unit>

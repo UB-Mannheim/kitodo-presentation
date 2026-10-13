@@ -227,6 +227,24 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$plugin] = $a
     $iconsDirectory . 'tx-dlf-oaipmh.svg'
 );
 
+// Plugin "sru".
+$plugin = 'dlf_sru';
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist'][$plugin] = $excludeList;
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$plugin] = $addList;
+
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    $plugin,
+    $flexFormsPathPrefix . 'Sru.xml'
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    'Dlf',
+    'Sru',
+    $langFile . 'sru' . $title,
+    $iconsDirectory . 'tx-dlf-sru.svg'
+);
+
 // Plugin "pagegrid".
 $plugin = 'dlf_pagegrid';
 

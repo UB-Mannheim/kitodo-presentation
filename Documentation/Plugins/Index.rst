@@ -1189,6 +1189,169 @@ FlexForm Configuration
       `t3tsref:data-type-page-id`
    :Default:
 
+.. _sru:
+
+SRU Interface
+-------------
+
+The SRU plugin serves an SRU 1.2 ``searchRetrieve`` endpoint in the
+``dfg-viewer/page`` record schema. It allows a
+`DFG-Viewer <https://dfg-viewer.de/>`__ installation to search the fulltext
+of this repository's Solr index and to deep-link into the Page View with the
+search hits highlighted. Each record describes one hit physical page: the
+page number, the URL of the parent METS document, the image width/height of
+the page (taken from the OCR data, omitted if the page has no fulltext) and
+one ``fulltexthit`` per matched OCR hit with absolute coordinates, a
+thumbnail preview and a snippet.
+
+The whole configured Solr core is searched, so the core must be indexed with
+OCR fulltext (see the ``solr-ocrhighlighting`` requirement). The plugin has
+to be placed on a page of its own: its static TypoScript template switches
+the page rendering to raw XML output.
+
+Activating the Plugin
+^^^^^^^^^^^^^^^^^^^^^
+
+The following steps are necessary to activate the plugin:
+
+a. Create a new page "SRU" with a free slug (e.g. ``sru``).
+b. Create a TypoScript extension template on this page and include the template "SRU Plugin Configuration".
+c. Place the "Kitodo: SRU Interface" plugin on the page and select the Solr core to be searched.
+
+A DFG-Viewer instance then points its SRU client at the URL of this page.
+The client requests ``searchRetrieve`` results, for example::
+
+    https://example.org/sru/?operation=searchRetrieve&version=1.2&startRecord=1&maximumRecords=10&recordSchema=dfg-viewer/page&query=freiburg
+
+For every hit page, the DFG-Viewer client builds a deep link with the
+standard Kitodo.Presentation request parameters: the page's METS URL
+(``tx_dlf[id]``), the page number (``tx_dlf[page]``), the highlight boxes
+(``tx_dlf[highlight]``) and the page image dimensions (``tx_dlf[origimage]``),
+so that the viewer opens the hit page with the matches marked.
+
+FlexForm Configuration
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :Property:
+      Property
+   :Data Type:
+      Data type
+   :Default:
+      Default
+   :Description:
+      Description
+
+ - :Property:
+      solrcore
+   :Data Type:
+      :ref:`t3tsref:data-type-integer`
+   :Default:
+      (the extension's main Solr core)
+   :Description:
+      The Solr core to search. If empty, the main Solr core from the
+      extension configuration is used.
+
+ - :Property:
+      maximumRecords
+   :Data Type:
+      :ref:`t3tsref:data-type-integer`
+   :Default:
+      10
+   :Description:
+      Default number of records per response. The client's
+      ``maximumRecords`` request parameter overrides this value; the number
+      of records is capped at 100.
+
+Request Parameters
+^^^^^^^^^^^^^^^^^^
+
+.. t3-field-list-table::
+ :header-rows: 1
+
+ - :Property:
+      Parameter
+   :Description:
+      Description
+
+ - :Property:
+      operation
+   :Description:
+      Must be ``searchRetrieve``. Any other value results in a valid
+      response with an empty record list.
+
+ - :Property:
+      query
+   :Description:
+      The search phrase for the indexed fulltext. An empty query results in
+      an empty record list.
+
+ - :Property:
+      recordSchema
+   :Description:
+      Must be ``dfg-viewer/page``. Any other value results in an empty
+      record list.
+
+ - :Property:
+      startRecord
+   :Description:
+      One-based number of the first record to return (default 1).
+
+ - :Property:
+      maximumRecords
+   :Description:
+      Maximum number of records to return (default: the ``maximumRecords``
+      FlexForm setting, i.e. 10). The value is capped at 100.
+
+ - :Property:
+      version
+   :Description:
+      Accepted for compatibility (the DFG-Viewer client sends 1.2); not
+      evaluated.
+
+Record Format
+^^^^^^^^^^^^^
+
+The response is an SRU 1.2 ``searchRetrieveResponse``. Each record contains
+a ``page`` element (namespace ``http://dfg-viewer.de/``) with the attributes
+``id`` (the page number), and ``width``/``height`` (the page image
+dimensions in the coordinate frame of the highlight boxes, omitted if the
+page has no OCR data). Its children are a ``parent`` element with the
+``url`` attribute (the METS document of the hit page, used for the deep
+link) and one ``fulltexthit`` element per OCR hit with the attributes
+``x1``, ``y1``, ``x2``, ``y2`` (absolute image coordinates) and ``preview``
+(a page thumbnail). A ``fulltexthit`` contains a ``span`` element with a
+snippet of the matched text. Example::
+
+    <srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/" version="1.2">
+      <srw:version>1.2</srw:version>
+      <srw:numberOfRecords>1</srw:numberOfRecords>
+      <srw:records>
+        <srw:record>
+          <srw:recordSchema>dfg-viewer/page</srw:recordSchema>
+          <srw:recordPacking>xml</srw:recordPacking>
+          <srw:recordData>
+            <page xmlns="http://dfg-viewer.de/" id="3" width="2481" height="3508">
+              <parent url="https://example.org/mets/bestandsdaten/mets.xml"/>
+              <fulltexthit x1="139" y1="141" x2="230" y2="157" preview="https://example.org/iiif/.../full.jpg">
+                <span>some context <span class="highlight">Freiburg</span> more context</span>
+              </fulltexthit>
+            </page>
+          </srw:recordData>
+        </srw:record>
+      </srw:records>
+    </srw:searchRetrieveResponse>
+
+.. note::
+
+    The response is intentionally emitted with the literal ``srw:`` prefix
+    (``<srw:searchRetrieveResponse xmlns:srw="http://www.loc.gov/zing/srw/">``)
+    rather than in the standard default namespace, because the DFG-Viewer
+    client resolves the response with an XPath query that does not register
+    the prefix.
+
 Statistics
 ----------
 

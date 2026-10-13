@@ -572,6 +572,10 @@ abstract class AbstractController extends ActionController implements LoggerAwar
             $this->setDefaultIntSetting('solrLimit', 50000);
         }
 
+        if ($this instanceof SruController) {
+            $this->setDefaultIntSetting('maximumRecords', 10);
+        }
+
         if ($this instanceof PageViewController) {
             $this->setDefaultIntSetting('useInternalProxy', 0);
         }

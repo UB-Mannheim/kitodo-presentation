@@ -279,6 +279,18 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][] = [
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'Dlf',
+    'Sru',
+    [
+        \Kitodo\Dlf\Controller\SruController::class => 'main',
+    ],
+    // non-cacheable actions
+    [
+        \Kitodo\Dlf\Controller\SruController::class => 'main',
+    ]
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'Dlf',
     'ListView',
     [
         \Kitodo\Dlf\Controller\ListViewController::class => 'main',
