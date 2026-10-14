@@ -60,7 +60,7 @@
     "peaks.js": "^3.4.0",
     "piexifjs": "^1.0.6",
     "qrcode": "^1.5.3",
-    "shaka-player": "~4.15.37",
+    "shaka-player": "~5.2.11",
     "tslib": "^2.6.3",
     "waveform-data": "^4.5.0"
   },
