@@ -15,10 +15,45 @@ This local checkout is a UB Mannheim fork. Remotes: `kitodo` (upstream
 github.com/kitodo/kitodo-presentation), `origin` (stweil's fork), `UB-Mannheim`
 and `code` (code.bib.uni-mannheim.de:digi/typo3.git). Upstream `main` is being
 adapted for TYPO3 14; many local branches (incl. current `ubma/*` ones) target
-TYPO3 12.4. Commit subjects use bracketed scope prefixes `[BUGFIX]` /
+ TYPO3 12.4. Commit subjects use bracketed scope prefixes `[BUGFIX]` /
 `[FEATURE]` / `[TASK]` / `[MAINTENANCE]` (matching upstream `kitodo/main` and
 the local `ubma/*` branches; the `origin/main` branch alone uses the colon
 form `BUGFIX: ...`).
+
+## OpenCode Commit-Attribution
+
+Every commit carries `Signed-off-by`. Commits made by OpenCode additionally
+carry an `Assisted-by` trailer in the form
+
+    Assisted-by: <ModelName> <Version> (<Vendor>)
+
+e.g.
+
+    Assisted-by: GPT-5.4 (OpenAI)
+    Assisted-by: Sonnet 4.6 (Anthropic)
+    Assisted-by: Qwen 3.8-27B-Thinking (Alibaba)
+    Signed-off-by: Bernd Fallert <bernd.fallert@uni-mannheim.de>
+
+Both trailers are added by the `prepare-commit-msg` hook:
+- `Signed-off-by` on **every** commit.
+- `Assisted-by` only when OpenCode sets the env var before committing.
+  `OPENCODE_MODEL` holds the full `<ModelName> <Version> (<Vendor>)` string.
+  The current model (provider `maki`) is `Qwen 3.8-27B-Thinking (Alibaba)`.
+  If the model is being used as an Orchestrator (farming out to sub-agents),
+  only declare the Orchestrator's model name and version.
+
+(Note: `git config format.signoff` only affects `git format-patch`, not
+`git commit` — the hook is the single source for both trailers.)
+
+So OpenCode, before `git commit`, set the variable (full model string):
+
+    OPENCODE_MODEL="Qwen 3.8-27B-Thinking (Alibaba)" git commit -m "[BUGFIX] ..."
+
+Do **not** write the trailers into the message by hand — the hook adds them.
+A manually-run `git commit` (without `OPENCODE_MODEL`) still gets
+`Signed-off-by`, but no `Assisted-by`.
+The hook must be installed in this repo; the main repo's
+`scripts/install-git-hooks.sh` does that for all submodules.
 
 ## Running the extension locally
 
