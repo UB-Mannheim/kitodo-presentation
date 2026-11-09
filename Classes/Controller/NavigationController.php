@@ -39,21 +39,29 @@ class NavigationController extends AbstractController
     public function pageSelectAction(?PageSelectForm $pageSelectForm = null): ResponseInterface
     {
         if ($pageSelectForm) {
-            $uri = $this->uriBuilder->reset()
-                ->setArguments(
-                    [
-                        'tx_dlf' => [
-                            'id' => $pageSelectForm->getId(),
-                            'page' => $pageSelectForm->getPage(),
-                            'double' => $pageSelectForm->getDouble()
-                        ]
-                    ]
-                )
-                ->uriFor('main');
-            return $this->redirectToUri($uri);
+            $txDlf = [
+                'id' => $pageSelectForm->getId(),
+                'page' => $pageSelectForm->getPage(),
+                'double' => $pageSelectForm->getDouble()
+            ];
+        } else {
+            // The PRG (post-redirect-get) round-trip re-issues the pageSelect
+            // request as a plain GET without form data (e.g. mobile browsers
+            // following the 303). Rebuild the document parameters from the
+            // route-decoded request data so the main view keeps the current
+            // document instead of resolving a (nonexistent) PageSelect template.
+            $txDlf = [
+                'page' => $this->requestData['page'],
+                'double' => $this->requestData['double'] ?? 0
+            ];
+            if (!empty($this->requestData['id'])) {
+                $txDlf['id'] = $this->requestData['id'];
+            }
         }
-
-        return $this->htmlResponse();
+        $uri = $this->uriBuilder->reset()
+            ->setArguments(['tx_dlf' => $txDlf])
+            ->uriFor('main');
+        return $this->redirectToUri($uri);
     }
 
     /**

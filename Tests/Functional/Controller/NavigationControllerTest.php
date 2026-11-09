@@ -85,6 +85,25 @@ class NavigationControllerTest extends AbstractControllerTestCase
     }
 
     #[Test]
+    public function canPageSelectActionWithoutForm()
+    {
+        $settings = [
+            'storagePid' => self::$storagePid,
+            'solrcore' => self::$solrCoreId,
+        ];
+
+        // The PRG (post-redirect-get) round-trip re-issues the pageSelect request
+        // as a plain GET without form data (e.g. mobile browsers following the
+        // 303). It must redirect to the main view, not resolve a template.
+        $controller = $this->setUpController(NavigationController::class, $settings, '');
+        $request = $this->setUpRequest('pageSelect', []);
+        $request = $request->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE);
+
+        $response = $controller->processRequest($request);
+        $this->assertEquals(303, $response->getStatusCode());
+    }
+
+    #[Test]
     public function canMapPageSelectFormWithUrlId()
     {
         $documentUrl = 'http://127.0.0.1:8093/sample_mets.xml';
