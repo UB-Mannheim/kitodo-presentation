@@ -376,7 +376,52 @@ class SearchController extends AbstractController
             }
         }
 
-        return $this->processResults($facet, $facetCollectionArray, $search);
+        // On a plain browse (no search term) the collection facet counts Solr
+        // rows, but non-top-level structure elements (section, index, ...)
+        // inherit the top-level collection value during indexing, so each
+        // medium is counted once per subordinate element. Fetch the
+        // top-level-only counts for the collection facet in a separate rows=0
+        // request and override those counts; all other facets keep their
+        // row-based counts so subordinate structure types remain listed.
+        $collectionToplevelCounts = null;
+        if (
+            isset($search['params']['component']['facetset']['facet']['collection_faceting'])
+            && !array_key_exists('fulltext', $searchParams)
+            && empty($searchParams['extQuery'])
+            && in_array($search['query'], ['', '*', '*:*'], true)
+        ) {
+            $extra = $search['params'];
+            $extra['component']['facetset']['facet'] = [
+                'collection_faceting' => [
+                    'type' => 'field',
+                    'mincount' => '1',
+                    'key' => 'collection_faceting',
+                    'field' => 'collection_faceting',
+                    'limit' => $this->settings['limitFacets'] ?? 15,
+                    'sort' => $this->settings['sortingFacets'] ?? 'count'
+                ]
+            ];
+            $extra['filterquery'][]['query'] = 'toplevel:true AND partof:0';
+            try {
+                $extraSelect = $solr->service->createSelect($extra);
+                $extraRequest = $solr->service->createRequest($extraSelect);
+                $extraResponse = $solr->service->executeRequest($extraRequest);
+                if ($extraResponse->getStatusCode() == 200) {
+                    foreach ($solr->service->select($extraSelect)->getFacetSet() as $extraField => $extraValue) {
+                        if ($extraField === 'collection_faceting') {
+                            foreach ($extraValue as $extraKey => $extraCount) {
+                                $collectionToplevelCounts[$extraKey] = $extraCount;
+                            }
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                $this->logger->warning('Could not count top-level collection facet values: ' . $e->getMessage());
+                $collectionToplevelCounts = null;
+            }
+        }
+
+        return $this->processResults($facet, $facetCollectionArray, $search, $collectionToplevelCounts);
     }
 
     /**
@@ -540,10 +585,11 @@ class SearchController extends AbstractController
      * @param FacetSet|null $facet
      * @param mixed[] $facetCollectionArray
      * @param mixed[] $search
+     * @param array<string,int>|null $collectionToplevelCounts top-level counts for the collection facet, if applicable
      *
      * @return array<int, mixed[]> menu array
      */
-    private function processResults(?FacetSet $facet, array $facetCollectionArray, array $search): array
+    private function processResults(?FacetSet $facet, array $facetCollectionArray, array $search, ?array $collectionToplevelCounts = null): array
     {
         $menuArray = [];
 
@@ -557,6 +603,10 @@ class SearchController extends AbstractController
                 // Count number of facet values.
                 $i = 0;
                 foreach ($values as $value => $count) {
+                    // Use the top-level-only counts for the collection facet, if applicable.
+                    if ($collectionToplevelCounts !== null && $field === 'collection_faceting') {
+                        $count = $collectionToplevelCounts[$value] ?? 0;
+                    }
                     if ($count > 0) {
                         // check if facet collection configuration exists
                         if (!empty($this->settings['facetCollections'])) {
