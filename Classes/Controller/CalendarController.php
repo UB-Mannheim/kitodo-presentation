@@ -332,12 +332,17 @@ class CalendarController extends AbstractController
     private function getDayLinksText(array $day, int $currentDayTime): array
     {
         $dayLinksText = [];
+        $ambiguous = count($day) > 1;
         foreach ($day as $issue) {
-            if ($this->getLocale()?->getLanguageCode() === 'de') {
-                $dayLinkLabel = empty($issue['title']) ? $this->getLocalizedDateString('%d.%m.%Y', $currentDayTime) : $issue['title'];
-            } else {
-                $dayLinkLabel = empty($issue['title']) ? $this->getLocalizedDateString('%Y-%m-%d', $currentDayTime) : $issue['title'];
+            $rawTitle = (string) $issue['title'];
+            if ($rawTitle === '') {
+                $rawTitle = $this->getLocalizedDateString($this->getDatePattern(), $currentDayTime);
             }
+            $dayLinkLabel = $this->withCalendarVolume(
+                $this->formatCalendarTitle($rawTitle),
+                (string) ($issue['volume'] ?? ''),
+                $ambiguous
+            );
 
             $dayLinksText[] = [
                 'documentId' => $issue['uid'],
@@ -511,6 +516,7 @@ class CalendarController extends AbstractController
                             yield [
                                 'uid' => $issue['points'] ?? null,
                                 'title' => $this->getTitle($issue['label'], $issue['orderlabel']),
+                                'volume' => '',
                                 'year' => $day['orderlabel'],
                             ];
                         }
@@ -542,9 +548,38 @@ class CalendarController extends AbstractController
             yield [
                 'uid' => $document->getUid(),
                 'title' => $title,
+                'volume' => $document->getVolume(),
                 'year' => $document->getYear()
             ];
         }
+    }
+
+    /**
+     * Append the volume (issue number) to a bare date title.
+     *
+     * When a day has more than one issue (e.g. a regular issue and a
+     * Sonderblatt), both usually carry the plain date as their title, so
+     * the calendar would show the identical date twice. The issue number,
+     * read from the METS part detail (mods:part/mods:detail/mods:number)
+     * and stored on the volume field, is used to make the calendar entries
+     * distinguishable.
+     *
+     * @access public
+     *
+     * @param string $title raw date title (e.g. "21.09.1939")
+     * @param string $volume issue number of the document (e.g. "Nr. 221")
+     * @param bool $ambiguous whether the day has more than one issue
+     *
+     * @return string
+     */
+    public function withCalendarVolume(string $title, string $volume, bool $ambiguous): string
+    {
+        // Only append on ambiguous days when there is a volume and the title
+        // does not already contain it.
+        if ($ambiguous && $volume !== '' && $title !== '' && str_contains($title, $volume) === false) {
+            return $title . ' ' . $volume;
+        }
+        return $title;
     }
 
     /**
@@ -569,6 +604,35 @@ class CalendarController extends AbstractController
     }
 
     /**
+     * Format an issue label/orderlabel for the calendar view.
+     *
+     * A date (e.g. "21.09.1939" or "1939-09-21") is rendered in the
+     * localized date format, keeping any appended text (e.g. an issue
+     * number) as-is. Non-date titles are returned unchanged.
+     *
+     * @access public
+     *
+     * @param string $title raw label or orderlabel of the issue
+     *
+     * @return string
+     */
+    public function formatCalendarTitle(string $title): string
+    {
+        if (preg_match('/^(\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\.\d{1,2}\.\d{4})([ \t_-]+(.+))?$/', $title, $matches) === 1) {
+            $date = strtotime($matches[1]);
+            if ($date !== false) {
+                $localized = $this->getLocalizedDateString($this->getDatePattern(), $date);
+                if (isset($matches[3])) {
+                    return $localized . ' ' . trim($matches[3], " \t_-");
+                }
+                return $localized;
+            }
+        }
+        $date = strtotime($title);
+        return $date !== false ? $this->getLocalizedDateString($this->getDatePattern(), $date) : $title;
+    }
+
+    /**
      * Get title from label or orderlabel, format date if applicable.
      *
      * @access private
@@ -583,7 +647,8 @@ class CalendarController extends AbstractController
         $title = $label ?: $orderLabel;
         $date = strtotime($title);
         if ($date !== false) {
-            $title = $this->getLocalizedDateString('%x', $date);
+            // UB Mannheim Year YYYY [=> %Y] (not YY [=> %x])
+            $title = $this->getLocalizedDateString('%Y', $date);
         }
         return $title;
     }
@@ -597,10 +662,29 @@ class CalendarController extends AbstractController
      */
     private function getLocale(): ?Locale
     {
+        if (!isset($this->request)) {
+            return null;
+        }
         $attributes = $this->request->getAttributes();
         if (isset($attributes['language'])) {
             return $attributes['language']->getLocale() ?? null;
         }
         return null;
+    }
+
+    /**
+     * Date format for issue titles and empty day titles.
+     *
+     * Four-digit year with a locale dependent date pattern (dd.mm.yyyy for
+     * German, yyyy-mm-dd otherwise), so dates render e.g. "19.04.1888"
+     * instead of the two-digit-year "19.04.88".
+     *
+     * @access private
+     *
+     * @return string Strftime format
+     */
+    private function getDatePattern(): string
+    {
+        return $this->getLocale()?->getLanguageCode() === 'de' ? '%d.%m.%Y' : '%Y-%m-%d';
     }
 }
