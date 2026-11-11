@@ -499,18 +499,244 @@ The command `kitodo:delete` is used for deleting a single document::
    :Example:
        123 or 'dlfCore1'
 
- - :Option:
-       ``--softCommit``
-   :Required:
-       no
-   :Description:
-       The deletion from the index is done by a soft commit instead of a
-       hard commit, which is faster but the change is visible to searches
-       only after a later hard commit or index optimization.
-   :Example:
+  - :Option:
+        ``--softCommit``
+    :Required:
+        no
+    :Description:
+        The deletion from the index is done by a soft commit instead of a
+        hard commit, which is faster but the change is visible to searches
+        only after a later hard commit or index optimization.
+    :Example:
 
-Commit and/or optimize index
--------------------------
+ Hide documents
+ ---------------------
+
+ The command `kitodo:hide` is used for hiding one or more documents. A hidden
+ document keeps its record in `tx_dlf_documents` but is removed from the
+ frontend and from the Solr index, so it no longer shows up in searches.::
+
+     ./vendor/bin/typo3 kitodo:hide -d 123 -p 123 -s dlfCore1
+     ./vendor/bin/typo3 kitodo:hide -d 123,124,125 -p 123 -s dlfCore1 --with-children
+
+
+ .. t3-field-list-table::
+  :header-rows: 1
+
+  - :Option:
+        Option
+    :Required:
+        Required
+    :Description:
+        Description
+    :Example:
+        Example
+
+  - :Option:
+       ``-d|--doc``
+    :Required:
+        yes
+    :Description:
+        This may be an UID of an existing document in `tx_dlf_documents` or the
+        URL of a METS XML file. A comma-separated list of UIDs and/or URLs is
+        allowed.
+
+        Hint: Do not encode the URL! If you have spaces in path, use quotation
+        marks.
+    :Example:
+        123 or 123,124 or http://example.com/path/mets.xml
+
+  - :Option:
+        ``-p|--pid``
+    :Required:
+        yes
+    :Description:
+        The page UID of the Kitodo.Presentation data folder. This keeps all
+        records of documents, metadata, structures, solrcores etc.
+    :Example:
+        123
+
+  - :Option:
+        ``-s|--solr``
+    :Required:
+        yes
+    :Description:
+        This may be the UID of the solrcore record in `tx_dlf_solrcores`.
+        Alternatively you may write the index name of the solr core.
+
+        The solr core must exist in table tx_dlf_solrcores on page "pid".
+        Otherwise an error is shown and the processing won't start.
+    :Example:
+        123 or 'dlfCore1'
+
+  - :Option:
+        ``-wc|--with-children``
+    :Required:
+        no
+    :Description:
+        With this option, all direct child documents (e.g. the volumes of a
+        multi-volume work) are hidden as well.
+    :Example:
+
+  - :Option:
+        ``--dry-run``
+    :Required:
+        no
+    :Description:
+        Nothing will be written to database or index. All documents which
+        would be hidden will be listed.
+    :Example:
+
+  - :Option:
+        ``--softCommit``
+    :Required:
+        no
+    :Description:
+        The removal from the index is done by a soft commit instead of a
+        hard commit, which is faster but the change is visible to searches
+        only after a later hard commit or index optimization.
+    :Example:
+
+  - :Option:
+        ``-q|--quiet``
+    :Required:
+        no
+    :Description:
+        Do not output any message. Useful when using a wrapper script. The
+        script may check the return value of the CLI job. This is always 0 on
+        success and 1 on failure.
+    :Example:
+
+  - :Option:
+        ``-v|--verbose``
+    :Required:
+        no
+    :Description:
+        Show each processed documents uid with timestamp and the solr core it
+        is removed from.
+    :Example:
+
+ .. note::
+
+    Documents which are not in the database (deleted or never imported) are
+    reported as error. If such a document still exists in the Solr index it is
+    an orphaned index entry which cannot be removed by `kitodo:hide`. Remove
+    it with `kitodo:delete`.
+
+ Unhide documents
+ ---------------------
+
+ The command `kitodo:unhide` is used for unhiding one or more documents. An
+ unhidden document is made visible in the frontend and reindexed in the Solr
+ index.::
+
+     ./vendor/bin/typo3 kitodo:unhide -d 123 -p 123 -s dlfCore1
+     ./vendor/bin/typo3 kitodo:unhide -d 123 -p 123 -s dlfCore1 --with-children
+
+
+ .. t3-field-list-table::
+  :header-rows: 1
+
+  - :Option:
+        Option
+    :Required:
+        Required
+    :Description:
+        Description
+    :Example:
+        Example
+
+  - :Option:
+       ``-d|--doc``
+    :Required:
+        yes
+    :Description:
+        This may be an UID of an existing document in `tx_dlf_documents` or the
+        URL of a METS XML file. A comma-separated list of UIDs and/or URLs is
+        allowed.
+
+        Hint: Do not encode the URL! If you have spaces in path, use quotation
+        marks.
+    :Example:
+        123 or 123,124 or http://example.com/path/mets.xml
+
+  - :Option:
+        ``-p|--pid``
+    :Required:
+        yes
+    :Description:
+        The page UID of the Kitodo.Presentation data folder. This keeps all
+        records of documents, metadata, structures, solrcores etc.
+    :Example:
+        123
+
+  - :Option:
+        ``-s|--solr``
+    :Required:
+        yes
+    :Description:
+        This may be the UID of the solrcore record in `tx_dlf_solrcores`.
+        Alternatively you may write the index name of the solr core.
+
+        The solr core must exist in table tx_dlf_solrcores on page "pid".
+        Otherwise an error is shown and the processing won't start.
+    :Example:
+        123 or 'dlfCore1'
+
+  - :Option:
+        ``-wc|--with-children``
+    :Required:
+        no
+    :Description:
+        With this option, all direct child documents (e.g. the volumes of a
+        multi-volume work) are unhidden as well.
+    :Example:
+
+  - :Option:
+        ``--dry-run``
+    :Required:
+        no
+    :Description:
+        Nothing will be written to database or index. All documents which
+        would be unhidden will be listed.
+    :Example:
+
+  - :Option:
+        ``--softCommit``
+    :Required:
+        no
+    :Description:
+        The reindexing is done by a soft commit instead of a hard commit,
+        which is faster but the change is visible to searches only after a
+        later hard commit or index optimization.
+    :Example:
+
+  - :Option:
+        ``-q|--quiet``
+    :Required:
+        no
+    :Description:
+        Do not output any message. Useful when using a wrapper script. The
+        script may check the return value of the CLI job. This is always 0 on
+        success and 1 on failure.
+    :Example:
+
+  - :Option:
+        ``-v|--verbose``
+    :Required:
+        no
+    :Description:
+        Show each processed documents uid with timestamp and the solr core it
+        is reindexed in.
+    :Example:
+
+ .. note::
+
+    Documents which are not in the database (deleted or never imported) are
+    reported as error and must be indexed first with `kitodo:index`.
+
+ Commit and/or optimize index
+ -------------------------
 
 With the command `kitodo:optimize` it is possible to hard commit documents to and/or optimize the index.::
 

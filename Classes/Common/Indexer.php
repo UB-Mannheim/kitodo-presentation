@@ -248,6 +248,40 @@ class Indexer
     }
 
     /**
+     * Delete all Solr rows of the given document from the Solr index
+     *
+     * The delete query "uid:<documentUid>" matches the toplevel row as well as
+     * all logical and physical unit rows of the document because every row is
+     * indexed with the document's database uid. This is the same removal the
+     * reindexing in add() performs before adding the fresh rows.
+     *
+     * @access public
+     *
+     * @static
+     *
+     * @param int $documentUid UID of the document in tx_dlf_documents
+     * @param int $solrCoreUid UID of the SolrCore
+     * @param bool $softCommit If true, the documents are just deleted from the index by a soft commit
+     *
+     * @return bool true on success or false on failure
+     */
+    public static function unindex(int $documentUid, int $solrCoreUid, bool $softCommit = false): bool
+    {
+        if (!self::solrConnect($solrCoreUid, 0)) {
+            Helper::error('Could not connect to Apache Solr server');
+            return false;
+        }
+
+        try {
+            self::deleteDocument('uid', (string) $documentUid, $softCommit);
+            return true;
+        } catch (\Exception $e) {
+            Helper::error('Apache Solr threw exception: "' . $e->getMessage() . '"');
+            return false;
+        }
+    }
+
+    /**
      * Returns the dynamic index field name for the given metadata field.
      *
      * @access public
