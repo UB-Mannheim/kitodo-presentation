@@ -19,6 +19,18 @@ services:
         command: 'kitodo:delete'
         description: 'Delete single document from database and Solr.'
 
+  Kitodo\Dlf\Command\HideCommand:
+    tags:
+      - name: console.command
+        command: 'kitodo:hide'
+        description: 'Hide document(s) in the database and remove them from the Solr index.'
+
+  Kitodo\Dlf\Command\UnhideCommand:
+    tags:
+      - name: console.command
+        command: 'kitodo:unhide'
+        description: 'Unhide document(s) in the database and reindex them in Solr.'
+
   Kitodo\Dlf\Command\HarvestCommand:
     tags:
       - name: console.command

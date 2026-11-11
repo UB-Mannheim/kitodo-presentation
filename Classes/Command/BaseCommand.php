@@ -27,6 +27,7 @@ use Kitodo\Dlf\Validation\DocumentValidator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 
@@ -122,6 +123,147 @@ class BaseCommand extends Command
         $this->documentRepository->useStoragePid($this->storagePid);
         $this->libraryRepository->useStoragePid($this->storagePid);
         $this->structureRepository->useStoragePid($this->storagePid);
+    }
+
+    /**
+     * Find a non-deleted tx_dlf_documents record by its uid.
+     *
+     * The query bypasses the Extbase repository on purpose: in CLI context the
+     * frontend enable fields are applied, so the repository would not return
+     * hidden documents.
+     *
+     * @access protected
+     *
+     * @param int $uid The document uid
+     *
+     * @return array<string, mixed>|null The record fields (uid, hidden, location, pid, solrcore, record_id) or null
+     */
+    protected function findDocumentRow(int $uid): ?array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_dlf_documents');
+
+        $result = $queryBuilder
+            ->select('uid', 'hidden', 'location', 'pid', 'solrcore', 'record_id')
+            ->from('tx_dlf_documents')
+            ->where(
+                $queryBuilder->expr()->eq('uid', $uid),
+                $queryBuilder->expr()->eq('deleted', 0)
+            )
+            ->setMaxResults(1)
+            ->executeQuery();
+
+        return $result->fetchAssociative() ?: null;
+    }
+
+    /**
+     * Find a non-deleted tx_dlf_documents record by its location (METS URL).
+     *
+     * @access protected
+     *
+     * @param string $location The document location
+     *
+     * @return array<string, mixed>|null The record fields (uid, hidden, location, pid, solrcore, record_id) or null
+     */
+    protected function findDocumentRowByLocation(string $location): ?array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_dlf_documents');
+
+        $result = $queryBuilder
+            ->select('uid', 'hidden', 'location', 'pid', 'solrcore', 'record_id')
+            ->from('tx_dlf_documents')
+            ->where(
+                $queryBuilder->expr()->eq('location', $location),
+                $queryBuilder->expr()->eq('deleted', 0)
+            )
+            ->setMaxResults(1)
+            ->executeQuery();
+
+        return $result->fetchAssociative() ?: null;
+    }
+
+    /**
+     * Find a non-deleted tx_dlf_documents record by its record_id.
+     *
+     * @access protected
+     *
+     * @param string $recordId The document record id
+     *
+     * @return array<string, mixed>|null The record fields (uid, hidden, location, pid, solrcore, record_id) or null
+     */
+    protected function findDocumentRowByRecordId(string $recordId): ?array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_dlf_documents');
+
+        $result = $queryBuilder
+            ->select('uid', 'hidden', 'location', 'pid', 'solrcore', 'record_id')
+            ->from('tx_dlf_documents')
+            ->where(
+                $queryBuilder->expr()->eq('record_id', $recordId),
+                $queryBuilder->expr()->eq('deleted', 0)
+            )
+            ->setMaxResults(1)
+            ->executeQuery();
+
+        return $result->fetchAssociative() ?: null;
+    }
+
+    /**
+     * Find the uids of all non-deleted direct child documents of the given parent.
+     *
+     * @access protected
+     *
+     * @param int $uid The parent document uid
+     *
+     * @return int[] The child document uids
+     */
+    protected function findChildUids(int $uid): array
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_dlf_documents');
+
+        $result = $queryBuilder
+            ->select('uid')
+            ->from('tx_dlf_documents')
+            ->where(
+                $queryBuilder->expr()->eq('partof', $uid),
+                $queryBuilder->expr()->eq('deleted', 0)
+            )
+            ->executeQuery();
+
+        $uids = [];
+        foreach ($result->fetchAllAssociative() as $row) {
+            $uids[] = (int) $row['uid'];
+        }
+
+        return $uids;
+    }
+
+    /**
+     * Set or clear the hidden flag of a non-deleted tx_dlf_documents record.
+     *
+     * @access protected
+     *
+     * @param int $uid The document uid
+     * @param bool $hidden Whether the document shall be hidden
+     *
+     * @return int The number of affected rows (0 if the document was not found)
+     */
+    protected function setDocumentHidden(int $uid, bool $hidden): int
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_dlf_documents');
+
+        return $queryBuilder
+            ->update('tx_dlf_documents')
+            ->set('hidden', $hidden ? 1 : 0)
+            ->where(
+                $queryBuilder->expr()->eq('tx_dlf_documents.uid', $uid),
+                $queryBuilder->expr()->eq('tx_dlf_documents.deleted', 0)
+            )
+            ->executeStatement();
     }
 
     /**
