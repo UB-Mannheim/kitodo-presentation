@@ -32,7 +32,10 @@ e.g.
     Assisted-by: GPT-5.4 (OpenAI)
     Assisted-by: Sonnet 4.6 (Anthropic)
     Assisted-by: Qwen 3.8-27B-Thinking (Alibaba)
-    Signed-off-by: Bernd Fallert <bernd.fallert@uni-mannheim.de>
+    Signed-off-by: <git user.name> <git user.email>
+
+The `Signed-off-by` value is read from the git identity (`git config
+user.name` / `user.email`), so it always matches the committing user.
 
 Both trailers are added by the `prepare-commit-msg` hook:
 - `Signed-off-by` on **every** commit.
@@ -48,6 +51,11 @@ Both trailers are added by the `prepare-commit-msg` hook:
 So OpenCode, before `git commit`, set the variable (full model string):
 
     OPENCODE_MODEL="Qwen 3.8-27B-Thinking (Alibaba)" git commit -m "[BUGFIX] ..."
+
+For commit rewrites (rebase, squash, cherry-pick, interactive reword) do
+**not** set `OPENCODE_MODEL`: rebased commits keep the trailers they
+already carry (the hook never duplicates them) and must not gain a new
+`Assisted-by` — the rewrite itself is not AI-assisted work.
 
 Do **not** write the trailers into the message by hand — the hook adds them.
 A manually-run `git commit` (without `OPENCODE_MODEL`) still gets
