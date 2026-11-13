@@ -197,8 +197,11 @@ class DocumentTypeFunctionProvider implements ExpressionFunctionProviderInterfac
                 $this->document = $this->documentRepository->findByUid((int) $requestData['id']);
                 if ($this->document) {
                     $doc = AbstractDocument::getInstance($this->document->getLocation(), ['storagePid' => $storagePid]);
+                    if ($doc === null) {
+                        $this->logger->error('Document UID "' . $requestData['id'] . '" on storage page "' . $storagePid . '" found, but could not be loaded from "' . $this->document->getLocation() . '" (METS/IIIF fetch failed, timed out or not parseable)');
+                    }
                 } else {
-                    $this->logger->error('Invalid UID "' . $requestData['id'] . '" or PID "' . $storagePid . '" for document loading');
+                    $this->logger->error('Document UID "' . $requestData['id'] . '" not found on storage page "' . $storagePid . '" (record missing, deleted or on wrong storage page)');
                 }
             } elseif (GeneralUtility::isValidUrl($requestData['id'])) {
                 $doc = AbstractDocument::getInstance($requestData['id'], ['storagePid' => $storagePid]);
@@ -230,7 +233,7 @@ class DocumentTypeFunctionProvider implements ExpressionFunctionProviderInterfac
                 }
             }
         } else {
-            $this->logger->error('Empty UID or invalid PID "' . $storagePid . '" for document loading');
+            $this->logger->error('No document ID or record ID given for document loading on storage page "' . $storagePid . '"');
         }
     }
 

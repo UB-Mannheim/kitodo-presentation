@@ -293,7 +293,7 @@ abstract class AbstractController extends ActionController implements LoggerAwar
                 }
             }
         } else {
-            $this->logger->error('Invalid ID "' . $documentId . '" or PID "' . $this->settings['storagePid'] . '" for document loading');
+            $this->logger->error('No document ID or record ID given for document loading on storage page "' . $this->settings['storagePid'] . '"');
         }
     }
 
@@ -797,7 +797,11 @@ abstract class AbstractController extends ActionController implements LoggerAwar
         }
 
         if (!$this->document || $doc === null) {
-            $this->logger->error('Invalid UID "' . $documentId . '" or PID "' . $this->settings['storagePid'] . '" for document loading');
+            if (!$this->document) {
+                $this->logger->error('Document UID "' . $documentId . '" not found on storage page "' . $this->settings['storagePid'] . '" (record missing, deleted or on wrong storage page)');
+            } else {
+                $this->logger->error('Document UID "' . $documentId . '" on storage page "' . $this->settings['storagePid'] . '" found, but could not be loaded from "' . $this->document->getLocation() . '" (METS/IIIF fetch failed, timed out or not parseable)');
+            }
         }
 
         return $doc;
