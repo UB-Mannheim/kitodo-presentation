@@ -87,6 +87,14 @@ class ListViewController extends AbstractController
             return $this->redirect('main', null, null, ['search' => $this->search]);
         }
 
+        // Default sort for collection browsing: ascending title, unless the
+        // user chose another sort field or a fulltext search is active
+        // (fulltext keeps its relevance ordering).
+        if (!empty($this->search) && empty($this->search['orderBy']) && empty($this->search['fulltext'])) {
+            $this->search['orderBy'] = 'title_sorting';
+            $this->search['order'] = 'asc';
+        }
+
         $this->collectionRepository->useStoragePid($this->settings['storagePid']);
         $this->metadataRepository->useStoragePid($this->settings['storagePid']);
 
