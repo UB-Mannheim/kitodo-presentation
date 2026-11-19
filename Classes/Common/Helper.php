@@ -73,6 +73,17 @@ class Helper
     protected static string $hashAlgorithm = 'sha256';
 
     /**
+     * URL prefix under which only the publicly served METS XML may be
+     * resolved to a local path. The (default|max|min) images and the
+     * fulltext subtrees under fileadmin/restricted/ are limited to the
+     * reading rooms by Apache and must keep going through the HTTP path.
+     *
+     * @access private
+     * @var string
+     */
+    private const RESTRICTED_URL_PREFIX = 'https://digi.bib.uni-mannheim.de/fileadmin/restricted/';
+
+    /**
      * @access protected
      * @static
      * @var mixed[]  A cache remembering which Solr core uid belongs to which index name
@@ -772,6 +783,7 @@ class Helper
             'https://digi.bib.uni-mannheim.de/fileadmin/vl/' => '/data/www/html/fileadmin/vl/',
             'https://digi.bib.uni-mannheim.de/fileadmin/zost/' => '/data/www/html/fileadmin/zost/',
             'https://digi.bib.uni-mannheim.de/periodika/fileadmin/data/' => '/data/www/html/periodika/fileadmin/data/',
+            self::RESTRICTED_URL_PREFIX => '/data/www/html/fileadmin/restricted/',
         ];
         foreach ($localPrefixes as $prefix => $localBase) {
             if (str_starts_with($url, $prefix)) {
@@ -779,6 +791,21 @@ class Helper
 
                 // Remove query string.
                 $relativePath = strtok($relativePath, '?');
+                if ($relativePath === false) {
+                    return null;
+                }
+
+                // Under fileadmin/restricted/ Apache serves only the plain
+                // METS XML to everyone; the (default|max|min) images, the
+                // fulltext subtrees and *.pdf files are restricted (Vhost
+                // block "Zugriffschutz für restricted-Dokumente"). Mirror
+                // these rules so the local read cannot bypass them.
+                if ($prefix === self::RESTRICTED_URL_PREFIX
+                    && (!str_ends_with(strtolower($relativePath), '.xml')
+                        || preg_match('@/(default|max|min|abbyy|alto|odt|pdf|txt)/@i', $relativePath) === 1)
+                ) {
+                    return null;
+                }
 
                 // Resolve to absolute path without requiring file to exist yet.
                 $candidatePath = $localBase . $relativePath;
